@@ -258,16 +258,16 @@ class MockData {
       name: 'Ahmed Benali - Multi-ADDON Success',
       email: 'ahmed.benali@email.com',
       phone: '+212 661 234 567',
-      activeAddons: {UserAddon.BUSINESS, UserAddon.GUIDE, UserAddon.PREMIUM}, // €65/month revenue
+      activeAddons: {UserAddon.business, UserAddon.guide, UserAddon.premium}, // €65/month revenue
       city: 'Casablanca',
       profileImageUrl: 'https://picsum.photos/150/150?random=21',
       joinDate: DateTime.now().subtract(const Duration(days: 120)),
       preferredLanguage: 'ar',
       isVerified: true,
       addonCapabilities: {
-        UserAddon.BUSINESS: {'venueId': '1', 'monthlyRevenue': 850},
-        UserAddon.GUIDE: {'expertiseAreas': ['Food', 'Culture'], 'rating': 4.8},
-        UserAddon.PREMIUM: {'enhancedAnalytics': true, 'prioritySupport': true}
+        UserAddon.business: {'venueId': '1', 'monthlyRevenue': 850},
+        UserAddon.guide: {'expertiseAreas': ['Food', 'Culture'], 'rating': 4.8},
+        UserAddon.premium: {'enhancedAnalytics': true, 'prioritySupport': true}
       },
       crossAddonMetrics: {'businessGuideAmplification': 1.4, 'totalEarnings': 65},
       networkEffectMultiplier: 1.4,
@@ -280,15 +280,15 @@ class MockData {
       name: 'Sarah Johnson - Guide ADDON Success',
       email: 'sarah.johnson@email.com',
       phone: '+33 6 12 34 56 78',
-      activeAddons: {UserAddon.GUIDE, UserAddon.PREMIUM}, // €35/month revenue
+      activeAddons: {UserAddon.guide, UserAddon.premium}, // €35/month revenue
       city: 'Marrakech',
       profileImageUrl: 'https://picsum.photos/150/150?random=22',
       joinDate: DateTime.now().subtract(const Duration(days: 3)),
       preferredLanguage: 'en',
       isVerified: true,
       addonCapabilities: {
-        UserAddon.GUIDE: {'expertiseAreas': ['Tourism', 'Culture'], 'rating': 4.9, 'languages': ['en', 'fr']},
-        UserAddon.PREMIUM: {'enhancedDiscovery': true, 'priorityBookings': true}
+        UserAddon.guide: {'expertiseAreas': ['Tourism', 'Culture'], 'rating': 4.9, 'languages': ['en', 'fr']},
+        UserAddon.premium: {'enhancedDiscovery': true, 'priorityBookings': true}
       },
       crossAddonMetrics: {'guideExpertise': 4.9, 'totalEarnings': 35},
       networkEffectMultiplier: 1.2,
@@ -301,14 +301,14 @@ class MockData {
       name: 'Omar El Fassi - Business ADDON Owner',
       email: 'omar.elfassi@email.com',
       phone: '+212 662 345 678',
-      activeAddons: {UserAddon.BUSINESS}, // €30/month revenue
+      activeAddons: {UserAddon.business}, // €30/month revenue
       city: 'Rabat',
       profileImageUrl: 'https://picsum.photos/150/150?random=23',
       joinDate: DateTime.now().subtract(const Duration(days: 89)),
       preferredLanguage: 'ar',
       isVerified: true,
       addonCapabilities: {
-        UserAddon.BUSINESS: {'venueId': '4', 'monthlyRevenue': 720, 'category': 'wellness'}
+        UserAddon.business: {'venueId': '4', 'monthlyRevenue': 720, 'category': 'wellness'}
       },
       crossAddonMetrics: {'businessOptimization': 1.3, 'totalEarnings': 30},
       networkEffectMultiplier: 1.1,
@@ -442,6 +442,151 @@ class MockData {
           'message': 'Hassan II Mosque tour available now! 2 hours • 15€ • English/French 🕌',
           'timestamp': DateTime.now().subtract(const Duration(minutes: 1)),
           'type': 'experience_offer',
+        },
+      ],
+    ),
+    
+    // Sports & Fitness Room
+    Room(
+      id: '4',
+      name: '#padel-players-casa',
+      displayName: 'Padel Players Casa',
+      category: 'sports',
+      city: 'Casablanca',
+      description: 'Connect with padel players for matches and tournaments',
+      memberCount: 178,
+      onlineCount: 34,
+      isPublic: true,
+      allowDeals: true,
+      isPrayerTimeAware: true,
+      isHalalOnly: false,
+      createdAt: DateTime.now().subtract(const Duration(days: 23)),
+      lastActivity: DateTime.now().subtract(const Duration(minutes: 15)),
+      moderators: ['2'],
+      recentMessages: [
+        {
+          'id': 'm7',
+          'userId': '2',
+          'userName': 'Ahmed_Padel',
+          'message': 'Looking for doubles partner tomorrow 6PM at Royal Club 🎾',
+          'timestamp': DateTime.now().subtract(const Duration(minutes: 15)),
+          'type': 'match_request',
+        },
+      ],
+    ),
+    
+    // Family Fun Room
+    Room(
+      id: '5',
+      name: '#family-activities-rabat',
+      displayName: 'Family Activities Rabat',
+      category: 'family',
+      city: 'Rabat',
+      description: 'Plan family-friendly activities and kids\' entertainment',
+      memberCount: 245,
+      onlineCount: 19,
+      isPublic: true,
+      allowDeals: true,
+      isPrayerTimeAware: true,
+      isHalalOnly: true,
+      createdAt: DateTime.now().subtract(const Duration(days: 31)),
+      lastActivity: DateTime.now().subtract(const Duration(hours: 2)),
+      moderators: ['4'],
+      recentMessages: [
+        {
+          'id': 'm8',
+          'userId': '4',
+          'userName': 'Fatima_Mom3',
+          'message': 'Mega Mall indoor playground has 50% off weekdays! Perfect for toddlers 🎪',
+          'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
+          'type': 'deal_share',
+        },
+      ],
+    ),
+    
+    // Additional Wellness Room
+    Room(
+      id: '6',
+      name: '#spa-deals-marrakech',
+      displayName: 'Spa Deals Marrakech',
+      category: 'wellness',
+      city: 'Marrakech',
+      description: 'Exclusive spa and hammam deals in Marrakech',
+      memberCount: 312,
+      onlineCount: 67,
+      isPublic: true,
+      allowDeals: true,
+      isPrayerTimeAware: true,
+      isHalalOnly: true,
+      createdAt: DateTime.now().subtract(const Duration(days: 52)),
+      lastActivity: DateTime.now().subtract(const Duration(minutes: 8)),
+      moderators: ['1', '2'],
+      recentMessages: [
+        {
+          'id': 'm9',
+          'userId': '1',
+          'userName': 'Aicha_Wellness',
+          'message': 'La Mamounia Spa - afternoon slots 40% off today! Book before 2PM 💆‍♀️',
+          'timestamp': DateTime.now().subtract(const Duration(minutes: 8)),
+          'type': 'urgent_deal',
+        },
+      ],
+    ),
+    
+    // Additional Food Room
+    Room(
+      id: '7',
+      name: '#street-food-fez',
+      displayName: 'Street Food Fez',
+      category: 'food',
+      city: 'Fez',
+      description: 'Discover authentic street food and local eateries in Fez medina',
+      memberCount: 189,
+      onlineCount: 28,
+      isPublic: true,
+      allowDeals: true,
+      isPrayerTimeAware: true,
+      isHalalOnly: true,
+      createdAt: DateTime.now().subtract(const Duration(days: 38)),
+      lastActivity: DateTime.now().subtract(const Duration(minutes: 22)),
+      moderators: ['3'],
+      recentMessages: [
+        {
+          'id': 'm10',
+          'userId': '3',
+          'userName': 'Hassan_FoodGuide',
+          'message': 'Best tajine in medina RIGHT NOW! Chez Ahmed - tourists pay 80DH, locals 45DH 🍲',
+          'timestamp': DateTime.now().subtract(const Duration(minutes: 22)),
+          'type': 'local_tip',
+        },
+      ],
+    ),
+    
+    // Gaming & Entertainment Room
+    Room(
+      id: '8',
+      name: '#gaming-night-tangier',
+      displayName: 'Gaming Night Tangier',
+      category: 'entertainment',
+      city: 'Tangier',
+      description: 'Board games, video games, and social gaming events',
+      memberCount: 134,
+      onlineCount: 41,
+      isPublic: true,
+      allowDeals: true,
+      isPrayerTimeAware: false,
+      isHalalOnly: false,
+      createdAt: DateTime.now().subtract(const Duration(days: 19)),
+      lastActivity: DateTime.now().subtract(const Duration(minutes: 4)),
+      moderators: ['2', '4'],
+      recentMessages: [
+        {
+          'id': 'm11',
+          'userId': '2',
+          'userName': 'Youssef_Gamer',
+          'message': 'FIFA tournament tonight at Game Zone! Entry 30DH, winner takes 200DH 🎮',
+          'timestamp': DateTime.now().subtract(const Duration(minutes: 4)),
+          'type': 'event_announcement',
         },
       ],
     ),

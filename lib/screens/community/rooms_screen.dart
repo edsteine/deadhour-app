@@ -27,13 +27,13 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
     ];
     
     // Add ADDON-specific tabs
-    if (widget.user?.hasAddon(UserAddon.BUSINESS) == true) {
+    if (widget.user?.hasAddon('business') == true) {
       baseTabs.add(const Tab(text: 'Business'));
     }
-    if (widget.user?.hasAddon(UserAddon.GUIDE) == true) {
+    if (widget.user?.hasAddon('guide') == true) {
       baseTabs.add(const Tab(text: 'Guide Network'));
     }
-    if (widget.user?.hasAddon(UserAddon.PREMIUM) == true) {
+    if (widget.user?.hasAddon('premium') == true) {
       baseTabs.add(const Tab(text: 'Premium'));
     }
     
@@ -93,6 +93,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "roomsCreateRoomFAB",
         onPressed: _showCreateRoomDialog,
         backgroundColor: AppTheme.moroccoGreen,
         icon: const Icon(Icons.add),
@@ -149,56 +150,88 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [AppColors.info, Color(0xFF2980B9)],
+          colors: [AppTheme.moroccoGreen, Color(0xFF006B3F)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
-            Icons.health_and_safety,
-            color: Colors.white,
-            size: 24,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Community Health: Excellent',
+          Row(
+            children: [
+              const Icon(
+                Icons.people_alt,
+                color: Colors.white,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Text(
+                  'Dual Problem Network Effects',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                Text(
-                  '${healthData['dailyActiveUsers']} active users • ${healthData['totalActiveRooms']} rooms',
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  'ACTIVE',
                   style: TextStyle(
+                    color: Colors.white,
                     fontSize: 12,
-                    color: Colors.white.withValues(alpha: 0.9),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              '${healthData['engagementMetrics']['userSatisfaction']}★',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
               ),
-            ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Text('🏢', style: TextStyle(fontSize: 16)),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${healthData['dailyActiveUsers'] ~/ 3} businesses posting deals',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white.withValues(alpha: 0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Text('🌟', style: TextStyle(fontSize: 16)),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${healthData['dailyActiveUsers']} discovering experiences',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white.withValues(alpha: 0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -207,12 +240,13 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
 
   Widget _buildCategoryFilter() {
     final categories = [
-      {'id': 'all', 'name': 'All', 'icon': '🏷️'},
-      {'id': 'food', 'name': 'Food', 'icon': '🍕'},
-      {'id': 'entertainment', 'name': 'Fun', 'icon': '🎮'},
-      {'id': 'wellness', 'name': 'Spa', 'icon': '💆'},
-      {'id': 'guide', 'name': 'Guide', 'icon': '🌍'},
-      {'id': 'family', 'name': 'Family', 'icon': '👨‍👩‍👧‍👦'},
+      {'id': 'all', 'name': 'All Rooms', 'icon': '🏷️'},
+      {'id': 'food', 'name': 'Food & Dining', 'icon': '🍕', 'color': AppColors.foodCategory},
+      {'id': 'entertainment', 'name': 'Entertainment', 'icon': '🎮', 'color': AppColors.entertainmentCategory},
+      {'id': 'wellness', 'name': 'Wellness & Spa', 'icon': '💆', 'color': AppColors.wellnessCategory},
+      {'id': 'tourism', 'name': 'Tourism & Culture', 'icon': '🌍', 'color': AppColors.tourismCategory},
+      {'id': 'sports', 'name': 'Sports & Fitness', 'icon': '⚽', 'color': AppColors.sportsCategory},
+      {'id': 'family', 'name': 'Family Fun', 'icon': '👨‍👩‍👧‍👦', 'color': AppColors.familyCategory},
     ];
 
     return Container(
@@ -233,14 +267,14 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
               label: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(category['icon']!, style: const TextStyle(fontSize: 14)),
+                  Text(category['icon']! as String, style: const TextStyle(fontSize: 14)),
                   const SizedBox(width: 4),
-                  Text(category['name']!),
+                  Text(category['name']! as String),
                 ],
               ),
               onSelected: (selected) {
                 setState(() {
-                  _selectedCategory = category['id']!;
+                  _selectedCategory = category['id']! as String;
                 });
               },
               selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
@@ -472,47 +506,17 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   }
 
   void _showCreateRoomDialog() {
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Create Room'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Room Name',
-                hintText: 'e.g., Coffee Lovers Rabat',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Description',
-                hintText: 'What is this room about?',
-              ),
-              maxLines: 3,
-            ),
-          ],
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.9,
+        maxChildSize: 0.9,
+        minChildSize: 0.5,
+        builder: (context, scrollController) => _CreateRoomSheet(
+          scrollController: scrollController,
+          selectedCity: _selectedCity,
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Room created successfully!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Create'),
-          ),
-        ],
       ),
     );
   }
@@ -615,13 +619,13 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
     ];
     
     // Add ADDON-specific tab views
-    if (widget.user?.hasAddon(UserAddon.BUSINESS) == true) {
+    if (widget.user?.hasAddon('business') == true) {
       views.add(_buildBusinessRoomsTab());
     }
-    if (widget.user?.hasAddon(UserAddon.GUIDE) == true) {
+    if (widget.user?.hasAddon('guide') == true) {
       views.add(_buildGuideRoomsTab());
     }
-    if (widget.user?.hasAddon(UserAddon.PREMIUM) == true) {
+    if (widget.user?.hasAddon('premium') == true) {
       views.add(_buildPremiumRoomsTab());
     }
     
@@ -666,7 +670,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      room['name']!,
+                      room['name']! as String,
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(
@@ -722,7 +726,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      room['name']!,
+                      room['name']! as String,
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Text(
@@ -742,5 +746,396 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
 
   void _showPremiumUpgrade() {
     context.push('/addon-marketplace');
+  }
+}
+
+class _CreateRoomSheet extends StatefulWidget {
+  final ScrollController scrollController;
+  final String selectedCity;
+
+  const _CreateRoomSheet({
+    required this.scrollController,
+    required this.selectedCity,
+  });
+
+  @override
+  State<_CreateRoomSheet> createState() => _CreateRoomSheetState();
+}
+
+class _CreateRoomSheetState extends State<_CreateRoomSheet> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  
+  String _selectedCategory = 'food';
+  String _selectedCity = 'Casablanca';
+  bool _isPublic = true;
+  bool _allowDeals = true;
+  bool _isPrayerTimeAware = false;
+  bool _isHalalOnly = false;
+  bool _isPremiumOnly = false;
+
+  final List<Map<String, dynamic>> _categories = [
+    {
+      'id': 'food',
+      'name': 'Food & Dining',
+      'icon': '🍕',
+      'description': 'Restaurants, cafés, and culinary experiences',
+      'examples': ['Coffee meetups', 'Restaurant deals', 'Food tours', 'Cooking classes']
+    },
+    {
+      'id': 'entertainment',
+      'name': 'Entertainment',
+      'icon': '🎮',
+      'description': 'Movies, games, and fun activities',
+      'examples': ['Gaming tournaments', 'Cinema groups', 'Escape rooms', 'Comedy shows']
+    },
+    {
+      'id': 'wellness',
+      'name': 'Wellness & Spa',
+      'icon': '💆',
+      'description': 'Health, fitness, and relaxation',
+      'examples': ['Spa deals', 'Hammam sessions', 'Fitness groups', 'Yoga classes']
+    },
+    {
+      'id': 'sports',
+      'name': 'Sports & Fitness',
+      'icon': '⚽',
+      'description': 'Sports activities and fitness',
+      'examples': ['Padel matches', 'Football teams', 'Gym buddies', 'Running groups']
+    },
+    {
+      'id': 'tourism',
+      'name': 'Tourism & Culture',
+      'icon': '🌍',
+      'description': 'Local experiences and cultural activities',
+      'examples': ['City tours', 'Cultural events', 'Local guides', 'Historical sites']
+    },
+    {
+      'id': 'family',
+      'name': 'Family Fun',
+      'icon': '👨‍👩‍👧‍👦',
+      'description': 'Family-friendly activities and events',
+      'examples': ['Kids activities', 'Family outings', 'Parent groups', 'Children events']
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCity = widget.selectedCity;
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedCategoryData = _categories.firstWhere(
+      (cat) => cat['id'] == _selectedCategory,
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          controller: widget.scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    selectedCategoryData['icon'] as String,
+                    style: const TextStyle(fontSize: 32),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Create New Room',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Build a community around ${selectedCategoryData['name']}',
+                          style: const TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Category',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 120,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _categories.length,
+                  itemBuilder: (context, index) {
+                    final category = _categories[index];
+                    final isSelected = _selectedCategory == category['id'];
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedCategory = category['id'] as String;
+                        });
+                      },
+                      child: Container(
+                        width: 100,
+                        margin: const EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isSelected ? AppTheme.moroccoGreen : Colors.grey[300]!,
+                            width: isSelected ? 2 : 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          color: isSelected ? AppTheme.moroccoGreen.withValues(alpha: 0.1) : null,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              category['icon'] as String,
+                              style: const TextStyle(fontSize: 24),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              category['name'] as String,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                color: isSelected ? AppTheme.moroccoGreen : null,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      selectedCategoryData['description'] as String,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Popular room types:',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 4),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: (selectedCategoryData['examples'] as List<String>).map((example) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: Colors.grey[300]!),
+                          ),
+                          child: Text(
+                            example,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Room Details',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Room Name *',
+                  hintText: 'e.g., Coffee Lovers Casablanca',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a room name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: _selectedCity,
+                decoration: const InputDecoration(
+                  labelText: 'City *',
+                  border: OutlineInputBorder(),
+                ),
+                items: ['Casablanca', 'Marrakech', 'Rabat', 'Fez', 'Tangier', 'Agadir']
+                    .map((city) => DropdownMenuItem(value: city, child: Text(city)))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCity = value!;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Description *',
+                  hintText: 'What will members do in this room?',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a description';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Room Settings',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              SwitchListTile(
+                title: const Text('Public Room'),
+                subtitle: const Text('Anyone can find and join this room'),
+                value: _isPublic,
+                onChanged: (value) {
+                  setState(() {
+                    _isPublic = value;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: const Text('Allow Deal Sharing'),
+                subtitle: const Text('Members can share venue deals and offers'),
+                value: _allowDeals,
+                onChanged: (value) {
+                  setState(() {
+                    _allowDeals = value;
+                  });
+                },
+              ),
+              if (_selectedCategory == 'food' || _selectedCategory == 'wellness')
+                SwitchListTile(
+                  title: const Text('Halal Only'),
+                  subtitle: const Text('Focus on halal venues and activities'),
+                  value: _isHalalOnly,
+                  onChanged: (value) {
+                    setState(() {
+                      _isHalalOnly = value;
+                    });
+                  },
+                ),
+              SwitchListTile(
+                title: const Text('Prayer Time Aware'),
+                subtitle: const Text('Consider prayer times when scheduling activities'),
+                value: _isPrayerTimeAware,
+                onChanged: (value) {
+                  setState(() {
+                    _isPrayerTimeAware = value;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: const Text('Premium Room'),
+                subtitle: const Text('Only premium members can join'),
+                value: _isPremiumOnly,
+                onChanged: (value) {
+                  setState(() {
+                    _isPremiumOnly = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _createRoom,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.moroccoGreen,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: const Text('Create Room'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _createRoom() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${_nameController.text} room created successfully!'),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: 'View',
+            onPressed: () {},
+          ),
+        ),
+      );
+    }
   }
 }

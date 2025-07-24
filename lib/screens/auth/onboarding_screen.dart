@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
+import '../../utils/guest_mode.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -81,7 +82,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
-                    onPressed: () => context.go('/user-type'),
+                    onPressed: () async {
+                      await GuestMode.enableGuestMode();
+                      if (context.mounted) context.go('/home');
+                    },
                     child: const Text(
                       'Skip',
                       style: TextStyle(
@@ -149,9 +153,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       const Spacer(),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_currentPage == _pages.length - 1) {
-                            context.go('/user-type');
+                            await GuestMode.enableGuestMode();
+                            if (context.mounted) context.go('/home');
                           } else {
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),

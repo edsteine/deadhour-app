@@ -149,7 +149,7 @@ class Room {
         return '💆';
       case 'sports':
         return '⚽';
-      case 'tourism':
+      case 'guide':
         return '🌍';
       case 'family':
         return '👨‍👩‍👧‍👦';
@@ -168,8 +168,8 @@ class Room {
         return 'Wellness & Spa';
       case 'sports':
         return 'Sports & Fitness';
-      case 'tourism':
-        return 'Tourism';
+      case 'guide':
+        return 'Local Guide';
       case 'family':
         return 'Family';
       default:

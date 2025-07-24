@@ -1,11 +1,11 @@
 enum UserAddon {
-  BUSINESS,
-  GUIDE, 
-  PREMIUM,
-  DRIVER,
-  HOST,
-  CHEF,
-  PHOTOGRAPHER
+  business,
+  guide, 
+  premium,
+  driver,
+  host,
+  chef,
+  photographer
 }
 
 class DeadHourUser {
@@ -49,7 +49,7 @@ class DeadHourUser {
       List<String> addonStrings = List<String>.from(json['activeAddons']);
       addons = addonStrings.map((addon) => UserAddon.values.firstWhere(
         (e) => e.name == addon.toUpperCase(),
-        orElse: () => UserAddon.PREMIUM,
+        orElse: () => UserAddon.premium,
       )).toSet();
     }
     
@@ -129,13 +129,22 @@ class DeadHourUser {
   }
 
   // ADDON System Getters
-  bool get hasBusinessAddon => activeAddons.contains(UserAddon.BUSINESS);
-  bool get hasGuideAddon => activeAddons.contains(UserAddon.GUIDE);
-  bool get hasPremiumAddon => activeAddons.contains(UserAddon.PREMIUM);
-  bool get hasDriverAddon => activeAddons.contains(UserAddon.DRIVER);
-  bool get hasHostAddon => activeAddons.contains(UserAddon.HOST);
-  bool get hasChefAddon => activeAddons.contains(UserAddon.CHEF);
-  bool get hasPhotographerAddon => activeAddons.contains(UserAddon.PHOTOGRAPHER);
+  bool get hasBusinessAddon => activeAddons.contains(UserAddon.business);
+  bool get hasGuideAddon => activeAddons.contains(UserAddon.guide);
+  bool get hasPremiumAddon => activeAddons.contains(UserAddon.premium);
+  bool get hasDriverAddon => activeAddons.contains(UserAddon.driver);
+  bool get hasHostAddon => activeAddons.contains(UserAddon.host);
+  bool get hasChefAddon => activeAddons.contains(UserAddon.chef);
+  bool get hasPhotographerAddon => activeAddons.contains(UserAddon.photographer);
+  
+  // Generic hasAddon method for backward compatibility
+  bool hasAddon(String addonName) {
+    final addon = UserAddon.values.firstWhere(
+      (e) => e.name.toLowerCase() == addonName.toLowerCase(),
+      orElse: () => throw ArgumentError('Unknown addon: $addonName'),
+    );
+    return activeAddons.contains(addon);
+  }
   
   double get monthlyRevenuePotential {
     double revenue = 0;

@@ -1,25 +1,45 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Morocco-specific colors
+  // Professional Morocco-inspired palette
   static const Color moroccoGreen = Color(0xFF00A859);
-  static const Color moroccoGold = Color(0xFFFFD700);
-  static const Color moroccoRed = Color(0xFFE74C3C);
-  static const Color darkGreen = Color(0xFF007A42);
+  static const Color moroccoGold = Color(0xFFD4AF37); // More sophisticated gold
+  static const Color moroccoRed = Color(0xFFD32F2F); // Refined red
+  static const Color darkGreen = Color(0xFF00712D);
+  static const Color lightGreen = Color(0xFFE8F5E8);
   
-  // Text colors
-  static const Color primaryText = Color(0xFF2C3E50);
-  static const Color secondaryText = Color(0xFF7F8C8D);
-  static const Color lightText = Color(0xFFBDC3C7);
+  // Professional text hierarchy
+  static const Color primaryText = Color(0xFF1A1A1A); // Darker for better contrast
+  static const Color secondaryText = Color(0xFF666666);
+  static const Color lightText = Color(0xFF999999);
+  static const Color hintText = Color(0xFFCCCCCC);
   
-  // Background colors
-  static const Color backgroundColor = Color(0xFFF8F9FA);
+  // Background system
+  static const Color backgroundColor = Color(0xFFF8FFFE); // Subtle green tint
   static const Color cardBackground = Colors.white;
-  static const Color surfaceColor = Color(0xFFF5F6FA);
+  static const Color cardColor = Colors.white; // Legacy support
+  static const Color surfaceColor = Color(0xFFF5F8F7);
+  static const Color overlayColor = Color(0x0D000000);
   
-  // Additional colors for widgets
-  static const Color cardColor = Colors.white;
+  // Elevation and depth
   static const Color shadowColor = Color(0x1A000000);
+  static const Color lightShadow = Color(0x08000000);
+  static const Color mediumShadow = Color(0x14000000);
+  
+  // Spacing system (8px grid)
+  static const double spacing4 = 4.0;
+  static const double spacing8 = 8.0;
+  static const double spacing12 = 12.0;
+  static const double spacing16 = 16.0;
+  static const double spacing20 = 20.0;
+  static const double spacing24 = 24.0;
+  static const double spacing32 = 32.0;
+  
+  // Border radius system
+  static const double radiusSmall = 8.0;
+  static const double radiusMedium = 12.0;
+  static const double radiusLarge = 16.0;
+  static const double radiusXLarge = 20.0;
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -44,24 +64,38 @@ class AppTheme {
         ),
       ),
       
-      // Card Theme
+      // Professional Card Theme
       cardTheme: CardThemeData(
         color: cardBackground,
         elevation: 2,
+        shadowColor: lightShadow,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(radiusMedium),
+        ),
+        margin: const EdgeInsets.symmetric(
+          horizontal: spacing16, 
+          vertical: spacing8,
         ),
       ),
       
-      // Elevated Button Theme
+      // Professional Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: moroccoGreen,
           foregroundColor: Colors.white,
-          elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          elevation: 3,
+          shadowColor: mediumShadow,
+          padding: const EdgeInsets.symmetric(
+            horizontal: spacing24, 
+            vertical: spacing16,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(radiusSmall),
+          ),
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
       ),
@@ -169,6 +203,7 @@ class AppTheme {
 
 // Custom colors for specific use cases
 class AppColors {
+  static const Color primary = Color(0xFF00A859); // Morocco Green
   static const Color success = Color(0xFF27AE60);
   static const Color warning = Color(0xFFF39C12);
   static const Color error = Color(0xFFE74C3C);

@@ -12,7 +12,7 @@ class AddonMarketplaceScreen extends StatefulWidget {
 }
 
 class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
-  Set<String> _selectedAddons = {};
+  final Set<String> _selectedAddons = {};
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                   color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
+                child: const Text(
                   '🚀 Following success patterns: Airbnb (€75B) + Instagram (2B users) + Facebook (3B users)',
                   style: TextStyle(
                     fontSize: 12,
@@ -106,7 +106,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                     _selectedAddons.isEmpty 
                         ? 'Create Consumer Account (Free)'
                         : 'Create Account with ADDONs (€${_calculateMonthlyRevenue()}/month)',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -232,10 +232,10 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                             color: isSelected ? AppTheme.moroccoGreen : AppTheme.primaryText,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           addon['price']!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppTheme.moroccoGreen,

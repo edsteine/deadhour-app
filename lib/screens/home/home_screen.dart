@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../widgets/common/deal_card.dart';
 import '../../widgets/common/venue_card.dart';
-import '../home/main_navigation_screen.dart';
+import '../../widgets/common/addon_toggle.dart';
+import '../../widgets/cultural/halal_badge.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,19 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CustomScrollView(
           controller: _scrollController,
           slivers: [
-            // Prayer time indicator
-            const SliverToBoxAdapter(
-              child: PrayerTimeIndicator(isVisible: false),
-            ),
-
-            // Welcome section
+            // Cultural tips section  
             SliverToBoxAdapter(
-              child: _buildWelcomeSection(),
-            ),
-
-            // Quick stats
-            SliverToBoxAdapter(
-              child: _buildQuickStats(),
+              child: _buildCulturalTipsSection(),
             ),
 
             // Category filter
@@ -72,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: _buildSectionHeader(
                 title: 'Nearby Venues',
                 subtitle: 'Discover amazing places around you',
+                onViewAll: () => context.go('/home/venues'),
               ),
             ),
 
@@ -100,10 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: QuickActionFAB(
-        icon: Icons.search,
-        tooltip: 'Search Deals',
+      floatingActionButton: FloatingActionButton(
+        heroTag: "homeSearchFAB",
         onPressed: () => _showSearchDialog(),
+        backgroundColor: AppTheme.moroccoGreen,
+        foregroundColor: Colors.white,
+        tooltip: 'Search Deals',
+        child: const Icon(Icons.search),
       ),
     );
   }
@@ -164,168 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildWelcomeSection() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppTheme.moroccoGreen, AppTheme.darkGreen],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text(
-                '🇲🇦',
-                style: TextStyle(fontSize: 24),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Welcome to DeadHour',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Discover amazing deals during off-peak hours',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withValues(alpha: 0.9),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              _buildWelcomeStatItem('47', 'Deals Used'),
-              const SizedBox(width: 24),
-              _buildWelcomeStatItem('1,847', 'MAD Saved'),
-              const SizedBox(width: 24),
-              _buildWelcomeStatItem('4.8', 'Rating'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildWelcomeStatItem(String value, String label) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.white.withValues(alpha: 0.8),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildQuickStats() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          Expanded(
-            child: _buildStatCard(
-              icon: Icons.local_fire_department,
-              title: '23',
-              subtitle: 'Active Deals',
-              color: AppColors.error,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: _buildStatCard(
-              icon: Icons.people,
-              title: '1.2K',
-              subtitle: 'Community',
-              color: AppColors.info,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: _buildStatCard(
-              icon: Icons.schedule,
-              title: '2h 15m',
-              subtitle: 'Time Left',
-              color: AppColors.warning,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              fontSize: 12,
-              color: AppTheme.secondaryText,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildCategoryFilter() {
     final categories = [
@@ -713,6 +548,78 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildCulturalTipsSection() {
+    final addonProvider = context.watch<AddonToggleProvider>();
+    
+    // Show cultural tips for tourists and guide+ users
+    if (!addonProvider.isLoggedIn || 
+        (addonProvider.currentAddon != UserAddon.guide && 
+         addonProvider.currentAddon != UserAddon.premium)) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      margin: const EdgeInsets.all(AppTheme.spacing16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Text(
+                '🇲🇦',
+                style: TextStyle(fontSize: 20),
+              ),
+              const SizedBox(width: AppTheme.spacing8),
+              const Text(
+                'Cultural Tips',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.primaryText,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppTheme.spacing8,
+                  vertical: AppTheme.spacing4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGold.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
+                ),
+                child: Text(
+                  addonProvider.currentAddon.label,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.moroccoGold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppTheme.spacing12),
+          const CulturalTipsCard(
+            tip: 'Morocco operates on GMT+1. Business hours typically run 9 AM - 6 PM with a lunch break.',
+            category: 'Business Hours',
+            icon: Icons.access_time,
+          ),
+          const CulturalTipsCard(
+            tip: 'Mint tea (Atay) is central to Moroccan hospitality. It\'s often offered before business discussions.',
+            category: 'Business Etiquette',
+            icon: Icons.local_cafe,
+          ),
+          const CulturalTipsCard(
+            tip: 'Friday prayers (Jumu\'ah) affect business hours. Many venues close 12-2 PM on Fridays.',
+            category: 'Cultural Calendar',
+            icon: Icons.mosque,
+          ),
+        ],
       ),
     );
   }

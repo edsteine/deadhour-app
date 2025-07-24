@@ -50,6 +50,7 @@ class _DealsScreenState extends State<DealsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "dealsCreateDealFAB",
         onPressed: _showCreateDealAlert,
         backgroundColor: AppTheme.moroccoGreen,
         icon: const Icon(Icons.add),

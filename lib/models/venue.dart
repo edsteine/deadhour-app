@@ -167,7 +167,7 @@ class Venue {
         return '💆';
       case 'sports':
         return '⚽';
-      case 'tourism':
+      case 'guide':
         return '🌍';
       case 'family':
         return '👨‍👩‍👧‍👦';
@@ -186,8 +186,8 @@ class Venue {
         return 'Wellness & Spa';
       case 'sports':
         return 'Sports & Fitness';
-      case 'tourism':
-        return 'Tourism';
+      case 'guide':
+        return 'Local Guide';
       case 'family':
         return 'Family';
       default:

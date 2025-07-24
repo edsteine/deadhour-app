@@ -64,11 +64,35 @@ Never present generated, inferred, speculated, or deduced content as fact.
 ## Commands
 - `flutter doctor` - Check Flutter installation and dependencies
 - `flutter pub get` - Install project dependencies
-- `flutter run` - Run app in debug mode
 - `flutter build apk --release` - Build release APK for Android
 - `flutter build appbundle --release` - Build App Bundle for Play Store
 - `firebase --version` - Check Firebase CLI version
 - `flutterfire configure` - Configure Firebase for Flutter project
+
+## CRITICAL RULE: Flutter App Execution
+**NEVER run `flutter run` or any Flutter app execution commands.** Only use Flutter commands for:
+- Dependencies: `flutter pub get`
+- Code analysis: `flutter analyze`
+- Build verification: `flutter build --dry-run`
+- Project setup: `flutter create`, `flutterfire configure`
+
+This prevents unnecessary resource usage and potential device conflicts during development.
+- `flutter analyze` - Run static analysis and lint checks
+- `dart fix --apply` - Auto-fix lint issues where possible
+
+## Mandatory Linting Rule
+**ALWAYS run linters and fix ALL issues after each code change:**
+1. After editing any Dart file, immediately run `flutter analyze`
+2. Fix all linting errors and warnings before proceeding
+3. Use `dart fix --apply` for auto-fixable issues
+4. Manually fix remaining issues
+5. This is MANDATORY - never leave linting issues unresolved
+
+## Deprecated API Rule
+**NEVER use deprecated APIs - always use modern replacements:**
+- ❌ `color.withOpacity(0.5)` (deprecated)
+- ✅ `color.withValues(alpha: 0.5)` (modern replacement)
+- Always replace `.withOpacity()` with `.withValues(alpha:)` to avoid precision loss
 
 ## Morocco Cultural Requirements
 - **Prayer Times**: Integrate 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha)

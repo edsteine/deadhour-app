@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
+import '../../widgets/common/professional_card.dart';
 
 class BusinessDashboardScreen extends StatefulWidget {
   const BusinessDashboardScreen({super.key});
@@ -65,6 +66,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "businessCreateDealFAB",
         onPressed: _createNewDeal,
         backgroundColor: AppTheme.moroccoGreen,
         icon: const Icon(Icons.add),
@@ -115,18 +117,13 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
     final businessData = MockData.businessData;
     final venue = businessData['venue'];
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppTheme.moroccoGreen, AppTheme.darkGreen],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
+    return ProfessionalGradientCard(
+      colors: const [AppTheme.moroccoGreen, AppTheme.darkGreen],
+      padding: const EdgeInsets.all(AppTheme.spacing20),
+      margin: EdgeInsets.zero,
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(AppTheme.radiusLarge),
+        bottomRight: Radius.circular(AppTheme.radiusLarge),
       ),
       child: Column(
         children: [
@@ -160,10 +157,11 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
                       ),
                     ),
                     Text(
-                      venue?.type ?? 'Business',
+                      'Dead Hours → Revenue Solution',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.white.withValues(alpha: 0.9),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     Row(
@@ -174,11 +172,15 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
                           color: Colors.white70,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          venue?.address ?? 'Location',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white70,
+                        Expanded(
+                          child: Text(
+                            venue?.address ?? 'Location',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.white70,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
                       ],
@@ -189,14 +191,14 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
+                  color: AppTheme.moroccoGold.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(
-                  '${venue?.rating ?? 4.5}★',
-                  style: const TextStyle(
+                child: const Text(
+                  'SOLVING',
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -208,23 +210,23 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
             children: [
               Expanded(
                 child: _buildHeaderStat(
-                  'Active Deals',
-                  '${(businessData['activeDeals'] as List).length}',
-                  Icons.local_fire_department,
+                  'Dead Hours Filled',
+                  '68%',
+                  Icons.schedule,
                 ),
               ),
               Expanded(
                 child: _buildHeaderStat(
-                  'This Month',
+                  'Revenue Saved',
                   '${businessData['monthlyStats']['platformRevenue']} MAD',
                   Icons.trending_up,
                 ),
               ),
               Expanded(
                 child: _buildHeaderStat(
-                  'Customers',
+                  'New Customers',
                   '${businessData['monthlyStats']['newCustomers']}',
-                  Icons.people,
+                  Icons.people_alt,
                 ),
               ),
             ],
@@ -271,23 +273,23 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
         children: [
           // Quick stats
           _buildQuickStats(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
 
           // Recent activity
           _buildSectionHeader('Recent Activity'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildRecentActivity(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
 
           // Performance insights
           _buildSectionHeader('Performance Insights'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildPerformanceInsights(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
 
           // Quick actions
           _buildSectionHeader('Quick Actions'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildQuickActions(),
         ],
       ),
@@ -295,197 +297,66 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
   }
 
   Widget _buildQuickStats() {
-    return Row(
+    return const Row(
       children: [
         Expanded(
-          child: _buildStatCard(
+          child: ProfessionalStatsCard(
             title: 'Today\'s Revenue',
             value: '2,450 MAD',
-            change: '+12%',
-            changeColor: AppColors.success,
+            subtitle: '+12% vs yesterday',
             icon: Icons.attach_money,
+            iconColor: AppTheme.moroccoGreen,
+            valueColor: AppTheme.moroccoGreen,
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: AppTheme.spacing12),
         Expanded(
-          child: _buildStatCard(
+          child: ProfessionalStatsCard(
             title: 'Bookings',
             value: '23',
-            change: '+8%',
-            changeColor: AppColors.success,
+            subtitle: '+8% increase',
             icon: Icons.book_online,
+            iconColor: AppTheme.moroccoGold,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard({
-    required String title,
-    required String value,
-    required String change,
-    required Color changeColor,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: AppTheme.moroccoGreen, size: 20),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: changeColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  change,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: changeColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 12,
-              color: AppTheme.secondaryText,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildRecentActivity() {
-    final activities = [
-      {
-        'icon': Icons.book_online,
-        'title': 'New booking for lunch deal',
-        'subtitle': '2 people • 12:30 PM',
-        'time': '5 min ago',
-        'color': AppColors.success,
-      },
-      {
-        'icon': Icons.star,
-        'title': 'New 5-star review',
-        'subtitle': '"Amazing food and great service!"',
-        'time': '1 hour ago',
-        'color': AppColors.warning,
-      },
-      {
-        'icon': Icons.local_fire_department,
-        'title': 'Deal performance alert',
-        'subtitle': 'Afternoon coffee deal is trending',
-        'time': '2 hours ago',
-        'color': AppColors.error,
-      },
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: activities.length,
-        separatorBuilder: (context, index) => Divider(
-          height: 1,
-          color: Colors.grey.shade200,
+    return Column(
+      children: [
+        ProfessionalActionCard(
+          title: 'New booking for lunch deal',
+          description: '2 people • 12:30 PM',
+          icon: Icons.book_online,
+          iconColor: AppColors.success,
+          actionText: '5 min ago',
+          onTap: () => _handleActivityTap('New booking'),
         ),
-        itemBuilder: (context, index) {
-          final activity = activities[index];
-          return ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: (activity['color'] as Color).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                activity['icon'] as IconData,
-                color: activity['color'] as Color,
-                size: 20,
-              ),
-            ),
-            title: Text(
-              activity['title'] as String,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            subtitle: Text(
-              activity['subtitle'] as String,
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppTheme.secondaryText,
-              ),
-            ),
-            trailing: Text(
-              activity['time'] as String,
-              style: const TextStyle(
-                fontSize: 10,
-                color: AppTheme.lightText,
-              ),
-            ),
-          );
-        },
-      ),
+        ProfessionalActionCard(
+          title: 'New 5-star review',
+          description: '"Amazing food and great service!"',
+          icon: Icons.star,
+          iconColor: AppColors.warning,
+          actionText: '1 hour ago',
+          onTap: () => _handleActivityTap('New review'),
+        ),
+        ProfessionalActionCard(
+          title: 'Deal performance alert',
+          description: 'Afternoon coffee deal is trending',
+          icon: Icons.local_fire_department,
+          iconColor: AppColors.error,
+          actionText: '2 hours ago',
+          onTap: () => _handleActivityTap('Performance alert'),
+        ),
+      ],
     );
   }
 
   Widget _buildPerformanceInsights() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+    return ProfessionalCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -496,7 +367,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
                 color: AppTheme.moroccoGreen,
                 size: 20,
               ),
-              SizedBox(width: 8),
+              SizedBox(width: AppTheme.spacing8),
               Text(
                 'Key Insights',
                 style: TextStyle(
@@ -506,19 +377,19 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppTheme.spacing16),
           _buildInsightItem(
             '🔥',
             'Peak Hours',
             'Your busiest time is 2-4 PM with 85% booking rate',
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildInsightItem(
             '💰',
             'Best Performing Deal',
             'Afternoon coffee deal generates 40% more revenue',
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildInsightItem(
             '📈',
             'Growth Opportunity',
@@ -534,7 +405,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(emoji, style: const TextStyle(fontSize: 20)),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppTheme.spacing12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -561,30 +432,48 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
   }
 
   Widget _buildQuickActions() {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: _buildActionButton(
-            icon: Icons.add,
-            label: 'Create Deal',
-            onTap: _createNewDeal,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.auto_fix_high,
+                label: 'Revenue Optimizer',
+                onTap: () => context.go('/business/optimization'),
+                color: AppTheme.moroccoGreen,
+              ),
+            ),
+            const SizedBox(width: AppTheme.spacing12),
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.add,
+                label: 'Create Deal',
+                onTap: _createNewDeal,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildActionButton(
-            icon: Icons.analytics,
-            label: 'View Analytics',
-            onTap: () => _tabController.animateTo(2),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildActionButton(
-            icon: Icons.settings,
-            label: 'Settings',
-            onTap: () => _tabController.animateTo(3),
-          ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.analytics,
+                label: 'Advanced Analytics',
+                onTap: () => context.go('/business/analytics'),
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(width: AppTheme.spacing12),
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.settings,
+                label: 'Settings',
+                onTap: () => _tabController.animateTo(3),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -594,6 +483,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
     required IconData icon,
     required String label,
     required VoidCallback onTap,
+    Color? color,
   }) {
     return InkWell(
       onTap: onTap,
@@ -606,7 +496,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
         ),
         child: Column(
           children: [
-            Icon(icon, color: AppTheme.moroccoGreen, size: 24),
+            Icon(icon, color: color ?? AppTheme.moroccoGreen, size: 24),
             const SizedBox(height: 8),
             Text(
               label,
@@ -641,7 +531,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
                   AppColors.error,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppTheme.spacing12),
               Expanded(
                 child: _buildDealStatCard(
                   'Total Bookings',
@@ -652,11 +542,11 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
 
           // Active deals list
           _buildSectionHeader('Active Deals'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           ...activeDeals.map((deal) => _buildDealCard(deal)),
         ],
       ),
@@ -757,7 +647,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
               color: AppTheme.secondaryText,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           Row(
             children: [
               _buildDealMetric('Bookings', '${deal.currentBookings}'),
@@ -767,7 +657,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
               _buildDealMetric('Spots Left', '${deal.availableSpots}'),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           Row(
             children: [
               Expanded(
@@ -819,15 +709,15 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildSectionHeader('Revenue Analytics'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildRevenueChart(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
           _buildSectionHeader('Customer Insights'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildCustomerInsights(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
           _buildSectionHeader('Deal Performance'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildDealPerformance(),
         ],
       ),
@@ -916,7 +806,7 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
       child: Row(
         children: [
           Icon(icon, color: AppTheme.moroccoGreen, size: 20),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppTheme.spacing12),
           Expanded(
             child: Text(
               label,
@@ -993,15 +883,15 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildSectionHeader('Business Information'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildBusinessSettings(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
           _buildSectionHeader('Notification Settings'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildNotificationSettings(),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppTheme.spacing24),
           _buildSectionHeader('Account Management'),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppTheme.spacing12),
           _buildAccountSettings(),
         ],
       ),
@@ -1344,6 +1234,15 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
             child: const Text('Upgrade Now'),
           ),
         ],
+      ),
+    );
+  }
+
+  void _handleActivityTap(String activityTitle) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Viewing details for: $activityTitle'),
+        backgroundColor: AppTheme.moroccoGreen,
       ),
     );
   }

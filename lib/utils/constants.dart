@@ -2,7 +2,7 @@ class AppConstants {
   // App Information
   static const String appName = 'DeadHour Morocco';
   static const String appVersion = '1.0.0';
-  static const String appDescription = 'Morocco\'s first social venue discovery platform';
+  static const String appDescription = 'World\'s first infinite-scalability ADDON platform for Morocco';
   
   // Morocco Cities
   static const List<String> moroccoCities = [
@@ -69,12 +69,12 @@ class AppConstants {
       'french': 'Sports & Fitness'
     },
     {
-      'id': 'tourism',
-      'name': 'Tourism',
+      'id': 'guide',
+      'name': 'Local Guide',
       'icon': '🌍',
       'color': 0xFFE91E63,
-      'arabic': 'السياحة',
-      'french': 'Tourisme'
+      'arabic': 'دليل محلي',
+      'french': 'Guide Local'
     },
     {
       'id': 'family',
@@ -83,6 +83,34 @@ class AppConstants {
       'color': 0xFF9C27B0,
       'arabic': 'العائلة',
       'french': 'Famille'
+    },
+  ];
+  
+  // User Types for registration
+  static const List<Map<String, String>> userTypes = [
+    {
+      'id': 'consumer',
+      'name': 'Consumer',
+      'icon': '👤',
+      'description': 'Discover deals and experiences',
+      'arabic': 'مستهلك',
+      'french': 'Consommateur'
+    },
+    {
+      'id': 'business',
+      'name': 'Business',
+      'icon': '🏢',
+      'description': 'Restaurant, café, or venue owner',
+      'arabic': 'أعمال',
+      'french': 'Entreprise'
+    },
+    {
+      'id': 'guide',
+      'name': 'Local Guide',
+      'icon': '🌍',
+      'description': 'Cultural and tourism expert',
+      'arabic': 'دليل محلي',
+      'french': 'Guide Local'
     },
   ];
   
