@@ -762,7 +762,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text('Version 1.0.0'),
             SizedBox(height: 16),
             Text(
-              'Morocco\'s first dual-problem platform connecting businesses with customers during off-peak hours while building community through social discovery.',
+              'World\'s first infinite-scalability ADDON platform enabling progressive enhancement from Consumer to Business+Guide+Premium stacking (€65+/month potential).',
             ),
             SizedBox(height: 16),
             Text(

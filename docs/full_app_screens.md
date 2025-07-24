@@ -1,7 +1,7 @@
 # DeadHour Full App - Advanced Features (Post-Funding)
 
 ## Overview
-This document contains **advanced features** that extend DeadHour beyond the MVP after securing investor funding. These screens add sophisticated capabilities but are not essential for proving the core dual-problem solution.
+This document contains **advanced features** that extend DeadHour beyond the MVP after securing investor funding. These screens add sophisticated capabilities but are not essential for proving the core ADDON stacking architecture.
 
 **Development Timeline**: Post-funding (Months 4-12)  
 **Resource Requirements**: Extended team (5-8 developers), specialized expertise, advanced integrations  
@@ -887,7 +887,7 @@ This document contains **advanced features** that extend DeadHour beyond the MVP
 ```
 ┌─────────────────────────────────────┐
 │ 🧪 A/B Testing Dashboard            │
-│ Optimize dual-problem features      │
+│ Optimize ADDON stacking features    │
 ├─────────────────────────────────────┤
 │                                    │
 │ 🎯 Active Tests (5 running):       │

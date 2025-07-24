@@ -197,19 +197,19 @@ The complete absence of successful social discovery platforms specific to restau
 
 ---
 
-## Target Market Segmentation
+## ADDON Market Segmentation
 
-### Detailed User Personas (Granular Market Analysis)
+### ADDON Stacking User Examples (Revolutionary Market Analysis)
 
-**Local User Personas (8M+ Urban Market)**:
+**Universal DeadHour Users (55.4M Market with Infinite ADDON Potential)**:
 
-**1. Young Professionals "Ahmed" (25-35, 40% of local market)**:
-- **Demographics**: Income 5,000-15,000 MAD/month, university-educated, lives in Casablanca/Rabat
-- **Technology**: iPhone/Samsung user, Instagram daily, TikTok for discovery, WhatsApp for coordination
-- **Pain Points**: Routine restaurant choices, limited time for discovery, wants social validation for new places
-- **Behavior**: Active on social media, values peer recommendations, willing to pay 20-30% premium for guaranteed quality
-- **Deal Preferences**: Lunch specials near office, after-work entertainment venues, weekend brunch with friends
-- **Revenue Potential**: $180 annual LTV, premium feature adoption likely
+**1. Progressive ADDON Stacker "Ahmed" (Consumer → Business → Guide → Premium)**:
+- **Demographics**: 25-35, Income 5,000-15,000 MAD/month, university-educated, Casablanca entrepreneur
+- **ADDON Journey**: Started as Consumer, added Business ADDON (owns café), then Guide ADDON (local expertise), now Premium ADDON user
+- **Technology**: Instagram for ADDON switching, TikTok for discovery, WhatsApp for coordination
+- **ADDON Behavior**: Uses Business ADDON for venue management, Guide ADDON for tourist services, Premium ADDON for advanced analytics
+- **Revenue Generation**: €65/month (Business €30 + Guide €20 + Premium €15) = €780 annually
+- **Network Effects**: His business benefits from his guide expertise, his guide services promote his business
 
 **2. Affluent Families "Fatima & Family" (30-45, 25% of local market)**:
 - **Demographics**: Income 10,000-25,000 MAD/month, suburban residents, 2-3 children
@@ -227,15 +227,15 @@ The complete absence of successful social discovery platforms specific to restau
 - **Deal Preferences**: Coffee shops with WiFi, affordable group dining, student-friendly entertainment
 - **Revenue Potential**: $90 annual LTV, high engagement, viral sharing potential
 
-**Tourist User Personas (13M+ Annual Market)**:
+**Future ADDON Expansion Examples (Infinite Scalability Potential)**:
 
-**1. European Cultural Tourists "Marie & Pierre" (35-55, 45% of tourist market)**:
-- **Demographics**: €100-200/day spending, 7-10 day stays, authentic experience seekers
-- **Technology**: iPhone users, Instagram for sharing, Google Translate reliance, offline map downloads
-- **Pain Points**: Language barriers, avoiding tourist traps, cultural etiquette uncertainty
-- **Behavior**: Instagram research pre-trip, premium pricing tolerance for authentic experiences
-- **Deal Preferences**: Traditional restaurants, cultural sites, local artisan workshops, cooking classes
-- **Revenue Potential**: $540 annual LTV (premium pricing), local guide service adoption
+**2. International ADDON Explorer "Marie & Pierre" (Consumer + Premium + Guide ADDONs)**:
+- **Demographics**: €100-200/day spending, frequent Morocco visitors who became local guides through ADDON stacking
+- **ADDON Journey**: Started as Consumer tourists, added Premium ADDON for exclusive access, now have Guide ADDON to share expertise
+- **Technology**: Instagram ADDON switching, Google Translate, DeadHour marketplace for ADDON discovery
+- **ADDON Behavior**: Use Premium ADDON for exclusive experiences, Guide ADDON to earn income helping other tourists
+- **Revenue Generation**: €35/month (Premium €15 + Guide €20) + commission income from guide services
+- **Network Effects**: Tourist experience enhances guide expertise, guide knowledge improves personal travel experiences
 
 **2. Young International Backpackers "Sarah & Friends" (20-30, 25% of tourist market)**:
 - **Demographics**: €30-60/day spending, 14-21 day stays, budget-conscious social travelers
@@ -253,50 +253,51 @@ The complete absence of successful social discovery platforms specific to restau
 - **Deal Preferences**: Luxury restaurants, private experiences, family-friendly luxury venues, Arabic-speaking guides
 - **Revenue Potential**: $720 annual LTV, premium feature adoption, luxury pricing tolerance
 
-### Phase 1: Food & Beverage (Primary Launch)
+### Phase 1: Business ADDON Launch (Primary)
 
-**High-Priority Venues**:
-- **Coffee shops & cafés**: Strong afternoon dead periods (14:00-16:00)
-- **Restaurants**: Weekday 2-5 PM, late evening slots after 21:00
-- **Hotel restaurants & buffets**: Tourism seasonality gaps
-- **Juice bars and fast-casual**: Between meal periods
+**High-Priority Business ADDON Users**:
+- **Coffee shop owners**: Generate €30/month through Business ADDON for venue management
+- **Restaurant owners**: Add Guide ADDON (€20/month) to share local expertise
+- **Hotel operators**: Stack Premium ADDON (€15/month) for enhanced analytics
+- **Multi-venue entrepreneurs**: Cross-ADDON amplification across properties
 
-**Why Start with F&B**:
-- Clear, predictable off-peak patterns
-- High transaction frequency (daily customer visits)
-- Easier onboarding process (familiar with discount concepts)
-- Immediate cost savings appeal (food waste reduction)
-- Strong customer demand for dining deals
+**Why Start with Business ADDON**:
+- Immediate €30/month recurring revenue per user
+- Clear value proposition for venue management
+- Foundation for Guide ADDON upselling (€20/month additional)
+- Premium ADDON cross-sell opportunity (€15/month additional)
+- Network effects: Business users attract Guide and Premium users
 
-### Phase 2: Entertainment & Services (Expansion)
+### Phase 2: Guide ADDON Expansion (Secondary)
 
-**Secondary Markets**:
-- **Escape rooms**: Weekday afternoons (prime expansion target)
-- **Bowling alleys and gaming centers**: Off-peak hours
-- **Spas and beauty salons**: Mid-week appointments
-- **Fitness studios and gyms**: Non-peak hours
-- **Kids' play areas**: Non-weekend mornings
+**High-Priority Guide ADDON Users**:
+- **Local cultural experts**: €20/month for sharing authentic experiences
+- **Tourism professionals**: Stack with Business ADDON for €50/month total
+- **Activity specialists**: Guide ADDON + Premium ADDON = €35/month
+- **Multi-skill locals**: Business + Guide + Premium = €65/month full stack
+- **Future expansion**: Driver, Host, Chef, Photographer ADDONs
 
-### Geographic Rollout Strategy
+### ADDON Rollout Strategy
 
-1. **Casablanca** (Launch City)
-   - Largest economy in Morocco
-   - Highest smartphone penetration
-   - Business-friendly environment
-   - Diverse venue types
+1. **Casablanca** (ADDON Launch City)
+   - Largest ADDON user potential in Morocco
+   - Highest smartphone penetration for Instagram-inspired interface
+   - Business-friendly environment for Business ADDON adoption
+   - Multi-skilled professionals for ADDON stacking
 
-2. **Rabat** (Government Seat)
-   - Affluent demographics
-   - Government worker customer base
-   - Less competitive environment
+2. **Rabat** (Government ADDON Users)
+   - Affluent demographics for Premium ADDON adoption
+   - Government workers ideal for Guide ADDON (cultural expertise)
+   - Professional environment for Business + Guide ADDON combinations
 
-3. **Marrakech** (Tourism Hub)
-   - International clientele
-   - Tourism seasonality creates clear off-peak periods
-   - Hotel and restaurant density
+3. **Marrakech** (Tourism ADDON Hub)
+   - International Guide ADDON opportunities
+   - Tourism businesses ideal for Business + Guide stacking
+   - Premium ADDON adoption for enhanced visitor services
 
 4. **Secondary Cities** (Fez, Tangier, Agadir)
-   - Regional expansion after core market validation
+   - Regional ADDON expansion after core market validation
+   - Future ADDON deployment (Driver, Host, Chef, Photographer)
 
 ---
 
@@ -330,16 +331,17 @@ The complete absence of successful social discovery platforms specific to restau
 - **Payment Flexibility**: Cash-friendly approach addressing 89% non-digital payment preference
 - **Business Relationships**: Local network and trust-building capabilities
 
-### Timing Advantages
-- **First-Mover Opportunity**: No direct competitors in off-peak optimization
-- **Digital Transformation Wave**: Government support for digital business solutions
-- **Growing Middle Class**: Expanding disposable income seeking value
-- **Tourism Recovery**: Post-COVID recovery creating venue revenue pressure
+### ADDON System Timing Advantages
+- **Industry-Validated Model**: Following Airbnb (€75B), Instagram (2B users), Facebook (3B users) success patterns
+- **Digital Transformation Wave**: Government support for ADDON-based business solutions
+- **Growing Middle Class**: Expanding disposable income for €65+/month ADDON subscriptions
+- **Instagram Generation**: Familiar interface for ADDON switching drives rapid adoption
 
-### Scalability Factors
-- **Multi-Category Potential**: F&B success can expand to entertainment, services
-- **Regional Expansion**: Morocco success can expand to North Africa region
-- **Government Alignment**: Supports Digital Morocco 2025 and small business initiatives
+### Infinite ADDON Scalability Factors
+- **Unlimited ADDON Potential**: Current Business/Guide/Premium + Future Driver/Host/Chef/Photographer
+- **Cross-ADDON Amplification**: Each ADDON enhances others exponentially, not linearly
+- **Global Template**: Morocco ADDON success scales to any market worldwide
+- **Instagram-Inspired Interface**: Familiar UX drives international adoption
 
 ---
 

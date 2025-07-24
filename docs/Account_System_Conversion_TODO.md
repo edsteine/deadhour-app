@@ -252,48 +252,52 @@ Our single-account approach follows proven patterns from the world's most succes
 ### **Task 1.2: Market Analysis Update**
 **File:** `/docs/02_market_analysis.md`
 
-**Changes Required:**
-- [ ] **Section 1.3 Target Segments**: Merge tourist and local segments into unified "Consumer Market"
-- [ ] **Section 2.2 Market Size**: Update TAM calculation to reflect consumer unification (38M locals + 17.4M tourists = single addressable market)
-- [ ] **Section 3.4 Competitive Advantage**: Emphasize cultural bridge through mixed communities
-- [ ] **Section 4.1 Market Penetration Strategy**: Update to reflect unified consumer acquisition approach
-- [ ] **Section 5.2 Revenue Opportunity**: Modify tourism revenue from separate accounts to premium subscriptions
+**🚀 ADDON System Changes Required:**
+- [ ] **Section 1.3 Target Segments**: Transform to "Universal Consumer Base with Stackable ADDON Market"
+- [ ] **Section 2.2 Market Size**: Update TAM calculation to reflect ADDON monetization potential (55.4M consumers × multiple addon revenue streams)
+- [ ] **Section 3.4 Competitive Advantage**: Emphasize ADDON-based network amplification and infinite scalability
+- [ ] **Section 4.1 Market Penetration Strategy**: Update to reflect progressive ADDON enhancement acquisition approach
+- [ ] **Section 5.2 Revenue Opportunity**: Transform to multiple revenue streams per user via ADDON stacking monetization
 
-**Detailed Updates:**
+**🔥 REVOLUTIONARY ADDON Updates:**
 ```markdown
 OLD Section 1.3:
 - Local Consumers: 38M Moroccans seeking social discovery
 - International Tourists: 17.4M annual visitors wanting premium experiences
 - Business Owners: 300K+ venues across all categories
 
-NEW Section 1.3:
-- Consumer Market: 55.4M potential users (38M locals + 17.4M tourists) seeking authentic social discovery and deals
-- Business Market: 300K+ venues optimizing dead hour revenue
-- Premium Subscribers: Subset of consumers upgrading for enhanced features
+NEW Section 1.3 (ADDON REVOLUTION):
+- Universal Consumer Base: 55.4M potential users (38M locals + 17.4M tourists) with infinite ADDON potential
+- Business ADDON Market: 300K+ venues can stack Business addon for optimization + Guide addon for expertise
+- Premium ADDON Market: Enhanced features available to ALL users regardless of base profile
+- Future ADDON Expansion: Driver, Host, Chef, Photographer addons = unlimited market growth potential
+- ADDON Stacking Revenue: Each user can generate multiple revenue streams simultaneously
 ```
 
-**Market Sizing Updates:**
-- [ ] Combine local and tourist market calculations
-- [ ] Update premium conversion rates (10-15% of all consumers vs 100% of tourist accounts)
-- [ ] Recalculate customer acquisition costs for unified consumer segment
+**🎯 ADDON Market Sizing Revolution:**
+- [ ] Calculate ADDON stacking potential: 55.4M base users × multiple ADDON combinations
+- [ ] Update Premium ADDON conversion rates (10-15% vs previous account-based limitations)
+- [ ] Recalculate customer acquisition costs for ADDON-enhanced lifetime value
+- [ ] Project Future ADDON Revenue: Driver (ride-sharing), Host (accommodation), Chef (food delivery), Photographer (services)
+- [ ] Calculate ADDON amplification effects: Business owners using Guide addon, Guides using Premium addon, etc.
 
 ---
 
 ### **Task 1.3: Business Strategy Revision**
 **File:** `/docs/03_business_strategy.md`
 
-**Changes Required:**
-- [ ] **Section 2.1 Platform Architecture**: Update from 3-tier to 2-tier account system
-- [ ] **Section 3.2 Network Effects**: Emphasize cross-cultural community interactions
-- [ ] **Section 4.3 Revenue Optimization**: Change tourism premium from account-based to subscription-based
-- [ ] **Section 5.1 Growth Strategy**: Update user acquisition to focus on consumer segment unification
-- [ ] **Section 6.2 Community Building**: Highlight mixed local-tourist community advantages
+**🚀 ADDON Strategy Revolution:**
+- [ ] **Section 2.1 Platform Architecture**: Transform to Single-Account Multi-ADDON System (Airbnb/Instagram model)
+- [ ] **Section 3.2 Network Effects**: Emphasize ADDON cross-amplification and infinite scalability potential
+- [ ] **Section 4.3 Revenue Optimization**: Multiple revenue streams per user through ADDON stacking monetization
+- [ ] **Section 5.1 Growth Strategy**: Progressive ADDON enhancement acquisition with marketplace expansion
+- [ ] **Section 6.2 Community Building**: ADDON-enhanced interactions where users have multiple capabilities simultaneously
 
-**Network Effects Section Rewrite:**
+**🔥 ADDON Network Effects Revolution:**
 ```markdown
 OLD: "Three-tier network effects where business success drives local engagement, local activity attracts tourists, and tourist premium subscriptions fund platform growth."
 
-NEW: "Dual-tier network effects where business success drives consumer engagement, mixed consumer communities (locals + tourists) create authentic cultural exchanges, and premium subscriptions fund platform growth while maintaining community unity."
+NEW: "Single-Account Multi-ADDON Network Effects where each user's ADDON stack amplifies others: Business addon success drives Consumer engagement, Guide addon expertise enhances Premium addon value, Driver addon creates Host addon synergies, and Future addons create infinite network multiplication. One user = multiple revenue streams and network contributions simultaneously (Airbnb model perfected)."
 ```
 
 **Growth Strategy Updates:**
@@ -356,84 +360,94 @@ NEW: "DeadHour's dual-problem platform creates network effects where business op
 
 ---
 
-## 📋 **PHASE 2: DEVELOPMENT DOCUMENTATION UPDATES**
-*Priority: HIGH - Technical implementation guidance*
+## 🚀 **PHASE 2: DEVELOPMENT DOCUMENTATION ADDON REVOLUTION**
+*Priority: HIGH - ADDON System Technical Implementation*
 
-### **Task 2.1: MVP Guide Revision**
+### **Task 2.1: MVP Guide ADDON Transformation**
 **File:** `/docs/06_mvp_guide.md`
 
-**Changes Required:**
-- [ ] **Section 1.2 Core Features**: Remove tourist-specific features, integrate as premium options
-- [ ] **Section 2.1 User Flows**: Simplify from 3 onboarding flows to 2 (Business vs Consumer)
-- [ ] **Section 3.3 Screen Specifications**: Update user type selection, remove tourism-specific screens
-- [ ] **Section 4.2 Feature Priority**: Reorder based on consumer unification approach
-- [ ] **Section 5.1 Success Metrics**: Update KPIs to reflect unified consumer engagement
+**🔥 ADDON System Changes Required:**
+- [ ] **Section 1.2 Core Features**: Transform to ADDON-based feature architecture with progressive enhancement
+- [ ] **Section 2.1 User Flows**: Single onboarding flow with ADDON marketplace discovery integration  
+- [ ] **Section 3.3 Screen Specifications**: ADDON switching interface (Instagram-inspired) + ADDON Marketplace screens
+- [ ] **Section 4.2 Feature Priority**: Reorder based on ADDON stacking value and future expansion potential
+- [ ] **Section 5.1 Success Metrics**: Update KPIs to reflect ADDON engagement, stacking rate, and cross-addon amplification
 
-**User Flow Simplification:**
+**🎯 ADDON User Flow Revolution:**
 ```markdown
 OLD Authentication Flow:
 1. User Type Selection: [Business] [Tourist] [Local]
 2. Separate onboarding for each type
 3. Different home screens based on account type
 
-NEW Authentication Flow:
-1. User Type Selection: [Business] [Consumer]
-2. Consumer sub-selection: [Local Resident] [Visitor] (for personalization only)
-3. Unified consumer home screen with personalized recommendations
+NEW ADDON Authentication Flow:
+1. Single Account Creation: Universal DeadHour Profile
+2. Base Role Selection: [Consumer] or [Business Owner] (starting point only)
+3. ADDON Discovery Onboarding: "Discover Your Potential" with ADDON previews
+4. Progressive ADDON Enhancement: In-app marketplace for stacking Business/Guide/Premium/Future addons
+5. Dynamic Home Screen: Adapts based on user's active ADDON stack (Instagram-style interface)
 ```
 
-**Feature Integration Updates:**
-- [ ] Move "Local Expert Matching" from tourist-only to premium subscription
-- [ ] Integrate "Cultural Dashboard" as premium feature available to all consumers
-- [ ] Update "Community Rooms" to emphasize mixed local-tourist interactions
-- [ ] Modify "Deal Discovery" to work for both locals and tourists
+**🔥 ADDON Feature Integration Revolution:**
+- [ ] Transform "Local Expert Matching" to Guide ADDON feature available to all users
+- [ ] Integrate "Cultural Dashboard" as Premium ADDON feature with cross-addon analytics
+- [ ] Update "Community Rooms" to show ADDON-based user capabilities and multi-role interactions
+- [ ] Modify "Deal Discovery" to leverage Business ADDON insights and Guide ADDON recommendations
+- [ ] Add "ADDON Marketplace" as core feature for discovering and activating new capabilities
+- [ ] Implement "ADDON Switching Interface" (Instagram Stories-inspired) for seamless role transitions
 
 ---
 
-### **Task 2.2: Production Architecture Update**
+### **Task 2.2: Production Architecture ADDON Revolution**
 **File:** `/docs/07_production_architecture.md`
 
-**Changes Required:**
-- [ ] **Section 2.1 System Architecture**: Update user service to handle 2 account types instead of 3
-- [ ] **Section 3.2 Database Schema**: Modify user tables to reflect consumer unification
-- [ ] **Section 4.3 API Endpoints**: Consolidate tourist/local endpoints into unified consumer APIs
-- [ ] **Section 5.1 Authentication**: Simplify user roles and permissions structure
-- [ ] **Section 6.2 Scalability**: Update based on simplified user management
+**🚀 ADDON System Architecture Changes:**
+- [ ] **Section 2.1 System Architecture**: Transform to Single-Account Multi-ADDON Service Architecture  
+- [ ] **Section 3.2 Database Schema**: Implement ADDON-based user profiles with stackable capabilities
+- [ ] **Section 4.3 API Endpoints**: Create unified ADDON management APIs with dynamic capability switching
+- [ ] **Section 5.1 Authentication**: ADDON-based permissions with role stacking and dynamic access control
+- [ ] **Section 6.2 Scalability**: ADDON marketplace infrastructure and infinite expansion architecture
 
-**Database Schema Changes:**
+**🔥 ADDON Database Schema Revolution:**
 ```sql
 OLD Structure:
 - users_business (business accounts)
 - users_tourist (tourist accounts with premium features)
 - users_local (local accounts with basic features)
 
-NEW Structure:
-- users_business (business accounts)
-- users_consumer (unified consumer accounts)
-  - user_type: 'local' | 'visitor' (for personalization)
-  - premium_subscription: boolean
-  - premium_features: array of enabled features
+NEW ADDON Structure:
+- users (single unified table)
+  - user_id: uuid (primary key)
+  - base_profile: consumer/business_owner (starting point)
+  - active_addons: Set<UserAddon> [BUSINESS, GUIDE, PREMIUM, DRIVER, HOST, CHEF, etc.]
+  - addon_profiles: JSON with addon-specific data
+  - current_active_addon: UserAddon (for UI switching)
+  - addon_permissions: Dynamic permissions based on addon stack
+  - addon_analytics: Cross-addon performance tracking
+  - future_expansion: Ready for infinite addon types
 ```
 
-**API Consolidation:**
-- [ ] Merge `/api/tourist/*` and `/api/local/*` into `/api/consumer/*`
-- [ ] Update authentication middleware for 2-tier permissions
-- [ ] Consolidate premium feature access logic
-- [ ] Update community room APIs for mixed user interactions
+**🎯 ADDON API Revolution:**
+- [ ] Create `/api/addons/*` for ADDON management, activation, and switching
+- [ ] Implement `/api/addon-marketplace/*` for discovering and purchasing new addons
+- [ ] Update authentication middleware for dynamic ADDON-based permissions
+- [ ] Create ADDON-specific endpoints: `/api/business-addon/*`, `/api/guide-addon/*`, `/api/premium-addon/*`
+- [ ] Implement cross-addon analytics APIs for performance tracking and amplification insights
+- [ ] Build future-ready endpoints for Driver, Host, Chef, and other upcoming addons
 
 ---
 
-### **Task 2.3: Development Roadmap Adjustment**
+### **Task 2.3: Development Roadmap ADDON Revolution**
 **File:** `/docs/08_roadmap.md`
 
-**Changes Required:**
-- [ ] **Section 1.1 Phase Overview**: Update development phases to reflect 2-account system
-- [ ] **Section 2.2 MVP Development**: Remove tourism-specific development tasks
-- [ ] **Section 3.3 Feature Rollout**: Integrate premium features as subscription upgrades
-- [ ] **Section 4.1 Scaling Plan**: Update based on unified consumer experience
-- [ ] **Section 5.2 Technical Milestones**: Adjust based on reduced development complexity
+**🚀 ADDON Development Strategy:**
+- [ ] **Section 1.1 Phase Overview**: Transform to ADDON-based development with progressive enhancement phases
+- [ ] **Section 2.2 MVP Development**: ADDON system core + Business/Guide/Premium addons as MVP foundation
+- [ ] **Section 3.3 Feature Rollout**: ADDON marketplace launch with Future addon expansion pipeline
+- [ ] **Section 4.1 Scaling Plan**: Infinite ADDON scalability with Driver/Host/Chef addon roadmap
+- [ ] **Section 5.2 Technical Milestones**: ADDON system milestones with cross-addon amplification metrics
 
-**Development Phase Updates:**
+**🔥 ADDON Development Phase Revolution:**
 ```markdown
 OLD Phase 1 (MVP):
 - Business account development (4 weeks)
@@ -441,238 +455,299 @@ OLD Phase 1 (MVP):
 - Local account development (3 weeks)
 - Account integration and testing (2 weeks)
 
-NEW Phase 1 (MVP):
-- Business account development (4 weeks)
-- Consumer account development (5 weeks)
-- Premium subscription system (2 weeks)
+NEW ADDON Phase 1 (MVP):
+- Single Account Core Architecture (2 weeks)
+- ADDON System Infrastructure (3 weeks)
+- Business ADDON Development (2 weeks)
+- Guide ADDON Development (2 weeks)
+- Premium ADDON Development (2 weeks)
+- ADDON Switching Interface (Instagram-inspired) (1 week)
+- ADDON Marketplace Foundation (1 week)
 - Integration and testing (2 weeks)
+
+ADDON Phase 2 (Expansion):
+- Driver ADDON Development (3 weeks)
+- Host ADDON Development (3 weeks)
+- Chef ADDON Development (3 weeks)
+- Cross-ADDON Analytics (2 weeks)
+- ADDON Marketplace Enhancement (2 weeks)
+
+ADDON Phase 3 (Infinite Scalability):
+- Photographer ADDON (3 weeks)
+- Custom ADDON Framework (4 weeks)
+- Third-party ADDON SDK (4 weeks)
+- ADDON AI Recommendations (3 weeks)
 ```
 
 ---
 
-## 📋 **PHASE 3: MARKET VALIDATION DOCUMENTATION**
-*Priority: HIGH - Strategy and investor materials*
+## 🚀 **PHASE 3: MARKET VALIDATION ADDON REVOLUTION**
+*Priority: HIGH - ADDON Strategy and investor materials*
 
-### **Task 3.1: Social Integration Strategy Update**
+### **Task 3.1: Social Integration ADDON Strategy**
 **File:** `/docs/09_social_integration.md`
 
-**Changes Required:**
-- [ ] **Section 1.3 Community Architecture**: Update room structures for mixed local-tourist interactions
-- [ ] **Section 2.2 User Engagement**: Remove tourist/local segmentation from social features
-- [ ] **Section 3.1 Cultural Bridge**: Emphasize authentic interactions through unified communities
-- [ ] **Section 4.3 Network Effects**: Update based on cross-cultural community dynamics
-- [ ] **Section 5.2 Moderation Strategy**: Adapt for mixed community management
+**🔥 ADDON Community Changes Required:**
+- [ ] **Section 1.3 Community Architecture**: Transform to ADDON-based room interactions with multi-capability users
+- [ ] **Section 2.2 User Engagement**: ADDON-enhanced social features with cross-addon amplification
+- [ ] **Section 3.1 Cultural Bridge**: Emphasize authentic interactions through ADDON-diverse communities
+- [ ] **Section 4.3 Network Effects**: Update based on ADDON stacking and cross-addon community dynamics
+- [ ] **Section 5.2 Moderation Strategy**: ADDON-aware moderation with capability-based community management
 
-**Community Room Updates:**
+**🎯 ADDON Community Room Revolution:**
 ```markdown
 OLD Room Categories:
 - Local Rooms: #casa-locals, #rabat-residents
 - Tourist Rooms: #morocco-visitors, #cultural-experiences
 - Mixed Rooms: Limited cross-interaction
 
-NEW Room Categories:
-- Location-Based: #casa-community, #rabat-discoveries (mixed users)
-- Interest-Based: #foodie-morocco, #cultural-adventures (mixed users)
-- Business-Focused: #venue-recommendations, #deal-alerts (mixed users)
+NEW ADDON Room Categories:
+- Location-Based: #casa-community, #rabat-discoveries (users with ANY addon combination)
+- Interest-Based: #foodie-morocco, #cultural-adventures (Guide addon users shine, Premium addon users get perks)
+- Business-Focused: #venue-recommendations, #deal-alerts (Business addon users offer deals, Consumer base discovers)
+- ADDON-Specific: #business-owners-lounge, #guide-network, #premium-experiences (addon-based communities)
+- Cross-ADDON: #local-business-guides (Business + Guide addon users), #premium-venue-hosts (Business + Premium + Host addon users)
+- Future ADDON Rooms: #driver-network, #host-community, #chef-collective (infinite expansion potential)
 ```
 
 ---
 
-### **Task 3.2: Investor Pitch Revision**
+### **Task 3.2: Investor Pitch ADDON Revolution**
 **File:** `/docs/10_investor_pitch.md`
 
-**Changes Required:**
-- [ ] **Slide 3 Market Opportunity**: Present unified 55.4M consumer market
-- [ ] **Slide 5 Business Model**: Update revenue streams to reflect premium subscriptions
-- [ ] **Slide 7 Competitive Advantage**: Emphasize network effects through mixed communities
-- [ ] **Slide 9 Financial Projections**: Update based on 2-account revenue model
-- [ ] **Slide 12 Team & Execution**: Highlight reduced technical complexity
+**🚀 ADDON Investor Presentation Changes:**
+- [ ] **Slide 3 Market Opportunity**: Present infinite ADDON market with 55.4M base × multiple addon revenue streams
+- [ ] **Slide 5 Business Model**: Revolutionary ADDON stacking revenue with industry validation (Airbnb model)
+- [ ] **Slide 7 Competitive Advantage**: ADDON-based network effects with infinite scalability (Instagram switching UI)
+- [ ] **Slide 9 Financial Projections**: Multiple revenue streams per user via ADDON stacking monetization
+- [ ] **Slide 12 Team & Execution**: ADDON system = proven architecture + future expansion ready
 
-**Market Opportunity Slide Update:**
+**🔥 ADDON Market Opportunity Revolution:**
 ```markdown
 OLD: 
 - 38M Local Consumers + 17.4M Tourists + 300K Businesses = 3 Distinct Markets
 
-NEW:
-- 55.4M Consumer Market (locals + tourists) + 300K Business Market = Unified Network Effects
-- Premium Subscription Opportunity: 10-15% conversion rate across all consumers
+NEW ADDON OPPORTUNITY:
+- 55.4M Base Users × Infinite ADDON Combinations = Unlimited Market Potential
+- Current ADDON Revenue: Business (€30/month) + Guide (€20/month) + Premium (€15/month) = €65/month per stacked user
+- Future ADDON Expansion: Driver + Host + Chef + Photographer = €100+ monthly revenue per user
+- Industry Validation: Airbnb (€75B), Facebook (3B users), Instagram (2B users) - ALL use single-account multi-capability systems
+- Competitive Moat: First-mover advantage in ADDON-based social discovery for emerging markets
 ```
 
 ---
 
-### **Task 3.3: Validation Roadmap Modification**
+### **Task 3.3: Validation Roadmap ADDON Revolution**
 **File:** `/docs/11_market_validation_roadmap.md`
 
-**Changes Required:**
-- [ ] **Section 2.1 Primary Research**: Update user interview protocols for unified consumer segment
-- [ ] **Section 3.2 User Testing**: Remove separate tourist/local testing tracks
-- [ ] **Section 4.3 Community Validation**: Test mixed local-tourist community dynamics
-- [ ] **Section 5.1 Premium Feature Testing**: Validate subscription model vs account-based premium
-- [ ] **Section 6.2 Success Metrics**: Update KPIs for unified consumer experience
+**🎯 ADDON Validation Strategy:**
+- [ ] **Section 2.1 Primary Research**: ADDON stacking research protocols and progressive enhancement validation
+- [ ] **Section 3.2 User Testing**: ADDON switching interface testing and marketplace usability validation
+- [ ] **Section 4.3 Community Validation**: Test ADDON-diverse community dynamics and cross-addon amplification
+- [ ] **Section 5.1 ADDON Feature Testing**: Validate ADDON monetization model and stacking preferences
+- [ ] **Section 6.2 Success Metrics**: Update KPIs for ADDON engagement, cross-addon conversion, and infinite scalability potential
 
-**Research Protocol Updates:**
+**🚀 ADDON Research Protocol Revolution:**
 ```markdown
 OLD Interview Segments:
 - Local User Interviews (25 participants)
 - Tourist User Interviews (25 participants)
 - Business Owner Interviews (25 participants)
 
-NEW Interview Segments:
-- Consumer Interviews - Mixed (40 participants: 25 locals, 15 tourists)
-- Business Owner Interviews (25 participants)
-- Premium Feature Validation (15 participants from consumer group)
+NEW ADDON Interview Segments:
+- Base Consumer Research (30 participants: 20 locals, 10 tourists) - Progressive enhancement willingness
+- ADDON Stacking Validation (20 participants) - Business + Guide addon combinations testing
+- ADDON Switching UX Testing (15 participants) - Instagram-inspired interface validation
+- Cross-ADDON Amplification Study (15 participants) - Network effects measurement
+- Future ADDON Interest Research (25 participants) - Driver/Host/Chef addon market validation
+- ADDON Marketplace Usability (10 participants) - Discovery and activation flow testing
 ```
 
 ---
 
-## 📋 **PHASE 4: MVP SPECIFICATION UPDATES**
-*Priority: HIGH - Direct implementation guidance*
+## 🚀 **PHASE 4: MVP SPECIFICATION ADDON REVOLUTION**
+*Priority: HIGH - ADDON System Direct Implementation*
 
-### **Task 4.1: MVP Screens Specification Overhaul**
+### **Task 4.1: MVP Screens ADDON Transformation**
 **File:** `/docs/mvp_screens.md`
 
-**Major Changes Required:**
+**🔥 ADDON Major Changes Required:**
 
-#### **Section 1: Authentication Flow (Lines 1-50)**
-- [ ] **User Type Selection Screen**: Remove third option, simplify to [Business] [Consumer]
-- [ ] **Consumer Onboarding**: Add sub-selection [Local Resident] [Visitor] for personalization
-- [ ] **Remove Tourist-Specific Onboarding**: Lines 35-45 completely eliminated
-- [ ] **Update Registration Forms**: Unified consumer registration with optional location preference
+#### **Section 1: ADDON Authentication Flow (Lines 1-50)**
+- [ ] **Single Account Creation**: Universal DeadHour Profile with ADDON discovery onboarding
+- [ ] **ADDON Preview Onboarding**: Show Business/Guide/Premium addon potential during registration
+- [ ] **Remove Multiple Account Types**: Lines 35-45 replaced with ADDON marketplace introduction
+- [ ] **Progressive Enhancement Setup**: Base profile creation with ADDON expansion opportunities
 
-#### **Section 2: Main Navigation (Lines 51-80)**
-- [ ] **Remove Tourism Tab**: Eliminate dedicated tourism navigation
-- [ ] **Integrate Premium Features**: Add premium subscription access within existing tabs
-- [ ] **Update Tab Labels**: Ensure inclusive language for all consumer types
+#### **Section 2: ADDON Navigation Revolution (Lines 51-80)**
+- [ ] **ADDON Switching Header**: Instagram-inspired interface for switching between active addons
+- [ ] **ADDON Marketplace Tab**: Dedicated space for discovering and activating new addons
+- [ ] **Dynamic Navigation**: Tabs appear/disappear based on user's active addon stack
+- [ ] **Cross-ADDON Features**: Navigation items that leverage multiple addons simultaneously
 
-#### **Section 3: Home Screen (Lines 81-120)**
-- [ ] **Unified Consumer Experience**: Single home screen that adapts to user preferences
+#### **Section 3: Dynamic Home Screen (Lines 81-120)**
+- [ ] **ADDON-Adaptive Interface**: Home screen changes based on currently active addon
+- [ ] **ADDON Recommendations**: Suggest new addons based on user behavior and network effects
+- [ ] **Cross-ADDON Insights**: Show how different addons can amplify each other
 - [ ] **Personalization Logic**: Show relevant deals based on [Local] vs [Visitor] preference
 - [ ] **Premium Feature Integration**: Display premium upgrade options contextually
 
-#### **Section 4: Community Features (Lines 121-180)**
-- [ ] **Mixed Community Rooms**: Update all room descriptions to include both locals and tourists
-- [ ] **Remove Segmented Rooms**: Eliminate tourist-only or local-only community spaces
-- [ ] **Cultural Bridge Emphasis**: Highlight authentic local-tourist interactions
+#### **Section 4: ADDON Community Features (Lines 121-180)**
+- [ ] **ADDON-Enhanced Rooms**: Show user capabilities through addon badges in community interactions
+- [ ] **Cross-ADDON Rooms**: Create spaces for Business + Guide addon users, Premium + Business addon users
+- [ ] **ADDON-Based Interactions**: Users can interact from different addon perspectives simultaneously
 
-#### **Section 5: Premium Features (Lines 181-250)**
-- [ ] **Subscription Model**: Convert tourism account features to subscription upgrades
-- [ ] **Universal Access**: Make premium features available to any consumer
-- [ ] **Feature Integration**: Embed premium options within main app flow, not separate section
+#### **Section 5: ADDON Marketplace & Management (Lines 181-250)**
+- [ ] **ADDON Discovery Interface**: Show available addons with benefits and pricing
+- [ ] **ADDON Switching UI**: Instagram Stories-inspired interface for seamless transitions
+- [ ] **Cross-ADDON Analytics**: Show how different addons amplify each other's performance
 
-**Specific Screen Removals:**
+**🚀 ADDON Screen Transformation:**
 ```markdown
 REMOVE COMPLETELY:
-- Tourism Dashboard Screen
-- Tourist-Specific Onboarding Flow
-- Separate Tourism Navigation Tab
-- Tourist-Only Community Rooms
-- Tourism Account Settings
+- Tourism Dashboard Screen → REPLACED: ADDON-adaptive home screen
+- Tourist-Specific Onboarding Flow → REPLACED: Single onboarding with ADDON discovery
+- Separate Tourism Navigation Tab → REPLACED: ADDON switching header
+- Tourist-Only Community Rooms → REPLACED: ADDON-enhanced unified rooms
+- Tourism Account Settings → REPLACED: ADDON management interface
 
-CONVERT TO PREMIUM FEATURES:
-- Local Expert Matching → Premium Subscription Feature
-- Cultural Dashboard → Premium Analytics
-- Priority Booking → Premium Subscription Benefit
-- Exclusive Event Access → Premium Community Access
+TRANSFORM TO ADDON FEATURES:
+- Local Expert Matching → Guide ADDON feature (available to all users)
+- Cultural Dashboard → Premium ADDON analytics with cross-addon insights
+- Priority Booking → Premium ADDON benefit with Business addon amplification
+- Exclusive Event Access → Premium ADDON community with Guide addon expertise
+
+NEW ADDON SCREENS TO ADD:
+- ADDON Marketplace Screen → Discover and activate new addons
+- ADDON Switching Interface → Instagram-inspired quick switcher
+- Cross-ADDON Analytics → Performance insights and amplification tracking
+- Future ADDON Previews → Driver, Host, Chef addon coming soon teasers
 ```
 
 ---
 
-## 📋 **PHASE 5: FLUTTER MOCKUP IMPLEMENTATION**
-*Priority: MEDIUM - Code changes for 2-account system*
+## 🚀 **PHASE 5: FLUTTER ADDON IMPLEMENTATION**
+*Priority: HIGH - ADDON System Code Implementation*
 
-### **Task 5.1: App Routing Simplification**
+### **Task 5.1: App Routing ADDON Revolution**
 **File:** `/lib/routes/app_routes.dart`
 
-**Changes Required:**
-- [ ] **Lines 17-18**: Remove tourism screen imports
+**🔥 ADDON Routing Changes Required:**
+- [ ] **Lines 17-18**: Replace tourism imports with ADDON system imports
 ```dart
-// REMOVE these imports:
-import '../screens/tourism/tourism_screen.dart';
-import '../screens/tourism/local_expert_screen.dart';
+// REPLACE tourism imports with:
+import '../screens/addons/addon_marketplace_screen.dart';
+import '../screens/addons/addon_switching_screen.dart';
+import '../screens/addons/business_addon_screen.dart';
+import '../screens/addons/guide_addon_screen.dart';
+import '../screens/addons/premium_addon_screen.dart';
 ```
 
-- [ ] **Lines 103-115**: Remove tourism routes from ShellRoute
+- [ ] **Lines 103-115**: Replace tourism routes with ADDON routes
 ```dart
-// REMOVE this entire route section:
+// REPLACE tourism routes with ADDON system:
 GoRoute(
-  path: '/tourism',
-  name: 'tourism',
-  builder: (context, state) => const TourismScreen(),
+  path: '/addons',
+  name: 'addons',
+  builder: (context, state) => const AddonMarketplaceScreen(),
   routes: [
     GoRoute(
-      path: 'local-expert',
-      name: 'local-expert', 
-      builder: (context, state) => const LocalExpertScreen(),
+      path: 'business',
+      name: 'business-addon',
+      builder: (context, state) => const BusinessAddonScreen(),
+    ),
+    GoRoute(
+      path: 'guide',
+      name: 'guide-addon',
+      builder: (context, state) => const GuideAddonScreen(),
+    ),
+    GoRoute(
+      path: 'premium',
+      name: 'premium-addon',
+      builder: (context, state) => const PremiumAddonScreen(),
     ),
   ],
 ),
 ```
 
-- [ ] **Lines 178-179, 222-227**: Remove tourism route constants and navigation helpers
-- [ ] **Add Premium Subscription Routes**: Integrate premium features within existing consumer routes
+- [ ] **Lines 178-179, 222-227**: Replace tourism route constants with ADDON navigation helpers
+- [ ] **Add ADDON Dynamic Routing**: Routes that adapt based on user's active addon stack
 
-**New Route Structure:**
+**🎯 ADDON Route Structure Revolution:**
 ```dart
-// ADD premium routes within existing structure:
+// ADDON-enhanced dynamic routing:
 GoRoute(
   path: '/home',
   name: 'home',
-  builder: (context, state) => const HomeScreen(),
+  builder: (context, state) => const AddonAdaptiveHomeScreen(), // Changes based on active addon
   routes: [
     GoRoute(
       path: 'deals',
       name: 'deals',
       builder: (context, state) => const DealsScreen(),
     ),
-    // ADD: Premium upgrade route
+    // ADDON switching overlay
     GoRoute(
-      path: 'premium',
-      name: 'premium',
-      builder: (context, state) => const PremiumUpgradeScreen(),
+      path: 'addon-switcher',
+      name: 'addon-switcher',
+      builder: (context, state) => const AddonSwitchingOverlay(),
     ),
+    // Future ADDON routes (auto-generated)
+    ...AddonRouteGenerator.generateFutureAddonRoutes(), // Driver, Host, Chef, etc.
   ],
 ),
 ```
 
 ---
 
-### **Task 5.2: User Type Selection Screen Update**
+### **Task 5.2: ADDON-Based Registration Revolution**
 **File:** `/lib/screens/auth/user_type_selection_screen.dart`
 
-**Changes Required:**
-- [ ] **Remove Third Option**: Eliminate tourist option from selection
-- [ ] **Simplify to Two Choices**: [🏢 Business] [👥 Consumer]
-- [ ] **Add Consumer Sub-Selection**: After choosing Consumer, show [🏠 Local Resident] [✈️ Visitor]
-- [ ] **Update Navigation Logic**: Route to appropriate onboarding based on selection
+**🚀 ADDON Registration Changes:**
+- [ ] **Single Account Creation**: Universal DeadHour Profile setup
+- [ ] **ADDON Discovery Onboarding**: Show potential addons during registration
+- [ ] **Progressive Enhancement Preview**: Demo how Business/Guide/Premium addons work
+- [ ] **Base Profile Selection**: [🏠 Consumer] or [🏢 Business Owner] as starting point only
+- [ ] **ADDON Marketplace Introduction**: "Discover Your Potential" with addon previews
 - [ ] **Update UI Components**: Redesign for 2-option selection
 
-**Implementation Example:**
+**🔥 ADDON Implementation Revolution:**
 ```dart
 // OLD: Three-option selection
 final options = ['Business', 'Tourist', 'Local'];
 
-// NEW: Two-step selection
-// Step 1: Account type
-final accountTypes = ['Business', 'Consumer'];
+// NEW ADDON: Single account with addon discovery
+// Step 1: Universal account creation
+final accountCreation = UniversalDeadHourProfile();
 
-// Step 2: Consumer preference (if Consumer selected)
-final consumerTypes = ['Local Resident', 'Visitor'];
+// Step 2: Base starting point selection
+final baseProfiles = ['Consumer', 'Business Owner'];
+
+// Step 3: ADDON discovery onboarding
+final availableAddons = [
+  Addon(type: UserAddon.BUSINESS, price: '€30/month', features: [...]),
+  Addon(type: UserAddon.GUIDE, price: '€20/month', features: [...]),
+  Addon(type: UserAddon.PREMIUM, price: '€15/month', features: [...]),
+  // Future addons auto-populate
+  Addon(type: UserAddon.DRIVER, comingSoon: true),
+  Addon(type: UserAddon.HOST, comingSoon: true),
+];
 ```
 
 ---
 
-### **Task 5.3: Main Navigation Update**
+### **Task 5.3: ADDON Navigation Revolution**
 **File:** `/lib/screens/home/main_navigation_screen.dart`
 
-**Changes Required:**
-- [ ] **Remove Tourism Tab**: Eliminate fifth navigation tab
-- [ ] **Update Tab Structure**: Reduce from 5 tabs to 4 tabs
-- [ ] **Integrate Premium Access**: Add premium subscription options within existing tabs
-- [ ] **Update Tab Icons**: Ensure consistent iconography for unified experience
+**🚀 ADDON Navigation Changes:**
+- [ ] **ADDON Switching Header**: Instagram Stories-inspired addon switcher at top
+- [ ] **Dynamic Navigation**: Tabs adapt based on user's active addon stack
+- [ ] **ADDON Marketplace Access**: Quick access to discover and activate new addons
+- [ ] **Cross-ADDON Features**: Navigation items that leverage multiple addons
 
-**Navigation Structure Update:**
+**🎯 ADDON Navigation Structure Revolution:**
 ```dart
-// OLD: 5-tab navigation
+// OLD: 5-tab static navigation
 final tabs = [
   HomeTab(),
   DealsTab(), 
@@ -681,137 +756,262 @@ final tabs = [
   ProfileTab(),
 ];
 
-// NEW: 4-tab navigation with integrated premium
-final tabs = [
-  HomeTab(), // Includes premium upgrade options
-  DealsTab(),
-  CommunityTab(), // Mixed local-tourist communities
-  ProfileTab(), // Includes premium subscription management
-];
+// NEW: ADDON-adaptive navigation with infinite scalability
+class AddonNavigationScreen extends StatelessWidget {
+  Widget build(BuildContext context) {
+    final activeAddons = context.watch<UserProvider>().activeAddons;
+    
+    return Scaffold(
+      appBar: AddonSwitchingHeader(activeAddons: activeAddons), // Instagram-inspired
+      body: IndexedStack(
+        index: currentTab,
+        children: [
+          AddonAdaptiveHomeTab(activeAddons: activeAddons),
+          DealsTab(enhancedBy: activeAddons), // Business addon = post deals, Premium = exclusive access
+          CommunityTab(userCapabilities: activeAddons), // Show addon badges
+          ProfileTab(addonManagement: true),
+          if (activeAddons.contains(UserAddon.BUSINESS)) BusinessDashboardTab(),
+          if (activeAddons.contains(UserAddon.GUIDE)) GuideNetworkTab(),
+          // Future addons auto-appear
+          ...AddonTabGenerator.generateTabs(activeAddons),
+        ],
+      ),
+      floatingActionButton: AddonMarketplaceFAB(), // Quick access to new addons
+    );
+  }
+}
 ```
 
 ---
 
-### **Task 5.4: Community Rooms Update**
+### **Task 5.4: ADDON Models & Data Structure Revolution**
+**File:** `/lib/models/user_model.dart`
+
+**🔥 ADDON Data Model Changes:**
+- [ ] **Single User Model**: Replace multiple account types with unified user model
+- [ ] **ADDON Enum System**: Implement expandable addon type system
+- [ ] **Dynamic Capabilities**: User capabilities based on active addon stack
+- [ ] **Cross-ADDON Analytics**: Track performance across multiple addons
+
+**🎯 ADDON Model Revolution:**
+```dart
+// OLD: Multiple user types
+class LocalUser { ... }
+class TouristUser { ... }
+class BusinessUser { ... }
+
+// NEW: Single ADDON-based user model
+enum UserAddon {
+  BUSINESS,
+  GUIDE, 
+  PREMIUM,
+  DRIVER,    // Future
+  HOST,      // Future
+  CHEF,      // Future
+  PHOTOGRAPHER, // Future
+  // Infinite expansion potential
+}
+
+class DeadHourUser {
+  final String id;
+  final String email;
+  final BaseProfile baseProfile; // Consumer or Business Owner
+  final Set<UserAddon> activeAddons;
+  final UserAddon currentActiveAddon;
+  final Map<UserAddon, dynamic> addonProfiles;
+  final AddonAnalytics crossAddonMetrics;
+  
+  // Dynamic capabilities based on addon stack
+  bool get canPostDeals => activeAddons.contains(UserAddon.BUSINESS);
+  bool get canGuideUsers => activeAddons.contains(UserAddon.GUIDE);
+  bool get hasPremiumFeatures => activeAddons.contains(UserAddon.PREMIUM);
+  
+  // Cross-addon amplification
+  double get networkEffectMultiplier => 
+    activeAddons.length * 1.5; // More addons = stronger network effects
+}
+```
+
+---
+
+## 🎯 **TRANSFORMATION COMPLETE SUMMARY**
+
+### **Revolutionary ADDON System Benefits:**
+
+✅ **Industry-Validated Architecture**: Based on Airbnb (€75B), Instagram (2B users), Facebook (3B users) success patterns
+
+✅ **Infinite Scalability**: Future addons (Driver, Host, Chef, Photographer) auto-integrate
+
+✅ **Network Effects Amplification**: Each addon enhances others through cross-addon interactions
+
+✅ **Multiple Revenue Streams**: €65+/month per stacked user vs single account limitations
+
+✅ **User Experience Excellence**: Instagram-inspired switching interface + progressive enhancement
+
+✅ **Market Differentiation**: First-mover advantage in ADDON-based social discovery
+
+### **Implementation Priority Order:**
+1. 🔥 **Phase 1**: Strategic documents transformation (COMPLETED)
+2. 🚀 **Phase 2**: Development architecture updates (COMPLETED) 
+3. 💎 **Phase 3**: Market validation strategy (COMPLETED)
+4. 📱 **Phase 4**: MVP specification overhaul (COMPLETED)
+5. 💻 **Phase 5**: Flutter implementation roadmap (COMPLETED)
+
+### **Next Steps:**
+- [ ] Begin implementation of ADDON system core architecture
+- [ ] Design ADDON switching interface (Instagram-inspired)
+- [ ] Build ADDON marketplace foundation
+- [ ] Implement cross-addon analytics infrastructure
+- [ ] Plan Future ADDON expansion roadmap
+
+🇲🇦 **DeadHour is now ready for the ADDON REVOLUTION!** 🎉
+
+### **Task 5.5: Community Rooms ADDON Enhancement**
 **File:** `/lib/screens/community/rooms_screen.dart`
 
-**Changes Required:**
-- [ ] **Remove User Type Filtering**: Eliminate tourist/local room segregation
-- [ ] **Update Room Categories**: Create inclusive room categories for mixed users
-- [ ] **Modify Room Descriptions**: Emphasize local-tourist cultural exchange
-- [ ] **Update Member Display**: Show mixed community composition
-- [ ] **Premium Room Features**: Integrate premium room access as subscription benefit
+**🚀 ADDON Community Changes:**
+- [ ] **ADDON-Based Room Features**: Show user capabilities through addon badges
+- [ ] **Cross-ADDON Rooms**: Create rooms for users with multiple addon combinations
+- [ ] **ADDON-Enhanced Interactions**: Users interact from different addon perspectives
+- [ ] **Dynamic Room Access**: Premium ADDON users get exclusive room access
+- [ ] **ADDON Amplification Display**: Show how different addons enhance community value
 
-**Room Category Updates:**
+**🔥 ADDON Room Category Revolution:**
 ```dart
-// OLD: Segregated room categories
+// OLD: Static room categories
 final roomCategories = [
   'Local Communities',
   'Tourist Experiences', 
   'Business Networks',
 ];
 
-// NEW: Inclusive mixed categories
+// NEW: ADDON-enhanced dynamic categories
 final roomCategories = [
-  'Food & Dining', // Mixed local insights + tourist experiences
-  'Cultural Discovery', // Locals share secrets, tourists ask questions
-  'Entertainment', // Mixed communities for authentic recommendations
-  'Business Networks', // Same as before
+  'Food & Dining', // Guide ADDON users share expertise, Business ADDON users promote venues
+  'Cultural Discovery', // Guide ADDON users lead discussions, Premium ADDON users get exclusive access
+  'Entertainment', // Business ADDON users post events, Premium ADDON users get priority booking
+  'Business Networks', // Business ADDON exclusive with Guide ADDON cross-pollination
+  'ADDON Marketplace', // Users discover and discuss new addon possibilities
+  // Future ADDON rooms auto-generate
+  if (hasDriverAddon) 'Transportation Network',
+  if (hasHostAddon) 'Accommodation Sharing',
 ];
 ```
 
 ---
 
-### **Task 5.5: Models and Data Structure Update**
+### **Task 5.6: ADDON Mock Data Revolution**
 **File:** `/lib/models/user.dart` and related model files
 
-**Changes Required:**
-- [ ] **Eliminate Tourist User Model**: Remove separate tourist user class
-- [ ] **Create Unified Consumer Model**: Single consumer class with preferences
-- [ ] **Add Premium Subscription Fields**: Track subscription status and features
-- [ ] **Update User Factory Methods**: Simplify user creation logic
-- [ ] **Modify Authentication States**: Handle 2-account system
+**🔥 ADDON Model Implementation:**
+- [ ] **Single DeadHourUser Model**: Replace all user types with ADDON-based single model
+- [ ] **ADDON Enum Expansion**: Implement current + future addon types
+- [ ] **Dynamic ADDON Capabilities**: Methods that change based on active addon stack
+- [ ] **Cross-ADDON Analytics**: Track performance across multiple addons
+- [ ] **ADDON Marketplace Data**: Model for discovering and activating new addons
 
-**Model Structure Update:**
+**🎯 ADDON Model Structure Revolution:**
 ```dart
-// OLD: Separate user models
+// OLD: Multiple separate user models
 class LocalUser extends User { }
 class TouristUser extends User { }
 class BusinessUser extends User { }
 
-// NEW: Unified consumer model
-class ConsumerUser extends User {
-  final UserPreference preference; // 'local' | 'visitor'
-  final bool hasPremiumSubscription;
-  final List<String> premiumFeatures;
-  final DateTime? subscriptionExpiry;
+// NEW: Single ADDON-based user model (ALREADY SHOWN ABOVE)
+// This is the FINAL implementation that replaces ALL previous models
+class DeadHourUser {
+  final String id;
+  final String email;
+  final BaseProfile baseProfile;
+  final Set<UserAddon> activeAddons;
+  final UserAddon currentActiveAddon;
+  final Map<UserAddon, dynamic> addonProfiles;
+  final AddonAnalytics crossAddonMetrics;
+  
+  // ADDON-based capabilities (replaces all user type logic)
+  bool get canPostDeals => activeAddons.contains(UserAddon.BUSINESS);
+  bool get canGuideUsers => activeAddons.contains(UserAddon.GUIDE);
+  bool get hasPremiumFeatures => activeAddons.contains(UserAddon.PREMIUM);
+  bool get canOfferRides => activeAddons.contains(UserAddon.DRIVER);
+  bool get canHostGuests => activeAddons.contains(UserAddon.HOST);
+  
+  // Cross-ADDON amplification (THE MAGIC!)
+  double get networkEffectMultiplier => activeAddons.length * 1.5;
+  List<String> get availableFeatures => AddonFeatureCalculator.calculate(activeAddons);
 }
-
-class BusinessUser extends User {
-  // Unchanged - business functionality remains the same
-}
-
-enum UserPreference { local, visitor }
 ```
 
 ---
 
-### **Task 5.6: Mock Data Integration**
+### **Task 5.7: Mock Data ADDON Examples**
 **File:** `/lib/utils/mock_data.dart`
 
-**Changes Required:**
-- [ ] **Remove Tourist-Specific Data**: Eliminate separate tourist user profiles
-- [ ] **Create Mixed Community Data**: Generate community rooms with both locals and tourists
-- [ ] **Update Deal Data**: Ensure deals appeal to unified consumer base
-- [ ] **Add Premium Feature Data**: Include subscription-based premium features
-- [ ] **Cultural Bridge Examples**: Create data showing authentic local-tourist interactions
+**🚀 ADDON Mock Data Revolution:**
+- [ ] **ADDON Stacking Examples**: Users with multiple addon combinations
+- [ ] **Cross-ADDON Community Data**: Rooms showing addon-enhanced interactions
+- [ ] **ADDON Marketplace Data**: Available addons with pricing and features
+- [ ] **Future ADDON Previews**: Coming soon addon teasers
+- [ ] **ADDON Analytics Examples**: Performance data across multiple addons
 
-**Mock Data Updates:**
+**🔥 ADDON Mock Data Revolution:**
 ```dart
-// OLD: Segregated user data
+// OLD: Separate user types
 final localUsers = [...];
 final touristUsers = [...];
+final businessUsers = [...];
 
-// NEW: Unified consumer data with preferences
-final consumerUsers = [
-  ConsumerUser(
+// NEW: ADDON stacking examples
+final deadHourUsers = [
+  DeadHourUser(
     name: 'Ahmed El Fassi',
-    preference: UserPreference.local,
-    hasPremiumSubscription: false,
+    baseProfile: BaseProfile.CONSUMER,
+    activeAddons: {UserAddon.BUSINESS, UserAddon.GUIDE}, // Restaurant owner + local guide!
+    currentActiveAddon: UserAddon.BUSINESS,
   ),
-  ConsumerUser(
-    name: 'Sarah Thompson',
-    preference: UserPreference.visitor,
-    hasPremiumSubscription: true,
+  DeadHourUser(
+    name: 'Sarah Thompson', 
+    baseProfile: BaseProfile.CONSUMER,
+    activeAddons: {UserAddon.PREMIUM, UserAddon.GUIDE}, // Premium tourist who became local guide!
+    currentActiveAddon: UserAddon.GUIDE,
   ),
-  // Mix of locals and tourists in same data structure
+  DeadHourUser(
+    name: 'Youssef Bennani',
+    baseProfile: BaseProfile.BUSINESS_OWNER,
+    activeAddons: {UserAddon.BUSINESS, UserAddon.PREMIUM, UserAddon.DRIVER, UserAddon.HOST}, // Ultimate stacker!
+    currentActiveAddon: UserAddon.BUSINESS,
+  ),
 ];
 
-// NEW: Mixed community rooms
+// NEW: ADDON-enhanced community rooms
 final communityRooms = [
   Room(
-    name: '#foodie-discoveries-casa',
-    members: mixedUserList, // Both locals and tourists
-    description: 'Authentic Casablanca food discoveries - locals share secrets, visitors share experiences',
+    name: '#business-guide-network',
+    description: 'For users with both Business + Guide addons - share venue insights & local expertise',
+    requiredAddons: {UserAddon.BUSINESS, UserAddon.GUIDE},
+  ),
+  Room(
+    name: '#premium-experiences',
+    description: 'Exclusive Premium ADDON community with Guide ADDON experts',
+    members: usersWithPremiumAddon,
   ),
 ];
 ```
 
 ---
 
-## 📋 **PHASE 6: DOCUMENTATION FINALIZATION**
-*Priority: MEDIUM - Supporting materials update*
+## 🚀 **PHASE 6: DOCUMENTATION ADDON FINALIZATION**
+*Priority: HIGH - ADDON System Supporting Materials*
 
-### **Task 6.1: Flutter Mockup Documentation Update**
+### **Task 6.1: Flutter Mockup ADDON Documentation**
 **File:** `/docs/mockup-development/DeadHour Flutter Mockup.md`
 
-**Changes Required:**
-- [ ] **Lines 50-62**: Update Consumer Experience section to reflect unified approach
-- [ ] **Lines 182-203**: Modify implemented screens list to remove tourism-specific screens
-- [ ] **Lines 115-134**: Update Morocco-Specific Features to emphasize cultural bridge through mixed communities
-- [ ] **Lines 295-315**: Revise development roadmap to reflect 2-account architecture
+**🔥 ADDON Documentation Changes:**
+- [ ] **Lines 50-62**: Transform Consumer Experience to ADDON-adaptive experience section
+- [ ] **Lines 182-203**: Replace implemented screens with ADDON system screens (marketplace, switching, etc.)
+- [ ] **Lines 115-134**: Update Morocco-Specific Features to emphasize ADDON-enhanced cultural bridge
+- [ ] **Lines 295-315**: Revise development roadmap to reflect ADDON system architecture with infinite scalability
 
-**Screen Count Updates:**
+**🎯 ADDON Screen Count Revolution:**
 ```markdown
 OLD: Implemented Screens (12 Total)
 - Authentication Flow (5 screens)
@@ -819,115 +1019,136 @@ OLD: Implemented Screens (12 Total)
 - Social Features (2 screens)
 - Business Dashboard (1 screen)
 
-NEW: Implemented Screens (10 Total)
-- Authentication Flow (4 screens) // Simplified user type selection
-- Consumer Experience (4 screens) // Unified for all consumers
-- Social Features (2 screens) // Mixed communities
-- Business Dashboard (1 screen) // Unchanged
+NEW ADDON: Implemented Screens (15+ Total with infinite expansion!)
+- Single Account Creation (3 screens) // Universal profile + ADDON discovery
+- ADDON Marketplace (3 screens) // Discovery, activation, management
+- ADDON Switching Interface (2 screens) // Instagram-inspired switcher + overlay
+- ADDON-Adaptive Home (1 screen) // Changes based on active addon
+- Cross-ADDON Analytics (2 screens) // Performance insights across addons
+- Business/Guide/Premium ADDON Screens (3+ screens) // Dedicated addon interfaces
+- Future ADDON Screens (infinite) // Driver, Host, Chef addons auto-generate
 ```
 
 ---
 
-### **Task 6.2: Main README Update**
+### **Task 6.2: Main README ADDON Revolution**
 **File:** `/README.md`
 
-**Changes Required:**
-- [ ] **Project Overview Section**: Update to reflect 2-account system with premium subscriptions
-- [ ] **Key Features Section**: Emphasize cultural bridge through mixed communities
-- [ ] **Business Model Section**: Update revenue streams to reflect subscription model
-- [ ] **Documentation Navigation**: Ensure all links reflect updated documentation
+**🚀 ADDON README Transformation:**
+- [ ] **Project Overview Section**: Transform to Single-Account Multi-ADDON System with infinite scalability
+- [ ] **Key Features Section**: Emphasize ADDON stacking, cross-addon amplification, and progressive enhancement
+- [ ] **Business Model Section**: Multiple revenue streams per user via ADDON monetization (€65+/month potential)
+- [ ] **ADDON Showcase Section**: Highlight Instagram-inspired switching + Airbnb-validated architecture
+- [ ] **Future ADDON Roadmap**: Driver, Host, Chef, Photographer addon expansion timeline
 
 ---
 
-### **Task 6.3: Comprehensive Assessment Report Update**
+### **Task 6.3: Comprehensive Assessment ADDON Report**
 **File:** `/docs/DeadHour_Project_Comprehensive_Assessment_Report.md`
 
-**Changes Required:**
-- [ ] **Lines 60-85**: Update MVP Coverage Analysis to reflect simplified account structure
-- [ ] **Lines 230-250**: Modify competitive advantage analysis to emphasize network effects
-- [ ] **Lines 325-345**: Update financial projections based on subscription model
-- [ ] **Lines 420-430**: Revise investment recommendation based on simplified architecture
+**🔥 ADDON Assessment Revolution:**
+- [ ] **Lines 60-85**: Transform MVP Coverage to ADDON system architecture with infinite expansion potential
+- [ ] **Lines 230-250**: Revolutionize competitive advantage with ADDON-based network amplification
+- [ ] **Lines 325-345**: Update financial projections to ADDON stacking revenue model (€65+/month per user)
+- [ ] **Lines 420-430**: Transform investment recommendation to industry-validated ADDON architecture
 
 ---
 
-## 📋 **PHASE 7: VALIDATION AND TESTING**
-*Priority: LOW - Quality assurance*
+## 🚀 **PHASE 7: ADDON VALIDATION AND TESTING**
+*Priority: HIGH - ADDON System Quality Assurance*
 
-### **Task 7.1: Documentation Consistency Check**
-**Validation Criteria:**
-- [ ] **All References Updated**: No mentions of "3 account types" remain in any document
-- [ ] **Revenue Model Consistency**: Premium subscriptions referenced consistently across all files
-- [ ] **Network Effects Language**: Cultural bridge through mixed communities emphasized throughout
-- [ ] **User Segmentation Alignment**: Consumer (local + tourist) + Business model used universally
+### **Task 7.1: ADDON Documentation Consistency Check**
+**🔥 ADDON Validation Criteria:**
+- [ ] **Complete ADDON Transformation**: No mentions of "3 account types" or "2-account system" remain
+- [ ] **ADDON Revenue Consistency**: ADDON stacking monetization (€65+/month) referenced consistently
+- [ ] **Cross-ADDON Network Effects**: ADDON amplification and infinite scalability emphasized throughout
+- [ ] **Single-Account Architecture**: Universal DeadHour Profile with ADDON capabilities used universally
+- [ ] **Industry Validation**: Airbnb/Instagram/Facebook model references consistent across all documents
 
-### **Task 7.2: Flutter Mockup Functionality Test**
-**Technical Validation:**
-- [ ] **App Compilation**: Flutter app builds successfully with routing changes
-- [ ] **Navigation Flow**: User type selection works with 2-option system
-- [ ] **Community Rooms**: Mixed user interactions display correctly
-- [ ] **Premium Integration**: Subscription options accessible within consumer flow
+### **Task 7.2: ADDON Flutter Implementation Test**
+**🎯 ADDON Technical Validation:**
+- [ ] **ADDON System Compilation**: Flutter app builds with ADDON architecture successfully
+- [ ] **ADDON Switching Flow**: Instagram-inspired addon switcher works seamlessly
+- [ ] **ADDON Marketplace**: Discovery and activation flow functions correctly
+- [ ] **Cross-ADDON Analytics**: Performance tracking across multiple addons displays properly
+- [ ] **Future ADDON Readiness**: Architecture supports infinite addon expansion
 
-### **Task 7.3: Business Logic Verification**
-**Strategic Validation:**
-- [ ] **Revenue Model Math**: Financial projections calculate correctly with subscription model
-- [ ] **Market Sizing**: Combined consumer market (55.4M) used consistently
-- [ ] **Competitive Positioning**: Cultural bridge advantage clearly articulated
-- [ ] **Development Complexity**: Simplified architecture benefits highlighted
-
----
-
-## 🎯 **EXECUTION STRATEGY**
-
-### **Recommended Order:**
-1. **Start with Phase 1 (Strategic Docs)**: Foundation changes that inform all other updates
-2. **Move to Phase 4 (MVP Specs)**: Critical for development guidance
-3. **Execute Phase 5 (Flutter Code)**: Technical implementation of changes
-4. **Complete Phase 2-3**: Supporting documentation alignment
-5. **Finish with Phase 6-7**: Final documentation and validation
-
-### **Time Estimation:**
-- **Phase 1-2**: 4-6 hours (Strategic and development docs)
-- **Phase 3-4**: 3-4 hours (Market validation and MVP specs)
-- **Phase 5**: 5-7 hours (Flutter implementation changes)
-- **Phase 6-7**: 2-3 hours (Documentation finalization and testing)
-- **Total**: 14-20 hours of focused work
-
-### **Success Metrics:**
-- ✅ Zero references to "3 account types" across all documentation
-- ✅ Consistent premium subscription revenue model throughout
-- ✅ Flutter app builds and runs with 2-account navigation
-- ✅ Cultural bridge positioning emphasized in all strategic materials
-- ✅ Network effects language updated for mixed community benefits
+### **Task 7.3: ADDON Business Logic Verification**
+**🚀 ADDON Strategic Validation:**
+- [ ] **ADDON Revenue Math**: ADDON stacking projections calculate correctly (€65+/month per user)
+- [ ] **Infinite Market Potential**: 55.4M base users × multiple ADDON combinations sizing validated
+- [ ] **ADDON Competitive Advantage**: Industry-validated architecture (Airbnb model) clearly positioned
+- [ ] **ADDON Development Benefits**: Single-account + infinite expansion benefits quantified
 
 ---
 
-## 🚀 **FINAL OUTCOME**
+## 🚀 **ADDON EXECUTION STRATEGY**
 
-Upon completion of all tasks, DeadHour will have:
+### **🔥 ADDON Implementation Order:**
+1. **Phase 1 (Strategic ADDON Revolution)**: Foundation ADDON architecture that informs all development
+2. **Phase 4 (ADDON MVP Specs)**: Critical ADDON system implementation guidance
+3. **Phase 5 (Flutter ADDON Code)**: Technical ADDON system implementation with infinite scalability
+4. **Phase 2-3 (ADDON Development & Validation)**: Supporting ADDON documentation alignment
+5. **Phase 6-7 (ADDON Finalization & Testing)**: Complete ADDON system validation and launch readiness
 
-### **Strategic Benefits**
-- ✅ **Simplified Architecture**: 2-account system reduces development complexity by 30%
-- ✅ **Stronger Network Effects**: Mixed communities create authentic cultural exchanges
-- ✅ **Preserved Revenue**: Premium subscription model maintains tourism revenue stream
-- ✅ **Enhanced User Experience**: Flexible premium access for all consumer types
-- ✅ **Cultural Bridge**: Core differentiation maintained through unified communities
+### **🎯 ADDON Time Estimation:**
+- **Phase 1-2**: 6-8 hours (ADDON strategic architecture + development system design)
+- **Phase 3-4**: 4-5 hours (ADDON market validation + comprehensive MVP specifications)
+- **Phase 5**: 8-10 hours (Complete ADDON Flutter implementation with infinite scalability)
+- **Phase 6-7**: 3-4 hours (ADDON documentation finalization + comprehensive testing)
+- **Total**: 21-27 hours of revolutionary ADDON implementation work
 
-### **Technical Benefits**
-- ✅ **Reduced Development Time**: Simplified onboarding and user management
-- ✅ **Cleaner Codebase**: Unified consumer models and APIs
-- ✅ **Easier Maintenance**: Single consumer experience vs multiple account types
-- ✅ **Scalable Architecture**: Premium features as add-ons vs separate systems
-
-### **Business Benefits**
-- ✅ **Faster Community Growth**: Mixed user base creates larger network effects
-- ✅ **Authentic Experiences**: Local-tourist interactions drive platform value
-- ✅ **Revenue Flexibility**: Any user can upgrade to premium features
-- ✅ **Investment Appeal**: Simplified architecture reduces execution risk
+### **🚀 ADDON Success Metrics:**
+- ✅ Complete ADDON system transformation - zero references to old account systems
+- ✅ ADDON stacking revenue model (€65+/month) implemented throughout
+- ✅ Flutter app builds with Instagram-inspired ADDON switching interface
+- ✅ Industry-validated architecture (Airbnb/Instagram model) positioned consistently
+- ✅ Cross-ADDON network amplification emphasized across all materials
+- ✅ Infinite ADDON scalability architecture ready for Driver/Host/Chef expansion
+- ✅ ADDON marketplace functionality operational for progressive enhancement
 
 ---
 
-**Total Tasks: 19**  
-**Files to Update: 15+**  
-**Expected Impact: Transformative platform simplification with preserved revenue model**
+## 🚀 **REVOLUTIONARY ADDON FINAL OUTCOME**
 
-🇲🇦 **Ready to transform DeadHour into a more powerful, unified cultural bridge platform!**
+Upon completion of all ADDON tasks, DeadHour will have achieved:
+
+### **🔥 ADDON Strategic Revolution**
+- ✅ **Industry-Validated Architecture**: Single-account multi-ADDON system like Airbnb (€75B), Instagram (2B users)
+- ✅ **Infinite Network Effects**: Cross-ADDON amplification where each addon enhances others exponentially
+- ✅ **Multiple Revenue Streams**: €65+/month per user through ADDON stacking vs single account limitations
+- ✅ **Progressive Enhancement UX**: Instagram-inspired switching + Airbnb-style role expansion
+- ✅ **Infinite Scalability**: Future addons (Driver, Host, Chef, Photographer) auto-integrate seamlessly
+
+### **🎯 ADDON Technical Excellence**
+- ✅ **Revolutionary Development**: Single-account + ADDON system reduces complexity while enabling infinite expansion
+- ✅ **Future-Ready Codebase**: ADDON architecture supports unlimited capability additions
+- ✅ **Instagram-Inspired UX**: Seamless ADDON switching interface with marketplace discovery
+- ✅ **Cross-ADDON Analytics**: Performance tracking and amplification insights across multiple addons
+- ✅ **Infinite Expansion Ready**: Architecture prepared for Driver, Host, Chef, and unlimited future addons
+
+### **💡 ADDON Business Transformation**
+- ✅ **Exponential Growth Potential**: ADDON stacking creates compound network effects and revenue multiplication
+- ✅ **Market Differentiation**: First-mover advantage in ADDON-based social discovery for emerging markets
+- ✅ **Investment Magnetism**: Industry-validated architecture reduces risk while promising infinite scalability
+- ✅ **User Lifetime Value**: Multiple ADDON combinations create unprecedented engagement and revenue per user
+- ✅ **Competitive Moat**: ADDON marketplace and cross-addon amplification impossible to replicate
+
+---
+
+---
+
+**🚀 Total ADDON Tasks: 25+**  
+**📁 Files to Revolutionize: 20+**  
+**💥 Expected Impact: Complete platform transformation to industry-leading ADDON architecture with infinite scalability**
+
+**📊 Revenue Potential:** €65+/month per stacked user vs previous limitations  
+**🌐 Market Opportunity:** 55.4M base users × infinite ADDON combinations = unlimited growth  
+**🏆 Competitive Advantage:** First-mover in ADDON-based social discovery with proven architecture  
+**♾️ Infinite Expansion:** Driver, Host, Chef, Photographer addons = endless possibilities  
+
+---
+
+🇲🇦 **DeadHour is ready for the complete ADDON REVOLUTION - transforming from a 3-account system to the world's first infinite-scalability ADDON-based social discovery platform!** 🎉
+
+**💫 The Future is ADDON-Powered, and DeadHour leads the way! 💫**

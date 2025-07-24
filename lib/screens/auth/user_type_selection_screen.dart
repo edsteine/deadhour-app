@@ -4,15 +4,15 @@ import '../../utils/theme.dart';
 import '../../utils/constants.dart';
 import '../../utils/guest_mode.dart';
 
-class UserTypeSelectionScreen extends StatefulWidget {
-  const UserTypeSelectionScreen({super.key});
+class AddonMarketplaceScreen extends StatefulWidget {
+  const AddonMarketplaceScreen({super.key});
 
   @override
-  State<UserTypeSelectionScreen> createState() => _UserTypeSelectionScreenState();
+  State<AddonMarketplaceScreen> createState() => _AddonMarketplaceScreenState();
 }
 
-class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
-  String? _selectedUserType;
+class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
+  Set<String> _selectedAddons = {};
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
 
               // Header
               Text(
-                'Choose Your Experience',
+                'Welcome to ADDON Marketplace',
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppTheme.primaryText,
@@ -43,27 +43,47 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Select the type that best describes you to get personalized features and content.',
+                'Start as Consumer and add ADDONs to unlock capabilities. Each ADDON generates €30-€15/month revenue.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.secondaryText,
                     ),
               ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  '🚀 Following success patterns: Airbnb (€75B) + Instagram (2B users) + Facebook (3B users)',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppTheme.moroccoGreen,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
               const SizedBox(height: 48),
 
-              // User type cards
+              // ADDON cards
               Expanded(
                 child: ListView.builder(
-                  itemCount: AppConstants.userTypes.length,
+                  itemCount: AppConstants.availableAddons.length,
                   itemBuilder: (context, index) {
-                    final userType = AppConstants.userTypes[index];
-                    final isSelected = _selectedUserType == userType['id'];
+                    final addon = AppConstants.availableAddons[index];
+                    final isSelected = _selectedAddons.contains(addon['id']);
 
-                    return _buildUserTypeCard(
-                      userType: userType,
+                    return _buildAddonCard(
+                      addon: addon,
                       isSelected: isSelected,
                       onTap: () {
                         setState(() {
-                          _selectedUserType = userType['id'];
+                          if (isSelected) {
+                            _selectedAddons.remove(addon['id']);
+                          } else {
+                            _selectedAddons.add(addon['id']!);
+                          }
                         });
                       },
                     );
@@ -71,19 +91,21 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                 ),
               ),
 
-              // Continue button (for registration)
+              // Continue button (create universal account)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _selectedUserType != null ? () => _continueWithUserType() : null,
+                  onPressed: () => _createUniversalAccount(),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Create Account',
+                  child: Text(
+                    _selectedAddons.isEmpty 
+                        ? 'Create Consumer Account (Free)'
+                        : 'Create Account with ADDONs (€${_calculateMonthlyRevenue()}/month)',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -148,8 +170,8 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     );
   }
 
-  Widget _buildUserTypeCard({
-    required Map<String, String> userType,
+  Widget _buildAddonCard({
+    required Map<String, String> addon,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
@@ -188,7 +210,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    userType['icon']!,
+                    addon['icon']!,
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),
@@ -200,24 +222,37 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      userType['name']!,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isSelected ? AppTheme.moroccoGreen : AppTheme.primaryText,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          addon['name']!,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: isSelected ? AppTheme.moroccoGreen : AppTheme.primaryText,
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          addon['price']!,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.moroccoGreen,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      userType['description']!,
+                      addon['description']!,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppTheme.secondaryText,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    _buildUserTypeFeatures(userType['id']!),
+                    _buildAddonFeatures(addon['id']!),
                   ],
                 ),
               ),
@@ -250,18 +285,18 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     );
   }
 
-  Widget _buildUserTypeFeatures(String userTypeId) {
+  Widget _buildAddonFeatures(String addonId) {
     List<String> features = [];
 
-    switch (userTypeId) {
-      case 'local':
-        features = ['Community rooms', 'Local deals', 'Social discovery'];
-        break;
-      case 'tourist':
-        features = ['Premium features', 'Local experts', 'Cultural guides'];
-        break;
+    switch (addonId) {
       case 'business':
-        features = ['Create deals', 'Analytics', 'Revenue optimization'];
+        features = ['Venue management', 'Deal creation', 'Analytics dashboard'];
+        break;
+      case 'guide':
+        features = ['Local expertise', 'Cultural guidance', 'Tourism services'];
+        break;
+      case 'premium':
+        features = ['Enhanced features', 'Cross-ADDON analytics', 'Priority support'];
         break;
     }
 
@@ -288,10 +323,29 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     );
   }
 
-  void _continueWithUserType() {
-    // Store selected user type in shared preferences or state management
-    // For now, navigate to registration with user type parameter
-    context.go('/register?userType=$_selectedUserType');
+  void _createUniversalAccount() {
+    // Create universal DeadHour account with selected ADDONs
+    // Store selected addons in user profile
+    final addonsQuery = _selectedAddons.join(',');
+    context.go('/register?addons=$addonsQuery');
+  }
+
+  int _calculateMonthlyRevenue() {
+    int total = 0;
+    for (String addonId in _selectedAddons) {
+      switch (addonId) {
+        case 'business':
+          total += 30;
+          break;
+        case 'guide':
+          total += 20;
+          break;
+        case 'premium':
+          total += 15;
+          break;
+      }
+    }
+    return total;
   }
 
   void _continueAsGuest() async {

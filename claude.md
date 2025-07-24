@@ -90,6 +90,14 @@ Never present generated, inferred, speculated, or deduced content as fact.
 - **Label assumptions clearly** vs. validated facts in any recommendations
 - **60-day validation sprint** approach for major decisions
 
+## Task Execution Methodology
+- **Complete One Task Before Moving to Next**: Never leave tasks partially completed
+- **Fix Issues Immediately**: When verification finds problems, fix them immediately rather than saving for later
+- **Document Progress**: Update verification TODOs and track what was fixed vs what needs fixing
+- **Context Preservation**: With limited context (9% remaining), complete each file transformation before moving to next
+- **No Batch Processing**: Avoid trying to do everything at once - this leads to lost work when context runs out
+- **Verification → Fix → Document → Next**: Always follow this sequence to preserve progress
+
 ## Code Style & Conventions
 - Use **Dart naming conventions**: `camelCase` for variables/functions, `PascalCase` for classes
 - **File naming**: `snake_case` for file names (e.g., `home_screen.dart`)

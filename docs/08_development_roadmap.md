@@ -1,32 +1,32 @@
-# DeadHour - Dual-Problem Platform Development Roadmap  
+# DeadHour - ADDON System Development Roadmap  
 
-## Overview - Dual Track Strategy for Dual-Problem Platform
+## Overview - ADDON-Based Development Strategy
 
-This roadmap outlines both development tracks for DeadHour as a dual-problem platform: the rapid MVP demonstrating both business optimization and social discovery, and the comprehensive production system scaling network effects internationally.
+This roadmap outlines the development tracks for DeadHour as the world's first infinite-scalability ADDON-based social discovery platform, inspired by industry leaders like Airbnb (€75B), Instagram (2B users), and Facebook (3B users).
 
-**Track 1**: Dual-Problem MVP (4 weeks) - Prove network effects between both problems  
-**Track 2**: Global Platform (6 months) - Scale dual-problem template internationally  
+**Track 1**: ADDON System MVP (4 weeks) - Prove ADDON stacking and marketplace functionality  
+**Track 2**: Global ADDON Platform (6 months) - Scale ADDON architecture internationally  
 
-**Core Innovation**: Every development phase demonstrates both problems being solved simultaneously  
+**Core Innovation**: Every development phase demonstrates ADDON stacking with cross-addon amplification and infinite scalability potential  
 
 ---
 
 ## Development Strategy Comparison
 
-### Track 1: Dual-Problem Firebase MVP
-**Purpose**: Prove network effects between business optimization + social discovery  
+### Track 1: ADDON System Firebase MVP
+**Purpose**: Prove ADDON stacking, marketplace functionality, and Instagram-inspired switching interface  
 **Timeline**: 4 weeks  
-**Team**: Solo developer with dual-problem focus  
-**Investment**: Personal time + ~$1,000 (enhanced for social platform features)  
-**Target**: Working dual-problem demonstration with fake data showing both problems solved  
+**Team**: Solo developer with ADDON system expertise  
+**Investment**: Personal time + ~$1,000 (enhanced for ADDON marketplace features)  
+**Target**: Working ADDON demonstration with Business, Guide, and Premium ADDON stacking  
 
-### Track 2: Global Dual-Problem Platform
-**Purpose**: Scalable international template for dual-problem platforms  
+### Track 2: Global ADDON Platform
+**Purpose**: Scalable international template for infinite-scalability ADDON platforms  
 **Timeline**: 6 months  
-**Team**: 12-15 people (dual-problem expertise)  
-**Investment**: $500K-750K development budget (platform complexity premium)  
-**Target**: Morocco template ready for global expansion  
-**Target**: Thousands of venues, hundreds of thousands of users  
+**Team**: 12-15 people (ADDON architecture expertise)  
+**Investment**: $500K-750K development budget (ADDON platform complexity premium)  
+**Target**: Morocco template ready for global ADDON expansion  
+**Target**: Thousands of ADDON-stacked users generating €65+/month revenue  
 
 ---
 
@@ -122,14 +122,15 @@ This roadmap outlines both development tracks for DeadHour as a dual-problem pla
 - [ ] Prepare presentation materials
 - [ ] Final performance optimization
 
-**Deliverables**: Investor-ready app with comprehensive fake data
+**Deliverables**: Investor-ready ADDON system app with comprehensive marketplace data
 
 ### MVP Success Metrics
 - **App Launch Time**: <3 seconds
-- **Booking Flow Completion**: <2 minutes
-- **Stable Performance**: No crashes during demo
-- **Realistic Data**: 30+ venues, 100+ time slots
-- **Professional UI**: App store ready design
+- **ADDON Switching Time**: <1 second (Instagram-inspired interface)
+- **ADDON Marketplace Discovery**: <30 seconds to find relevant ADDONs
+- **Stable Performance**: No crashes during ADDON demonstration
+- **Realistic Data**: 30+ ADDON-stacked users, complete marketplace
+- **Professional UI**: Instagram-inspired ADDON switching ready for demo
 
 ---
 

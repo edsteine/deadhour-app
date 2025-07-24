@@ -251,58 +251,87 @@ class MockData {
   ];
 
   // Mock Users
-  static List<AppUser> get users => [
-    AppUser(
+  // ADDON System Demo Users - Progressive Enhancement Examples
+  static List<DeadHourUser> get users => [
+    DeadHourUser(
       id: '1',
-      name: 'Ahmed Benali',
+      name: 'Ahmed Benali - Multi-ADDON Success',
       email: 'ahmed.benali@email.com',
       phone: '+212 661 234 567',
-      userType: 'local',
+      activeAddons: {UserAddon.BUSINESS, UserAddon.GUIDE, UserAddon.PREMIUM}, // €65/month revenue
       city: 'Casablanca',
       profileImageUrl: 'https://picsum.photos/150/150?random=21',
       joinDate: DateTime.now().subtract(const Duration(days: 120)),
       preferredLanguage: 'ar',
       isVerified: true,
-      dealsUsed: 47,
-      communityScore: 4.8,
-      totalSavings: 1847,
+      addonCapabilities: {
+        UserAddon.BUSINESS: {'venueId': '1', 'monthlyRevenue': 850},
+        UserAddon.GUIDE: {'expertiseAreas': ['Food', 'Culture'], 'rating': 4.8},
+        UserAddon.PREMIUM: {'enhancedAnalytics': true, 'prioritySupport': true}
+      },
+      crossAddonMetrics: {'businessGuideAmplification': 1.4, 'totalEarnings': 65},
+      networkEffectMultiplier: 1.4,
       favoriteCategories: ['food', 'entertainment'],
+      languages: ['ar', 'fr'],
     ),
     
-    AppUser(
+    DeadHourUser(
       id: '2',
-      name: 'Sarah Johnson',
+      name: 'Sarah Johnson - Guide ADDON Success',
       email: 'sarah.johnson@email.com',
       phone: '+33 6 12 34 56 78',
-      userType: 'tourist',
+      activeAddons: {UserAddon.GUIDE, UserAddon.PREMIUM}, // €35/month revenue
       city: 'Marrakech',
       profileImageUrl: 'https://picsum.photos/150/150?random=22',
       joinDate: DateTime.now().subtract(const Duration(days: 3)),
       preferredLanguage: 'en',
       isVerified: true,
-      dealsUsed: 5,
-      communityScore: 4.9,
-      totalSavings: 234,
+      addonCapabilities: {
+        UserAddon.GUIDE: {'expertiseAreas': ['Tourism', 'Culture'], 'rating': 4.9, 'languages': ['en', 'fr']},
+        UserAddon.PREMIUM: {'enhancedDiscovery': true, 'priorityBookings': true}
+      },
+      crossAddonMetrics: {'guideExpertise': 4.9, 'totalEarnings': 35},
+      networkEffectMultiplier: 1.2,
       favoriteCategories: ['tourism', 'food', 'wellness'],
-      isPremium: true,
+      languages: ['en', 'fr'],
     ),
     
-    AppUser(
+    DeadHourUser(
       id: '3',
-      name: 'Omar El Fassi',
+      name: 'Omar El Fassi - Business ADDON Owner',
       email: 'omar.elfassi@email.com',
       phone: '+212 662 345 678',
-      userType: 'local',
+      activeAddons: {UserAddon.BUSINESS}, // €30/month revenue
       city: 'Rabat',
       profileImageUrl: 'https://picsum.photos/150/150?random=23',
       joinDate: DateTime.now().subtract(const Duration(days: 89)),
       preferredLanguage: 'ar',
       isVerified: true,
-      dealsUsed: 23,
-      communityScore: 4.7,
-      totalSavings: 678,
-      favoriteCategories: ['sports', 'entertainment'],
-      isLocalExpert: true,
+      addonCapabilities: {
+        UserAddon.BUSINESS: {'venueId': '4', 'monthlyRevenue': 720, 'category': 'wellness'}
+      },
+      crossAddonMetrics: {'businessOptimization': 1.3, 'totalEarnings': 30},
+      networkEffectMultiplier: 1.1,
+      favoriteCategories: ['sports', 'entertainment', 'wellness'],
+      languages: ['ar', 'fr'],
+    ),
+    
+    DeadHourUser(
+      id: '4',
+      name: 'Fatima Alaoui - Consumer (Future ADDON Potential)',
+      email: 'fatima.alaoui@email.com',
+      phone: '+212 663 456 789',
+      activeAddons: {}, // Consumer, ready for ADDON progression
+      city: 'Casablanca',
+      profileImageUrl: 'https://picsum.photos/150/150?random=24',
+      joinDate: DateTime.now().subtract(const Duration(days: 15)),
+      preferredLanguage: 'ar',
+      isVerified: false,
+      addonCapabilities: {},
+      crossAddonMetrics: {'discoverScore': 3.8},
+      networkEffectMultiplier: 1.0,
+      favoriteCategories: ['food', 'wellness'],
+      languages: ['ar'],
     ),
   ];
 
@@ -462,7 +491,7 @@ class MockData {
   };
 
   // Current User (Mock)
-  static AppUser get currentUser => users.first;
+  static DeadHourUser get currentUser => users.first;
 
   // Business Data for logged-in business user
   static Map<String, dynamic> get businessData => {

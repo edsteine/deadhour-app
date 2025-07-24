@@ -1,32 +1,32 @@
-# DeadHour - Dual-Problem Platform Funding Requirements & Investment Opportunity
+# DeadHour - ADDON System Funding Requirements & Investment Opportunity
 
 ## Investment Overview
 
-**Funding Stage**: Seed Round (Enhanced for Dual-Problem Platform)  
+**Funding Stage**: Seed Round (Enhanced for ADDON Marketplace Platform)  
 **Amount Sought**: $200,000 - $300,000  
 **Equity Offered**: 18-25%  
 **Timeline**: Q1 2024  
-**Use Period**: 18 months (extended runway for network effects development)  
+**Use Period**: 18 months (extended runway for ADDON architecture development)  
 
-**Investment Thesis**: First platform to solve two interconnected problems simultaneously, creating exponential network effects vs linear single-problem solutions  
+**Investment Thesis**: World's first infinite-scalability ADDON platform, following industry-validated architecture of Airbnb (€75B), Instagram (2B users), and Facebook (3B users)  
 
 ---
 
 ## Investment Thesis
 
-### Why DeadHour is an Exceptional Dual-Problem Investment
+### Why DeadHour is an Exceptional ADDON Investment
 
-**1. Exponential Market Opportunity (Dual Problems = Multiplied Value)**
-- **Business Optimization Market**: $346M+ F&B alone + 300K businesses losing 60-70% potential revenue
-- **Social Discovery Market**: $571B→$1T social commerce growth + 8M locals + 13M tourists annually
-- **Network Effects Advantage**: Zero competitors solving both problems simultaneously
-- **International Template**: Morocco success scales to any market with businesses + tourism
+**1. Infinite Scalability Market Opportunity (ADDON Stacking = Exponential Value)**
+- **Universal User Base**: 55.4M potential users (38M locals + 17.4M tourists) with unlimited ADDON potential
+- **ADDON Revenue Multiplication**: Each user can generate €65+/month through ADDON stacking (Business €30 + Guide €20 + Premium €15)
+- **Industry-Validated Architecture**: Following exact patterns that made Airbnb (€75B), Instagram (2B users), Facebook (3B users) successful
+- **Infinite Expansion**: Future Driver/Host/Chef/Photographer ADDONs create unlimited revenue growth potential
 
-**2. Network Effects Unit Economics**
-- **Enhanced LTV/CAC**: 15:1+ ratios through social engagement and viral growth
-- **Multiple Revenue Streams**: Business subscriptions + commissions + premium users + social commerce
-- **Tourism Premium**: 3-5x higher revenue from international users (15-20 EUR/month)
-- **Faster Profitability**: Break-even by Month 15 (multiple revenue streams)
+**2. ADDON Stacking Unit Economics**
+- **Revolutionary Revenue Model**: €65+/month per user through ADDON stacking vs traditional commission models
+- **Cross-ADDON Amplification**: Each ADDON enhances others (Business owners with Guide expertise earn more)
+- **Instagram-Inspired Interface**: Seamless ADDON switching with familiar social media UX drives adoption
+- **Exponential Profitability**: Break-even by Month 8 (ADDON subscription revenue)
 
 **3. Dual-Problem Technical Leadership**
 - **Social Platform Expertise**: Experience building community-driven applications
@@ -34,11 +34,11 @@
 - **Tourism Industry Insight**: Morocco's $8.2B tourism economy integration
 - **Local + International Perspective**: Cultural bridge between locals and tourists
 
-**4. Ecosystem Lock-In Advantage**
-- **No Dual-Problem Competitors**: Globally or in Morocco - first-mover in new category
-- **Network Effects Moat**: Each problem solved amplifies the other (competitors must rebuild entire ecosystem)
-- **Cross-Problem Dependencies**: Businesses depend on community, users depend on deals
-- **International Scalability**: Two-problem model works in any tourism + local business market
+**4. Infinite ADDON Architecture Advantage**
+- **Industry-Validated Model**: Following exact success patterns of Airbnb's dual-role system, Instagram's mode switching
+- **ADDON Network Effects**: Each ADDON amplifies others through cross-addon interactions and infinite scalability
+- **Instagram-Inspired UX**: Users familiar with social media switching interface drives rapid adoption
+- **Global Template**: ADDON architecture works in any market globally, unlimited expansion potential
 
 ---
 

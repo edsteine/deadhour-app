@@ -1,13 +1,13 @@
-# DeadHour Dual-Problem MVP - Complete Development Guide
+# DeadHour ADDON System MVP - Complete Development Guide
 
-## Overview - Build Dual-Problem Platform in 4 Weeks
+## Overview - Build ADDON Marketplace Platform in 4 Weeks
 
-This guide provides step-by-step instructions to build a dual-problem platform solving both business revenue optimization AND social discovery using Flutter + Firebase. The MVP demonstrates network effects by making each problem easier to solve through addressing the other.
+This guide provides step-by-step instructions to build the world's first infinite-scalability ADDON-based social discovery platform using Flutter + Firebase. The MVP demonstrates ADDON stacking, Instagram-inspired switching interface, and cross-addon amplification.
 
-**Target Timeline**: 4 weeks (dual-problem features integrated from Day 1)  
-**Tech Stack**: Flutter + Firebase (Firestore, Auth, Storage, Real-time messaging)  
-**Core Innovation**: Every feature serves both business optimization AND social discovery  
-**Deployment**: Android Play Store with dual-problem demonstration  
+**Target Timeline**: 4 weeks (ADDON marketplace features integrated from Day 1)  
+**Tech Stack**: Flutter + Firebase (Firestore, Auth, Storage, ADDON marketplace)  
+**Core Innovation**: Single account with stackable ADDONs (Business €30 + Guide €20 + Premium €15)  
+**Deployment**: Android Play Store with ADDON demonstration  
 
 ---
 
@@ -20,32 +20,37 @@ flutter doctor  # Ensure Flutter is properly installed
 firebase --version  # Install Firebase CLI if needed
 ```
 
-### Dual-Problem Firebase Project Setup
+### ADDON Marketplace Firebase Project Setup
 1. **Create Firebase Project**: Go to [console.firebase.google.com](https://console.firebase.google.com)
-2. **Enable Services for Dual-Problem Platform**:
-   - Authentication (Email/Password, Phone, Google for tourists)
-   - Firestore Database (real-time for social features)
-   - Storage (user photos, venue images, social content)
-   - Cloud Messaging (deal notifications + social activity)
-   - Firebase Functions (network effects analytics)
-3. **Dual-Problem Collections Structure (Morocco-Localized)**:
+2. **Enable Services for ADDON Platform**:
+   - Authentication (Universal DeadHour account creation)
+   - Firestore Database (ADDON stacking and marketplace)
+   - Storage (ADDON user profiles, capabilities showcase)
+   - Cloud Messaging (ADDON notifications and switching alerts)
+   - Firebase Functions (cross-addon amplification analytics)
+3. **ADDON System Collections Structure (Morocco-Localized)**:
    ```
-   cities/casablanca/
-     rooms/
-       food-morning-deals/ {deals: [], messages: [], members: [], culturalContext: "post-prayer-breakfast"}
-       coffee-afternoon-chat/ {social content + business deals, timeContext: "14:00-16:00_avoiding_asr_prayer"}
-       iftar-ramadan-specials/ {seasonalDeals: [], fastingSchedule: true}
-     users/ {
-       userType: "local"|"tourist", 
-       interests: [], 
-       crossProblemActivity: [],
-       culturalPreferences: {
-         language: "arabic"|"french"|"english",
-         prayerTimeAware: boolean,
-         halalRequirements: boolean,
-         ramadanModeEnabled: boolean
-       }
+   users/ {
+     activeAddons: ["BUSINESS", "GUIDE", "PREMIUM"],
+     addonCapabilities: {
+       business: {venueId: string, analyticsAccess: boolean},
+       guide: {expertiseAreas: [], commissionRate: number},
+       premium: {enhancedFeatures: true, crossAddonAnalytics: true}
+     },
+     addonSwitchingHistory: [],
+     crossAddonMetrics: {networkEffectMultiplier: number},
+     culturalPreferences: {
+       language: "arabic"|"french"|"english",
+       prayerTimeAware: boolean,
+       halalRequirements: boolean,
+       ramadanModeEnabled: boolean
      }
+   }
+   addonMarketplace/ {
+     availableAddons: ["BUSINESS", "GUIDE", "PREMIUM", "DRIVER", "HOST", "CHEF", "PHOTOGRAPHER"],
+     pricingTiers: {business: 30, guide: 20, premium: 15},
+     futureAddons: {driver: 25, host: 20, chef: 30, photographer: 15}
+   }
      culturalCalendar/ {
        prayerTimes: {fajr, dhuhr, asr, maghrib, isha},
        ramadanSchedule: {suhoor, iftar},
@@ -56,9 +61,9 @@ firebase --version  # Install Firebase CLI if needed
 
 ---
 
-## Week 1: Dual-Problem Foundation & User Types
+## Week 1: ADDON System Foundation & Marketplace
 
-**Goal**: Establish dual-problem architecture with local/tourist user types and room-based structure
+**Goal**: Establish ADDON architecture with single account and Instagram-inspired switching interface
 
 ### Day 1-2: Project Setup & Firebase Integration
 

@@ -1,27 +1,27 @@
-# DeadHour - Business Strategy & Go-to-Market Plan
+# DeadHour - ADDON System Business Strategy & Go-to-Market Plan
 
 ## Strategic Approach Overview
 
-**Core Strategy**: Build fast with MVP → Demonstrate market traction → Secure funding → Scale with experienced team
+**Core Strategy**: Build ADDON marketplace MVP → Demonstrate ADDON stacking success → Secure funding → Scale infinite ADDON architecture
 
-This approach protects equity while proving market demand before major investment.
+This approach validates the revolutionary ADDON model inspired by Airbnb (€75B), Instagram (2B users), and Facebook (3B users) before major investment.
 
 ---
 
 ## Business Model
 
-### Revenue Streams
+### ADDON Stacking Revenue Model
 
-**Primary: Commission-Based Model**
-- **8-15% commission** on successful bookings
-- No upfront costs for venues
-- Revenue sharing aligns platform success with venue success
-- Scalable model that grows with booking volume
+**Primary: ADDON Subscription Revenue (€65+/month per user)**
+- **Business ADDON**: €30/month for venue management + analytics + deal posting
+- **Guide ADDON**: €20/month for local expertise sharing + commission on guidance services
+- **Premium ADDON**: €15/month for enhanced features across ALL addons
+- **Future ADDONs**: Driver (€25) + Host (€20) + Chef (€30) + Photographer (€15)
 
-**Secondary: Subscription Tiers for Businesses**
-- **Basic Tier**: Free (limited features, basic listing)
-- **Premium Tier**: 200-500 MAD/month (advanced analytics, priority placement)  
-- **Enterprise Tier**: 800-1500 MAD/month (multi-location management, custom features)
+**Revolutionary ADDON Stacking Model**
+- Users can stack multiple ADDONs for exponential value
+- Cross-addon amplification creates network effects
+- Example: Business owner with Guide expertise earns from both ADDONs while they amplify each other
 
 **Tertiary: Advertising Revenue**
 - Featured placement for venues
@@ -30,19 +30,18 @@ This approach protects equity while proving market demand before major investmen
 
 ### Value Proposition
 
-**For Businesses:**
-- Turn empty capacity into revenue during dead hours
-- No upfront investment required
-- Access to price-sensitive customer segment
-- Clear ROI tracking and analytics
-- Flexible discount and timing control
+**For ADDON Users:**
+- **Progressive Enhancement**: Start as Consumer, add Business/Guide/Premium ADDONs as needed
+- **Revenue Multiplication**: €65+/month through ADDON stacking with cross-addon amplification
+- **Instagram-Inspired Interface**: Seamless ADDON switching with familiar social media UX
+- **Infinite Expansion**: Future Driver/Host/Chef/Photographer ADDONs for unlimited earning potential
+- **Network Effects**: Each ADDON enhances the others (Business owners with Guide expertise earn more)
 
-**For Consumers:**
-- Save 20-60% at quality venues during off-peak times
-- Discover new places with guaranteed availability
-- Simple booking process with instant confirmation
-- Cash payment option (crucial for Morocco market)
-- Exclusive deals not available elsewhere
+**For Community Discovery:**
+- **ADDON-Enhanced Rooms**: Connect with multi-talented users (business owners who are also guides)
+- **Authentic Experiences**: Verified local expertise through Guide ADDON holders
+- **Progressive Trust**: Users build reputation across multiple ADDON capabilities
+- **Social Commerce**: Discover businesses through trusted community connections
 
 ---
 
@@ -114,13 +113,13 @@ This approach protects equity while proving market demand before major investmen
 
 ---
 
-## Dual-Problem Competitive Strategy
+## ADDON System Competitive Strategy
 
-### Ecosystem Lock-In Advantage
-- **No competitors solving both problems simultaneously** - globally or in Morocco
-- Create network effects where business success improves user discovery
-- Build dual-sided relationships: venues depend on community, users depend on deals
-- Switching costs: competitors must rebuild entire dual-problem ecosystem
+### Infinite Scalability Lock-In Advantage
+- **First infinite-scalability ADDON platform globally** - following Airbnb/Instagram model
+- Create network effects where each ADDON amplifies others through cross-addon interactions
+- Build multi-ADDON relationships: users stack capabilities, businesses benefit from multi-talented users
+- Switching costs: competitors must rebuild entire ADDON architecture and marketplace
 
 ### Funded Competitor Intelligence (2024 Validation)
 

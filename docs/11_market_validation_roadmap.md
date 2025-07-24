@@ -11,14 +11,14 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 ## Current Strategic Foundation ✅
 
 ### Exceptional Strengths Already Established
-- **Clear dual-problem positioning** with network effects strategy  
+- **Clear ADDON stacking positioning** with cross-addon amplification strategy  
 - **Comprehensive competitive analysis** with global market validation  
 - **Sound technical architecture** for both MVP and production scaling  
 - **Realistic financial projections** with multiple revenue streams  
 - **Cultural integration planning** for Morocco market specifics  
 
 ### Strategic Documents Completed
-- Executive summary with dual-problem value proposition
+- Executive summary with ADDON stacking value proposition
 - Market analysis with granular user personas  
 - Business strategy with competitive moat
 - Financial projections with international scaling
@@ -127,7 +127,7 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 **Day 8-14: Data Collection Phase 1**
 - [ ] Conduct venue owner interviews (off-peak revenue problems, discount willingness)
 - [ ] Execute user surveys (dining habits, deal-seeking behavior, social discovery patterns)
-- [ ] Test core concept validation (dual-problem resonance)
+- [ ] Test core concept validation (ADDON stacking resonance)
 - [ ] Document initial findings and patterns
 
 **Deliverables**: 
@@ -196,7 +196,7 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 - [ ] Create simple venue listing app with fake Morocco data
 - [ ] Build basic booking flow for user testing
 - [ ] Add social discovery elements (rooms/communities)
-- [ ] Test core dual-problem user experience
+- [ ] Test core ADDON stacking user experience
 
 **Day 46-49: User Testing with Prototype**
 - [ ] Conduct usability tests with 10+ potential users
@@ -399,7 +399,7 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 - [ ] Consider market segmentation (focus on highest interest segments)
 
 **Strategic Adjustments**:
-- [ ] Modify dual-problem approach based on problem priority
+- [ ] Modify ADDON stacking approach based on user capability priorities
 - [ ] Adjust revenue model to address venue owner concerns
 - [ ] Refine user acquisition strategy based on behavior insights
 - [ ] Update investor presentation with realistic projections
@@ -409,7 +409,7 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 **Pivot Considerations**:
 - [ ] Reassess market timing and readiness
 - [ ] Consider alternative markets (other North African countries)
-- [ ] Evaluate single-problem focus vs dual-problem approach
+- [ ] Evaluate single-purpose focus vs ADDON stacking approach
 - [ ] Explore B2B2C model vs direct consumer approach
 
 **Strategic Options**:
@@ -523,7 +523,7 @@ This roadmap bridges the gap between comprehensive strategic planning and real-w
 ### Strategic Position Post-Validation
 
 **Enhanced Investment Readiness**:
-Your comprehensive strategic planning combined with market validation creates an exceptionally strong investment opportunity. The dual-problem approach remains innovative and differentiated, while validation provides the credibility investors require.
+Your comprehensive strategic planning combined with market validation creates an exceptionally strong investment opportunity. The ADDON stacking approach remains innovative and differentiated, while validation provides the credibility investors require.
 
 **Reduced Execution Risk**:
 Market validation transforms strategic assumptions into validated market insights, significantly reducing execution risk and increasing probability of successful launch and scaling.

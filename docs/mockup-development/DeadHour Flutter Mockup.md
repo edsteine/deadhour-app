@@ -4,7 +4,7 @@ A comprehensive Flutter mockup for the DeadHour platform - Morocco's premier soc
 
 ## 🇲🇦 About DeadHour
 
-DeadHour solves the dual problem of:
+DeadHour's ADDON system addresses:
 1. **For Consumers**: Finding engaging activities and deals during typically quiet hours (2-6 PM)
 2. **For Businesses**: Filling empty venues during low-traffic periods
 
@@ -21,7 +21,7 @@ DeadHour solves the dual problem of:
 ### ✅ Complete Implementation
 - **28 Dart Files**: Comprehensive screen and component implementation
 - **Authentication Flow**: Splash, onboarding, user type selection, login/register
-- **Consumer Experience**: Home feed, deal discovery, community rooms, social features
+- **Universal User Experience**: Home feed, deal discovery, community rooms, ADDON marketplace
 - **Business Dashboard**: Analytics, deal management, performance tracking
 - **Social Features**: Real-time chat, deal alerts, group formation
 - **Morocco-Centric Design**: Cultural considerations, local business types, Arabic/French support
@@ -43,18 +43,18 @@ DeadHour solves the dual problem of:
 
 ### Authentication Flow
 - **Splash Screen**: Morocco-themed branding with animated logo
-- **Onboarding**: Introduction to the dual-problem platform concept
-- **User Type Selection**: Choose between Consumer and Business accounts
+- **Onboarding**: Introduction to the ADDON stacking platform concept
+- **ADDON Marketplace**: Universal DeadHour account with ADDON selection
 - **Login/Register**: Streamlined authentication with social options
 
-### Consumer Experience
+### Universal User Experience with ADDON Capabilities
 - **Home Screen**: Personalized deal feed with location-based recommendations
 - **Deals Screen**: Advanced filtering and sorting for deal discovery
 - **Community Rooms**: Location and interest-based social spaces
 - **Room Chat**: Real-time messaging with deal alerts and group formation
 - **Profile**: User preferences, history, and social connections
 
-### Business Experience
+### Business ADDON Experience
 - **Business Dashboard**: Comprehensive analytics and deal management
 - **Deal Creation**: Easy-to-use deal posting with targeting options
 - **Analytics**: Revenue tracking, customer insights, and performance metrics
@@ -184,11 +184,11 @@ The app includes realistic mock data representing:
 ### Authentication Flow (5 screens)
 1. **Splash Screen** - Morocco-themed branding with animated logo
 2. **Onboarding Screen** - 3-step platform introduction
-3. **User Type Selection** - Consumer vs Business account choice
+3. **ADDON Marketplace** - Universal account with ADDON selection
 4. **Login Screen** - Email/phone with social login options
 5. **Register Screen** - Multi-step registration with validation
 
-### Consumer Experience (4 screens)
+### Universal User Experience with ADDON Marketplace (4 screens)
 1. **Main Navigation** - Bottom navigation with animated indicators
 2. **Home Screen** - Personalized deal feed with location-based recommendations
 3. **Deals Screen** - Advanced filtering and sorting capabilities

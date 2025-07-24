@@ -1,67 +1,74 @@
-class AppUser {
+enum UserAddon {
+  BUSINESS,
+  GUIDE, 
+  PREMIUM,
+  DRIVER,
+  HOST,
+  CHEF,
+  PHOTOGRAPHER
+}
+
+class DeadHourUser {
   final String id;
   final String name;
   final String email;
   final String phone;
-  final String userType; // 'local', 'tourist', 'business'
+  final Set<UserAddon> activeAddons; // Revolutionary ADDON stacking system
   final String city;
   final String? profileImageUrl;
   final DateTime joinDate;
   final String preferredLanguage;
   final bool isVerified;
-  final int dealsUsed;
-  final double communityScore;
-  final double totalSavings;
+  final Map<UserAddon, Map<String, dynamic>> addonCapabilities;
+  final Map<String, dynamic> crossAddonMetrics;
+  final double networkEffectMultiplier;
   final List<String> favoriteCategories;
-  final bool isPremium;
-  final bool isLocalExpert;
-  final String? expertiseAreas;
   final List<String> languages;
-  final Map<String, dynamic>? businessInfo;
 
-  AppUser({
+  DeadHourUser({
     required this.id,
     required this.name,
     required this.email,
     required this.phone,
-    required this.userType,
+    this.activeAddons = const {}, // Start as Consumer, add ADDONs progressively
     required this.city,
     this.profileImageUrl,
     required this.joinDate,
     this.preferredLanguage = 'en',
     this.isVerified = false,
-    this.dealsUsed = 0,
-    this.communityScore = 0.0,
-    this.totalSavings = 0.0,
+    this.addonCapabilities = const {},
+    this.crossAddonMetrics = const {},
+    this.networkEffectMultiplier = 1.0,
     this.favoriteCategories = const [],
-    this.isPremium = false,
-    this.isLocalExpert = false,
-    this.expertiseAreas,
     this.languages = const ['en'],
-    this.businessInfo,
   });
 
-  factory AppUser.fromJson(Map<String, dynamic> json) {
-    return AppUser(
+  factory DeadHourUser.fromJson(Map<String, dynamic> json) {
+    Set<UserAddon> addons = {};
+    if (json['activeAddons'] != null) {
+      List<String> addonStrings = List<String>.from(json['activeAddons']);
+      addons = addonStrings.map((addon) => UserAddon.values.firstWhere(
+        (e) => e.name == addon.toUpperCase(),
+        orElse: () => UserAddon.PREMIUM,
+      )).toSet();
+    }
+    
+    return DeadHourUser(
       id: json['id'],
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
-      userType: json['userType'],
+      activeAddons: addons,
       city: json['city'],
       profileImageUrl: json['profileImageUrl'],
       joinDate: DateTime.parse(json['joinDate']),
       preferredLanguage: json['preferredLanguage'] ?? 'en',
       isVerified: json['isVerified'] ?? false,
-      dealsUsed: json['dealsUsed'] ?? 0,
-      communityScore: (json['communityScore'] ?? 0.0).toDouble(),
-      totalSavings: (json['totalSavings'] ?? 0.0).toDouble(),
+      addonCapabilities: Map<UserAddon, Map<String, dynamic>>.from(json['addonCapabilities'] ?? {}),
+      crossAddonMetrics: Map<String, dynamic>.from(json['crossAddonMetrics'] ?? {}),
+      networkEffectMultiplier: (json['networkEffectMultiplier'] ?? 1.0).toDouble(),
       favoriteCategories: List<String>.from(json['favoriteCategories'] ?? []),
-      isPremium: json['isPremium'] ?? false,
-      isLocalExpert: json['isLocalExpert'] ?? false,
-      expertiseAreas: json['expertiseAreas'],
       languages: List<String>.from(json['languages'] ?? ['en']),
-      businessInfo: json['businessInfo'],
     );
   }
 
@@ -71,109 +78,116 @@ class AppUser {
       'name': name,
       'email': email,
       'phone': phone,
-      'userType': userType,
+      'activeAddons': activeAddons.map((addon) => addon.name).toList(),
       'city': city,
       'profileImageUrl': profileImageUrl,
       'joinDate': joinDate.toIso8601String(),
       'preferredLanguage': preferredLanguage,
       'isVerified': isVerified,
-      'dealsUsed': dealsUsed,
-      'communityScore': communityScore,
-      'totalSavings': totalSavings,
+      'addonCapabilities': addonCapabilities,
+      'crossAddonMetrics': crossAddonMetrics,
+      'networkEffectMultiplier': networkEffectMultiplier,
       'favoriteCategories': favoriteCategories,
-      'isPremium': isPremium,
-      'isLocalExpert': isLocalExpert,
-      'expertiseAreas': expertiseAreas,
       'languages': languages,
-      'businessInfo': businessInfo,
     };
   }
 
-  AppUser copyWith({
+  DeadHourUser copyWith({
     String? id,
     String? name,
     String? email,
     String? phone,
-    String? userType,
+    Set<UserAddon>? activeAddons,
     String? city,
     String? profileImageUrl,
     DateTime? joinDate,
     String? preferredLanguage,
     bool? isVerified,
-    int? dealsUsed,
-    double? communityScore,
-    double? totalSavings,
+    Map<UserAddon, Map<String, dynamic>>? addonCapabilities,
+    Map<String, dynamic>? crossAddonMetrics,
+    double? networkEffectMultiplier,
     List<String>? favoriteCategories,
-    bool? isPremium,
-    bool? isLocalExpert,
-    String? expertiseAreas,
     List<String>? languages,
-    Map<String, dynamic>? businessInfo,
   }) {
-    return AppUser(
+    return DeadHourUser(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      userType: userType ?? this.userType,
+      activeAddons: activeAddons ?? this.activeAddons,
       city: city ?? this.city,
       profileImageUrl: profileImageUrl ?? this.profileImageUrl,
       joinDate: joinDate ?? this.joinDate,
       preferredLanguage: preferredLanguage ?? this.preferredLanguage,
       isVerified: isVerified ?? this.isVerified,
-      dealsUsed: dealsUsed ?? this.dealsUsed,
-      communityScore: communityScore ?? this.communityScore,
-      totalSavings: totalSavings ?? this.totalSavings,
+      addonCapabilities: addonCapabilities ?? this.addonCapabilities,
+      crossAddonMetrics: crossAddonMetrics ?? this.crossAddonMetrics,
+      networkEffectMultiplier: networkEffectMultiplier ?? this.networkEffectMultiplier,
       favoriteCategories: favoriteCategories ?? this.favoriteCategories,
-      isPremium: isPremium ?? this.isPremium,
-      isLocalExpert: isLocalExpert ?? this.isLocalExpert,
-      expertiseAreas: expertiseAreas ?? this.expertiseAreas,
       languages: languages ?? this.languages,
-      businessInfo: businessInfo ?? this.businessInfo,
     );
   }
 
-  bool get isLocal => userType == 'local';
-  bool get isTourist => userType == 'tourist';
-  bool get isBusiness => userType == 'business';
+  // ADDON System Getters
+  bool get hasBusinessAddon => activeAddons.contains(UserAddon.BUSINESS);
+  bool get hasGuideAddon => activeAddons.contains(UserAddon.GUIDE);
+  bool get hasPremiumAddon => activeAddons.contains(UserAddon.PREMIUM);
+  bool get hasDriverAddon => activeAddons.contains(UserAddon.DRIVER);
+  bool get hasHostAddon => activeAddons.contains(UserAddon.HOST);
+  bool get hasChefAddon => activeAddons.contains(UserAddon.CHEF);
+  bool get hasPhotographerAddon => activeAddons.contains(UserAddon.PHOTOGRAPHER);
   
-  String get displayUserType {
-    switch (userType) {
-      case 'local':
-        return 'Local Resident';
-      case 'tourist':
-        return 'Tourist/Visitor';
-      case 'business':
-        return 'Business Owner';
-      default:
-        return 'User';
-    }
+  double get monthlyRevenuePotential {
+    double revenue = 0;
+    if (hasBusinessAddon) revenue += 30; // €30/month
+    if (hasGuideAddon) revenue += 20;    // €20/month  
+    if (hasPremiumAddon) revenue += 15;  // €15/month
+    return revenue * networkEffectMultiplier;
+  }
+  
+  String get displayAddons {
+    if (activeAddons.isEmpty) return 'Consumer';
+    return activeAddons.map((addon) => addon.name).join(' + ');
   }
 
   String get userTypeIcon {
-    switch (userType) {
-      case 'local':
-        return '🏠';
-      case 'tourist':
-        return '✈️';
-      case 'business':
-        return '🏢';
-      default:
-        return '👤';
-    }
+    if (activeAddons.isEmpty) return '👤'; // Consumer
+    if (hasBusinessAddon && hasGuideAddon && hasPremiumAddon) return '💎'; // Triple ADDON
+    if (hasBusinessAddon && hasGuideAddon) return '🏢✈️'; // Business + Guide
+    if (hasBusinessAddon && hasPremiumAddon) return '🏢💎'; // Business + Premium
+    if (hasGuideAddon && hasPremiumAddon) return '✈️💎'; // Guide + Premium
+    if (hasBusinessAddon) return '🏢'; // Business ADDON
+    if (hasGuideAddon) return '✈️'; // Guide ADDON
+    if (hasPremiumAddon) return '💎'; // Premium ADDON
+    return '👤'; // Default Consumer
   }
   
   // Additional getters for compatibility with existing code
   String get profilePicture => profileImageUrl ?? 'https://i.pravatar.cc/150?img=1';
-  String get userTypeDisplay => displayUserType;
+  String get userTypeDisplay => displayAddons;
   String get memberSince => '${joinDate.day}/${joinDate.month}/${joinDate.year}';
-  double get rating => communityScore;
+  double get rating => networkEffectMultiplier;
   
   Map<String, dynamic> get stats => {
-    'dealsUsed': dealsUsed,
-    'totalSaved': totalSavings.toInt(),
-    'roomsJoined': favoriteCategories.length * 2, // Mock calculation
-    'connectionsCount': (communityScore * 10).toInt(), // Mock calculation
+    'activeAddons': activeAddons.length,
+    'monthlyRevenue': monthlyRevenuePotential.toInt(),
+    'roomsJoined': favoriteCategories.length * (activeAddons.length + 1), // ADDON multiplier
+    'networkEffect': (networkEffectMultiplier * 100).toInt(), // Network effect score
   };
+  
+  // ADDON management methods
+  DeadHourUser addAddon(UserAddon addon) {
+    final newAddons = Set<UserAddon>.from(activeAddons)..add(addon);
+    return copyWith(activeAddons: newAddons);
+  }
+  
+  DeadHourUser removeAddon(UserAddon addon) {
+    final newAddons = Set<UserAddon>.from(activeAddons)..remove(addon);
+    return copyWith(activeAddons: newAddons);
+  }
+  
+  bool canAccessAddonFeature(UserAddon requiredAddon) {
+    return activeAddons.contains(requiredAddon);
+  }
 }
 

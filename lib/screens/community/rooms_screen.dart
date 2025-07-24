@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../widgets/common/room_card.dart';
+import '../../models/user.dart';
 
 class RoomsScreen extends StatefulWidget {
-  const RoomsScreen({super.key});
+  final DeadHourUser? user;
+  
+  const RoomsScreen({super.key, this.user});
 
   @override
   State<RoomsScreen> createState() => _RoomsScreenState();
@@ -16,17 +19,40 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
 
-  final List<Tab> _tabs = [
-    const Tab(text: 'All Rooms'),
-    const Tab(text: 'My Rooms'),
-    const Tab(text: 'Popular'),
-    const Tab(text: 'Premium'),
-  ];
+  List<Tab> get _tabs {
+    List<Tab> baseTabs = [
+      const Tab(text: 'All Rooms'),
+      const Tab(text: 'My Rooms'),
+      const Tab(text: 'Popular'),
+    ];
+    
+    // Add ADDON-specific tabs
+    if (widget.user?.hasAddon(UserAddon.BUSINESS) == true) {
+      baseTabs.add(const Tab(text: 'Business'));
+    }
+    if (widget.user?.hasAddon(UserAddon.GUIDE) == true) {
+      baseTabs.add(const Tab(text: 'Guide Network'));
+    }
+    if (widget.user?.hasAddon(UserAddon.PREMIUM) == true) {
+      baseTabs.add(const Tab(text: 'Premium'));
+    }
+    
+    return baseTabs;
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
+  }
+  
+  @override
+  void didUpdateWidget(RoomsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.user?.activeAddons != widget.user?.activeAddons) {
+      _tabController.dispose();
+      _tabController = TabController(length: _tabs.length, vsync: this);
+    }
   }
 
   @override
@@ -61,12 +87,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
-                _buildAllRoomsTab(),
-                _buildMyRoomsTab(),
-                _buildPopularRoomsTab(),
-                _buildPremiumRoomsTab(),
-              ],
+              children: _buildTabViews(),
             ),
           ),
         ],
@@ -190,7 +211,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
       {'id': 'food', 'name': 'Food', 'icon': '🍕'},
       {'id': 'entertainment', 'name': 'Fun', 'icon': '🎮'},
       {'id': 'wellness', 'name': 'Spa', 'icon': '💆'},
-      {'id': 'tourism', 'name': 'Tourism', 'icon': '🌍'},
+      {'id': 'guide', 'name': 'Guide', 'icon': '🌍'},
       {'id': 'family', 'name': 'Family', 'icon': '👨‍👩‍👧‍👦'},
     ];
 
@@ -586,62 +607,140 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
     );
   }
 
-  void _showPremiumUpgrade() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Upgrade to Premium'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.workspace_premium,
-              size: 48,
-              color: AppTheme.moroccoGold,
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Premium Features:',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text('• Access to premium rooms'),
-            Text('• Local expert connections'),
-            Text('• Priority deal notifications'),
-            Text('• Ad-free experience'),
-            SizedBox(height: 16),
-            Text(
-              '75 MAD/month for locals\n450 MAD/month for tourists',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: AppTheme.secondaryText,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Maybe Later'),
+  List<Widget> _buildTabViews() {
+    List<Widget> views = [
+      _buildAllRoomsTab(),
+      _buildMyRoomsTab(),
+      _buildPopularRoomsTab(),
+    ];
+    
+    // Add ADDON-specific tab views
+    if (widget.user?.hasAddon(UserAddon.BUSINESS) == true) {
+      views.add(_buildBusinessRoomsTab());
+    }
+    if (widget.user?.hasAddon(UserAddon.GUIDE) == true) {
+      views.add(_buildGuideRoomsTab());
+    }
+    if (widget.user?.hasAddon(UserAddon.PREMIUM) == true) {
+      views.add(_buildPremiumRoomsTab());
+    }
+    
+    return views;
+  }
+
+  Widget _buildBusinessRoomsTab() {
+    // ADDON-enhanced rooms for business owners
+    final businessRooms = [
+      {'id': 'business-owners-lounge', 'name': 'Business Owners Lounge', 'category': 'business', 'members': 234},
+      {'id': 'revenue-optimization', 'name': 'Revenue Optimization', 'category': 'business', 'members': 156},
+      {'id': 'dead-hours-strategies', 'name': 'Dead Hours Strategies', 'category': 'business', 'members': 89},
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: businessRooms.length,
+      itemBuilder: (context, index) {
+        final room = businessRooms[index];
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Premium upgrade not implemented in mockup'),
-                  backgroundColor: AppColors.info,
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGreen,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              );
-            },
-            child: const Text('Upgrade Now'),
+                child: const Icon(Icons.business, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      room['name']!,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      '${room['members']} business owners',
+                      style: const TextStyle(fontSize: 12, color: AppTheme.secondaryText),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.secondaryText),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
+  }
+
+  Widget _buildGuideRoomsTab() {
+    // ADDON-enhanced rooms for guide network
+    final guideRooms = [
+      {'id': 'guide-network', 'name': 'Guide Network Hub', 'category': 'guide', 'members': 189},
+      {'id': 'cultural-insights', 'name': 'Cultural Insights', 'category': 'guide', 'members': 267},
+      {'id': 'local-secrets', 'name': 'Local Secrets Exchange', 'category': 'guide', 'members': 134},
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: guideRooms.length,
+      itemBuilder: (context, index) {
+        final room = guideRooms[index];
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGreen,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.explore, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      room['name']!,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      '${room['members']} local guides',
+                      style: const TextStyle(fontSize: 12, color: AppTheme.secondaryText),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.secondaryText),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showPremiumUpgrade() {
+    context.push('/addon-marketplace');
   }
 }

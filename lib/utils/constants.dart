@@ -86,31 +86,74 @@ class AppConstants {
     },
   ];
   
-  // User Types
-  static const List<Map<String, String>> userTypes = [
-    {
-      'id': 'local',
-      'name': 'Local Resident',
-      'icon': '🏠',
-      'description': 'Find deals, join community rooms',
-      'arabic': 'مقيم محلي',
-      'french': 'Résident Local'
-    },
-    {
-      'id': 'tourist',
-      'name': 'Tourist/Visitor',
-      'icon': '✈️',
-      'description': 'Premium features, local expert connections',
-      'arabic': 'سائح/زائر',
-      'french': 'Touriste/Visiteur'
-    },
+  // Available ADDONs for ADDON Marketplace
+  static const List<Map<String, String>> availableAddons = [
     {
       'id': 'business',
-      'name': 'Business Owner',
+      'name': 'Business ADDON',
       'icon': '🏢',
-      'description': 'Create deals, manage dead hours, track revenue',
-      'arabic': 'صاحب عمل',
-      'french': 'Propriétaire d\'entreprise'
+      'price': '€30/month',
+      'description': 'Venue management, deal creation, analytics dashboard',
+      'arabic': 'إضافة الأعمال',
+      'french': 'Module Entreprise'
+    },
+    {
+      'id': 'guide',
+      'name': 'Guide ADDON',
+      'icon': '🌍',
+      'price': '€20/month',
+      'description': 'Local expertise, cultural guidance, tourism services',
+      'arabic': 'إضافة الدليل',
+      'french': 'Module Guide'
+    },
+    {
+      'id': 'premium',
+      'name': 'Premium ADDON',
+      'icon': '⭐',
+      'price': '€15/month',
+      'description': 'Enhanced features, cross-ADDON analytics, priority support',
+      'arabic': 'إضافة البريميوم',
+      'french': 'Module Premium'
+    },
+  ];
+
+  // Future ADDONs (infinite scalability)
+  static const List<Map<String, String>> futureAddons = [
+    {
+      'id': 'driver',
+      'name': 'Driver ADDON',
+      'icon': '🚗',
+      'price': '€25/month',
+      'description': 'Transportation services, ride coordination',
+      'arabic': 'إضافة السائق',
+      'french': 'Module Chauffeur'
+    },
+    {
+      'id': 'host',
+      'name': 'Host ADDON',
+      'icon': '🏠',
+      'price': '€20/month',
+      'description': 'Accommodation hosting, guest services',
+      'arabic': 'إضافة المضيف',
+      'french': 'Module Hôte'
+    },
+    {
+      'id': 'chef',
+      'name': 'Chef ADDON',
+      'icon': '👨‍🍳',
+      'price': '€30/month',
+      'description': 'Private cooking, culinary experiences',
+      'arabic': 'إضافة الطاهي',
+      'french': 'Module Chef'
+    },
+    {
+      'id': 'photographer',
+      'name': 'Photographer ADDON',
+      'icon': '📸',
+      'price': '€15/month',
+      'description': 'Photography services, visual content creation',
+      'arabic': 'إضافة المصور',
+      'french': 'Module Photographe'
     },
   ];
   
@@ -146,15 +189,30 @@ class AppConstants {
   static const String currency = 'MAD';
   static const String currencySymbol = 'MAD';
   
-  // Commission Rate
-  static const double commissionRate = 0.08; // 8%
+  // ADDON Revenue Model (replacing commission-based model)
+  static const double maxMonthlyRevenuePerUser = 65.0; // EUR (Business + Guide + Premium)
+  static const double futureMaxMonthlyRevenue = 155.0; // EUR (all 7 ADDONs)
   
-  // Premium Pricing
-  static const Map<String, double> premiumPricing = {
-    'local_monthly': 75.0, // MAD
-    'tourist_monthly': 450.0, // MAD (15 EUR)
-    'local_yearly': 750.0, // MAD (save 17%)
-    'tourist_yearly': 4500.0, // MAD (save 17%)
+  // ADDON Pricing (Monthly)
+  static const Map<String, double> addonPricing = {
+    'business': 30.0, // EUR per month
+    'guide': 20.0, // EUR per month
+    'premium': 15.0, // EUR per month
+    'driver': 25.0, // EUR per month (future)
+    'host': 20.0, // EUR per month (future)
+    'chef': 30.0, // EUR per month (future)
+    'photographer': 15.0, // EUR per month (future)
+  };
+
+  // ADDON Yearly Pricing (save 17%)
+  static const Map<String, double> addonPricingYearly = {
+    'business': 300.0, // EUR per year
+    'guide': 200.0, // EUR per year
+    'premium': 150.0, // EUR per year
+    'driver': 250.0, // EUR per year (future)
+    'host': 200.0, // EUR per year (future)
+    'chef': 300.0, // EUR per year (future)
+    'photographer': 150.0, // EUR per year (future)
   };
   
   // API Endpoints (Mock)

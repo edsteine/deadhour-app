@@ -1,27 +1,27 @@
-# DeadHour MVP - Core Business Screens (90% Functionality)
+# DeadHour MVP - ADDON System Core Screens (90% Functionality)
 
 ## Overview
-This document contains the **essential screens** that demonstrate DeadHour's dual-problem platform value to investors and users. These screens prove both business optimization AND social discovery work together.
+This document contains the **essential screens** that demonstrate DeadHour's revolutionary ADDON platform value to investors and users. These screens prove infinite scalability through ADDON stacking and cross-addon amplification.
 
-**MVP Purpose**: Show the core network effects where business deals become community discovery opportunities.
+**MVP Purpose**: Show the Instagram-inspired ADDON switching interface and marketplace functionality.
 
 **Development Timeline**: 4 weeks
-**Resource Requirements**: 2-3 developers, Firebase backend, basic integrations
-**Target**: Prove dual-problem solution with 90% of platform value
+**Resource Requirements**: 2-3 developers, Firebase backend, ADDON marketplace integrations
+**Target**: Prove ADDON system with €65+/month revenue potential per user
 
 ---
 
 ## Core Business Value
 
-**Dual-Problem Solution Proof**:
-✅ **Problem #1 - Business Revenue Crisis**: Business dashboard showing off-peak optimization
-✅ **Problem #2 - Social Discovery Gap**: Room-based social discovery platform  
-✅ **Network Effects**: Business deals create community engagement, community creates business audience
+**ADDON System Proof**:
+✅ **ADDON Stacking**: Single user can have Business €30 + Guide €20 + Premium €15 = €65/month
+✅ **Instagram-Inspired Interface**: Seamless ADDON switching with familiar social media UX
+✅ **Cross-ADDON Amplification**: Each ADDON enhances others through network effects
 
-**Essential User Journeys**:
-1. **Business Owner**: Post off-peak deal → See community engagement → Track revenue increase
-2. **Local User**: Join room → See deal from business → Book through social discovery
-3. **Tourist**: Connect with locals → Discover authentic venues → Book premium experiences
+**Essential ADDON User Journeys**:
+1. **Consumer → Business ADDON**: Start as consumer → Add Business ADDON → Manage venue with enhanced tools
+2. **Business → Guide ADDON**: Business owner adds Guide expertise → Earn from both ADDONs
+3. **Multi-ADDON User**: Switch between ADDONs seamlessly → Cross-addon analytics → Maximize revenue
 
 ---
 
@@ -41,7 +41,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │         Loading...                 │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Brand recognition for dual-problem platform
+**Business Value**: Brand recognition for infinite-scalability ADDON platform
 **Features**: Morocco-themed, multi-language support, prayer time integration
 
 ### 1.2 Welcome/Onboarding Screen
@@ -69,7 +69,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ [Skip] [Next] [Get Started]        │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Explain dual-problem value proposition immediately
+**Business Value**: Explain ADDON stacking value proposition with industry validation
 
 ### 1.3 Registration Screen
 ```
@@ -78,10 +78,15 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │                                    │
 ├─────────────────────────────────────┤
 │                                    │
-│ I am a:                            │
-│ ● 🏠 Local Resident                │
-│ ○ ✈️ Tourist/Visitor               │
-│ ○ 🏢 Business Owner (Venue)        │
+│ Create Universal DeadHour Account: │
+│                                    │
+│ 🎯 Start as Consumer (Everyone)    │
+│ + Add ADDONs later through marketplace │
+│                                    │
+│ Available ADDONs:                  │
+│ • Business ADDON (€30/month)       │
+│ • Guide ADDON (€20/month)          │
+│ • Premium ADDON (€15/month)        │
 │                                    │
 │ Phone Number                       │
 │ ┌─────────────────────────────────┐ │
@@ -242,7 +247,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ [Discover More] [Browse All]       │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Show dual-problem solution working - deals + community rooms together
+**Business Value**: Show ADDON stacking solution working - deals + community rooms together
 
 ### 2.2 Tourist Home Screen
 ```
@@ -403,7 +408,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ [📞 Call] [🗺️ Directions]          │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Perfect example of dual-problem solution - venue optimization + community engagement
+**Business Value**: Perfect example of ADDON amplification - venue optimization + community engagement
 
 ### 4.2 Booking Flow Screen
 ```
@@ -526,7 +531,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ [Type message...] [📷] [📍] [😊]   │
 └─────────────────────────────────────┘
 ```
-**Business Value**: PERFECT example of dual-problem solution in action - business deal creates social discovery opportunity
+**Business Value**: PERFECT example of ADDON amplification in action - business deal creates social discovery opportunity
 
 ---
 
@@ -1151,7 +1156,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ └─────────────────────────────────┘ │
 └─────────────────────────────────────┘
 ```
-**Business Value**: PERFECT example of dual-problem solution - business deal creates social discovery + tourist-local connection
+**Business Value**: PERFECT example of ADDON amplification - business deal creates social discovery + Guide ADDON connection
 
 ### 10.3 Create New Room Screen
 ```
@@ -1367,7 +1372,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ Morocco.                           │
 │                                    │
 │ 🌟 What Makes Us Different:        │
-│ • First dual-problem platform      │
+│ • First infinite-scalability ADDON platform      │
 │ • Morocco cultural integration     │
 │ • Room-based social discovery      │
 │ • Tourism + local expertise        │
@@ -1406,7 +1411,7 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 │ and local business partners        │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Brand mission and dual-problem value proposition explanation
+**Business Value**: Brand mission and ADDON stacking value proposition explanation
 
 ### 21.2 Privacy & Data Management
 ```
@@ -1584,4 +1589,4 @@ This document contains the **essential screens** that demonstrate DeadHour's dua
 **Key Screen Sequence**:
 Business Dashboard → Room Chat with Deal → User Books → Revenue Generated
 
-This MVP proves the **entire dual-problem platform concept** with 90% of the value in just 4 weeks of development.
+This MVP proves the **entire ADDON stacking platform concept** with 90% of the value in just 4 weeks of development.

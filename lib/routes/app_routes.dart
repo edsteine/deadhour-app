@@ -6,16 +6,16 @@ import '../screens/auth/splash_screen.dart';
 import '../screens/auth/onboarding_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
-import '../screens/auth/user_type_selection_screen.dart';
 import '../screens/home/main_navigation_screen.dart';
 import '../screens/home/home_screen.dart';
-import '../screens/home/deals_screen.dart';
+import '../screens/deals/deals_screen.dart';
+import '../screens/addons/addon_marketplace_screen.dart';
+import '../screens/addons/addon_switching_screen.dart';
 import '../screens/community/rooms_screen.dart';
 import '../screens/community/room_detail_screen.dart';
-import '../screens/business/business_dashboard_screen.dart';
-import '../screens/business/create_deal_screen.dart';
-import '../screens/tourism/tourism_screen.dart';
-import '../screens/tourism/local_expert_screen.dart';
+import '../screens/business/business_addon_screen.dart';
+import '../screens/guide/guide_addon_screen.dart';
+import '../screens/premium/premium_addon_screen.dart';
 import '../screens/profile/profile_screen.dart';
 import '../screens/profile/settings_screen.dart';
 
@@ -36,9 +36,9 @@ class AppRouter {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
-        path: '/user-type',
-        name: 'user-type',
-        builder: (context, state) => const UserTypeSelectionScreen(),
+        path: '/addon-marketplace',
+        name: 'addon-marketplace',
+        builder: (context, state) => const AddonMarketplaceScreen(),
       ),
       GoRoute(
         path: '/login',
@@ -86,30 +86,31 @@ class AppRouter {
             ],
           ),
 
-          // Business Tab Routes
+          // ADDON Routes
           GoRoute(
-            path: '/business',
-            name: 'business',
-            builder: (context, state) => const BusinessDashboardScreen(),
+            path: '/addons',
+            name: 'addons',
+            builder: (context, state) => const AddonMarketplaceScreen(),
             routes: [
               GoRoute(
-                path: 'create-deal',
-                name: 'create-deal',
-                builder: (context, state) => const CreateDealScreen(),
+                path: 'switching',
+                name: 'addon-switching',
+                builder: (context, state) => const AddonSwitchingScreen(),
               ),
-            ],
-          ),
-
-          // Tourism Tab Routes
-          GoRoute(
-            path: '/tourism',
-            name: 'tourism',
-            builder: (context, state) => const TourismScreen(),
-            routes: [
               GoRoute(
-                path: 'local-expert',
-                name: 'local-expert',
-                builder: (context, state) => const LocalExpertScreen(),
+                path: 'business',
+                name: 'business-addon',
+                builder: (context, state) => const BusinessAddonScreen(),
+              ),
+              GoRoute(
+                path: 'guide',
+                name: 'guide-addon',
+                builder: (context, state) => const GuideAddonScreen(),
+              ),
+              GoRoute(
+                path: 'premium',
+                name: 'premium-addon',
+                builder: (context, state) => const PremiumAddonScreen(),
               ),
             ],
           ),
@@ -166,17 +167,17 @@ class AppRouter {
 class AppRoutes {
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
-  static const String userType = '/user-type';
+  static const String addonMarketplace = '/addon-marketplace';
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
-  static const String deals = '/home/deals';
   static const String community = '/community';
   static const String roomDetail = '/community/room';
-  static const String business = '/business';
-  static const String createDeal = '/business/create-deal';
-  static const String tourism = '/tourism';
-  static const String localExpert = '/tourism/local-expert';
+  static const String addons = '/addons';
+  static const String addonSwitching = '/addons/switching';
+  static const String businessAddon = '/addons/business';
+  static const String guideAddon = '/addons/guide';
+  static const String premiumAddon = '/addons/premium';
   static const String profile = '/profile';
   static const String settings = '/profile/settings';
 }
@@ -195,12 +196,12 @@ class AppNavigation {
     context.go(AppRoutes.register);
   }
 
-  static void goToUserTypeSelection(BuildContext context) {
-    context.go(AppRoutes.userType);
+  static void goToAddonMarketplace(BuildContext context) {
+    context.go(AppRoutes.addonMarketplace);
   }
 
-  static void goToDeals(BuildContext context) {
-    context.go(AppRoutes.deals);
+  static void goToAddons(BuildContext context) {
+    context.go(AppRoutes.addons);
   }
 
   static void goToCommunity(BuildContext context) {
@@ -211,20 +212,20 @@ class AppNavigation {
     context.go('${AppRoutes.roomDetail}/$roomId');
   }
 
-  static void goToBusiness(BuildContext context) {
-    context.go(AppRoutes.business);
+  static void goToBusinessAddon(BuildContext context) {
+    context.go(AppRoutes.businessAddon);
   }
 
-  static void goToCreateDeal(BuildContext context) {
-    context.go(AppRoutes.createDeal);
+  static void goToGuideAddon(BuildContext context) {
+    context.go(AppRoutes.guideAddon);
   }
 
-  static void goToTourism(BuildContext context) {
-    context.go(AppRoutes.tourism);
+  static void goToPremiumAddon(BuildContext context) {
+    context.go(AppRoutes.premiumAddon);
   }
 
-  static void goToLocalExpert(BuildContext context) {
-    context.go(AppRoutes.localExpert);
+  static void goToAddonSwitching(BuildContext context) {
+    context.go(AppRoutes.addonSwitching);
   }
 
   static void goToProfile(BuildContext context) {

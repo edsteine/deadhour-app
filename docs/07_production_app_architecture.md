@@ -1,23 +1,23 @@
-# DeadHour Dual-Problem Production Architecture - Complete Platform Development Plan
+# DeadHour ADDON System Production Architecture - Complete Platform Development Plan
 
-## Overview - Post-Investment Dual-Problem Platform Scaling
+## Overview - Post-Investment ADDON Architecture Scaling
 
-After securing funding and proving dual-problem market demand with the MVP, this document outlines the complete production architecture for DeadHour as a dual-problem platform. This system will support network effects between business optimization and social discovery, scaling to international markets.
+After securing funding and proving ADDON marketplace demand with the MVP, this document outlines the complete production architecture for DeadHour as the world's first infinite-scalability ADDON platform. This system will support ADDON stacking, cross-addon amplification, and Instagram-inspired switching interface.
 
-**Timeline**: 6 months post-funding (dual-problem platform complexity)  
-**Team Required**: 12-15 people (enhanced for dual-problem expertise)  
-**Tech Stack**: Django + Flutter + PostgreSQL + Redis + Real-time messaging  
-**Budget**: $500K-750K development cost (dual-problem platform premium)  
-**Core Innovation**: Every system component serves both business optimization AND social discovery simultaneously  
+**Timeline**: 6 months post-funding (ADDON marketplace platform complexity)  
+**Team Required**: 12-15 people (enhanced for ADDON architecture expertise)  
+**Tech Stack**: Django + Flutter + PostgreSQL + Redis + ADDON marketplace  
+**Budget**: $500K-750K development cost (ADDON platform premium)  
+**Core Innovation**: Every system component serves ADDON stacking with cross-addon amplification (€65+/month per user)  
 
 ---
 
 ## Production Architecture Overview
 
-### Dual-Problem System Architecture Principles
-- **Network Effects Scalability**: Handle 25,000+ concurrent users with cross-problem interactions
-- **Dual-Problem Reliability**: 99.9% uptime for both business optimization AND social discovery features
-- **Cross-Problem Performance**: <300ms API responses for deal posting + social discovery simultaneously
+### ADDON System Architecture Principles
+- **Infinite Scalability**: Handle 25,000+ concurrent users with ADDON stacking and cross-addon amplification
+- **ADDON Reliability**: 99.9% uptime for ADDON marketplace, switching interface, and all ADDON features
+- **Instagram-Inspired Performance**: <300ms API responses for ADDON switching and marketplace browsing
 - **Enhanced Security**: PCI compliance + social platform moderation + international data privacy (GDPR)
 - **Morocco Cultural Integration**: 
   - **Multi-language Support**: Arabic (RTL), French, English with cultural context
@@ -62,11 +62,11 @@ deadhour_backend/
 │   ├── urls.py
 │   └── wsgi.py
 ├── apps/
-│   ├── accounts/          # User management (dual user types: local/tourist)
-│   ├── venues/            # Venue management
-│   ├── bookings/          # Booking system
-│   ├── social/            # Room-based social features
-│   ├── recommendations/   # AI-powered dual-problem recommendations
+│   ├── users/             # Single-account ADDON user management
+│   ├── addons/            # ADDON marketplace and management
+│   ├── addon_switching/   # Instagram-inspired ADDON switching interface
+│   ├── addon_analytics/   # Cross-addon amplification tracking
+│   ├── recommendations/   # AI-powered ADDON stacking recommendations
 │   ├── payments/          # Payment processing
 │   ├── notifications/     # Push notifications
 │   ├── analytics/         # Business analytics + network effects tracking
@@ -2378,4 +2378,4 @@ Authorization: Bearer {token}
 
 ---
 
-This comprehensive API documentation provides complete coverage of all DeadHour platform endpoints, integrated within the production architecture framework. The API design supports both the business optimization and social discovery aspects of the dual-problem platform, ensuring seamless integration between technical implementation and business objectives.
+This comprehensive API documentation provides complete coverage of all DeadHour platform endpoints, integrated within the production architecture framework. The API design supports the ADDON stacking architecture with cross-addon amplification capabilities, ensuring seamless integration between technical implementation and business objectives.
