@@ -2,7 +2,9 @@
 
 ## Overview - Post-Investment Dual-Problem Platform Scaling
 
-After securing funding and proving dual-problem market demand with the MVP, this document outlines the complete production architecture for DeadHour as a dual-problem platform. This system will support network effects between business optimization and social discovery, scaling to international markets, enhanced by multi-role account system for user flexibility.
+**Architectural Evolution**: This document outlines the full production architecture for DeadHour, which is the planned evolution from the initial Firebase-based MVP. The MVP is designed for rapid market validation, while this architecture is designed for long-term scalability, performance, and international expansion.
+
+After securing funding and proving dual-problem market demand with the MVP, this document outlines the complete production architecture for DeadHour as a dual-problem platform. This system will support network effects between business optimization and social discovery, scaling to international markets, enhanced by a multi-role account system for user flexibility.
 
 **Timeline**: 6 months post-funding (dual-problem platform complexity)  
 **Team Required**: 12-15 people (enhanced for dual-problem expertise)  

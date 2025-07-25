@@ -2,13 +2,14 @@
 
 ## Overview - Build Dual-Problem Platform with Multi-Role Account System in 4 Weeks
 
-This guide provides step-by-step instructions to build a dual-problem platform solving both business revenue optimization AND social discovery using Flutter + Firebase. The MVP demonstrates network effects by making each problem easier to solve through addressing the other, enhanced by multi-role account flexibility.
+This guide provides step-by-step instructions to build a dual-problem platform solving both business revenue optimization AND social discovery using Flutter + Firebase. The MVP demonstrates network effects by making each problem easier to solve through addressing the other, enhanced by a multi-role account system.
 
-**Target Timeline**: 4 weeks (dual-problem features + multi-role system integrated from Day 1)  
-**Tech Stack**: Flutter + Firebase (Firestore, Auth, Storage, Real-time messaging)  
-**Core Innovation**: Every feature serves both business optimization AND social discovery with flexible account capabilities  
-**Multi-Role Enhancement**: Instagram-inspired interface for seamless role switching (Consumer/Business/Guide/Premium)  
-**Deployment**: Android Play Store with dual-problem demonstration and multi-role system  
+**Target Timeline**: 4 weeks (dual-problem features + multi-role system integrated from Day 1)
+**Tech Stack**: Flutter + Firebase (Firestore, Auth, Storage, Real-time messaging)
+**Note on Technical Evolution**: This stack is chosen for the MVP to ensure rapid development and validation. As outlined in the production architecture, the platform is designed to migrate to a more scalable Django/PostgreSQL backend post-investment.
+**Core Innovation**: Every feature serves both business optimization AND social discovery, enabled by flexible user roles.
+**Multi-Role System**: Instagram-inspired interface for seamless role switching (Consumer/Business/Guide/Premium).
+**Deployment**: Android Play Store with a demonstration of the dual-problem concept and multi-role system.  
 
 ---
 

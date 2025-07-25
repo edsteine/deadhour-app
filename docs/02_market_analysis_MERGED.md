@@ -135,8 +135,8 @@ Morocco's restaurant industry presents a striking digital paradox that creates u
   - Rabat: 9,689 establishments (government market)
 
 **Tourism Digitalization Pressure**
-- **Tourist Volume**: 17.4 million visitors in 2024 generating $12.4 billion
-- **Digital Expectation**: 82% of travel sales projected to move online
+- **Tourist Volume**: 13M+ annual visitors generating significant revenue.
+- **Digital Expectation**: 82% of travel sales projected to move online.
 - **Current Gap**: TripAdvisor hosts 2,997,941 Morocco establishment reviews, but most restaurants can't capture this demand digitally
 - **DeadHour Opportunity**: Bridge tourism discovery with local business optimization
 

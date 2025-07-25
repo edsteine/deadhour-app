@@ -3,43 +3,42 @@
 
 ## Project Context
 
-**DeadHour** is a **dead hours optimization platform** that helps businesses fill empty venues during slow periods through discounted deals.
+**DeadHour** is a **dual-problem platform**. Its primary mission is to solve two interconnected problems simultaneously:
 
-**Core Problem**: Restaurants, cafés, and entertainment venues across Morocco lose massive revenue during off-peak hours (60-70% of operating time generates minimal income). Empty seats = lost money that can never be recovered.
+1.  **Business Revenue Optimization**: Helping businesses in Morocco fill empty venues during their unprofitable "dead hours."
+2.  **Social Discovery**: Helping locals and tourists discover authentic experiences through a community-driven platform.
 
-**Simple Solution**: DeadHour connects businesses posting deals during their **dead hours** (when they have 0-few customers) with users looking for discounted experiences. 
+**The Core Concept**: Business deals become the content that fuels social discovery in community rooms. This creates network effects, where solving one problem makes the other easier to solve.
 
 **How It Works**:
-1. **Businesses** post deals during their slow periods (e.g., restaurant at 3 PM offers 30% off)
-2. **Users** browse deals in category-based rooms (🍕 Food, 🎮 Entertainment, etc.)
-3. **Booking** happens through the app with reduced prices
-4. **Result**: Empty venues get customers, customers get discounts
+1.  **Businesses** post deals during their slow periods (e.g., a restaurant at 3 PM offers 30% off).
+2.  **Users** discover these deals in category-based community rooms (e.g., 🍕 Food, 🎮 Entertainment), where they can discuss and share experiences.
+3.  **Booking** happens through the app, driven by community validation and trust.
+4.  **Result**: Businesses get customers during dead hours, and users discover authentic, community-approved experiences.
 
-**Community Aspect**: Deals are organized in Discord-like rooms by category, making deal discovery feel like community-based recommendations rather than just browsing discounts.
+**User Account System**: The platform uses a **multi-role account system**. This is a critical enabler for the dual-problem model, allowing one user to participate in the ecosystem in multiple ways.
 
-**User Account System**: Single account with multiple capabilities (ADDON/Role/Profile terminology refers to the same user interface concept):
+**Core User Roles**:
+- **Consumer Role** (Free): Browse and book deals, participate in community rooms.
+- **Business Role** (€30/month): Post venue deals, manage bookings, access analytics.
+- **Guide Role** (€20/month): Share local expertise and offer curated experiences.
+- **Premium Role** (€15/month): An upgrade that enhances features across all of a user's active roles.
+- **Future Roles**: Driver, Host, Chef, Photographer for additional services.
 
-**Core User Capabilities**:
-- **Consumer** (Free): Browse and book dead hour deals in category rooms
-- **Business** (€30/month): Post your venue's dead hour deals, manage bookings, access analytics
-- **Guide** (€20/month): Share local expertise about venues and experiences  
-- **Premium** (€15/month): Enhanced features across all capabilities
-- **Future Capabilities**: Driver, Host, Chef, Photographer for additional services
+**Why the Multi-Role System is Key**:
+- **One Account, Multiple Roles**: A single login provides access to all roles, reducing friction.
+- **Real-World Flexibility**: A restaurant owner (Business Role) can also be a local expert (Guide Role) using the same account.
+- **Revenue Stacking**: A single user can generate €65+/month by activating multiple roles (Business + Guide + Premium).
+- **Seamless Switching**: An Instagram-inspired interface allows for easy switching between active roles.
 
-**Why Single Account System**:
-- **One Account**: Single login for all capabilities instead of separate accounts
-- **Real-World Flexibility**: Restaurant owner can also be a local guide using same account
-- **Revenue Stacking**: Business owner (€30) + Guide (€20) + Premium (€15) = €65/month from one user
-- **Seamless Switching**: Instagram-inspired interface to switch between capabilities
+**IMPORTANT**: The multi-role system is the key enabler for the dual-problem solution. The core focus of the project is solving the business optimization and social discovery problems. The terminology for the account system is now standardized to **Roles**.
 
-**IMPORTANT**: ADDON/Role/Profile are just UI terms for the same account system concept. The core focus is solving dead hours optimization and social discovery problems, not the interface terminology.
+**Development Context**: Initial documents had competing visions ("ADDON platform" vs. "dead hours optimization"). This has been resolved, and the official vision is the **dual-problem platform** model, as defined in `DeadHour_UNIFIED_VISION.md`. The multi-role system is the mechanism that allows users to participate in solving both problems.
 
-**Development Context**: A coworker initially misunderstood the app's purpose and thought it was primarily about ADDONs/capabilities rather than dead hours optimization. While this wasn't the core vision, their ADDON-focused work contained valuable insights about user account flexibility and revenue stacking that we've incorporated into our account system design. We preserve their terminology and concepts where relevant while keeping the app's true focus on solving business dead hours and social discovery problems.
-
-**Market Opportunity**: 
-- **Primary Market**: 300K+ businesses in Morocco with dead hours needing customers
-- **User Market**: 8M+ urban locals + 13M+ annual tourists looking for deals
-- **Revenue Potential**: €3.6B+ through multi-capability stacking across 20M+ users
+**Market Opportunity**:
+- **Primary Market**: 300K+ businesses in Morocco with dead hours.
+- **User Market**: **20M+** (8M+ urban locals + 13M+ annual tourists).
+- **Revenue Potential**: Significant revenue potential through multi-role subscriptions and commissions across the user base.
 
 **Revenue Model**: Multi-capability stacking allows €65+/month per user vs single-capability users.
 
@@ -155,52 +154,52 @@ This prevents unnecessary resource usage and potential device conflicts during d
 
 ## Business Model & Success Metrics
 
-**Multiple Revenue Streams from Account System:**
-- **Business Capability**: €30/month SaaS for venue management and revenue optimization
-- **Guide Capability**: €20/month for local expertise sharing and commission earnings
-- **Premium Capability**: €15/month for enhanced features across all capabilities
-- **Booking Commissions**: 8-15% on successful off-peak bookings (alternative to commissions model)
-- **Social Commerce**: Sponsored content, premium discovery features
-- **Future Capabilities**: Driver, Host, Chef, Photographer for infinite scalability
+**Multiple Revenue Streams from the Multi-Role Account System:**
+- **Business Role Subscription**: €30/month SaaS for venue management and revenue optimization.
+- **Guide Role Subscription**: €20/month for local expertise sharing and commission earnings.
+- **Premium Role Subscription**: €15/month for enhanced features across all active roles.
+- **Booking Commissions**: 8-15% on successful off-peak bookings, driven by community discovery.
+- **Social Commerce**: Sponsored content in community rooms and premium discovery features.
+- **Future Roles**: Driver, Host, Chef, Photographer for infinite scalability.
 
-**Network Effects Magic**: More users = more audience for business deals = more options for users = stronger community = exponential value creation
+**Network Effects Magic**: More users = more audience for business deals = more options for users = stronger community = exponential value creation.
 
 **Financial Projections:**
-- **Year 1**: $150K revenue (dual-problem validation + multi-role subscriptions)
-- **Year 2**: $1.2M revenue (network effects acceleration + multi-city expansion)
-- **Year 3**: $4M revenue (full dual-problem platform + international potential)
-- **Unit Economics**: €60-65 average revenue per user (multiple streams + capability stacking), 75%+ gross margins
-- **Key Multipliers**: Tourism users spend 3-5x more than locals, multi-capability users generate 2-3x more revenue
-- **Multi-Capability Economics**: Full-capability users (€65/month) vs single-capability users create exponential value
+- **Year 1**: $150K revenue (dual-problem validation + multi-role subscriptions).
+- **Year 2**: $1.2M revenue (network effects acceleration + multi-city expansion).
+- **Year 3**: $4M revenue (full dual-problem platform + international potential).
+- **Unit Economics**: €60-65 average revenue per user (multiple streams + role stacking), 75%+ gross margins.
+- **Key Multipliers**: Tourism users spend 3-5x more than locals; multi-role users generate 2-3x more revenue.
+- **Multi-Role Economics**: Users with multiple roles (€65/month) create exponential value vs. single-role users.
 
-**Success Metrics**: Cross-problem engagement rate, venue fill rate during off-peak hours, community activity, multi-capability adoption, network effects acceleration, capability switching frequency
+**Success Metrics**: Cross-problem engagement rate, venue fill rate during off-peak hours, community activity, multi-role adoption rate, network effects acceleration, role switching frequency.
 
 ## Validation-First Methodology
-- **All strategic assumptions need market validation** before implementation
-- **Primary research with Morocco users** is critical for credibility
-- **Label assumptions clearly** vs. validated facts in any recommendations
-- **60-day validation sprint** approach for major decisions
+- **All strategic assumptions need market validation** before implementation.
+- **Primary research with Morocco users** is critical for credibility.
+- **Label assumptions clearly** vs. validated facts in any recommendations.
+- **60-day validation sprint** approach for major decisions.
 
 ## Task Execution Methodology
-- **Complete One Task Before Moving to Next**: Never leave tasks partially completed
-- **Fix Issues Immediately**: When verification finds problems, fix them immediately rather than saving for later
-- **Document Progress**: Update verification TODOs and track what was fixed vs what needs fixing
-- **Context Preservation**: With limited context (9% remaining), complete each file transformation before moving to next
-- **No Batch Processing**: Avoid trying to do everything at once - this leads to lost work when context runs out
-- **Verification → Fix → Document → Next**: Always follow this sequence to preserve progress
+- **Complete One Task Before Moving to Next**: Never leave tasks partially completed.
+- **Fix Issues Immediately**: When verification finds problems, fix them immediately rather than saving for later.
+- **Document Progress**: Update verification TODOs and track what was fixed vs what needs fixing.
+- **Context Preservation**: With limited context (9% remaining), complete each file transformation before moving to next.
+- **No Batch Processing**: Avoid trying to do everything at once - this leads to lost work when context runs out.
+- **Verification → Fix → Document → Next**: Always follow this sequence to preserve progress.
 
 ## Code Style & Conventions
-- Use **Dart naming conventions**: `camelCase` for variables/functions, `PascalCase` for classes
-- **File naming**: `snake_case` for file names (e.g., `home_screen.dart`)
-- **Import order**: Flutter packages first, then third-party, then local imports
-- **Widget structure**: Prefer `StatelessWidget` over `StatefulWidget` when possible
-- **State management**: Use Provider pattern consistently
-- **Error handling**: Always implement try-catch for async operations
-- **Firebase**: Use streams for real-time data, handle null values properly
-- **UI**: Follow Material Design guidelines, use consistent spacing (8px multiples)
-- **Comments**: Minimal comments, focus on self-documenting code
-- **Dead Hours Focus**: Every feature should help businesses fill empty venues or help users find discounted deals
-- **Account Architecture**: All features must support capability switching between Consumer/Business/Guide/Premium
-- **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms
-- **User Interface**: Instagram-inspired interface for seamless capability switching within single account
-- **Cross-Capability Features**: User capabilities that enhance each other (business owners can also be guides)
+- Use **Dart naming conventions**: `camelCase` for variables/functions, `PascalCase` for classes.
+- **File naming**: `snake_case` for file names (e.g., `home_screen.dart`).
+- **Import order**: Flutter packages first, then third-party, then local imports.
+- **Widget structure**: Prefer `StatelessWidget` over `StatefulWidget` when possible.
+- **State management**: Use Provider pattern consistently.
+- **Error handling**: Always implement try-catch for async operations.
+- **Firebase**: Use streams for real-time data, handle null values properly.
+- **UI**: Follow Material Design guidelines, use consistent spacing (8px multiples).
+- **Comments**: Minimal comments, focus on self-documenting code.
+- **Dual-Problem Focus**: Every feature must help solve both the business optimization and social discovery problems.
+- **Account Architecture**: All features must support the multi-role account system (Consumer, Business, Guide, Premium).
+- **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms.
+- **User Interface**: An Instagram-inspired interface should be used for seamless switching between roles.
+- **Cross-Role Features**: User roles should enhance each other (e.g., business owners can also be guides).

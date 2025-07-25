@@ -10,25 +10,33 @@ This approach protects equity while proving dual-problem market demand (business
 
 ## Business Model
 
-### Revenue Streams
+Our business model is diversified to create sustainable growth, leveraging multiple revenue streams that stem from solving the dual problem of business optimization and social discovery.
 
-**Primary: Commission-Based Model**
-- **8-15% commission** on successful bookings
-- No upfront costs for venues
-- Revenue sharing aligns platform success with venue success
-- Scalable model that grows with booking volume
+### Revenue Stream Hierarchy
 
-**Secondary: Multi-Role Account Subscriptions**
-- **Consumer Role**: Free (deal discovery, community rooms, basic social features)
-- **Business Role**: 200-1000 MAD/month (€30/month) - venue management, analytics, deal creation
-- **Guide Role**: €20/month - local expertise sharing, commission on guidance services
-- **Premium Role**: €15/month - enhanced features across all roles
-- **Multi-Role Stacking**: Users can combine roles for €65+/month potential
+**1. Primary: Transaction Commissions (8-15%)**
+- A commission is taken on successful bookings made through the platform.
+- This directly aligns our success with the success of our business partners.
+- It's a scalable model that grows with booking volume and network effects.
 
-**Tertiary: Advertising Revenue**
-- Featured placement for venues
-- Sponsored deals and promotions
-- Targeted advertising based on user location and preferences
+**2. Secondary: Role Subscriptions (SaaS)**
+- Monthly recurring revenue from users who subscribe to paid roles.
+- This provides a predictable revenue base and encourages deeper platform engagement.
+
+**3. Tertiary: Social Commerce & Advertising**
+- Sponsored content within community rooms.
+- Partnerships with tourism boards and other strategic partners.
+- Targeted advertising based on user preferences and location.
+
+### Canonical Pricing Table
+
+| Role / Service | Price (EUR) | Price (MAD, approx.) | Billing Cycle | Target Audience |
+| :--- | :--- | :--- | :--- | :--- |
+| **Business Role** | €30 / month | 330 MAD / month | Monthly | Venue Owners |
+| **Guide Role** | €20 / month | 220 MAD / month | Monthly | Local Experts |
+| **Premium Role** | €15 / month | 165 MAD / month | Monthly | Power Users, Tourists |
+| **Tourism Premium** | €15-20 / stay | 165-220 MAD | One-time | Tourists |
+| **Booking Commission** | 8-15% | 8-15% | Per Transaction | Businesses |
 
 ### Value Proposition
 
