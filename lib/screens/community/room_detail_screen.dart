@@ -1,7 +1,6 @@
-import 'package:deadhour_flutter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/theme.dart';
+import '../../utils/theme.dart'; // Import AppSpacing and AppBorderRadius
 import '../../utils/mock_data.dart';
 import '../../widgets/common/enhanced_app_bar.dart';
 
@@ -38,6 +37,8 @@ class RoomDetailScreen extends StatelessWidget {
             _buildStatsGrid(context, room),
             _buildSectionTitle(context, 'Rules & Guidelines'),
             _buildRulesList(context, room),
+            _buildSectionTitle(context, 'Cultural & Special Features'),
+            _buildCulturalAndSpecialFeatures(context, room),
             _buildSectionTitle(context, 'Moderators'),
             _buildModeratorsList(context, room),
             _buildActionButtons(context, room),
@@ -253,6 +254,55 @@ class RoomDetailScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildCulturalAndSpecialFeatures(BuildContext context, dynamic room) {
+    List<Widget> featureChips = [];
+
+    if (room.isPrayerTimeAware) {
+      featureChips.add(_buildFeatureChip(context, 'Prayer Time Aware 🕌', AppTheme.moroccoGreen));
+    }
+    if (room.isHalalOnly) {
+      featureChips.add(_buildFeatureChip(context, 'Halal Only ✅', AppTheme.moroccoGreen));
+    }
+    if (room.isPremiumOnly) {
+      featureChips.add(_buildFeatureChip(context, 'Premium Room ⭐', AppTheme.moroccoGold));
+    }
+
+    if (room.specialFeatures.isNotEmpty) {
+      for (var feature in room.specialFeatures) {
+        featureChips.add(_buildFeatureChip(context, feature, AppTheme.moroccoGreen));
+      }
+    }
+
+    if (featureChips.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+        child: Text(
+          'No special cultural or unique features for this room.',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      child: Wrap(
+        spacing: AppSpacing.sm,
+        runSpacing: AppSpacing.sm,
+        children: featureChips,
+      ),
+    );
+  }
+
+  Widget _buildFeatureChip(BuildContext context, String label, Color color) {
+    return Chip(
+      label: Text(label),
+      backgroundColor: color.withValues(alpha: 0.1),
+      labelStyle: TextStyle(color: color, fontWeight: FontWeight.w500),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppBorderRadius.sm)),
+      side: BorderSide(color: color.withValues(alpha: 0.3)),
     );
   }
 

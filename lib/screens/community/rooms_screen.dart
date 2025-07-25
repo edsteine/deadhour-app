@@ -4,6 +4,7 @@ import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../widgets/common/room_card.dart';
 import '../../models/user.dart';
+import '../../models/room.dart';
 
 class RoomsScreen extends StatefulWidget {
   final DeadHourUser? user;
@@ -18,6 +19,8 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   late TabController _tabController;
   String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
+  bool _showPrayerTimeAware = false;
+  bool _showHalalOnly = false;
 
   List<Tab> get _tabs {
     List<Tab> baseTabs = [
@@ -26,14 +29,14 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
       const Tab(text: 'Popular'),
     ];
     
-    // Add ADDON-specific tabs
-    if (widget.user?.hasAddon('business') == true) {
+    // Add Role-specific tabs
+    if (widget.user?.hasRole('business') == true) {
       baseTabs.add(const Tab(text: 'Business'));
     }
-    if (widget.user?.hasAddon('guide') == true) {
+    if (widget.user?.hasRole('guide') == true) {
       baseTabs.add(const Tab(text: 'Guide Network'));
     }
-    if (widget.user?.hasAddon('premium') == true) {
+    if (widget.user?.hasRole('premium') == true) {
       baseTabs.add(const Tab(text: 'Premium'));
     }
     
@@ -49,7 +52,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   @override
   void didUpdateWidget(RoomsScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.user?.activeAddons != widget.user?.activeAddons) {
+    if (oldWidget.user?.activeRoles != widget.user?.activeRoles) {
       _tabController.dispose();
       _tabController = TabController(length: _tabs.length, vsync: this);
     }
@@ -72,6 +75,9 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
 
           // Category filter
           _buildCategoryFilter(),
+
+          // Cultural filters
+          _buildCulturalFilters(),
 
           // Tab bar
           TabBar(
@@ -286,6 +292,42 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
     );
   }
 
+  Widget _buildCulturalFilters() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Cultural Filters',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          SwitchListTile(
+            title: const Text('Prayer Time Aware'),
+            subtitle: const Text('Show rooms that consider prayer times'),
+            value: _showPrayerTimeAware,
+            onChanged: (value) {
+              setState(() {
+                _showPrayerTimeAware = value;
+              });
+            },
+          ),
+          SwitchListTile(
+            title: const Text('Halal Only'),
+            subtitle: const Text('Show rooms focused on halal activities'),
+            value: _showHalalOnly,
+            onChanged: (value) {
+              setState(() {
+                _showHalalOnly = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildAllRoomsTab() {
     final rooms = _getFilteredRooms();
 
@@ -436,6 +478,14 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
 
     // Filter by city
     rooms = rooms.where((room) => room.city == _selectedCity).toList();
+
+    // Apply cultural filters
+    if (_showPrayerTimeAware) {
+      rooms = rooms.where((room) => room.isPrayerTimeAware).toList();
+    }
+    if (_showHalalOnly) {
+      rooms = rooms.where((room) => room.isHalalOnly).toList();
+    }
 
     return rooms;
   }
@@ -618,14 +668,14 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
       _buildPopularRoomsTab(),
     ];
     
-    // Add ADDON-specific tab views
-    if (widget.user?.hasAddon('business') == true) {
+    // Add Role-specific tab views
+    if (widget.user?.hasRole('business') == true) {
       views.add(_buildBusinessRoomsTab());
     }
-    if (widget.user?.hasAddon('guide') == true) {
+    if (widget.user?.hasRole('guide') == true) {
       views.add(_buildGuideRoomsTab());
     }
-    if (widget.user?.hasAddon('premium') == true) {
+    if (widget.user?.hasRole('premium') == true) {
       views.add(_buildPremiumRoomsTab());
     }
     
@@ -633,7 +683,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   }
 
   Widget _buildBusinessRoomsTab() {
-    // ADDON-enhanced rooms for business owners
+    // Role-enhanced rooms for business owners
     final businessRooms = [
       {'id': 'business-owners-lounge', 'name': 'Business Owners Lounge', 'category': 'business', 'members': 234},
       {'id': 'revenue-optimization', 'name': 'Revenue Optimization', 'category': 'business', 'members': 156},
@@ -689,7 +739,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   }
 
   Widget _buildGuideRoomsTab() {
-    // ADDON-enhanced rooms for guide network
+    // Role-enhanced rooms for guide network
     final guideRooms = [
       {'id': 'guide-network', 'name': 'Guide Network Hub', 'category': 'guide', 'members': 189},
       {'id': 'cultural-insights', 'name': 'Cultural Insights', 'category': 'guide', 'members': 267},
@@ -745,7 +795,7 @@ class _RoomsScreenState extends State<RoomsScreen> with TickerProviderStateMixin
   }
 
   void _showPremiumUpgrade() {
-    context.push('/addon-marketplace');
+    context.push('/roles');
   }
 }
 
@@ -1125,6 +1175,30 @@ class _CreateRoomSheetState extends State<_CreateRoomSheet> {
 
   void _createRoom() {
     if (_formKey.currentState!.validate()) {
+      // Create a new Room object with the collected data
+      final newRoom = Room(
+        id: DateTime.now().millisecondsSinceEpoch.toString(), // Unique ID
+        name: _nameController.text,
+        displayName: _nameController.text, // Assuming display name is same as name for now
+        category: _selectedCategory,
+        city: _selectedCity,
+        description: _descriptionController.text,
+        memberCount: 1, // Creator is the first member
+        onlineCount: 1,
+        isPublic: _isPublic,
+        allowDeals: _allowDeals,
+        isPrayerTimeAware: _isPrayerTimeAware,
+        isHalalOnly: _isHalalOnly,
+        isPremiumOnly: _isPremiumOnly,
+        createdAt: DateTime.now(),
+        lastActivity: DateTime.now(),
+        moderators: [], // Add current user as moderator later
+        recentMessages: [],
+      );
+
+      // In a real app, you would send this to your backend (e.g., Firebase Firestore)
+      // For now, we'll just simulate success.
+
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -1132,7 +1206,10 @@ class _CreateRoomSheetState extends State<_CreateRoomSheet> {
           backgroundColor: Colors.green,
           action: SnackBarAction(
             label: 'View',
-            onPressed: () {},
+            onPressed: () {
+              // Navigate to the newly created room's detail page
+              context.go('/community/room/${newRoom.id}');
+            },
           ),
         ),
       );

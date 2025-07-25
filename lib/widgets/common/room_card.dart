@@ -133,13 +133,17 @@ class RoomCard extends StatelessWidget {
         ),
 
         // Features
-        if (room.specialFeatures.isNotEmpty) ...[
+        if (room.specialFeatures.isNotEmpty || room.isPrayerTimeAware || room.isHalalOnly) ...[
           const SizedBox(height: 8),
           Wrap(
             spacing: 6,
-            children: room.specialFeatures.map((feature) {
-              return _buildFeatureChip(feature);
-            }).toList(),
+            children: [
+              ...room.specialFeatures.map((feature) {
+                return _buildFeatureChip(feature);
+              }).toList(),
+              if (room.isPrayerTimeAware) _buildFeatureChip('Prayer Time Aware 🕌'),
+              if (room.isHalalOnly) _buildFeatureChip('Halal Only ✅'),
+            ],
           ),
         ],
 

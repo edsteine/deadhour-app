@@ -4,15 +4,14 @@ import '../../utils/theme.dart';
 import '../../utils/constants.dart';
 import '../../utils/guest_mode.dart';
 
-class AddonMarketplaceScreen extends StatefulWidget {
-  const AddonMarketplaceScreen({super.key});
+class RoleMarketplaceScreen extends StatefulWidget {
 
   @override
-  State<AddonMarketplaceScreen> createState() => _AddonMarketplaceScreenState();
+  State<RoleMarketplaceScreen> createState() => _RoleMarketplaceScreenState();
 }
 
-class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
-  final Set<String> _selectedAddons = {};
+class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
+  final Set<String> _selectedRoles = {};
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
 
               // Header
               Text(
-                'Welcome to ADDON Marketplace',
+                'Welcome to Role Marketplace',
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppTheme.primaryText,
@@ -43,7 +42,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Start as Consumer and add ADDONs to unlock capabilities. Each ADDON generates €30-€15/month revenue.',
+                'Start as Consumer and add Roles to unlock capabilities. Each Role generates €30-€15/month revenue.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.secondaryText,
                     ),
@@ -66,23 +65,23 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
               ),
               const SizedBox(height: 48),
 
-              // ADDON cards
+              // Role cards
               Expanded(
                 child: ListView.builder(
-                  itemCount: AppConstants.availableAddons.length,
+                  itemCount: AppConstants.availableRoles.length,
                   itemBuilder: (context, index) {
-                    final addon = AppConstants.availableAddons[index];
-                    final isSelected = _selectedAddons.contains(addon['id']);
+                    final role = AppConstants.availableRoles[index];
+                    final isSelected = _selectedRoles.contains(role['id']);
 
-                    return _buildAddonCard(
-                      addon: addon,
+                    return _buildRoleCard(
+                      role: role,
                       isSelected: isSelected,
                       onTap: () {
                         setState(() {
                           if (isSelected) {
-                            _selectedAddons.remove(addon['id']);
+                            _selectedRoles.remove(role['id']);
                           } else {
-                            _selectedAddons.add(addon['id']!);
+                            _selectedRoles.add(role['id']!);
                           }
                         });
                       },
@@ -103,9 +102,9 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                     ),
                   ),
                   child: Text(
-                    _selectedAddons.isEmpty 
+                    _selectedRoles.isEmpty 
                         ? 'Create Consumer Account (Free)'
-                        : 'Create Account with ADDONs (€${_calculateMonthlyRevenue()}/month)',
+                        : 'Create Account with Roles (€${_calculateMonthlyRevenue()}/month)',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -170,8 +169,8 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
     );
   }
 
-  Widget _buildAddonCard({
-    required Map<String, String> addon,
+  Widget _buildRoleCard({
+    required Map<String, String> role,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
@@ -210,7 +209,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    addon['icon']!,
+                    role['icon']!,
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),
@@ -225,7 +224,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                     Row(
                       children: [
                         Text(
-                          addon['name']!,
+                          role['name']!,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -234,7 +233,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                         ),
                         const Spacer(),
                         Text(
-                          addon['price']!,
+                          role['price']!,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -245,14 +244,14 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      addon['description']!,
+                      role['description']!,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppTheme.secondaryText,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    _buildAddonFeatures(addon['id']!),
+                    _buildRoleFeatures(role['id']!),
                   ],
                 ),
               ),
@@ -285,10 +284,10 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
     );
   }
 
-  Widget _buildAddonFeatures(String addonId) {
+  Widget _buildRoleFeatures(String roleId) {
     List<String> features = [];
 
-    switch (addonId) {
+    switch (roleId) {
       case 'business':
         features = ['Venue management', 'Deal creation', 'Analytics dashboard'];
         break;
@@ -296,7 +295,7 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
         features = ['Local expertise', 'Cultural guidance', 'Tourism services'];
         break;
       case 'premium':
-        features = ['Enhanced features', 'Cross-ADDON analytics', 'Priority support'];
+        features = ['Enhanced features', 'Cross-Role analytics', 'Priority support'];
         break;
     }
 
@@ -326,14 +325,14 @@ class _AddonMarketplaceScreenState extends State<AddonMarketplaceScreen> {
   void _createUniversalAccount() {
     // Create universal DeadHour account with selected ADDONs
     // Store selected addons in user profile
-    final addonsQuery = _selectedAddons.join(',');
-    context.go('/register?addons=$addonsQuery');
+    final rolesQuery = _selectedRoles.join(',');
+    context.go('/register?roles=$rolesQuery');
   }
 
   int _calculateMonthlyRevenue() {
     int total = 0;
-    for (String addonId in _selectedAddons) {
-      switch (addonId) {
+    for (String roleId in _selectedRoles) {
+      switch (roleId) {
         case 'business':
           total += 30;
           break;

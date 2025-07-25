@@ -114,74 +114,74 @@ class AppConstants {
     },
   ];
   
-  // Available ADDONs for ADDON Marketplace
-  static const List<Map<String, String>> availableAddons = [
+  // Available Roles for Role Marketplace
+  static const List<Map<String, String>> availableRoles = [
     {
       'id': 'business',
-      'name': 'Business ADDON',
+      'name': 'Business Role',
       'icon': '🏢',
       'price': '€30/month',
       'description': 'Venue management, deal creation, analytics dashboard',
-      'arabic': 'إضافة الأعمال',
-      'french': 'Module Entreprise'
+      'arabic': 'دور الأعمال',
+      'french': 'Rôle Entreprise'
     },
     {
       'id': 'guide',
-      'name': 'Guide ADDON',
+      'name': 'Guide Role',
       'icon': '🌍',
       'price': '€20/month',
       'description': 'Local expertise, cultural guidance, tourism services',
-      'arabic': 'إضافة الدليل',
-      'french': 'Module Guide'
+      'arabic': 'دور الدليل',
+      'french': 'Rôle Guide'
     },
     {
       'id': 'premium',
-      'name': 'Premium ADDON',
+      'name': 'Premium Role',
       'icon': '⭐',
       'price': '€15/month',
-      'description': 'Enhanced features, cross-ADDON analytics, priority support',
-      'arabic': 'إضافة البريميوم',
-      'french': 'Module Premium'
+      'description': 'Enhanced features, cross-Role analytics, priority support',
+      'arabic': 'دور البريميوم',
+      'french': 'Rôle Premium'
     },
   ];
 
-  // Future ADDONs (infinite scalability)
-  static const List<Map<String, String>> futureAddons = [
+  // Future Roles (infinite scalability)
+  static const List<Map<String, String>> futureRoles = [
     {
       'id': 'driver',
-      'name': 'Driver ADDON',
+      'name': 'Driver Role',
       'icon': '🚗',
       'price': '€25/month',
       'description': 'Transportation services, ride coordination',
-      'arabic': 'إضافة السائق',
-      'french': 'Module Chauffeur'
+      'arabic': 'دور السائق',
+      'french': 'Rôle Chauffeur'
     },
     {
       'id': 'host',
-      'name': 'Host ADDON',
+      'name': 'Host Role',
       'icon': '🏠',
       'price': '€20/month',
       'description': 'Accommodation hosting, guest services',
-      'arabic': 'إضافة المضيف',
-      'french': 'Module Hôte'
+      'arabic': 'دور المضيف',
+      'french': 'Rôle Hôte'
     },
     {
       'id': 'chef',
-      'name': 'Chef ADDON',
+      'name': 'Chef Role',
       'icon': '👨‍🍳',
       'price': '€30/month',
       'description': 'Private cooking, culinary experiences',
-      'arabic': 'إضافة الطاهي',
-      'french': 'Module Chef'
+      'arabic': 'دور الطاهي',
+      'french': 'Rôle Chef'
     },
     {
       'id': 'photographer',
-      'name': 'Photographer ADDON',
+      'name': 'Photographer Role',
       'icon': '📸',
       'price': '€15/month',
       'description': 'Photography services, visual content creation',
-      'arabic': 'إضافة المصور',
-      'french': 'Module Photographe'
+      'arabic': 'دور المصور',
+      'french': 'Rôle Photographe'
     },
   ];
   
@@ -217,12 +217,12 @@ class AppConstants {
   static const String currency = 'MAD';
   static const String currencySymbol = 'MAD';
   
-  // ADDON Revenue Model (replacing commission-based model)
+  // Role Revenue Model (replacing commission-based model)
   static const double maxMonthlyRevenuePerUser = 65.0; // EUR (Business + Guide + Premium)
-  static const double futureMaxMonthlyRevenue = 155.0; // EUR (all 7 ADDONs)
+  static const double futureMaxMonthlyRevenue = 155.0; // EUR (all 7 Roles)
   
-  // ADDON Pricing (Monthly)
-  static const Map<String, double> addonPricing = {
+  // Role Pricing (Monthly)
+  static const Map<String, double> rolePricing = {
     'business': 30.0, // EUR per month
     'guide': 20.0, // EUR per month
     'premium': 15.0, // EUR per month
@@ -232,8 +232,8 @@ class AppConstants {
     'photographer': 15.0, // EUR per month (future)
   };
 
-  // ADDON Yearly Pricing (save 17%)
-  static const Map<String, double> addonPricingYearly = {
+  // Role Yearly Pricing (save 17%)
+  static const Map<String, double> rolePricingYearly = {
     'business': 300.0, // EUR per year
     'guide': 200.0, // EUR per year
     'premium': 150.0, // EUR per year

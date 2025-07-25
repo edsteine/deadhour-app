@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../widgets/common/deal_card.dart';
 import '../../widgets/common/venue_card.dart';
-import '../../widgets/common/addon_toggle.dart';
-import '../../widgets/cultural/halal_badge.dart';
+import '../../widgets/cultural/prayer_times_widget.dart'; // Added import for PrayerTimesWidget
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
@@ -35,11 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CustomScrollView(
           controller: _scrollController,
           slivers: [
-            // Cultural tips section  
-            SliverToBoxAdapter(
-              child: _buildCulturalTipsSection(),
-            ),
-
             // Category filter
             SliverToBoxAdapter(
               child: _buildCategoryFilter(),
@@ -135,6 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
         IconButton(
           onPressed: () => _showCitySelector(),
           icon: const Icon(Icons.tune),
+        ),
+        IconButton(
+          onPressed: () => _showCreateDealAlert(),
+          icon: const Icon(Icons.add_business),
         ),
         IconButton(
           onPressed: () => _showNotifications(),
@@ -362,16 +360,20 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Notifications'),
-        content: const Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
+            // Prayer times widget at the top
+            const PrayerTimesWidget(isVisible: true),
+            const SizedBox(height: 16),
+            // Regular notifications
+            const ListTile(
               leading: Icon(Icons.local_fire_department, color: AppColors.error),
               title: Text('New Flash Deal!'),
               subtitle: Text('50% off at Café Atlas - 2 hours left'),
               dense: true,
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.people, color: AppColors.info),
               title: Text('Room Activity'),
               subtitle: Text('New message in Coffee Afternoon Deals'),
@@ -396,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Search Deals'),
         content: const TextField(
           decoration: InputDecoration(
-            hintText: 'Search for venues, deals, or categories...',
+            hintText: 'Search for venues, deals, or categories...', 
             prefixIcon: Icon(Icons.search),
           ),
         ),
@@ -528,20 +530,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
+                // Action buttons row
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => _saveDeal(deal),
+                        icon: const Icon(Icons.bookmark_outline, size: 18),
+                        label: const Text('Save'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => _shareDeal(deal),
+                        icon: const Icon(Icons.share_outlined, size: 18),
+                        label: const Text('Share'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Booking confirmed! Check your email for details.'),
-                          backgroundColor: AppColors.success,
-                        ),
-                      );
-                    },
-                    child: const Text('Book Now'),
+                    onPressed: deal.isValid ? () => _bookDeal(deal) : null,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    child: Text(
+                      deal.isValid ? 'Book Now' : 'Deal Expired',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -552,75 +576,81 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCulturalTipsSection() {
-    final addonProvider = context.watch<AddonToggleProvider>();
-    
-    // Show cultural tips for tourists and guide+ users
-    if (!addonProvider.isLoggedIn || 
-        (addonProvider.currentAddon != UserAddon.guide && 
-         addonProvider.currentAddon != UserAddon.premium)) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      margin: const EdgeInsets.all(AppTheme.spacing16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text(
-                '🇲🇦',
-                style: TextStyle(fontSize: 20),
-              ),
-              const SizedBox(width: AppTheme.spacing8),
-              const Text(
-                'Cultural Tips',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.primaryText,
-                ),
-              ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppTheme.spacing8,
-                  vertical: AppTheme.spacing4,
-                ),
-                decoration: BoxDecoration(
-                  color: AppTheme.moroccoGold.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-                ),
-                child: Text(
-                  addonProvider.currentAddon.label,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.moroccoGold,
-                  ),
-                ),
-              ),
-            ],
+  void _bookDeal(dynamic deal) {
+    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm Booking'),
+        content: Text('Book this deal at ${deal.discountedPrice.toInt()} MAD?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
-          const SizedBox(height: AppTheme.spacing12),
-          const CulturalTipsCard(
-            tip: 'Morocco operates on GMT+1. Business hours typically run 9 AM - 6 PM with a lunch break.',
-            category: 'Business Hours',
-            icon: Icons.access_time,
-          ),
-          const CulturalTipsCard(
-            tip: 'Mint tea (Atay) is central to Moroccan hospitality. It\'s often offered before business discussions.',
-            category: 'Business Etiquette',
-            icon: Icons.local_cafe,
-          ),
-          const CulturalTipsCard(
-            tip: 'Friday prayers (Jumu\'ah) affect business hours. Many venues close 12-2 PM on Fridays.',
-            category: 'Cultural Calendar',
-            icon: Icons.mosque,
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Booking confirmed! Check your email for details.'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            },
+            child: const Text('Confirm'),
           ),
         ],
       ),
     );
   }
+
+  
+
+  void _shareDeal(dynamic deal) {
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Deal shared successfully!'),
+        backgroundColor: AppColors.info,
+      ),
+    );
+  }
+
+  void _saveDeal(dynamic deal) {
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Deal saved to your favorites!'),
+        backgroundColor: AppColors.success,
+      ),
+    );
+  }
+
+  void _showCreateDealAlert() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Create Deal'),
+        content: const Text(
+          'Are you a business owner? Switch to business mode to create deals for your venue.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/business');
+            },
+            child: const Text('Go to Business'),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
+

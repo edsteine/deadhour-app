@@ -83,6 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   alignment: Alignment.topRight,
                   child: TextButton(
                     onPressed: () async {
+                      await GuestMode.markOnboardingCompleted();
                       await GuestMode.enableGuestMode();
                       if (context.mounted) context.go('/home');
                     },
@@ -155,6 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           if (_currentPage == _pages.length - 1) {
+                            await GuestMode.markOnboardingCompleted();
                             await GuestMode.enableGuestMode();
                             if (context.mounted) context.go('/home');
                           } else {

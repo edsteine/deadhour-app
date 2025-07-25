@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
+import '../../utils/guest_mode.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -49,9 +50,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void _navigateToNext() {
     Future.delayed(const Duration(milliseconds: 3000), () {
       if (mounted) {
-        // Check if user is already logged in
-        // For now, always go to onboarding
-        context.go('/onboarding');
+        // Check if user has already seen onboarding
+        if (GuestMode.hasSeenOnboarding) {
+          // Skip onboarding and go directly to home
+          context.go('/home');
+        } else {
+          // Show onboarding for first-time users
+          context.go('/onboarding');
+        }
       }
     });
   }

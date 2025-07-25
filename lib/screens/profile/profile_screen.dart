@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
-import '../../widgets/common/addon_toggle.dart';
+import '../../utils/guest_mode.dart';
 import '../../widgets/cultural/prayer_times_widget.dart';
+import '../../widgets/common/role_switcher.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    final addonProvider = context.watch<AddonToggleProvider>();
+    final roleNotifier = ref.watch(roleToggleProvider.notifier);
+    final isLoggedIn = roleNotifier.isLoggedIn;
     
     return Scaffold(
       appBar: AppBar(
@@ -28,25 +30,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Simple login section
-            _buildSimpleLoginSection(addonProvider),
+            _buildSimpleLoginSection(),
             
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
             
-            // ADDON switching when logged in
-            if (addonProvider.isLoggedIn) ...[
-              _buildAddonSwitcher(addonProvider),
+            // Role switching section - only show when logged in
+            if (isLoggedIn) ...[
+              _buildRoleSwitchingSection(),
               const SizedBox(height: 24),
-              _buildCurrentAddonInfo(addonProvider),
-              const SizedBox(height: 24),
-              const PrayerTimesWidget(isVisible: true),
             ],
+            
+            // Cultural integration
+            const PrayerTimesWidget(isVisible: true),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSimpleLoginSection(AddonToggleProvider addonProvider) {
+  Widget _buildSimpleLoginSection() {
+    final roleNotifier = ref.watch(roleToggleProvider.notifier);
+    final isLoggedIn = roleNotifier.isLoggedIn;
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -63,13 +67,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Column(
         children: [
           Icon(
-            addonProvider.isLoggedIn ? Icons.person : Icons.person_outline,
+            // addonProvider.isLoggedIn ? Icons.person : Icons.person_outline,
+            Icons.person_outline, // Placeholder
             size: 64,
             color: AppTheme.moroccoGreen,
           ),
           const SizedBox(height: 16),
           Text(
-            addonProvider.isLoggedIn ? 'Welcome back!' : 'Login to DeadHour',
+            // addonProvider.isLoggedIn ? 'Welcome back!' : 'Login to DeadHour',
+            'Login to DeadHour', // Placeholder
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -79,9 +85,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            addonProvider.isLoggedIn 
-                ? 'Switch between different user types to explore features'
-                : 'Tap the button below to login and explore ADDON features',
+            isLoggedIn 
+                ? 'You are logged in. Switch between different roles to explore features'
+                : 'Tap the button below to login and explore Role features',
             style: const TextStyle(
               fontSize: 14,
               color: AppTheme.secondaryText,
@@ -92,7 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => addonProvider.toggleLogin(),
+              onPressed: () {
+                roleNotifier.toggleLogin();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.moroccoGreen,
                 foregroundColor: Colors.white,
@@ -102,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               child: Text(
-                addonProvider.isLoggedIn ? 'Logout' : 'Login (Mock)',
+                isLoggedIn ? 'Logout' : 'Login (Mock)',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -115,102 +123,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildAddonSwitcher(AddonToggleProvider addonProvider) {
+  Widget _buildRoleSwitchingSection() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppTheme.moroccoGreen.withValues(alpha: 0.3),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '🔄 Switch User Type',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.primaryText,
-            ),
+          Row(
+            children: [
+              const Icon(
+                Icons.swap_horiz,
+                color: AppTheme.moroccoGreen,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'Switch Roles',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.primaryText,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           const Text(
-            'Choose different user types to see how features change:',
+            'Manage your active roles and subscription plans',
             style: TextStyle(
               fontSize: 14,
               color: AppTheme.secondaryText,
             ),
           ),
           const SizedBox(height: 16),
-          AddonToggleWidget(
-            provider: addonProvider,
-            onAddonChanged: (addon) => addonProvider.setAddon(addon),
-          ),
+          const RoleSwitcher(),
         ],
       ),
     );
-  }
-
-  Widget _buildCurrentAddonInfo(AddonToggleProvider addonProvider) {
-    final currentAddon = addonProvider.currentAddon;
-    
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: currentAddon.color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: currentAddon.color.withValues(alpha: 0.3),
-        ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                currentAddon.icon,
-                style: const TextStyle(fontSize: 32),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                currentAddon.label,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: currentAddon.color,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            _getAddonDescription(currentAddon),
-            style: const TextStyle(
-              fontSize: 16,
-              color: AppTheme.secondaryText,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _getAddonDescription(UserAddon addon) {
-    switch (addon) {
-      case UserAddon.consumer:
-        return 'Basic user with access to deals and community features';
-      case UserAddon.business:
-        return 'Business owner with dashboard and deal creation tools';
-      case UserAddon.guide:
-        return 'Local guide with tourism and cultural expertise features';
-      case UserAddon.premium:
-        return 'Premium user with all features and exclusive access';
-    }
   }
 }

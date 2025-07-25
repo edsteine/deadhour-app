@@ -251,25 +251,25 @@ class MockData {
   ];
 
   // Mock Users
-  // ADDON System Demo Users - Progressive Enhancement Examples
+  // Role System Demo Users - Progressive Enhancement Examples
   static List<DeadHourUser> get users => [
     DeadHourUser(
       id: '1',
-      name: 'Ahmed Benali - Multi-ADDON Success',
+      name: 'Ahmed Benali - Multi-Role Success',
       email: 'ahmed.benali@email.com',
       phone: '+212 661 234 567',
-      activeAddons: {UserAddon.business, UserAddon.guide, UserAddon.premium}, // €65/month revenue
+      activeRoles: {UserRole.business, UserRole.guide, UserRole.premium}, // €65/month revenue
       city: 'Casablanca',
       profileImageUrl: 'https://picsum.photos/150/150?random=21',
       joinDate: DateTime.now().subtract(const Duration(days: 120)),
       preferredLanguage: 'ar',
       isVerified: true,
-      addonCapabilities: {
-        UserAddon.business: {'venueId': '1', 'monthlyRevenue': 850},
-        UserAddon.guide: {'expertiseAreas': ['Food', 'Culture'], 'rating': 4.8},
-        UserAddon.premium: {'enhancedAnalytics': true, 'prioritySupport': true}
+      roleCapabilities: {
+        UserRole.business: {'venueId': '1', 'monthlyRevenue': 850},
+        UserRole.guide: {'expertiseAreas': ['Food', 'Culture'], 'rating': 4.8},
+        UserRole.premium: {'enhancedAnalytics': true, 'prioritySupport': true}
       },
-      crossAddonMetrics: {'businessGuideAmplification': 1.4, 'totalEarnings': 65},
+      crossRoleMetrics: {'businessGuideAmplification': 1.4, 'totalEarnings': 65},
       networkEffectMultiplier: 1.4,
       favoriteCategories: ['food', 'entertainment'],
       languages: ['ar', 'fr'],
@@ -277,20 +277,20 @@ class MockData {
     
     DeadHourUser(
       id: '2',
-      name: 'Sarah Johnson - Guide ADDON Success',
+      name: 'Sarah Johnson - Guide Role Success',
       email: 'sarah.johnson@email.com',
       phone: '+33 6 12 34 56 78',
-      activeAddons: {UserAddon.guide, UserAddon.premium}, // €35/month revenue
+      activeRoles: {UserRole.guide, UserRole.premium}, // €35/month revenue
       city: 'Marrakech',
       profileImageUrl: 'https://picsum.photos/150/150?random=22',
       joinDate: DateTime.now().subtract(const Duration(days: 3)),
       preferredLanguage: 'en',
       isVerified: true,
-      addonCapabilities: {
-        UserAddon.guide: {'expertiseAreas': ['Tourism', 'Culture'], 'rating': 4.9, 'languages': ['en', 'fr']},
-        UserAddon.premium: {'enhancedDiscovery': true, 'priorityBookings': true}
+      roleCapabilities: {
+        UserRole.guide: {'expertiseAreas': ['Tourism', 'Culture'], 'rating': 4.9, 'languages': ['en', 'fr']},
+        UserRole.premium: {'enhancedDiscovery': true, 'priorityBookings': true}
       },
-      crossAddonMetrics: {'guideExpertise': 4.9, 'totalEarnings': 35},
+      crossRoleMetrics: {'guideExpertise': 4.9, 'totalEarnings': 35},
       networkEffectMultiplier: 1.2,
       favoriteCategories: ['tourism', 'food', 'wellness'],
       languages: ['en', 'fr'],
@@ -298,19 +298,19 @@ class MockData {
     
     DeadHourUser(
       id: '3',
-      name: 'Omar El Fassi - Business ADDON Owner',
+      name: 'Omar El Fassi - Business Role Owner',
       email: 'omar.elfassi@email.com',
       phone: '+212 662 345 678',
-      activeAddons: {UserAddon.business}, // €30/month revenue
+      activeRoles: {UserRole.business}, // €30/month revenue
       city: 'Rabat',
       profileImageUrl: 'https://picsum.photos/150/150?random=23',
       joinDate: DateTime.now().subtract(const Duration(days: 89)),
       preferredLanguage: 'ar',
       isVerified: true,
-      addonCapabilities: {
-        UserAddon.business: {'venueId': '4', 'monthlyRevenue': 720, 'category': 'wellness'}
+      roleCapabilities: {
+        UserRole.business: {'venueId': '4', 'monthlyRevenue': 720, 'category': 'wellness'}
       },
-      crossAddonMetrics: {'businessOptimization': 1.3, 'totalEarnings': 30},
+      crossRoleMetrics: {'businessOptimization': 1.3, 'totalEarnings': 30},
       networkEffectMultiplier: 1.1,
       favoriteCategories: ['sports', 'entertainment', 'wellness'],
       languages: ['ar', 'fr'],
@@ -318,17 +318,17 @@ class MockData {
     
     DeadHourUser(
       id: '4',
-      name: 'Fatima Alaoui - Consumer (Future ADDON Potential)',
+      name: 'Fatima Alaoui - Consumer (Future Role Potential)',
       email: 'fatima.alaoui@email.com',
       phone: '+212 663 456 789',
-      activeAddons: {}, // Consumer, ready for ADDON progression
+      activeRoles: {}, // Consumer, ready for Role progression
       city: 'Casablanca',
       profileImageUrl: 'https://picsum.photos/150/150?random=24',
       joinDate: DateTime.now().subtract(const Duration(days: 15)),
       preferredLanguage: 'ar',
       isVerified: false,
-      addonCapabilities: {},
-      crossAddonMetrics: {'discoverScore': 3.8},
+      roleCapabilities: {},
+      crossRoleMetrics: {'discoverScore': 3.8},
       networkEffectMultiplier: 1.0,
       favoriteCategories: ['food', 'wellness'],
       languages: ['ar'],

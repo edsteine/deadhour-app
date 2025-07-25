@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../utils/theme.dart';
 
-class MainNavigationScreen extends StatefulWidget {
+
+
+class MainNavigationScreen extends ConsumerStatefulWidget {
   final Widget child;
 
   const MainNavigationScreen({
@@ -11,10 +15,10 @@ class MainNavigationScreen extends StatefulWidget {
   });
 
   @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  ConsumerState<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
+class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   int _currentIndex = 0;
 
   List<NavigationItem> get _navigationItems {
@@ -53,10 +57,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     ];
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.child, // No header - consistent for all users
+      body: widget.child, // Clean layout without role switchers
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }

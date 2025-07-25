@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
+import '../../providers/role_toggle_provider.dart';
+import '../../models/user.dart';
 import '../home/main_navigation_screen.dart';
 
-class TourismScreen extends StatefulWidget {
+class TourismScreen extends ConsumerStatefulWidget {
   const TourismScreen({super.key});
 
   @override
-  State<TourismScreen> createState() => _TourismScreenState();
+  ConsumerState<TourismScreen> createState() => _TourismScreenState();
 }
 
-class _TourismScreenState extends State<TourismScreen> with TickerProviderStateMixin {
+class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   String _selectedCity = 'Casablanca';
-  bool _isPremiumUser = false; // Mock user state
+  late final bool _isPremiumUser;
 
   final List<Tab> _tabs = [
     const Tab(text: 'Discover'),
@@ -26,6 +29,7 @@ class _TourismScreenState extends State<TourismScreen> with TickerProviderStateM
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
+    _isPremiumUser = ref.read(roleToggleProvider) == UserRole.premium;
   }
 
   @override
@@ -528,7 +532,12 @@ class _TourismScreenState extends State<TourismScreen> with TickerProviderStateM
           ),
           const SizedBox(height: 12),
           const Text(
-            '• Personal local expert assigned\n• Access to exclusive experiences\n• 24/7 cultural support\n• Premium community rooms',
+            '''
+• Personal local expert assigned
+• Access to exclusive experiences
+• 24/7 cultural support
+• Premium community rooms
+''',
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
           const SizedBox(height: 16),

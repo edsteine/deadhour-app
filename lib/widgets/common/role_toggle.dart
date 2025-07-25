@@ -1,70 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../utils/theme.dart';
+import '../../models/user.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/role_toggle_provider.dart';
 
-enum UserAddon {
-  consumer('Consumer', '🛍️', AppTheme.primaryText),
-  business('Business+', '🏢', AppTheme.moroccoGreen),
-  guide('Guide+', '🧭', AppTheme.moroccoGold),
-  premium('Premium', '💎', Colors.purple);
-
-  const UserAddon(this.label, this.icon, this.color);
-
-  final String label;
-  final String icon;
-  final Color color;
-}
-
-class AddonToggleProvider extends ChangeNotifier {
-  UserAddon _currentAddon = UserAddon.consumer;
-  bool _isLoggedIn = false;
-
-  UserAddon get currentAddon => _currentAddon;
-  bool get isLoggedIn => _isLoggedIn;
-
-  void setAddon(UserAddon addon) {
-    _currentAddon = addon;
-    notifyListeners();
-  }
-
-  void toggleLogin() {
-    _isLoggedIn = !_isLoggedIn;
-    if (!_isLoggedIn) {
-      _currentAddon = UserAddon.consumer;
-    }
-    notifyListeners();
-  }
-
-  bool hasFeatureAccess(String feature) {
-    if (!_isLoggedIn) return false;
-    
-    switch (feature) {
-      case 'business_dashboard':
-        return _currentAddon == UserAddon.business;
-      case 'guide_features':
-        return _currentAddon == UserAddon.guide;
-      case 'premium_tourism':
-        return _currentAddon == UserAddon.premium;
-      case 'basic_features':
-        return true;
-      default:
-        return false;
-    }
-  }
-}
-
-class AddonToggleWidget extends StatelessWidget {
-  final AddonToggleProvider provider;
-  final Function(UserAddon) onAddonChanged;
-
-  const AddonToggleWidget({
-    super.key,
-    required this.provider,
-    required this.onAddonChanged,
-  });
+class RoleToggleWidget extends ConsumerWidget {
+  const RoleToggleWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    if (!provider.isLoggedIn) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final roleNotifier = ref.watch(roleToggleProvider.notifier);
+    final currentRole = ref.watch(roleToggleProvider);
+    final isLoggedIn = roleNotifier.isLoggedIn;
+
+    if (!isLoggedIn) {
       return const SizedBox.shrink();
     }
 
@@ -76,12 +25,12 @@ class AddonToggleWidget extends StatelessWidget {
         border: Border.all(color: AppTheme.hintText.withValues(alpha: 0.3)),
       ),
       child: Row(
-        children: UserAddon.values.map((addon) {
-          final isSelected = provider.currentAddon == addon;
+        children: UserRole.values.where((role) => role != UserRole.driver && role != UserRole.host && role != UserRole.chef && role != UserRole.photographer).map((role) {
+          final isSelected = currentRole == role;
           
           return Expanded(
             child: GestureDetector(
-              onTap: () => onAddonChanged(addon),
+              onTap: () => roleNotifier.setRole(role),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.symmetric(
@@ -89,19 +38,19 @@ class AddonToggleWidget extends StatelessWidget {
                   horizontal: AppTheme.spacing8,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected ? addon.color : Colors.transparent,
+                  color: isSelected ? role.color : Colors.transparent,
                   borderRadius: BorderRadius.circular(AppTheme.radiusLarge - 2),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      addon.icon,
+                      role.icon,
                       style: const TextStyle(fontSize: 20),
                     ),
                     const SizedBox(height: AppTheme.spacing4),
                     Text(
-                      addon.label,
+                      role.label,
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
@@ -120,18 +69,15 @@ class AddonToggleWidget extends StatelessWidget {
   }
 }
 
-class MockAuthSection extends StatelessWidget {
-  final AddonToggleProvider provider;
-  final VoidCallback onToggleLogin;
-
-  const MockAuthSection({
-    super.key,
-    required this.provider,
-    required this.onToggleLogin,
-  });
+class MockAuthSection extends ConsumerWidget {
+  const MockAuthSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final roleNotifier = ref.watch(roleToggleProvider.notifier);
+    final currentRole = ref.watch(roleToggleProvider);
+    final isLoggedIn = roleNotifier.isLoggedIn;
+
     return Container(
       margin: const EdgeInsets.all(AppTheme.spacing16),
       padding: const EdgeInsets.all(AppTheme.spacing20),
@@ -153,7 +99,7 @@ class MockAuthSection extends StatelessWidget {
           Row(
             children: [
               Icon(
-                provider.isLoggedIn ? Icons.person : Icons.person_outline,
+                isLoggedIn ? Icons.person : Icons.person_outline,
                 color: AppTheme.moroccoGreen,
               ),
               const SizedBox(width: AppTheme.spacing8),
@@ -166,22 +112,22 @@ class MockAuthSection extends StatelessWidget {
               ),
               const Spacer(),
               Switch(
-                value: provider.isLoggedIn,
-                onChanged: (value) => onToggleLogin(),
+                value: isLoggedIn,
+                onChanged: (value) => roleNotifier.toggleLogin(),
                 activeColor: AppTheme.moroccoGreen,
               ),
             ],
           ),
           const SizedBox(height: AppTheme.spacing12),
           Text(
-            provider.isLoggedIn 
-                ? 'You\'re now logged in! Switch between ADDONs to see different features.'
-                : 'Toggle this switch to simulate logging in and explore ADDON features.',
+            isLoggedIn 
+                ? 'You\'re now logged in! Switch between Roles to see different features.'
+                : 'Toggle this switch to simulate logging in and explore Role features.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppTheme.secondaryText,
             ),
           ),
-          if (provider.isLoggedIn) ...[
+          if (isLoggedIn) ...[
             const SizedBox(height: AppTheme.spacing16),
             Text(
               'Current User Type:',
@@ -193,14 +139,14 @@ class MockAuthSection extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  provider.currentAddon.icon,
+                  currentRole.icon,
                   style: const TextStyle(fontSize: 24),
                 ),
                 const SizedBox(width: AppTheme.spacing8),
                 Text(
-                  provider.currentAddon.label,
+                  currentRole.label,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: provider.currentAddon.color,
+                    color: currentRole.color,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -26,6 +26,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   int _maxCustomersPerDay = 20;
   int _maxPerTimeSlot = 8;
   bool _notifyCommunity = true;
+  bool _isHalalCertified = false;
+  bool _isPrayerTimeAware = false;
 
   final List<String> _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -204,6 +206,27 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                           return 'Please enter a deal name';
                         }
                         return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    SwitchListTile(
+                      title: const Text('Halal Certified'),
+                      subtitle: const Text('Indicate if this deal is for halal-certified venues/products'),
+                      value: _isHalalCertified,
+                      onChanged: (value) {
+                        setState(() {
+                          _isHalalCertified = value;
+                        });
+                      },
+                    ),
+                    SwitchListTile(
+                      title: const Text('Prayer Time Aware'),
+                      subtitle: const Text('Consider prayer times when promoting this deal'),
+                      value: _isPrayerTimeAware,
+                      onChanged: (value) {
+                        setState(() {
+                          _isPrayerTimeAware = value;
+                        });
                       },
                     ),
                     const SizedBox(height: 16),

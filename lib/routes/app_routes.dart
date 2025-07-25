@@ -6,7 +6,7 @@ import '../screens/auth/splash_screen.dart';
 import '../screens/auth/onboarding_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
-import '../screens/auth/user_type_selection_screen.dart';
+import '../screens/auth/role_marketplace_screen.dart';
 import '../screens/home/main_navigation_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/deals_screen.dart';
@@ -44,13 +44,7 @@ class AppRouter {
       GoRoute(
         path: '/user-type',
         name: 'user-type',
-        builder: (context, state) => const AddonMarketplaceScreen(),
-      ),
-      // Temporary placeholder for addon marketplace
-      GoRoute(
-        path: '/addon-marketplace',
-        name: 'addon-marketplace',
-        builder: (context, state) => const Scaffold(body: Center(child: Text('Addon Marketplace - Coming Soon'))),
+        builder: (context, state) => RoleMarketplaceScreen(),
       ),
       GoRoute(
         path: '/login',
@@ -156,26 +150,26 @@ class AppRouter {
             ],
           ),
 
-          // ADDON Routes
+          // Role Routes
           GoRoute(
-            path: '/addons',
-            name: 'addons',
-            builder: (context, state) => const Scaffold(body: Center(child: Text('Addon Marketplace - Coming Soon'))),
+            path: '/roles',
+            name: 'roles',
+            builder: (context, state) => const Scaffold(body: Center(child: Text('Role Marketplace - Coming Soon'))),
             routes: [
               GoRoute(
                 path: 'switching',
-                name: 'addon-switching',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Addon Switching - Coming Soon'))),
+                name: 'role-switching',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Role Switching - Coming Soon'))),
               ),
               GoRoute(
                 path: 'guide',
-                name: 'guide-addon',
+                name: 'guide-role',
                 builder: (context, state) => const GuideAddonScreen(),
               ),
               GoRoute(
                 path: 'premium',
-                name: 'premium-addon',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Premium Addon - Coming Soon'))),
+                name: 'premium-role',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Premium Role - Coming Soon'))),
               ),
             ],
           ),
@@ -232,8 +226,9 @@ class AppRouter {
 class AppRoutes {
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
+  static const String rolesSelection = '/roles_selection';
   static const String userType = '/user-type';
-  static const String addonMarketplace = '/addon-marketplace';
+  
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
@@ -249,10 +244,9 @@ class AppRoutes {
   static const String tourism = '/tourism';
   static const String localExpert = '/tourism/local-expert';
   static const String socialDiscovery = '/tourism/social-discovery';
-  static const String addons = '/addons';
-  static const String addonSwitching = '/addons/switching';
-  static const String guideAddon = '/addons/guide';
-  static const String premiumAddon = '/addons/premium';
+  static const String premiumRole = '/roles/premium';
+  
+  
   static const String profile = '/profile';
   static const String settings = '/profile/settings';
 }
@@ -279,13 +273,9 @@ class AppNavigation {
     context.go(AppRoutes.userType);
   }
 
-  static void goToAddonMarketplace(BuildContext context) {
-    context.go(AppRoutes.addonMarketplace);
-  }
+  
 
-  static void goToAddons(BuildContext context) {
-    context.go(AppRoutes.addons);
-  }
+  
 
   static void goToCommunity(BuildContext context) {
     context.go(AppRoutes.community);
@@ -323,17 +313,13 @@ class AppNavigation {
     context.go(AppRoutes.socialDiscovery);
   }
 
-  static void goToGuideAddon(BuildContext context) {
-    context.go(AppRoutes.guideAddon);
+  
+
+  static void goToPremiumRole(BuildContext context) {
+    context.go(AppRoutes.premiumRole);
   }
 
-  static void goToPremiumAddon(BuildContext context) {
-    context.go(AppRoutes.premiumAddon);
-  }
-
-  static void goToAddonSwitching(BuildContext context) {
-    context.go(AppRoutes.addonSwitching);
-  }
+  
 
   static void goToProfile(BuildContext context) {
     context.go(AppRoutes.profile);
