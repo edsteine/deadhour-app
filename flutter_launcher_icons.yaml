@@ -1,0 +1,17 @@
+flutter_launcher_icons:
+  android: true  # Enables Android icon generation (defaults to "ic_launcher")
+  ios: true      # Enables iOS icon generation
+  image_path: "assets/images/ic_launcher.png"  # Fallback image for both platforms
+
+  # Android-specific
+  adaptive_icon_background: "assets/images/ic_launcher_background.png"  # Background for adaptive icons
+  adaptive_icon_foreground: "assets/images/ic_launcher_foreground.png"  # Foreground for adaptive icons
+  adaptive_icon_monochrome: "assets/images/ic_launcher_monochrome.png"  # Monochrome for Android 13+ themed icons
+  
+  adaptive_icon_foreground_inset: 16  # Padding for foreground (optional, adjust as needed)
+  min_sdk_android: 21  # Minimum Android SDK (Android 5.0+)
+  generate_density_folders: true  # Generates density-specific folders (mdpi, hdpi, etc.)
+
+  # iOS-specific
+  remove_alpha_ios: true  # Removes alpha channel for iOS compatibility
+  background_color_ios: "#FAFAFA"  # Background color for iOS icons

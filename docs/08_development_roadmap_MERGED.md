@@ -13,6 +13,27 @@
 
 **Core Platform Concept**: Business deals become community discovery opportunities in category-based rooms, with one account supporting multiple roles (Consumer + Business + Guide + Premium).
 
+## Addressing Key Gaps (Technical & Strategic)
+
+This roadmap acknowledges the critical gaps identified in the `MISSING_ELEMENTS_COMPREHENSIVE_REPORT.md` and `STRATEGIC_BUSINESS_GAPS_REPORT.md`. The following priorities are integrated into the development phases:
+
+### Phase 1 Priorities (MVP Foundation):
+-   **Backend Implementation**: Transition from mock data to a live Firebase backend is the top priority. The MVP cannot be validated without it.
+-   **Testing Framework**: Establish a testing framework and aim for >50% coverage for the MVP, focusing on business logic and authentication.
+-   **Security Basics**: Implement Firebase Auth and basic security rules for Firestore.
+-   **Cold Start Validation**: The initial go-to-market strategy must include a specific plan to acquire the first 10 venues and 100 users.
+
+### Phase 2 Priorities (Network Effects Acceleration):
+-   **Full Backend & API**: Complete the build-out of all required backend services.
+-   **Comprehensive Testing**: Increase test coverage to >80%.
+-   **Payment Integration**: Implement a secure payment gateway for commissions and subscriptions.
+-   **Network Effects Measurement**: Build analytics to track the social-to-booking conversion rate and other key network effects KPIs.
+
+### Phase 3 & 4 Priorities (Scaling):
+-   **Scalability & Performance**: Begin the planned migration to a Django/PostgreSQL backend for long-term scaling.
+-   **Operational Tools**: Develop internal tools for community moderation and customer support.
+-   **Legal & Compliance**: Formalize all legal agreements and ensure GDPR compliance for tourist data.
+
 ---
 
 ## Phase 1: MVP Foundation (Months 1-4)

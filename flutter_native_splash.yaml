@@ -1,0 +1,19 @@
+flutter_native_splash:
+  # Light mode (single theme)
+  color: "#FAFAFA"  # Background color (your theme green)
+  image: "assets/images/output.png"  # Centered splash image
+
+  # Enable for Android/iOS, disable for web
+  android: true
+  ios: true
+  web: false
+
+  # Android 12+ specific settings
+  android_12:
+    image: "assets/images/output.png"  # Splash icon
+    color: "#FAFAFA"  # Background color
+    icon_background_color: "#FAFAFA"  # White background for icon (contrast with green)
+
+  # Optional branding (uncomment if needed)
+  # branding: "assets/branding.png"
+  # branding_mode: bottom
