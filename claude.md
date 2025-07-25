@@ -3,13 +3,64 @@
 
 ## Project Context
 
-**DeadHour** is a **dual-problem platform** that simultaneously solves:
-1. **Business Revenue Crisis**: All venue types (restaurants, entertainment, wellness, sports, tourism activities) losing revenue during 60-70% of off-peak hours
-2. **Social Discovery Gap**: People struggling to find authentic local experiences through trusted connections across all city activities
+**DeadHour** is a **dead hours optimization platform** that helps businesses fill empty venues during slow periods through discounted deals.
 
-**Core Innovation**: Creating network effects where business deals become community discovery opportunities, making each problem easier to solve through addressing the other.
+**Core Problem**: Restaurants, cafés, and entertainment venues across Morocco lose massive revenue during off-peak hours (60-70% of operating time generates minimal income). Empty seats = lost money that can never be recovered.
 
-**Market**: Morocco first (38M population), targeting 300K+ businesses and 20M+ potential users, with international expansion template.
+**Simple Solution**: DeadHour connects businesses posting deals during their **dead hours** (when they have 0-few customers) with users looking for discounted experiences. 
+
+**How It Works**:
+1. **Businesses** post deals during their slow periods (e.g., restaurant at 3 PM offers 30% off)
+2. **Users** browse deals in category-based rooms (🍕 Food, 🎮 Entertainment, etc.)
+3. **Booking** happens through the app with reduced prices
+4. **Result**: Empty venues get customers, customers get discounts
+
+**Community Aspect**: Deals are organized in Discord-like rooms by category, making deal discovery feel like community-based recommendations rather than just browsing discounts.
+
+**User Account System**: Single account with multiple capabilities (ADDON/Role/Profile terminology refers to the same user interface concept):
+
+**Core User Capabilities**:
+- **Consumer** (Free): Browse and book dead hour deals in category rooms
+- **Business** (€30/month): Post your venue's dead hour deals, manage bookings, access analytics
+- **Guide** (€20/month): Share local expertise about venues and experiences  
+- **Premium** (€15/month): Enhanced features across all capabilities
+- **Future Capabilities**: Driver, Host, Chef, Photographer for additional services
+
+**Why Single Account System**:
+- **One Account**: Single login for all capabilities instead of separate accounts
+- **Real-World Flexibility**: Restaurant owner can also be a local guide using same account
+- **Revenue Stacking**: Business owner (€30) + Guide (€20) + Premium (€15) = €65/month from one user
+- **Seamless Switching**: Instagram-inspired interface to switch between capabilities
+
+**IMPORTANT**: ADDON/Role/Profile are just UI terms for the same account system concept. The core focus is solving dead hours optimization and social discovery problems, not the interface terminology.
+
+**Development Context**: A coworker initially misunderstood the app's purpose and thought it was primarily about ADDONs/capabilities rather than dead hours optimization. While this wasn't the core vision, their ADDON-focused work contained valuable insights about user account flexibility and revenue stacking that we've incorporated into our account system design. We preserve their terminology and concepts where relevant while keeping the app's true focus on solving business dead hours and social discovery problems.
+
+**Market Opportunity**: 
+- **Primary Market**: 300K+ businesses in Morocco with dead hours needing customers
+- **User Market**: 8M+ urban locals + 13M+ annual tourists looking for deals
+- **Revenue Potential**: €3.6B+ through multi-capability stacking across 20M+ users
+
+**Revenue Model**: Multi-capability stacking allows €65+/month per user vs single-capability users.
+
+## Morocco Market Context & Competitive Advantages
+
+**Perfect Market Timing**:
+- **Digital Infrastructure**: 84.1% internet penetration, 95% mobile usage - infrastructure ready
+- **Market Gap**: ZERO competitors focus specifically on dead hours optimization in Morocco
+- **Failed Platform Lessons**: Jumia Food exit (Dec 2023, 41% market share lost) validates need for sustainable economics
+- **Government Support**: Digital Morocco 2025 initiative supports business optimization tools
+
+**Competitive Landscape Reality**:
+- **Current Platforms**: Food delivery (DONE, Glovo), basic booking (limited), no dead hours focus
+- **Commission Crisis**: 15-35% commission rates exceed restaurant profit margins (6-22%)
+- **Global Validation**: £30M+ funding raised for booking/discovery platforms but none focus on dead hours
+- **DeadHour Advantage**: First platform specifically targeting dead hours optimization with flexible user account system
+
+**Target Market Segments**:
+- **Deal Seekers (8M+ urban locals)**: Young professionals, families, students looking for discounts
+- **Tourists (13M+ annual)**: Europeans, backpackers, Gulf visitors seeking authentic experiences at good prices  
+- **Businesses (300K+ venues)**: Restaurants, cafés, entertainment venues with dead hours needing customers
 
 ## Core Accuracy Rules
 
@@ -103,10 +154,26 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Cultural Calendar**: Religious holidays (Eid, Mawlid), local festivals (Moussem)
 
 ## Business Model & Success Metrics
-- **Revenue Streams**: Business subscriptions (40%), transaction commissions (20%), premium users (30%), social commerce (10%)
-- **Key Metrics**: Cross-problem engagement rate, venue fill rate during off-peak hours, community activity
-- **Target Year 1**: 50+ venues, 1,000+ users, 400-600 monthly bookings, $150K revenue
-- **Network Effects**: Each solved problem amplifies the other (business optimization ↔ social discovery)
+
+**Multiple Revenue Streams from Account System:**
+- **Business Capability**: €30/month SaaS for venue management and revenue optimization
+- **Guide Capability**: €20/month for local expertise sharing and commission earnings
+- **Premium Capability**: €15/month for enhanced features across all capabilities
+- **Booking Commissions**: 8-15% on successful off-peak bookings (alternative to commissions model)
+- **Social Commerce**: Sponsored content, premium discovery features
+- **Future Capabilities**: Driver, Host, Chef, Photographer for infinite scalability
+
+**Network Effects Magic**: More users = more audience for business deals = more options for users = stronger community = exponential value creation
+
+**Financial Projections:**
+- **Year 1**: $150K revenue (dual-problem validation + multi-role subscriptions)
+- **Year 2**: $1.2M revenue (network effects acceleration + multi-city expansion)
+- **Year 3**: $4M revenue (full dual-problem platform + international potential)
+- **Unit Economics**: €60-65 average revenue per user (multiple streams + capability stacking), 75%+ gross margins
+- **Key Multipliers**: Tourism users spend 3-5x more than locals, multi-capability users generate 2-3x more revenue
+- **Multi-Capability Economics**: Full-capability users (€65/month) vs single-capability users create exponential value
+
+**Success Metrics**: Cross-problem engagement rate, venue fill rate during off-peak hours, community activity, multi-capability adoption, network effects acceleration, capability switching frequency
 
 ## Validation-First Methodology
 - **All strategic assumptions need market validation** before implementation
@@ -132,4 +199,8 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Firebase**: Use streams for real-time data, handle null values properly
 - **UI**: Follow Material Design guidelines, use consistent spacing (8px multiples)
 - **Comments**: Minimal comments, focus on self-documenting code
-- **Dual-Problem Focus**: Every feature should demonstrate value for both business optimization AND social discovery
+- **Dead Hours Focus**: Every feature should help businesses fill empty venues or help users find discounted deals
+- **Account Architecture**: All features must support capability switching between Consumer/Business/Guide/Premium
+- **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms
+- **User Interface**: Instagram-inspired interface for seamless capability switching within single account
+- **Cross-Capability Features**: User capabilities that enhance each other (business owners can also be guides)
