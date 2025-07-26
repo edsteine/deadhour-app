@@ -1,74 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../utils/theme.dart';
 import '../../models/user.dart';
-import '../../providers/role_toggle_provider.dart'; // Import RoleToggleProvider
+import '../../providers/role_toggle_provider.dart';
 
 class RoleSwitcher extends ConsumerWidget {
   const RoleSwitcher({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final roleNotifier = ref.watch(roleToggleProvider.notifier);
+    final activeRoles = ref.watch(roleToggleProvider.notifier).activeRoles;
     final currentRole = ref.watch(roleToggleProvider);
 
-    if (!roleNotifier.isLoggedIn) {
-      return const SizedBox.shrink(); // Only show if logged in
+    if (activeRoles.length <= 1) {
+      return const SizedBox.shrink();
     }
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppTheme.spacing16, vertical: AppTheme.spacing4),
-      padding: const EdgeInsets.all(AppTheme.spacing4),
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceColor,
-        borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
-        border: Border.all(color: AppTheme.hintText.withValues(alpha: 0.3)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: UserRole.values.where((role) => role != UserRole.driver && role != UserRole.host && role != UserRole.chef && role != UserRole.photographer).map((role) {
-          final isSelected = currentRole == role;
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => roleNotifier.setRole(role),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(vertical: AppTheme.spacing8, horizontal: AppTheme.spacing4),
-                decoration: BoxDecoration(
-                  color: isSelected ? role.color : Colors.transparent,
-                  borderRadius: BorderRadius.circular(AppTheme.radiusLarge - 4),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      role.icon,
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(height: AppTheme.spacing4),
-                    Text(
-                      role.label,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? Colors.white : AppTheme.secondaryText,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+    return PopupMenuButton<UserRole>(
+      onSelected: (UserRole role) {
+        ref.read(roleToggleProvider.notifier).setRole(role);
+      },
+      itemBuilder: (BuildContext context) {
+        return activeRoles.map((UserRole role) {
+          return PopupMenuItem<UserRole>(
+            value: role,
+            child: Text(role.toString().split('.').last),
+          );
+        }).toList();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              currentRole.toString().split('.').last,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
-          );
-        }).toList(),
+            const Icon(Icons.arrow_drop_down),
+          ],
+        ),
       ),
     );
   }

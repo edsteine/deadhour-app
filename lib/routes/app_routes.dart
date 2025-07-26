@@ -24,6 +24,9 @@ import '../screens/tourism/local_expert_screen.dart';
 import '../screens/social/social_discovery_screen.dart';
 import '../screens/profile/profile_screen.dart';
 import '../screens/profile/settings_screen.dart';
+import '../screens/home/booking_flow_screen.dart';
+import '../screens/admin/network_effects_dashboard_screen.dart';
+import '../models/deal.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -76,6 +79,14 @@ class AppRouter {
                 path: 'venues',
                 name: 'venues',
                 builder: (context, state) => const VenueDiscoveryScreen(),
+              ),
+              GoRoute(
+                path: 'booking',
+                name: 'booking-flow',
+                builder: (context, state) {
+                  final deal = state.extra as Deal;
+                  return BookingFlowScreen(deal: deal);
+                },
               ),
             ],
           ),
@@ -187,6 +198,13 @@ class AppRouter {
               ),
             ],
           ),
+
+          // Admin Routes
+          GoRoute(
+            path: '/admin',
+            name: 'admin',
+            builder: (context, state) => const NetworkEffectsDashboardScreen(),
+          ),
         ],
       ),
     ],
@@ -234,6 +252,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String deals = '/home/deals';
   static const String venues = '/home/venues';
+  static const String bookingFlow = '/home/booking';
   static const String community = '/community';
   static const String roomDetail = '/community/room';
   static const String roomChat = '/community/room/*/chat';
@@ -245,7 +264,7 @@ class AppRoutes {
   static const String localExpert = '/tourism/local-expert';
   static const String socialDiscovery = '/tourism/social-discovery';
   static const String premiumRole = '/roles/premium';
-  
+  static const String admin = '/admin';
   
   static const String profile = '/profile';
   static const String settings = '/profile/settings';
@@ -327,6 +346,14 @@ class AppNavigation {
 
   static void goToSettings(BuildContext context) {
     context.go(AppRoutes.settings);
+  }
+
+  static void goToBookingFlow(BuildContext context, Deal deal) {
+    context.push(AppRoutes.bookingFlow, extra: deal);
+  }
+
+  static void goToAdmin(BuildContext context) {
+    context.go(AppRoutes.admin);
   }
 
   static void pop(BuildContext context) {

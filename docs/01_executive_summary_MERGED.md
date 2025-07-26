@@ -10,6 +10,13 @@
 ## The Unified Solution
 **DeadHour** is Morocco's first social venue discovery platform where **business deals become community discovery opportunities**. When businesses post off-peak deals in category-based rooms, they simultaneously solve revenue problems AND help community members discover amazing experiences.
 
+---
+## The Multi-Role System: A Competitive Moat
+
+Our core innovation is amplified by a flexible **multi-role account system**. A single user can activate multiple roles (Consumer, Business, Guide, Premium), transforming them from a passive user into an active participant in the ecosystem. This allows for powerful **revenue stacking** (a single user generating €65+/month) and creates deep network effects that are difficult for competitors to replicate. An Instagram-inspired interface allows for seamless switching between these roles, making participation frictionless.
+
+---
+
 ## Flexible Account System for Maximum Participation
 **DeadHour** uses a revolutionary single-account, multi-role system inspired by industry leaders like Airbnb (€75B) and Instagram (2B users):
 

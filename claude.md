@@ -203,3 +203,12 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms.
 - **User Interface**: An Instagram-inspired interface should be used for seamless switching between roles.
 - **Cross-Role Features**: User roles should enhance each other (e.g., business owners can also be guides).
+
+## CRITICAL RULE: No Unsolicited Recommendations
+**NEVER recommend changes, additions, or modifications without explicit request.** 
+- If confused about implementation or documentation, ASK first
+- Do NOT suggest missing features or improvements unless specifically asked
+- Focus ONLY on what was requested - nothing more, nothing less
+- The user has spent significant time building what exists for specific reasons
+- When analyzing coverage or gaps, provide facts only - no recommendations
+- If you think something is missing or wrong, ASK before suggesting changes
