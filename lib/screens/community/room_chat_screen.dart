@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:deadhour/screens/community/widgets/room_chat_app_bar.dart';
 import 'package:deadhour/screens/community/widgets/room_info_banner.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:go_router/go_router.dart';
+import 'package:deadhour/screens/community/widgets/chat_message_bubble.dart';
+import 'package:deadhour/screens/community/widgets/typing_indicator.dart';
+import 'package:deadhour/screens/community/widgets/message_input.dart';
+import 'package:deadhour/screens/community/utils/room_chat_dialog_helpers.dart';
+import 'package:deadhour/screens/community/utils/room_chat_bottom_sheet_helpers.dart';
+import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 
 class RoomChatScreen extends StatefulWidget {
@@ -121,8 +124,8 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     return Scaffold(
       appBar: RoomChatAppBar(
         room: _room,
-        onShowRoomInfo: _showRoomInfo,
-        onShowRoomMenu: _showRoomMenu,
+        onShowRoomInfo: () => RoomChatBottomSheetHelpers.showRoomInfo(context, _room, _getCategoryColor, _buildInfoStat),
+        onShowRoomMenu: () => RoomChatBottomSheetHelpers.showRoomMenu(context, _leaveRoom),
         getCategoryColor: (category) => _getCategoryColor(category),
       ),
       body: Column(
@@ -137,428 +140,158 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
-                return _buildMessage(_messages[index]);
+                return ChatMessageBubble(
+                  message: _messages[index],
+                  isCurrentUser: _messages[index]['userId'] == MockData.currentUser.id,
+                  formatTime: _formatTime,
+                  bookDeal: _bookDeal,
+                  joinGroup: _joinGroup,
+                );
               },
             ),
           ),
 
           // Typing indicator
-          if (_isTyping) _buildTypingIndicator(),
+          if (_isTyping) TypingIndicator(isTyping: _isTyping),
 
           // Message input
-          _buildMessageInput(),
+          MessageInput(
+            messageController: _messageController,
+            onShowMessageOptions: _showMessageOptions,
+            onSendMessage: _sendMessage,
+            onChanged: (text) {
+              if (text.isNotEmpty && !_isTyping) {
+                setState(() => _isTyping = true);
+                Future.delayed(const Duration(seconds: 3), () {
+                  if (mounted) setState(() => _isTyping = false);
+                });
+              }
+            },
+          ),
         ],
       ),
     );
   }
 
-  
-
-  Widget _buildRoomInfoBanner() {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade200),
+  Widget _buildInfoStat(IconData icon, String value, String label) {
+    return Column(
+      children: [
+        Icon(icon, size: 20, color: AppTheme.secondaryText),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-      child: const Row(
-        children: [
-          Icon(
-            Icons.info_outline,
-            size: 16,
-            color: AppTheme.moroccoGreen,
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 12,
+            color: AppTheme.secondaryText,
           ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              'Share deals, form groups, and discover amazing places together!',
-              style: TextStyle(
-                fontSize: 12,
-                color: AppTheme.moroccoGreen,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMessage(Map<String, dynamic> message) {
-    final isCurrentUser = message['userId'] == MockData.currentUser.id;
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (!isCurrentUser) ...[
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage(message['userAvatar']),
-            ),
-            const SizedBox(width: 8),
-          ],
-          Expanded(
-            child: Column(
-              crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-              children: [
-                if (!isCurrentUser)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      message['userName'],
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.secondaryText,
-                      ),
-                    ),
-                  ),
-                _buildMessageBubble(message, isCurrentUser),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    _formatTime(message['timestamp']),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      color: AppTheme.lightText,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (isCurrentUser) ...[
-            const SizedBox(width: 8),
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage(MockData.currentUser.profilePicture),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMessageBubble(Map<String, dynamic> message, bool isCurrentUser) {
-    switch (message['type']) {
-      case 'deal_alert':
-        return _buildDealAlertBubble(message, isCurrentUser);
-      case 'group_formation':
-        return _buildGroupFormationBubble(message, isCurrentUser);
-      default:
-        return _buildTextBubble(message, isCurrentUser);
-    }
-  }
-
-  Widget _buildTextBubble(Map<String, dynamic> message, bool isCurrentUser) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: isCurrentUser ? AppTheme.moroccoGreen : Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(16).copyWith(
-          bottomRight: isCurrentUser ? const Radius.circular(4) : null,
-          bottomLeft: !isCurrentUser ? const Radius.circular(4) : null,
         ),
-      ),
-      child: Text(
-        message['message'],
-        style: TextStyle(
-          fontSize: 14,
-          color: isCurrentUser ? Colors.white : AppTheme.primaryText,
-        ),
-      ),
+      ],
     );
   }
 
-  Widget _buildDealAlertBubble(Map<String, dynamic> message, bool isCurrentUser) {
-    final dealInfo = message['dealInfo'];
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.error.withValues(alpha: 0.1),
-        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColors.error,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  'DEAL ALERT',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Text(
-                dealInfo['discount'],
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.error,
-                ),
-              ),
-            ],
+  void _leaveRoom() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Leave Room'),
+        content: Text('Are you sure you want to leave ${_room.displayName}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
-          const SizedBox(height: 8),
-          Text(
-            message['message'],
-            style: const TextStyle(fontSize: 14),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dealInfo['venueName'],
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Valid until ${dealInfo['validUntil']}',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: AppTheme.secondaryText,
-                        ),
-                      ),
-                    ],
-                  ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Left ${_room.displayName}'),
+                  backgroundColor: AppColors.success,
                 ),
-                ElevatedButton(
-                  onPressed: () => _bookDeal(dealInfo),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.error,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    minimumSize: Size.zero,
-                  ),
-                  child: const Text(
-                    'Book',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
+            child: const Text('Leave'),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildGroupFormationBubble(Map<String, dynamic> message, bool isCurrentUser) {
-    final groupInfo = message['groupInfo'];
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.info.withValues(alpha: 0.1),
-        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColors.info,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  'GROUP FORMING',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Text(
-                '+${groupInfo['additionalDiscount']}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.info,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            message['message'],
-            style: const TextStyle(fontSize: 14),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${groupInfo['currentSize']}/${groupInfo['minSize']} people',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Additional ${groupInfo['additionalDiscount']} group discount',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: AppTheme.secondaryText,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => _joinGroup(groupInfo),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.info,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    minimumSize: Size.zero,
-                  ),
-                  child: const Text(
-                    'Join',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTypingIndicator() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          const SizedBox(width: 40), // Avatar space
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildTypingDot(0),
-                const SizedBox(width: 4),
-                _buildTypingDot(1),
-                const SizedBox(width: 4),
-                _buildTypingDot(2),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTypingDot(int index) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 600),
-      width: 6,
-      height: 6,
-      decoration: const BoxDecoration(
-        color: AppTheme.lightText,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-
-  Widget _buildMessageInput() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          top: BorderSide(color: Colors.grey.shade200),
-        ),
-      ),
-      child: SafeArea(
-        child: Row(
+  void _bookDeal(Map<String, dynamic> dealInfo) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Book Deal'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-              onPressed: _showMessageOptions,
-              icon: const Icon(Icons.add_circle_outline),
-              color: AppTheme.moroccoGreen,
-            ),
-            Expanded(
-              child: TextField(
-                controller: _messageController,
-                decoration: InputDecoration(
-                  hintText: 'Type a message...',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: AppTheme.surfaceColor,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                ),
-                onChanged: (text) {
-                  // Simulate typing indicator
-                  if (text.isNotEmpty && !_isTyping) {
-                    setState(() => _isTyping = true);
-                    Future.delayed(const Duration(seconds: 3), () {
-                      if (mounted) setState(() => _isTyping = false);
-                    });
-                  }
-                },
-                onSubmitted: (text) => _sendMessage(text),
-              ),
-            ),
-            const SizedBox(width: 8),
-            IconButton(
-              onPressed: () => _sendMessage(_messageController.text),
-              icon: const Icon(Icons.send),
-              color: AppTheme.moroccoGreen,
-            ),
+            Text('Venue: ${dealInfo['venueName']}'),
+            Text('Discount: ${dealInfo['discount']}'),
+            Text('Valid until: ${dealInfo['validUntil']}'),
           ],
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Deal booked successfully!'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            },
+            child: const Text('Book Now'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _joinGroup(Map<String, dynamic> groupInfo) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Join Group'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Group size: ${groupInfo['currentSize']}/${groupInfo['minSize']}'),
+            Text('Additional discount: ${groupInfo['additionalDiscount']}'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Joined group successfully!'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            },
+            child: const Text('Join Group'),
+          ),
+        ],
       ),
     );
   }
@@ -647,7 +380,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
               subtitle: const Text('Alert the room about a great deal'),
               onTap: () {
                 Navigator.pop(context);
-                _showShareDealDialog();
+                RoomChatDialogHelpers.showShareDealDialog(context);
               },
             ),
             ListTile(
@@ -656,7 +389,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
               subtitle: const Text('Create a group for better discounts'),
               onTap: () {
                 Navigator.pop(context);
-                _showFormGroupDialog();
+                RoomChatDialogHelpers.showFormGroupDialog(context);
               },
             ),
             ListTile(
@@ -665,7 +398,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
               subtitle: const Text('Share a venue or meeting point'),
               onTap: () {
                 Navigator.pop(context);
-                _showShareLocationDialog();
+                RoomChatDialogHelpers.showShareLocationDialog(context);
               },
             ),
           ],
@@ -674,361 +407,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     );
   }
 
-  void _showShareDealDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Share Deal'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Venue Name',
-                hintText: 'e.g., Café Atlas',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Discount',
-                hintText: 'e.g., 40% off',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Valid Until',
-                hintText: 'e.g., 6 PM today',
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Deal shared with the room!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Share'),
-          ),
-        ],
-      ),
-    );
-  }
+  
 
-  void _showFormGroupDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Form Group'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Group Size Needed',
-                hintText: 'e.g., 4 people',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Meeting Time',
-                hintText: 'e.g., 3 PM today',
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Additional Info',
-                hintText: 'Any special requirements?',
-              ),
-              maxLines: 2,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Group formation request sent!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Create'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showShareLocationDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Share Location'),
-        content: const Text('Location sharing not implemented in mockup'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showRoomInfo() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
-        maxChildSize: 0.9,
-        minChildSize: 0.3,
-        builder: (context, scrollController) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: _getCategoryColor().withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: Text(
-                          _room.categoryIcon,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _room.displayName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${_room.categoryName} • ${_room.city}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: AppTheme.secondaryText,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  _room.description,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    _buildInfoStat(Icons.people, '${_room.memberCount}', 'Members'),
-                    const SizedBox(width: 24),
-                    _buildInfoStat(Icons.circle, '${_room.onlineCount}', 'Online'),
-                    const SizedBox(width: 24),
-                    _buildInfoStat(Icons.schedule, _room.lastActivityDisplay, 'Last Activity'),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildInfoStat(IconData icon, String value, String label) {
-    return Column(
-      children: [
-        Icon(icon, size: 20, color: AppTheme.secondaryText),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: AppTheme.secondaryText,
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _showRoomMenu() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Room Options',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('Notifications'),
-              subtitle: const Text('Manage room notifications'),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: const Icon(Icons.report),
-              title: const Text('Report Room'),
-              subtitle: const Text('Report inappropriate content'),
-              onTap: () => Navigator.pop(context),
-            ),
-            ListTile(
-              leading: const Icon(Icons.exit_to_app, color: AppColors.error),
-              title: const Text('Leave Room'),
-              subtitle: const Text('Leave this room'),
-              onTap: () {
-                Navigator.pop(context);
-                _leaveRoom();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _bookDeal(Map<String, dynamic> dealInfo) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Book Deal'),
-        content: Text('Book deal at ${dealInfo['venueName']}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Deal booked successfully!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Book'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _joinGroup(Map<String, dynamic> groupInfo) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Join Group'),
-        content: Text('Join this group for additional ${groupInfo['additionalDiscount']} discount?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Joined group successfully!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Join'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _leaveRoom() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Leave Room'),
-        content: const Text('Are you sure you want to leave this room?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.pop();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.error,
-            ),
-            child: const Text('Leave'),
-          ),
-        ],
-      ),
-    );
-  }
+  
 }
