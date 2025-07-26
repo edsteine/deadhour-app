@@ -7,6 +7,9 @@ class AppTheme {
   static const Color moroccoRed = Color(0xFFD32F2F); // Refined red
   static const Color darkGreen = Color(0xFF00712D);
   static const Color lightGreen = Color(0xFFE8F5E8);
+  static const Color darkBlue = Color(0xFF1A1A1A); // Using primaryText color
+  static const Color accentColor = Color(0xFFD4AF37); // Using moroccoGold color
+  static const Color nearlyWhite = Color(0xFFFFFFFF); // Pure white
   
   // Professional text hierarchy
   static const Color primaryText = Color(0xFF1A1A1A); // Darker for better contrast

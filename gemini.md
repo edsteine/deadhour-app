@@ -148,7 +148,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Prayer Times**: Integrate 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha)
 - **Ramadan Mode**: Special scheduling for Suhoor/Iftar times
 - **Halal Certification**: Filter and display halal requirements
-- **Multi-Language UI**: Arabic RTL text support + French/English
+- **Multi-language UI**: Arabic RTL text support + French/English
 - **Local Currency**: Moroccan Dirham (MAD) primary, EUR for tourists
 - **Cultural Calendar**: Religious holidays (Eid, Mawlid), local festivals (Moussem)
 
@@ -157,7 +157,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 **Multiple Revenue Streams from the Multi-Role Account System:**
 - **Business Role Subscription**: €30/month SaaS for venue management and revenue optimization.
 - **Guide Role Subscription**: €20/month for local expertise sharing and commission earnings.
-- **Premium Role Subscription**: €15/month for enhanced features across all active roles.
+- **Premium Role Subscription**: €15/month for enhanced features across all of a user's active roles.
 - **Booking Commissions**: 8-15% on successful off-peak bookings, driven by community discovery.
 - **Social Commerce**: Sponsored content in community rooms and premium discovery features.
 - **Future Roles**: Driver, Host, Chef, Photographer for infinite scalability.
@@ -224,3 +224,6 @@ Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+**CRITICAL RULE: When `replace` fails, stop and verify.** If the `replace` tool reports "Failed to edit, could not find the string to replace," immediately stop the current sequence of `replace` operations. Re-read the target file to get its exact current content. Then, carefully re-evaluate the `old_string` and `new_string` parameters to ensure they precisely match the current file content and your intended change. Do not proceed with further `replace` calls until the exact match is confirmed.
+
+---

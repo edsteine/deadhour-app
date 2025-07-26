@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/theme.dart';
+import 'package:deadhour/screens/community/widgets/room_chat_app_bar.dart';
+import 'package:deadhour/screens/community/widgets/room_info_banner.dart';
+import 'package:deadhour/utils/theme.dart';
+import 'package:go_router/go_router.dart';
 import '../../utils/mock_data.dart';
 
 class RoomChatScreen extends StatefulWidget {
@@ -116,11 +119,16 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: RoomChatAppBar(
+        room: _room,
+        onShowRoomInfo: _showRoomInfo,
+        onShowRoomMenu: _showRoomMenu,
+        getCategoryColor: (category) => _getCategoryColor(category),
+      ),
       body: Column(
         children: [
           // Room info banner
-          _buildRoomInfoBanner(),
+          const RoomInfoBanner(),
 
           // Messages list
           Expanded(
@@ -144,64 +152,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () => context.pop(),
-        icon: const Icon(Icons.arrow_back),
-      ),
-      title: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: _getCategoryColor().withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                _room.categoryIcon,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _room.displayName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '${_room.onlineCount} online • ${_room.memberCount} members',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        IconButton(
-          onPressed: _showRoomInfo,
-          icon: const Icon(Icons.info_outline),
-        ),
-        IconButton(
-          onPressed: _showRoomMenu,
-          icon: const Icon(Icons.more_vert),
-        ),
-      ],
-    );
-  }
+  
 
   Widget _buildRoomInfoBanner() {
     return Container(
@@ -612,8 +563,8 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     );
   }
 
-  Color _getCategoryColor() {
-    switch (_room.category) {
+  Color _getCategoryColor(String category) {
+    switch (category) {
       case 'food':
         return AppColors.foodCategory;
       case 'entertainment':

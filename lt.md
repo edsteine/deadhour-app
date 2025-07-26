@@ -47,3 +47,8 @@ using the rigtht depednecies
 and depoedncy injection 
 and all
 don't you think 
+
+
+can you add a menu drawer, this drawer will look all the routes we have
+it;s like our test to see all screens we have
+idk if we should also add to it widget to see how they look and stuff

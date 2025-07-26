@@ -1,7 +1,7 @@
+import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
-import '../home/main_navigation_screen.dart';
 
 class CreateDealScreen extends StatefulWidget {
   const CreateDealScreen({super.key});

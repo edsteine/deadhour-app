@@ -1,9 +1,9 @@
+import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../widgets/common/deal_card.dart';
-import '../home/main_navigation_screen.dart';
 
 class DealsScreen extends StatefulWidget {
   const DealsScreen({super.key});
