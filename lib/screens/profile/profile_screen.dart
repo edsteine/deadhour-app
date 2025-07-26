@@ -74,7 +74,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            // addonProvider.isLoggedIn ? 'Welcome back!' : 'Login to DeadHour',
+            // roleProvider.isLoggedIn ? 'Welcome back!' : 'Login to DeadHour',
             'Login to DeadHour', // Placeholder
             style: const TextStyle(
               fontSize: 24,

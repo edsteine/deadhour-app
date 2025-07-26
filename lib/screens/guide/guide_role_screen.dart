@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../utils/theme.dart';
 import '../../widgets/common/enhanced_app_bar.dart';
 
-class GuideAddonScreen extends StatefulWidget {
-  const GuideAddonScreen({super.key});
+class GuideRoleScreen extends StatefulWidget {
+  const GuideRoleScreen({super.key});
 
   @override
-  State<GuideAddonScreen> createState() => _GuideAddonScreenState();
+  State<GuideRoleScreen> createState() => _GuideRoleScreenState();
 }
 
-class _GuideAddonScreenState extends State<GuideAddonScreen> {
+class _GuideRoleScreenState extends State<GuideRoleScreen> {
   String _selectedSpecialty = 'All';
   String _selectedCity = 'All Cities';
 
@@ -17,7 +17,7 @@ class _GuideAddonScreenState extends State<GuideAddonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const EnhancedAppBar(
-        title: 'Guide ADDON',
+        title: 'Guide Role',
         subtitle: 'Local expertise and cultural experiences - €20/month',
       ),
       body: SingleChildScrollView(
@@ -48,7 +48,7 @@ class _GuideAddonScreenState extends State<GuideAddonScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Guide ADDON Active',
+                              'Guide Role Active',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -69,7 +69,7 @@ class _GuideAddonScreenState extends State<GuideAddonScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'Cross-ADDON Amplification: Combine with Business ADDON for €50/month total revenue potential',
+                    'Cross-Role Amplification: Combine with Business Role for €50/month total revenue potential',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,

@@ -18,7 +18,7 @@ import '../screens/business/business_dashboard_screen.dart';
 import '../screens/business/create_deal_screen.dart';
 import '../screens/business/revenue_optimization_screen.dart';
 import '../screens/business/analytics_dashboard_screen.dart';
-import '../screens/guide/guide_addon_screen.dart';
+import '../screens/guide/guide_role_screen.dart';
 import '../screens/tourism/tourism_screen.dart';
 import '../screens/tourism/local_expert_screen.dart';
 import '../screens/social/social_discovery_screen.dart';
@@ -175,7 +175,7 @@ class AppRouter {
               GoRoute(
                 path: 'guide',
                 name: 'guide-role',
-                builder: (context, state) => const GuideAddonScreen(),
+                builder: (context, state) => const GuideRoleScreen(),
               ),
               GoRoute(
                 path: 'premium',

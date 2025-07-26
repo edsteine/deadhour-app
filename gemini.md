@@ -32,6 +32,7 @@
 
 **IMPORTANT**: The multi-role system is the key enabler for the dual-problem solution. The core focus of the project is solving the business optimization and social discovery problems. The terminology for the account system is now standardized to **Roles**.
 
+## Development Context
 **Development Context**: Initial documents had competing visions ("ADDON platform" vs. "dead hours optimization"). This has been resolved, and the official vision is the **dual-problem platform** model, as defined in `DeadHour_UNIFIED_VISION.md`. The multi-role system is the mechanism that allows users to participate in solving both problems.
 
 **Market Opportunity**:

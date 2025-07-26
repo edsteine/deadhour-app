@@ -324,7 +324,7 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
 
   void _createUniversalAccount() {
     // Create universal DeadHour account with selected ADDONs
-    // Store selected addons in user profile
+    // Store selected roles in user profile
     final rolesQuery = _selectedRoles.join(',');
     context.go('/register?roles=$rolesQuery');
   }

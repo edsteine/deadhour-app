@@ -8,7 +8,6 @@
 ---
 
 ## Executive Overview
-
 **DeadHour Development Mission**: Build Morocco's first dual-problem platform that simultaneously solves business dead hours (60-70% revenue loss) AND social discovery gaps through room-based community deal sharing, enhanced by flexible account management.
 
 **Core Platform Concept**: Business deals become community discovery opportunities in category-based rooms, with one account supporting multiple roles (Consumer + Business + Guide + Premium).
