@@ -39,38 +39,40 @@ class TrendingExperiences extends StatelessWidget {
                     child: Text('🕌', style: TextStyle(fontSize: 40)),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hassan II Mosque Guide',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Professional guided tour with cultural insights',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppTheme.secondaryText,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.amber, size: 16),
-                          Text(' 4.9 • '),
-                          Text('25€', style: TextStyle(
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hassan II Mosque Guide',
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: AppColors.tourismCategory,
-                          )),
-                        ],
-                      ),
-                    ],
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Professional guided tour with cultural insights',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: AppTheme.secondaryText,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.amber, size: 16),
+                            Text(' 4.9 • '),
+                            Text('25€', style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.tourismCategory,
+                            )),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -28,7 +28,7 @@ DeadHour creates **network effects** where **business deals become community dis
 - **Community Rooms**: Join location and interest-based chat rooms (🍕 Food, 🎮 Entertainment, 💆 Wellness, 🌍 Tourism, ⚽ Sports, 👨‍👩‍👧‍👦 Family)
 - **Social Coordination**: Form groups for better discounts and shared experiences
 - **Business Dashboard**: Comprehensive tools for venue owners to manage deals and analytics
-- **Account Flexibility (ADDON Support)**: One account, multiple roles - Consumer + Business + Guide + Premium capabilities
+- **Account Flexibility (Role Support)**: One account, multiple roles - Consumer + Business + Guide + Premium capabilities
 - **Morocco-Centric**: Designed specifically for Moroccan culture, cities, and business practices with Arabic/French/English support
 
 ---
@@ -428,7 +428,7 @@ dependencies:
 
 ### Dual-Problem Platform Implementation Success
 ✅ **Complete dual-problem architecture** with business optimization + social discovery integration  
-✅ **Account flexibility (ADDON system)** supporting Consumer + Business + Guide + Premium roles  
+✅ **Account flexibility (Role system)** supporting Consumer + Business + Guide + Premium roles  
 ✅ **Morocco cultural integration** with Arabic/French/English support and Islamic consideration  
 ✅ **Network effects foundation** tracking cross-problem user behavior and viral growth  
 ✅ **Tourism premium features** enabling 3-5x higher revenue from international users  

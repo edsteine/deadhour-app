@@ -29,6 +29,11 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _tabController = TabController(length: _tabs.length, vsync: this);
   }
 

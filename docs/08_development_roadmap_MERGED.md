@@ -38,7 +38,7 @@ This roadmap acknowledges the critical gaps identified in the `MISSING_ELEMENTS_
 ## Phase 1: MVP Foundation (Months 1-4)
 ### Dual-Problem Core Features
 
-**Authentication & Account Flexibility (ADDON System Support)**
+**Authentication & Account Flexibility (Role System Support)**
 - Multi-role account registration (Consumer + Business + Guide capabilities)
 - Single sign-on supporting role switching within same account
 - Role-based dashboard access without separate accounts
