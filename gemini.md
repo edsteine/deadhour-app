@@ -149,7 +149,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Ramadan Mode**: Special scheduling for Suhoor/Iftar times
 - **Halal Certification**: Filter and display halal requirements
 - **Multi-language UI**: Arabic RTL text support + French/English
-- **Local Currency**: Moroccan Dirham (MAD) primary, EUR for tourists
+- **Local Currency**: Moroccan Dirham (MAD), primary, EUR for tourists
 - **Cultural Calendar**: Religious holidays (Eid, Mawlid), local festivals (Moussem)
 
 ## Business Model & Success Metrics
@@ -201,7 +201,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Dual-Problem Focus**: Every feature must help solve both the business optimization and social discovery problems.
 - **Account Architecture**: All features must support the multi-role account system (Consumer, Business, Guide, Premium).
 - **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms.
-- **User Interface**: An Instagram-inspired interface should be used for seamless switching between roles.
+-- **User Interface**: An Instagram-inspired interface should be used for seamless switching between roles.
 - **Cross-Role Features**: User roles should enhance each other (e.g., business owners can also be guides).
 
 ## Critical Terminology Rules
@@ -227,3 +227,6 @@ NEVER proactively create documentation files (*.md) or README files. Only create
 **CRITICAL RULE: When `replace` fails, stop and verify.** If the `replace` tool reports "Failed to edit, could not find the string to replace," immediately stop the current sequence of `replace` operations. Re-read the target file to get its exact current content. Then, carefully re-evaluate the `old_string` and `new_string` parameters to ensure they precisely match the current file content and your intended change. Do not proceed with further `replace` calls until the exact match is confirmed.
 
 ---
+
+## Development Strategy
+All development should proceed using the mock data available in `lib/utils/mock_data.dart`. Do not implement or connect to Firebase until all features are fully functional with mock data and a final confirmation is given to switch to the live backend.

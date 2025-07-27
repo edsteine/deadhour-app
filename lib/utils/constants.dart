@@ -2,7 +2,7 @@ class AppConstants {
   // App Information
   static const String appName = 'DeadHour Morocco';
   static const String appVersion = '1.0.0';
-  static const String appDescription = 'World\'s first infinite-scalability Multi-Role platform for Morocco';
+  static const String appDescription = 'World\'s first dual-problem platform for Morocco';
   
   // Morocco Cities
   static const List<String> moroccoCities = [
@@ -316,4 +316,3 @@ class AppBorderRadius {
   static const double button = 8.0;
   static const double dialog = 16.0;
 }
-

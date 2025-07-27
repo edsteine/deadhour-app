@@ -19,6 +19,8 @@ class Room {
   final String? imageUrl;
   final Map<String, dynamic>? settings;
   final List<String> tags;
+  final bool isJoined; // Added for My Rooms
+  final bool isPopular; // Added for Popular Rooms
 
   Room({
     required this.id,
@@ -41,6 +43,8 @@ class Room {
     this.imageUrl,
     this.settings,
     this.tags = const [],
+    this.isJoined = false, // Default to false
+    this.isPopular = false, // Default to false
   });
 
   factory Room.fromJson(Map<String, dynamic> json) {
@@ -65,6 +69,8 @@ class Room {
       imageUrl: json['imageUrl'],
       settings: json['settings'],
       tags: List<String>.from(json['tags'] ?? []),
+      isJoined: json['isJoined'] ?? false, // Parse from JSON
+      isPopular: json['isPopular'] ?? false, // Parse from JSON
     );
   }
 
@@ -90,6 +96,8 @@ class Room {
       'imageUrl': imageUrl,
       'settings': settings,
       'tags': tags,
+      'isJoined': isJoined,
+      'isPopular': isPopular,
     };
   }
 
@@ -114,6 +122,8 @@ class Room {
     String? imageUrl,
     Map<String, dynamic>? settings,
     List<String>? tags,
+    bool? isJoined,
+    bool? isPopular,
   }) {
     return Room(
       id: id ?? this.id,
@@ -136,6 +146,8 @@ class Room {
       imageUrl: imageUrl ?? this.imageUrl,
       settings: settings ?? this.settings,
       tags: tags ?? this.tags,
+      isJoined: isJoined ?? this.isJoined,
+      isPopular: isPopular ?? this.isPopular,
     );
   }
 
