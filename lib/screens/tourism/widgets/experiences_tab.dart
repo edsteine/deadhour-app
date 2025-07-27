@@ -8,28 +8,28 @@ class ExperiencesTab extends StatelessWidget {
     {
       'title': '🏺 Traditional Pottery Workshop',
       'description': 'Learn from master craftsmen in Fez medina',
-      'price': '2 hours • 45€ • English/French',
+      'price': '2 hours • Free Beta • English/French',
       'icon': 'Icons.handyman',
       'color': 'Colors.orange',
     },
     {
       'title': '🍽️ Home Cooking with Local Family',
       'description': 'Cook tagine and couscous in authentic setting',
-      'price': '3 hours • 35€ • All languages',
+      'price': '3 hours • Free Beta • All languages',
       'icon': 'Icons.home',
       'color': 'Colors.green',
     },
     {
       'title': '🕌 Spiritual Journey & Prayer Experience',
       'description': 'Respectful mosque visit with cultural guide',
-      'price': '90 min • 25€ • Modest dress required',
+      'price': '90 min • Free Beta • Modest dress required',
       'icon': 'Icons.mosque',
       'color': 'Colors.blue',
     },
     {
       'title': '🛒 Souk Navigation Masterclass',
       'description': 'Bargaining secrets and hidden shop discoveries',
-      'price': '2 hours • 30€ • Small groups only',
+      'price': '2 hours • Free Beta • Small groups only',
       'icon': 'Icons.shopping_bag',
       'color': 'Colors.purple',
     },
@@ -50,7 +50,7 @@ class ExperiencesTab extends StatelessWidget {
         children: [
           buildSectionHeader('🎨 Authentic Experiences'),
           const SizedBox(height: 12),
-          ..._experiences.map((experience) => buildExperienceCard(experience)).toList(),
+          ..._experiences.map((experience) => buildExperienceCard(experience)),
         ],
       ),
     );

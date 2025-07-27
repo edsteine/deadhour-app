@@ -410,7 +410,7 @@ class AuthProvider with ChangeNotifier {
 }
 ```
 
-### Day 6-7: Enhanced Home Screen with Multi-Role Interface
+### Day 6-7: Enhanced Home Screen with Updated Navigation Structure
 
 **Role Switcher Widget** (`lib/widgets/role_switcher.dart`)
 ```dart
@@ -503,7 +503,7 @@ class RoleSwitcher extends StatelessWidget {
 }
 ```
 
-**Enhanced Home Screen** (`lib/screens/home_screen.dart`)
+**Enhanced Home Screen with Updated Navigation** (`lib/screens/home_screen.dart`)
 ```dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -641,7 +641,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text('No venues available yet',
                              style: TextStyle(fontSize: 18, color: Colors.grey[600])),
                         SizedBox(height: 8),
-                        Text('Business owners can add their venues with Business role',
+                        Text('Business owners can add their venues through Profile > Role Switching',
                              style: TextStyle(fontSize: 12, color: Colors.grey[500])),
                       ],
                     ),
@@ -670,7 +670,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildMultiRoleBottomNav(),
+      bottomNavigationBar: _buildUpdatedBottomNav(),
     );
   }
 
@@ -698,49 +698,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   
-  Widget _buildMultiRoleBottomNav() {
-    return Consumer<RoleProvider>(
-      builder: (context, roleProvider, child) {
-        return BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: 'Rooms'),
-            if (roleProvider.hasRole(UserRole.business))
-              BottomNavigationBarItem(icon: Icon(Icons.business), label: 'My Venue'),
-            if (roleProvider.hasRole(UserRole.guide))
-              BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Guide'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          onTap: (index) {
-            // Handle navigation based on role and tab
-            _handleBottomNavTap(index, roleProvider);
-          },
-        );
+  Widget _buildUpdatedBottomNav() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Discover'),
+        BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: 'Community'),
+        BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
+      onTap: (index) {
+        _handleUpdatedBottomNavTap(index);
       },
     );
   }
   
-  void _handleBottomNavTap(int index, RoleProvider roleProvider) {
-    // Navigation logic based on current role and available roles
+  void _handleUpdatedBottomNavTap(int index) {
+    // Updated navigation logic - Business features moved to Profile
     switch (index) {
-      case 0: // Home - always available
+      case 0: // Discover - main content discovery
         break;
-      case 1: // Community Rooms - dual-problem core feature
+      case 1: // Community - room-based social features
         Navigator.push(context, MaterialPageRoute(builder: (_) => CommunityRoomsScreen()));
         break;
-      case 2: // Business Dashboard - only if has Business role
-        if (roleProvider.hasRole(UserRole.business)) {
-          // Navigate to business dashboard
-        }
+      case 2: // Explore - tourism and local experiences
+        // Navigate to tourism/explore screen
         break;
-      case 3: // Guide Services - only if has Guide role
-        if (roleProvider.hasRole(UserRole.guide)) {
-          // Navigate to guide dashboard
-        }
-        break;
-      case 4: // Profile with role management
-        // Navigate to profile
+      case 3: // Profile - role management + all business features
+        // Navigate to enhanced profile with role switching
         break;
     }
   }
@@ -1078,6 +1063,13 @@ class RoomDetailScreen extends StatelessWidget {
 ### Day 4-7: Enhanced Booking Flow with Social Validation
 
 The booking flow now includes social validation from community rooms, showing which deals were discovered through social discovery vs direct search, and enabling cross-problem network effects where business optimization and social discovery amplify each other.
+
+**Key Implementation Updates:**
+- Business tab removed from bottom navigation
+- Business features accessible through Profile role switching
+- Enhanced profile with guest mode, authentication, and comprehensive features
+- Development menu drawer for testing all screens
+- "Really free" strategy with hidden premium elements
 
 *[Continue with enhanced booking screens that show social proof, community recommendations, and role-based features...]*
 

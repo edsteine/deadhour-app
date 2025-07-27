@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:deadhour/models/user.dart';
 import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/screens/community/widgets/community_app_bar.dart';
+import '../../../widgets/common/dead_hour_app_bar.dart';
 import 'package:deadhour/screens/community/widgets/community_health_indicator.dart';
 import 'package:deadhour/screens/community/widgets/category_filter.dart';
 import 'package:deadhour/screens/community/widgets/cultural_filters.dart';
@@ -43,14 +43,18 @@ class RoomsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommunityAppBar(
+      appBar: DeadHourAppBar(
+        title: 'Community',
         selectedCity: selectedCity,
-        onCitySelectorPressed: onCitySelectorPressed,
-        onRoomSearchPressed: onRoomSearchPressed,
+        showLocationSelector: true,
+        showNotifications: true,
+        showSearch: true,
+        onCityChanged: onCitySelectorPressed,
+        onSearchPressed: onRoomSearchPressed,
       ),
       body: Column(
         children: [
-          CommunityHealthIndicator(),
+          const CommunityHealthIndicator(),
           CategoryFilter(
             selectedCategory: selectedCategory,
             onCategorySelected: onCategorySelected,

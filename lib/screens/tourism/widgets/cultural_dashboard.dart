@@ -34,7 +34,7 @@ class CulturalDashboard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(
+          const Text(
             'Today - Thursday, March 15\nRegular day • No special events',
             style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
@@ -48,12 +48,12 @@ class CulturalDashboard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
             '🕐 Prayer Schedule - Casablanca:',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
                 const SizedBox(height: 8),
-                Text(
+                const Text(
             'Fajr: 06:18 (Completed)\nDhuhr: 13:42 (Completed)\nAsr: 16:55 (in 1h 25min)\nMaghrib: 18:28\nIsha: 19:54',
             style: TextStyle(color: Colors.white, fontSize: 12),
           ),
@@ -64,7 +64,7 @@ class CulturalDashboard extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text(
+                  child: const Text(
                   'Smart Planning: Best activity window Now-16:30',
                   style: TextStyle(
                     color: Colors.white,

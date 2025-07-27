@@ -1,25 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/theme.dart';
-
-
+import '../../utils/performance_utils.dart';
+import '../../widgets/common/dev_menu_drawer.dart';
+import '../../widgets/common/dead_hour_app_bar.dart';
+import '../home/home_screen.dart';
+import '../community/rooms_screen.dart';
+import '../tourism/tourism_screen.dart';
+import '../profile/profile_screen.dart';
 
 class MainNavigationScreen extends ConsumerStatefulWidget {
-  final Widget child;
+  final Widget? child; // Made optional since we'll use TabBarView
 
   const MainNavigationScreen({
     super.key,
-    required this.child,
+    this.child,
   });
 
   @override
   ConsumerState<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
+class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging || _currentIndex != _tabController.index) {
+        setState(() {
+          _currentIndex = _tabController.index;
+        });
+        PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   List<NavigationItem> get _navigationItems {
     // Core navigation - same for ALL users (guest and logged in)
@@ -37,12 +62,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         label: 'Community',
       ),
       NavigationItem(
-        route: '/business',
-        icon: Icons.store_outlined,
-        activeIcon: Icons.store,
-        label: 'Business',
-      ),
-      NavigationItem(
         route: '/tourism',
         icon: Icons.explore_outlined,
         activeIcon: Icons.explore,
@@ -57,11 +76,25 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     ];
   }
 
+  List<Widget> get _tabViews {
+    return [
+      const HomeScreen(),
+      const RoomsScreen(),
+      const TourismScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.child, // Clean layout without role switchers
+      drawer: const DevMenuDrawer(), // Development menu drawer
+      appBar: _buildAppBarForCurrentTab(),
+      body: TabBarView(
+        controller: _tabController,
+        physics: const OptimizedScrollPhysics(),
+        children: _tabViews,
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
@@ -90,7 +123,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
             children: _navigationItems.asMap().entries.map((entry) {
               final index = entry.key;
               final item = entry.value;
-              final isActive = _isRouteActive(item.route);
+              final isActive = index == _currentIndex;
 
               return _buildNavigationItem(
                 item: item,
@@ -145,20 +178,54 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     );
   }
 
-  bool _isRouteActive(String route) {
-    final currentLocation = GoRouterState.of(context).uri.path;
-    return currentLocation.startsWith(route);
-  }
-
   void _onItemTapped(int index, String route) {
     if (_currentIndex != index) {
-      setState(() {
-        _currentIndex = index;
-      });
-      context.go(route);
+      _tabController.animateTo(index);
+      PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
     }
   }
 
+  PreferredSizeWidget _buildAppBarForCurrentTab() {
+    switch (_currentIndex) {
+      case 0: // Home
+        return const DeadHourAppBar(
+          title: 'DeadHour',
+          showMenuDrawer: true,
+          showLocationSelector: true,
+          showNotifications: true,
+          showBusinessActions: true,
+          showSearch: true,
+        );
+      case 1: // Community
+        return const DeadHourAppBar(
+          title: 'Community Rooms',
+          showMenuDrawer: true,
+          showLocationSelector: true,
+          showNotifications: true,
+          showSearch: true,
+        );
+      case 2: // Tourism
+        return const DeadHourAppBar(
+          title: 'Explore Morocco',
+          showMenuDrawer: true,
+          showLocationSelector: true,
+          showNotifications: true,
+          showTourismActions: true,
+          showSearch: true,
+        );
+      case 3: // Profile
+        return const DeadHourAppBar(
+          title: 'Profile',
+          showMenuDrawer: true,
+          showNotifications: true,
+        );
+      default:
+        return const DeadHourAppBar(
+          title: 'DeadHour',
+          showMenuDrawer: true,
+        );
+    }
+  }
 
 }
 

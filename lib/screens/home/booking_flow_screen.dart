@@ -104,15 +104,15 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          Row(
+          const Row(
             children: [
-              const Icon(Icons.verified, color: AppTheme.moroccoGreen, size: 16),
-              const SizedBox(width: 4),
-              const Text('Community verified'),
-              const Spacer(),
-              const Icon(Icons.people, color: AppTheme.secondaryText, size: 16),
-              const SizedBox(width: 4),
-              const Text('12 going', style: TextStyle(color: AppTheme.secondaryText)),
+              Icon(Icons.verified, color: AppTheme.moroccoGreen, size: 16),
+              SizedBox(width: 4),
+              Text('Community verified'),
+              Spacer(),
+              Icon(Icons.people, color: AppTheme.secondaryText, size: 16),
+              SizedBox(width: 4),
+              Text('12 going', style: TextStyle(color: AppTheme.secondaryText)),
             ],
           ),
         ],

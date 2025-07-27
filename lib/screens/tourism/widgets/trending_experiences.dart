@@ -39,11 +39,12 @@ class TrendingExperiences extends StatelessWidget {
                     child: Text('🕌', style: TextStyle(fontSize: 40)),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Padding(
                     padding: EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Hassan II Mosque Guide',
@@ -51,13 +52,19 @@ class TrendingExperiences extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 4),
-                        Text(
-                          'Professional guided tour with cultural insights',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppTheme.secondaryText,
+                        Flexible(
+                          child: Text(
+                            'Professional guided tour with cultural insights',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppTheme.secondaryText,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         SizedBox(height: 8),

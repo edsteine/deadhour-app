@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 void showPremiumUpgrade(BuildContext context) {
-  context.push('/roles');
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text('Premium features coming soon! Currently all features are free during beta.'),
+      duration: Duration(seconds: 3),
+    ),
+  );
 }

@@ -184,7 +184,7 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 
 ---
 
-## 2. Main Navigation & Home - Dual-Problem Hub
+## 2. Main Navigation & Home - Dual-Problem Hub (Updated Implementation)
 *(Development: Week 1 - Days 3-5)*
 
 ### 2.1 Home Screen - Local User (Network Effects Focus)
@@ -223,10 +223,10 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 │ 🎯 Dual-Problem Quick Access:      │
 │ [🔍 Discover] [💬 Rooms] [🎫 My Bookings]│
 │                                    │
-│ [🏠] [🔍] [💬] [👤] [🎯]         │
+│ [🏠] [💬] [🌍] [👤] ⬅️ NEW NAV    │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Perfect example of network effects - community discovery drives business bookings
+**Business Value**: Updated navigation - Business removed from main nav, moved to Profile with role switching
 
 ### 2.2 Tourist Home Screen (Premium Integration)
 ```
@@ -595,10 +595,10 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 ## 6. User Profile & Cross-Problem Activity
 *(Development: Week 3 - Days 3-4)*
 
-### 6.1 User Profile (Network Effects Tracking)
+### 6.1 User Profile (Network Effects Tracking - Updated Implementation)
 ```
 ┌─────────────────────────────────────┐
-│ 👤 Your Network Effects Profile     │
+│ 👤 Profile - Network Effects        │
 │ [📝 Edit] [⚙️ Settings] [📤 Share] │
 ├─────────────────────────────────────┤
 │                                    │
@@ -629,20 +629,28 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 │ • Businesses helped: 23 venues     │
 │ • Tourists guided: 8 people        │
 │                                    │
-│ 🎯 Role Management:                │
+│ 🎯 Role Management (Free Beta):    │
 │ Active: Consumer ✅                │
-│ Available: Add Business Role (€30) │
-│ Available: Add Guide Role (€20)    │
-│ Available: Upgrade Premium (€15)   │
+│ Available: Add Business Role       │
+│ Available: Add Guide Role          │
+│ Available: Upgrade Premium         │
+│ [Role Switching Interface] ⬅️ NEW  │
 │                                    │
-│ 📱 Dual-Problem Quick Actions:     │
-│ [💬 My Active Rooms] [🎫 My Bookings]│
-│ [🌍 Help Tourists] [💡 Add Business]│
+│ 📱 Comprehensive App Features:     │
+│ [💬 Community Rooms] [🎫 Bookings] │
+│ [🌍 Tourism] [⚙️ Settings]         │
+│ [🔔 Notifications] [💝 Favorites]  │
+│                                    │
+│ 📈 Activity Tracking:              │
+│ • Booked deal at Café Atlas        │
+│ • Joined Food Community            │
+│ • Left review for Restaurant       │
+│ [View All Activity]                │
 │                                    │
 │ [📊 View Network Impact Analytics] │
 └─────────────────────────────────────┘
 ```
-**Business Value**: Users can see their network effects contribution - social discovery + business optimization value creation
+**Business Value**: Enhanced profile with comprehensive features, role management, and activity tracking - no business tab in bottom navigation
 
 ### 6.2 Settings (Cultural Integration)
 ```
@@ -813,17 +821,32 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 
 ### Firebase Dual-Problem Architecture
 **Core Technologies**:
-- **Authentication**: Multi-role account support  
+- **Authentication**: Multi-role account support with guest mode  
 - **Firestore**: Real-time community rooms + business analytics  
 - **Cloud Functions**: Network effects calculations  
 - **Cloud Messaging**: Deal notifications + community alerts  
 - **Storage**: Community-generated content  
 
-### 4-Week MVP Development
-**Week 1**: Authentication + role flexibility + cultural integration  
+### 4-Week MVP Development (Updated Implementation)
+**Week 1**: Authentication + role flexibility + cultural integration + guest mode  
 **Week 2**: Community rooms + deal integration + social discovery  
-**Week 3**: Business dashboard + network effects analytics  
-**Week 4**: Tourism premium + cross-problem optimization  
+**Week 3**: Enhanced profile + role management + navigation fixes  
+**Week 4**: Tourism premium + development menu + "really free" launch  
+
+### Navigation Structure Changes
+**Bottom Navigation (Updated)**:
+- 🏠 Discover (main content discovery)
+- 💬 Community (room-based social features)
+- 🌍 Explore (tourism and local experiences)
+- 👤 Profile (role management + all business features)
+
+**Profile Enhancement Features**:
+- Guest mode support for app exploration
+- Comprehensive authentication flows
+- Role management with visual switching
+- Activity tracking and user stats
+- Complete settings and support sections
+- Business features accessed through role switching
 
 ### Success Metrics (Dual-Problem Validation)
 **Network Effects Proof**:
@@ -837,7 +860,13 @@ This document contains the **essential screens** that prove DeadHour's revolutio
 - Prayer time awareness adoption >80%  
 - Arabic interface usage >60%  
 - Halal filter usage >90%  
-- Tourist-local connections >200/month  
+- Tourist-local connections >200/month
+
+**"Really Free" Launch Strategy**:
+- All premium features accessible during beta
+- Guest mode for frictionless exploration
+- Role capabilities demonstrated without payment barriers
+- Development menu for comprehensive testing  
 
 ---
 

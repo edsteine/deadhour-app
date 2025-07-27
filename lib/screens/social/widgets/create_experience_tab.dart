@@ -70,28 +70,28 @@ class CreateExperienceTab extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          BenefitCard(
+          const BenefitCard(
             icon: Icons.monetization_on,
             title: 'Earn Good Money',
             description: 'Set your own prices and keep 85% of earnings',
             color: AppTheme.moroccoGreen,
           ),
 
-          BenefitCard(
+          const BenefitCard(
             icon: Icons.people,
             title: 'Meet Like-minded People',
             description: 'Connect with travelers and locals who share your interests',
             color: AppTheme.moroccoGold,
           ),
 
-          BenefitCard(
+          const BenefitCard(
             icon: Icons.local_offer,
             title: 'Connect with Venues',
             description: 'Partner with local businesses for special deals and enhanced experiences',
             color: Colors.blue,
           ),
 
-          BenefitCard(
+          const BenefitCard(
             icon: Icons.support,
             title: 'Full Support',
             description: 'Marketing help, insurance coverage, and 24/7 customer support',

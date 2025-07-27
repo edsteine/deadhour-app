@@ -1,6 +1,10 @@
 
 # DeadHour Project - Claude Instructions
 
+## AI Orchestration Role: Implementation & Architecture Specialist
+
+**Your Role**: As part of the AI development team, you are the primary implementation specialist focused on code architecture, development, and technical execution. You complement Gemini's research/analysis role with hands-on development expertise.
+
 ## Project Context
 
 **DeadHour** is a **dual-problem platform**. Its primary mission is to solve two interconnected problems simultaneously:
@@ -89,13 +93,16 @@ Never present generated, inferred, speculated, or deduced content as fact.
 
 ## Tech Stack
 - **Frontend**: Flutter (Dart)
-- **Backend**: Firebase (Firestore, Auth, Storage, Cloud Messaging, Functions)
-- **Database**: Firestore NoSQL database
-- **Authentication**: Firebase Auth (Email/Password, Phone, Google)
-- **Storage**: Firebase Storage for images
-- **Push Notifications**: Firebase Cloud Messaging
-- **Maps**: Google Maps Flutter
-- **State Management**: Provider pattern
+- **Backend**: Firebase (Firestore, Auth, Storage, Cloud Messaging, Functions) - FUTURE
+- **Current Backend**: Mock data (lib/utils/mock_data.dart)
+- **Database**: Firestore NoSQL database - FUTURE
+- **Authentication**: Firebase Auth (Email/Password, Phone, Google) - FUTURE
+- **Storage**: Firebase Storage for images - FUTURE
+- **Push Notifications**: Firebase Cloud Messaging - FUTURE
+- **Maps**: Google Maps Flutter - FUTURE
+- **State Management**: flutter_riverpod (migrating from provider pattern)
+- **Networking**: dio (preferred HTTP client)
+- **Localization**: easy_localization for multi-language support
 - **Platform**: Android (primary), iOS (future)
 
 ## Project Structure
@@ -193,7 +200,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **File naming**: `snake_case` for file names (e.g., `home_screen.dart`).
 - **Import order**: Flutter packages first, then third-party, then local imports.
 - **Widget structure**: Prefer `StatelessWidget` over `StatefulWidget` when possible.
-- **State management**: Use Provider pattern consistently.
+- **State management**: Use flutter_riverpod pattern consistently (migrating from provider).
 - **Error handling**: Always implement try-catch for async operations.
 - **Firebase**: Use streams for real-time data, handle null values properly.
 - **UI**: Follow Material Design guidelines, use consistent spacing (8px multiples).
@@ -204,6 +211,42 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **User Interface**: An Instagram-inspired interface should be used for seamless switching between roles.
 - **Cross-Role Features**: User roles should enhance each other (e.g., business owners can also be guides).
 
+## Current Development Phase
+
+**Phase**: Initial MVP Development - Focus on working app functionality
+**Priority**: App functionality and user experience over backend architecture
+**Backend Strategy**: Use mock data until explicitly told to integrate Firebase
+**Monetization**: Hidden for now - app must be "really free" initially
+
+## AI Orchestration Collaboration
+
+### Division of Labor
+- **Claude (You)**: Implementation, architecture, code review, technical execution
+- **Gemini**: Research, analysis, strategy, market intelligence
+- **Human Architect**: Vision, direction, quality control, final decisions
+
+### Your Specialized Tasks
+1. **Code Implementation**: Write, edit, and refactor Flutter code
+2. **Architecture Decisions**: Design scalable app structure and patterns
+3. **Quality Assurance**: Run linting, fix issues, ensure code quality
+4. **Technical Problem Solving**: Debug issues, optimize performance
+5. **Development Workflow**: Manage dependencies, build processes, testing
+
+## Critical Terminology Rules
+**ALWAYS use "Role" terminology - NEVER use "ADDON":**
+- ✅ **Correct**: UserRole, activeRoles, RoleToggleProvider, rolePricing
+- ❌ **Incorrect**: UserAddon, activeAddons, AddonToggleProvider, addonPricing
+
+The project had historical inconsistency with "ADDON" terminology which has been officially deprecated.
+
+## Preferred Dependencies (Production Stack)
+- **State Management**: flutter_riverpod (migrate from provider)
+- **HTTP Client**: dio (for networking)
+- **Localization**: easy_localization (multi-language support)
+- **Development Tools**: very_good_analysis, custom_lint, dcm
+- **Testing**: alchemist, mockito, integration_test
+- **Utilities**: url_launcher, permission_handler, shared_preferences, shimmer
+
 ## CRITICAL RULE: No Unsolicited Recommendations
 **NEVER recommend changes, additions, or modifications without explicit request.** 
 - If confused about implementation or documentation, ASK first
@@ -212,3 +255,21 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - The user has spent significant time building what exists for specific reasons
 - When analyzing coverage or gaps, provide facts only - no recommendations
 - If you think something is missing or wrong, ASK before suggesting changes
+
+## CRITICAL RULE: Never Delete Files
+**NEVER delete any files using rm, deletion commands, or file removal operations.**
+- If files need to be removed, ALWAYS move them to `/trash/` folder instead
+- Use commands like `mv filename /Users/edsteine/AndroidStudioProjects/deadhour/trash/`
+- This allows recovery in case of misunderstandings or mistakes
+- Create timestamped backups if moving multiple files: `mv filename /trash/filename_$(date +%Y%m%d_%H%M%S)`
+- ALWAYS preserve user work - never permanently delete anything
+- Ask user for confirmation before moving files to trash if uncertain
+
+## Important Instruction Reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+
+## Development Strategy
+All development should proceed using the mock data available in `lib/utils/mock_data.dart`. Do not implement or connect to Firebase until all features are fully functional with mock data and explicit confirmation is given to switch to the live backend.

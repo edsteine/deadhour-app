@@ -140,7 +140,7 @@ class RoomCard extends StatelessWidget {
             children: [
               ...room.specialFeatures.map((feature) {
                 return _buildFeatureChip(feature);
-              }).toList(),
+              }),
               if (room.isPrayerTimeAware) _buildFeatureChip('Prayer Time Aware 🕌'),
               if (room.isHalalOnly) _buildFeatureChip('Halal Only ✅'),
             ],

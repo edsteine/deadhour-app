@@ -35,7 +35,7 @@ class LocalExpertsTab extends ConsumerWidget {
           buildSectionHeader('🌟 Available Local Experts'),
           const SizedBox(height: 12),
           
-          ...experts.map((expert) => buildExpertCard(expert)).toList(),
+          ...experts.map((expert) => buildExpertCard(expert)),
         ],
       ),
     );

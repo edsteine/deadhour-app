@@ -5,6 +5,8 @@ import '../../utils/constants.dart';
 import '../../utils/guest_mode.dart';
 
 class RoleMarketplaceScreen extends StatefulWidget {
+  const RoleMarketplaceScreen({super.key});
+
 
   @override
   State<RoleMarketplaceScreen> createState() => _RoleMarketplaceScreenState();
@@ -42,7 +44,7 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Start as Consumer and add Roles to unlock capabilities. Each Role generates €30-€15/month revenue.',
+                'Start as Consumer and add Roles to unlock capabilities. All roles are free during beta.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.secondaryText,
                     ),

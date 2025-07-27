@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:deadhour/screens/community/widgets/room_chat_app_bar.dart';
 import 'package:deadhour/screens/community/widgets/room_info_banner.dart';
 import 'package:deadhour/screens/community/widgets/chat_message_bubble.dart';
@@ -8,8 +9,9 @@ import 'package:deadhour/screens/community/utils/room_chat_dialog_helpers.dart';
 import 'package:deadhour/screens/community/utils/room_chat_bottom_sheet_helpers.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
+import '../../utils/auth_helpers.dart';
 
-class RoomChatScreen extends StatefulWidget {
+class RoomChatScreen extends ConsumerStatefulWidget {
   final String roomId;
 
   const RoomChatScreen({
@@ -18,10 +20,10 @@ class RoomChatScreen extends StatefulWidget {
   });
 
   @override
-  State<RoomChatScreen> createState() => _RoomChatScreenState();
+  ConsumerState<RoomChatScreen> createState() => _RoomChatScreenState();
 }
 
-class _RoomChatScreenState extends State<RoomChatScreen> {
+class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   late dynamic _room;
@@ -332,6 +334,11 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
 
   void _sendMessage(String text) {
     if (text.trim().isEmpty) return;
+    
+    // Check if user is authenticated before allowing message sending
+    if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
+      return; // User not authenticated, helper will show login prompt
+    }
 
     final newMessage = {
       'id': DateTime.now().millisecondsSinceEpoch.toString(),

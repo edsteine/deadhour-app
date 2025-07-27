@@ -37,8 +37,8 @@ class PremiumUpgradeCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              'Unlock Premium Features',
+            const Text(
+              'Premium Features - Free Beta',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class PremiumUpgradeCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Upgrade to premium to access exclusive expert content and personalized recommendations.',
+              'Access exclusive expert content and personalized recommendations - free during beta!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
@@ -61,7 +61,7 @@ class PremiumUpgradeCard extends StatelessWidget {
                 backgroundColor: AppTheme.moroccoGreen,
                 foregroundColor: AppTheme.nearlyWhite,
               ),
-              child: const Text('Upgrade Now'),
+              child: const Text('Learn More'),
             ),
           ],
         ),

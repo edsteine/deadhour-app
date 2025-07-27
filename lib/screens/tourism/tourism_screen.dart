@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
+import '../../utils/error_handler.dart';
+import '../../utils/performance_utils.dart';
 import '../../providers/role_toggle_provider.dart';
 import '../../models/user.dart';
 import 'package:deadhour/screens/tourism/widgets/tourism_welcome_banner.dart';
@@ -27,7 +28,7 @@ class TourismScreen extends ConsumerStatefulWidget {
 
 class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProviderStateMixin {
   late TabController _tabController;
-  String _selectedCity = 'Casablanca';
+  final String _selectedCity = 'Casablanca';
   
 
   final List<Tab> _tabs = [
@@ -80,7 +81,7 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
+            const Text(
               'Unlock Premium Features',
               style: TextStyle(
                 fontSize: 18,
@@ -205,78 +206,82 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: DeadHourAppBar(
-        title: 'Explore Morocco',
-        actions: [
-          IconButton(
-            onPressed: () => TourismActionHelpers.showCitySelector(context, _selectedCity, (city) {
-              setState(() {
-                _selectedCity = city;
-              });
-            }),
-            icon: const Icon(Icons.location_on),
-          ),
-          IconButton(
-            onPressed: () => TourismActionHelpers.showTourismMenu(context, () => TourismActionHelpers.showPremiumUpgrade(context, (value) => setState(() => _isPremiumUser = value))),
-            icon: const Icon(Icons.more_vert),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Tourism welcome banner
-          _buildTourismWelcomeBanner(),
-
-          // Tab bar
-          TabBar(
-            controller: _tabController,
-            labelColor: AppTheme.moroccoGreen,
-            unselectedLabelColor: AppTheme.secondaryText,
-            indicatorColor: AppTheme.moroccoGreen,
-            tabs: _tabs,
-          ),
-
-          // Tab views
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                DiscoverTab(
-                  buildSectionHeader: _buildSectionHeader,
-                  buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
-                  buildTrendingExperiences: () => const TrendingExperiences(),
-                  buildSocialDiscoveryButton: () => const SocialDiscoveryButton(),
-                  buildTouristFriendlyDeals: () => const TouristFriendlyDeals(),
-                ),
-                LocalExpertsTab(
-                  buildSectionHeader: _buildSectionHeader,
-                  buildPremiumUpgradeCard: _buildPremiumUpgradeCard,
-                  buildExpertCard: (expert) => _buildExpertCard(expert),
-                  experts: _experts,
-                ),
-                ExperiencesTab(
-                  buildSectionHeader: _buildSectionHeader,
-                  buildExperienceCard: _buildExperienceCard,
-                ),
-                CulturalTab(
-                  buildCulturalDashboard: () => const CulturalDashboard(),
-                  buildSectionHeader: _buildSectionHeader,
-                  buildCulturalEvents: () => const CulturalEvents(),
-                  buildCulturalTips: () => const CulturalTips(),
-                ),
-              ],
+    return Column(
+          children: [
+            // Tourism welcome banner
+            ErrorHandler.safeBuild(
+              () => _buildTourismWelcomeBanner(),
+              errorMessage: 'Unable to load welcome banner',
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: "tourismExpertFAB",
-        onPressed: () => TourismActionHelpers.showExpertRequest(context, _isPremiumUser, () => TourismActionHelpers.showPremiumUpgrade(context, (value) => setState(() => _isPremiumUser = value))),
-        backgroundColor: AppColors.tourismCategory,
-        icon: const Icon(Icons.person_add),
-        label: const Text('Find Expert'),
-      ),
+
+            // Tab bar
+            TabBar(
+              controller: _tabController,
+              labelColor: AppTheme.moroccoGreen,
+              unselectedLabelColor: AppTheme.secondaryText,
+              indicatorColor: AppTheme.moroccoGreen,
+              tabs: _tabs,
+              physics: const OptimizedScrollPhysics(),
+            ),
+
+            // Tab views
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                physics: const OptimizedScrollPhysics(),
+                children: [
+                  DiscoverTab(
+                    buildSectionHeader: _buildSectionHeader,
+                    buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
+                    buildTrendingExperiences: () => const TrendingExperiences(),
+                    buildSocialDiscoveryButton: () => const SocialDiscoveryButton(),
+                    buildTouristFriendlyDeals: () => const TouristFriendlyDeals(),
+                  ),
+                  LocalExpertsTab(
+                    buildSectionHeader: _buildSectionHeader,
+                    buildPremiumUpgradeCard: _buildPremiumUpgradeCard,
+                    buildExpertCard: (expert) => _buildExpertCard(expert),
+                    experts: _experts,
+                  ),
+                  ExperiencesTab(
+                    buildSectionHeader: _buildSectionHeader,
+                    buildExperienceCard: _buildExperienceCard,
+                  ),
+                  CulturalTab(
+                    buildCulturalDashboard: () => const CulturalDashboard(),
+                    buildSectionHeader: _buildSectionHeader,
+                    buildCulturalEvents: () => const CulturalEvents(),
+                    buildCulturalTips: () => const CulturalTips(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+  }
+
+
+  void _handleMenuPress() {
+    PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
+    TourismActionHelpers.showTourismMenu(
+      context, 
+      () => TourismActionHelpers.showPremiumUpgrade(
+        context, 
+        (value) => setState(() => _isPremiumUser = value)
+      )
+    );
+  }
+
+  void _handleExpertRequest() {
+    PerformanceUtils.hapticFeedback(HapticFeedbackType.medium);
+    TourismActionHelpers.showExpertRequest(
+      context, 
+      ref, 
+      _isPremiumUser, 
+      () => TourismActionHelpers.showPremiumUpgrade(
+        context, 
+        (value) => setState(() => _isPremiumUser = value)
+      )
     );
   }
 

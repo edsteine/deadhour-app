@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/user.dart';
+import '../../utils/error_handler.dart';
+import '../../utils/performance_utils.dart';
 import 'widgets/rooms_scaffold.dart';
 import 'package:deadhour/screens/community/widgets/room_interaction_helpers.dart';
 import 'package:deadhour/screens/community/widgets/all_rooms_tab.dart';
@@ -81,14 +83,14 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
         showPrayerTimeAware: _showPrayerTimeAware,
         showHalalOnly: _showHalalOnly,
         onRefresh: () => RoomInteractionHelpers.handleRefresh(() => setState(() {})),
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
       ),
       MyRoomsTab(
         tabController: _tabController,
         onOpenRoom: (room) => RoomInteractionHelpers.openRoom(context, room),
       ),
       PopularRoomsTab(
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
       ),
     ];
 
@@ -111,38 +113,59 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
-    return RoomsScaffold(
-      user: user,
-      tabController: _tabController,
-      selectedCity: _selectedCity,
-      selectedCategory: _selectedCategory,
-      showPrayerTimeAware: _showPrayerTimeAware,
-      showHalalOnly: _showHalalOnly,
-      onCitySelectorPressed: () => RoomInteractionHelpers.showCitySelector(context, _selectedCity, (city) {
+    return ErrorBoundary(
+      errorMessage: 'Unable to load community rooms',
+      child: RoomsScaffold(
+        user: user,
+        tabController: _tabController,
+        selectedCity: _selectedCity,
+        selectedCategory: _selectedCategory,
+        showPrayerTimeAware: _showPrayerTimeAware,
+        showHalalOnly: _showHalalOnly,
+        onCitySelectorPressed: () => _handleCitySelection(),
+        onRoomSearchPressed: () => RoomInteractionHelpers.showRoomSearch(context),
+        onCategorySelected: _handleCategorySelection,
+        onPrayerTimeAwareChanged: _handlePrayerTimeAwareChanged,
+        onHalalOnlyChanged: _handleHalalOnlyChanged,
+        onCreateRoomPressed: () => RoomInteractionHelpers.showCreateRoomDialog(context, ref, _selectedCity),
+        tabs: _tabs,
+        tabViews: _buildTabViews(),
+      ),
+    );
+  }
+
+  void _handleCitySelection() {
+    PerformanceUtils.debounce(
+      const Duration(milliseconds: 300),
+      () => RoomInteractionHelpers.showCitySelector(context, _selectedCity, (city) {
         setState(() {
           _selectedCity = city;
         });
       }),
-      onRoomSearchPressed: () => RoomInteractionHelpers.showRoomSearch(context),
-      onCategorySelected: (category) {
-        setState(() {
-          _selectedCategory = category;
-        });
-      },
-      onPrayerTimeAwareChanged: (value) {
-        setState(() {
-          _showPrayerTimeAware = value;
-        });
-      },
-      onHalalOnlyChanged: (value) {
-        setState(() {
-          _showHalalOnly = value;
-        });
-      },
-      onCreateRoomPressed: () => RoomInteractionHelpers.showCreateRoomDialog(context, _selectedCity),
-      tabs: _tabs,
-      tabViews: _buildTabViews(),
     );
+  }
+
+  void _handleCategorySelection(String category) {
+    PerformanceUtils.debounce(
+      const Duration(milliseconds: 200),
+      () => setState(() {
+        _selectedCategory = category;
+      }),
+    );
+  }
+
+  void _handlePrayerTimeAwareChanged(bool value) {
+    setState(() {
+      _showPrayerTimeAware = value;
+    });
+    PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
+  }
+
+  void _handleHalalOnlyChanged(bool value) {
+    setState(() {
+      _showHalalOnly = value;
+    });
+    PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
   }
 }
 

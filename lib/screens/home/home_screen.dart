@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
+import '../../utils/error_handler.dart';
+import '../../utils/performance_utils.dart';
 import '../../widgets/common/deal_card.dart';
 import '../../widgets/common/venue_card.dart';
-import '../../widgets/cultural/prayer_times_widget.dart'; // Added import for PrayerTimesWidget
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  String _selectedCity = 'Casablanca';
+  final String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
 
   @override
@@ -27,16 +28,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: RefreshIndicator(
-        onRefresh: _handleRefresh,
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
+    return ErrorBoundary(
+        errorMessage: 'Unable to load home screen content',
+        child: RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: CustomScrollView(
+            controller: _scrollController,
+            physics: const OptimizedScrollPhysics(),
+            slivers: [
             // Category filter
             SliverToBoxAdapter(
-              child: _buildCategoryFilter(),
+              child: ErrorHandler.safeBuild(
+                () => _buildCategoryFilter(),
+                errorMessage: 'Unable to load category filter',
+              ),
             ),
 
             // Active deals section
@@ -50,7 +55,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // Active deals list
             SliverToBoxAdapter(
-              child: _buildActiveDeals(),
+              child: ErrorHandler.safeBuild(
+                () => _buildActiveDeals(),
+                errorMessage: 'Unable to load active deals',
+              ),
             ),
 
             // Nearby venues section
@@ -69,11 +77,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   final venues = _getFilteredVenues();
                   if (index >= venues.length) return null;
 
-                  return VenueCard(
-                    venue: venues[index],
-                    showDistance: true,
-                    distance: 1.2 + (index * 0.3), // Mock distance
-                    onTap: () => _showVenueDetails(venues[index]),
+                  return RepaintBoundary(
+                    child: VenueCard(
+                      venue: venues[index],
+                      showDistance: true,
+                      distance: 1.2 + (index * 0.3), // Mock distance
+                      onTap: () => _showVenueDetails(venues[index]),
+                    ),
                   );
                 },
                 childCount: _getFilteredVenues().length,
@@ -87,76 +97,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: "homeSearchFAB",
-        onPressed: () => _showSearchDialog(),
-        backgroundColor: AppTheme.moroccoGreen,
-        foregroundColor: Colors.white,
-        tooltip: 'Search Deals',
-        child: const Icon(Icons.search),
-      ),
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'DeadHour',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Row(
-            children: [
-              const Icon(Icons.location_on, size: 14),
-              const SizedBox(width: 4),
-              Text(
-                _selectedCity,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        IconButton(
-          onPressed: () => _showCitySelector(),
-          icon: const Icon(Icons.tune),
-        ),
-        IconButton(
-          onPressed: () => _showCreateDealAlert(),
-          icon: const Icon(Icons.add_business),
-        ),
-        IconButton(
-          onPressed: () => _showNotifications(),
-          icon: Stack(
-            children: [
-              const Icon(Icons.notifications_outlined),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: AppColors.error,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
 
 
@@ -193,9 +136,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
               onSelected: (selected) {
-                setState(() {
-                  _selectedCategory = category['id']!;
-                });
+                PerformanceUtils.debounce(
+                  const Duration(milliseconds: 200),
+                  () => setState(() {
+                    _selectedCategory = category['id']!;
+                  }),
+                );
+                PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
               },
               selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
               checkmarkColor: AppTheme.moroccoGreen,
@@ -315,81 +262,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _handleRefresh() async {
-    // Simulate refresh
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() {});
-  }
-
-  void _showCitySelector() {
-    showModalBottomSheet(
+    return ErrorHandler.safeExecute(
+      () async {
+        // Simulate data refresh
+        await Future.delayed(const Duration(seconds: 1));
+        if (mounted) {
+          setState(() {
+            // Refresh mock data or reload from source
+          });
+        }
+      },
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Select City',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ...['Casablanca', 'Rabat', 'Marrakech', 'Fez'].map((city) {
-              return ListTile(
-                leading: const Icon(Icons.location_city),
-                title: Text(city),
-                trailing: _selectedCity == city ? const Icon(Icons.check) : null,
-                onTap: () {
-                  setState(() {
-                    _selectedCity = city;
-                  });
-                  Navigator.pop(context);
-                },
-              );
-            }),
-          ],
-        ),
-      ),
+      errorMessage: 'Failed to refresh content',
+      showSnackBar: true,
     );
   }
 
-  void _showNotifications() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Notifications'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Prayer times widget at the top
-            const PrayerTimesWidget(isVisible: true),
-            const SizedBox(height: 16),
-            // Regular notifications
-            const ListTile(
-              leading: Icon(Icons.local_fire_department, color: AppColors.error),
-              title: Text('New Flash Deal!'),
-              subtitle: Text('50% off at Café Atlas - 2 hours left'),
-              dense: true,
-            ),
-            const ListTile(
-              leading: Icon(Icons.people, color: AppColors.info),
-              title: Text('Room Activity'),
-              subtitle: Text('New message in Coffee Afternoon Deals'),
-              dense: true,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
 
   void _showSearchDialog() {
     showDialog(

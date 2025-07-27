@@ -57,7 +57,7 @@ class _RevenueOptimizationScreenState extends State<RevenueOptimizationScreen>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 DeadHoursTab(
                   showOptimizationSuggestions: BusinessActionHelpers.showOptimizationSuggestions,
                   createTargetedDeal: BusinessActionHelpers.createTargetedDeal,

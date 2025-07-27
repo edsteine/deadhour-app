@@ -22,9 +22,10 @@
     - [ ] Implement deep link testing functionality
     - [ ] Add performance monitoring indicators
 
-### 3. Mock Data Architecture & Dependency Injection
+### 3. Mock Data Architecture & Dependency Injection (FUTURE PRIORITY)
 - **Objective**: Build scalable data architecture for smooth Firebase transition
-- **Action Items**:
+- **Status**: POSTPONED - Focus on working app first, Firebase integration when requested
+- **Action Items** (for future):
     - [ ] Create proper service interfaces for all data operations
     - [ ] Implement dependency injection container (get_it or similar)
     - [ ] Design mock data structure mirroring Firebase collections

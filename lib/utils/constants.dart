@@ -114,13 +114,13 @@ class AppConstants {
     },
   ];
   
-  // Available Roles for Role Marketplace
+  // Available Roles for Role Marketplace - Currently Free During Beta
   static const List<Map<String, String>> availableRoles = [
     {
       'id': 'business',
       'name': 'Business Role',
       'icon': '🏢',
-      'price': '€30/month',
+      'price': 'Free Beta',
       'description': 'Venue management, deal creation, analytics dashboard',
       'arabic': 'دور الأعمال',
       'french': 'Rôle Entreprise'
@@ -129,7 +129,7 @@ class AppConstants {
       'id': 'guide',
       'name': 'Guide Role',
       'icon': '🌍',
-      'price': '€20/month',
+      'price': 'Free Beta',
       'description': 'Local expertise, cultural guidance, tourism services',
       'arabic': 'دور الدليل',
       'french': 'Rôle Guide'
@@ -138,20 +138,20 @@ class AppConstants {
       'id': 'premium',
       'name': 'Premium Role',
       'icon': '⭐',
-      'price': '€15/month',
+      'price': 'Free Beta',
       'description': 'Enhanced features, cross-Role analytics, priority support',
       'arabic': 'دور البريميوم',
       'french': 'Rôle Premium'
     },
   ];
 
-  // Future Roles (infinite scalability)
+  // Future Roles (Coming Soon)
   static const List<Map<String, String>> futureRoles = [
     {
       'id': 'driver',
       'name': 'Driver Role',
       'icon': '🚗',
-      'price': '€25/month',
+      'price': 'Coming Soon',
       'description': 'Transportation services, ride coordination',
       'arabic': 'دور السائق',
       'french': 'Rôle Chauffeur'
@@ -160,7 +160,7 @@ class AppConstants {
       'id': 'host',
       'name': 'Host Role',
       'icon': '🏠',
-      'price': '€20/month',
+      'price': 'Coming Soon',
       'description': 'Accommodation hosting, guest services',
       'arabic': 'دور المضيف',
       'french': 'Rôle Hôte'
@@ -169,7 +169,7 @@ class AppConstants {
       'id': 'chef',
       'name': 'Chef Role',
       'icon': '👨‍🍳',
-      'price': '€30/month',
+      'price': 'Coming Soon',
       'description': 'Private cooking, culinary experiences',
       'arabic': 'دور الطاهي',
       'french': 'Rôle Chef'
@@ -178,7 +178,7 @@ class AppConstants {
       'id': 'photographer',
       'name': 'Photographer Role',
       'icon': '📸',
-      'price': '€15/month',
+      'price': 'Coming Soon',
       'description': 'Photography services, visual content creation',
       'arabic': 'دور المصور',
       'french': 'Rôle Photographe'

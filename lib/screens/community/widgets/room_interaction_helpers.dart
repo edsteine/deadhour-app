@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:deadhour/utils/theme.dart';
+import 'package:deadhour/utils/auth_helpers.dart';
 import 'package:deadhour/screens/community/widgets/create_room_sheet.dart';
 
 
@@ -68,7 +70,13 @@ class RoomInteractionHelpers {
     );
   }
 
-  static void showCreateRoomDialog(BuildContext context, String selectedCity) {
+  static void showCreateRoomDialog(BuildContext context, WidgetRef ref, String selectedCity) {
+    // Check if user is authenticated before allowing room creation
+    if (!AuthHelpers.requireAuthForCreating(context, ref, contentType: 'community rooms')) {
+      return; // User not authenticated, helper will show login prompt
+    }
+    
+    // User is authenticated, proceed with room creation
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -84,7 +92,13 @@ class RoomInteractionHelpers {
     );
   }
 
-  static void joinRoom(BuildContext context, dynamic room, Function(dynamic) openRoomCallback) {
+  static void joinRoom(BuildContext context, WidgetRef ref, dynamic room, Function(dynamic) openRoomCallback) {
+    // Check if user is authenticated before allowing room join
+    if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
+      return; // User not authenticated, helper will show login prompt
+    }
+    
+    // User is authenticated, proceed with join dialog
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

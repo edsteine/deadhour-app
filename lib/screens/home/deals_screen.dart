@@ -1,18 +1,20 @@
 import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
+import '../../utils/auth_helpers.dart';
 import '../../widgets/common/deal_card.dart';
 
-class DealsScreen extends StatefulWidget {
+class DealsScreen extends ConsumerStatefulWidget {
   const DealsScreen({super.key});
 
   @override
-  State<DealsScreen> createState() => _DealsScreenState();
+  ConsumerState<DealsScreen> createState() => _DealsScreenState();
 }
 
-class _DealsScreenState extends State<DealsScreen> {
+class _DealsScreenState extends ConsumerState<DealsScreen> {
   String _selectedFilter = 'all'; // 'all', 'active', 'ending_soon', 'category'
   String _selectedCategory = 'all';
   String _sortBy = 'ending_soon'; // 'ending_soon', 'discount', 'distance', 'rating'
@@ -24,14 +26,18 @@ class _DealsScreenState extends State<DealsScreen> {
       appBar: DeadHourAppBar(
         title: 'All Deals',
         showBackButton: true,
-        actions: [
+        showLocationSelector: false,
+        showNotifications: false,
+        customActions: [
           IconButton(
             onPressed: () => setState(() => _showMap = !_showMap),
             icon: Icon(_showMap ? Icons.list : Icons.map),
+            tooltip: _showMap ? 'List View' : 'Map View',
           ),
           IconButton(
             onPressed: _showFilterBottomSheet,
             icon: const Icon(Icons.tune),
+            tooltip: 'Filter Deals',
           ),
         ],
       ),
@@ -629,6 +635,13 @@ class _DealsScreenState extends State<DealsScreen> {
 
   void _bookDeal(dynamic deal) {
     Navigator.pop(context);
+    
+    // Check if user is authenticated before allowing booking
+    if (!AuthHelpers.requireAuthForBooking(context, ref)) {
+      return; // User not authenticated, helper will show login prompt
+    }
+    
+    // User is authenticated, proceed with booking
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

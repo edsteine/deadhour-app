@@ -21,8 +21,8 @@ class PremiumRoomsTab extends StatelessWidget {
       return EmptyStateWidget(
         icon: Icons.workspace_premium,
         title: 'Premium Rooms',
-        subtitle: 'Exclusive rooms for premium members with local experts and curated experiences',
-        actionText: 'Upgrade to Premium',
+        subtitle: 'Exclusive rooms with local experts and curated experiences - Free during beta!',
+        actionText: 'Learn More',
         onAction: onShowPremiumUpgrade,
       );
     }
