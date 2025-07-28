@@ -36,7 +36,8 @@ class EnhancedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultBackgroundColor = backgroundColor ?? (showGradient ? null : AppTheme.cardColor);
+    final defaultBackgroundColor =
+        backgroundColor ?? (showGradient ? null : AppTheme.cardColor);
     final defaultForegroundColor = foregroundColor ?? AppTheme.primaryText;
 
     return AppBar(
@@ -63,7 +64,8 @@ class EnhancedAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildTitle() {
     if (subtitle != null) {
       return Column(
-        crossAxisAlignment: centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -79,7 +81,9 @@ class EnhancedAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: showGradient ? Colors.white.withValues(alpha: 0.9) : AppTheme.secondaryText,
+              color: showGradient
+                  ? Colors.white.withValues(alpha: 0.9)
+                  : AppTheme.secondaryText,
             ),
           ),
         ],
@@ -190,7 +194,8 @@ class SliverEnhancedAppBar extends StatelessWidget {
   Widget _buildTitle() {
     if (subtitle != null) {
       return Column(
-        crossAxisAlignment: centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            centerTitle ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(

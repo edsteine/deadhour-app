@@ -26,9 +26,12 @@ class ExperiencesTab extends StatelessWidget {
               return ExperienceCard(
                 experience: filteredExperiences[index],
                 socialInterests: socialInterests,
-                onViewDetails: (exp) => SocialActionHelpers.viewExperienceDetails(context, exp),
-                onContactHost: (exp) => SocialActionHelpers.contactHost(context, exp),
-                onJoinExperience: (exp) => SocialActionHelpers.joinExperience(context, exp),
+                onViewDetails: (exp) =>
+                    SocialActionHelpers.viewExperienceDetails(context, exp),
+                onContactHost: (exp) =>
+                    SocialActionHelpers.contactHost(context, exp),
+                onJoinExperience: (exp) =>
+                    SocialActionHelpers.joinExperience(context, exp),
               );
             },
           ),

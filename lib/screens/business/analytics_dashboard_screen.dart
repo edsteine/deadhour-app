@@ -7,7 +7,8 @@ class AnalyticsDashboardScreen extends StatefulWidget {
   const AnalyticsDashboardScreen({super.key});
 
   @override
-  State<AnalyticsDashboardScreen> createState() => _AnalyticsDashboardScreenState();
+  State<AnalyticsDashboardScreen> createState() =>
+      _AnalyticsDashboardScreenState();
 }
 
 class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
@@ -128,7 +129,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
   Widget _buildRevenueTab() {
     final analytics = MockData.businessAnalytics;
     final monthlyRevenue = analytics['monthlyRevenue'] as Map<String, dynamic>;
-    final weeklyTraffic = analytics['weeklyTraffic'] as List<Map<String, dynamic>>;
+    final weeklyTraffic =
+        analytics['weeklyTraffic'] as List<Map<String, dynamic>>;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -232,7 +234,7 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
                     children: weeklyTraffic.map((day) {
                       final occupancy = day['occupancy'] as int;
                       final height = (occupancy / 100) * 120;
-                      
+
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -248,9 +250,9 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
                             width: 20,
                             height: height,
                             decoration: BoxDecoration(
-                              color: occupancy > 70 
+                              color: occupancy > 70
                                   ? AppTheme.moroccoGreen
-                                  : occupancy > 40 
+                                  : occupancy > 40
                                       ? AppTheme.moroccoGold
                                       : AppTheme.moroccoRed,
                               borderRadius: BorderRadius.circular(4),
@@ -279,9 +281,12 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
           ),
           const SizedBox(height: 16),
 
-          _buildRevenueSource('Regular Bookings', '2,890 MAD', '58%', AppTheme.moroccoGreen),
-          _buildRevenueSource('Dead Hour Deals', '1,340 MAD', '27%', AppTheme.moroccoGold),
-          _buildRevenueSource('Premium Services', '465 MAD', '9%', Colors.purple),
+          _buildRevenueSource(
+              'Regular Bookings', '2,890 MAD', '58%', AppTheme.moroccoGreen),
+          _buildRevenueSource(
+              'Dead Hour Deals', '1,340 MAD', '27%', AppTheme.moroccoGold),
+          _buildRevenueSource(
+              'Premium Services', '465 MAD', '9%', Colors.purple),
           _buildRevenueSource('Group Bookings', '295 MAD', '6%', Colors.blue),
         ],
       ),
@@ -389,10 +394,14 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
             ),
             child: Column(
               children: [
-                _buildPeakHourRow('12:00-14:00', 'Lunch Rush', '89%', AppTheme.moroccoGreen),
-                _buildPeakHourRow('19:00-21:00', 'Dinner Time', '76%', AppTheme.moroccoGold),
-                _buildPeakHourRow('15:00-17:00', 'Afternoon Coffee', '34%', AppTheme.moroccoRed),
-                _buildPeakHourRow('21:00-23:00', 'Late Night', '28%', Colors.grey),
+                _buildPeakHourRow(
+                    '12:00-14:00', 'Lunch Rush', '89%', AppTheme.moroccoGreen),
+                _buildPeakHourRow(
+                    '19:00-21:00', 'Dinner Time', '76%', AppTheme.moroccoGold),
+                _buildPeakHourRow('15:00-17:00', 'Afternoon Coffee', '34%',
+                    AppTheme.moroccoRed),
+                _buildPeakHourRow(
+                    '21:00-23:00', 'Late Night', '28%', Colors.grey),
               ],
             ),
           ),
@@ -496,13 +505,17 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
             ),
             child: Column(
               children: [
-                _buildCompetitorMetric('Revenue per sqm', 'You: 1,200 MAD', 'Market avg: 980 MAD', true),
+                _buildCompetitorMetric('Revenue per sqm', 'You: 1,200 MAD',
+                    'Market avg: 980 MAD', true),
                 const Divider(),
-                _buildCompetitorMetric('Customer Rating', 'You: 4.7★', 'Market avg: 4.2★', true),
+                _buildCompetitorMetric(
+                    'Customer Rating', 'You: 4.7★', 'Market avg: 4.2★', true),
                 const Divider(),
-                _buildCompetitorMetric('Pricing', 'You: 125 MAD', 'Market avg: 135 MAD', false),
+                _buildCompetitorMetric(
+                    'Pricing', 'You: 125 MAD', 'Market avg: 135 MAD', false),
                 const Divider(),
-                _buildCompetitorMetric('Wait Time', 'You: 8 min', 'Market avg: 12 min', true),
+                _buildCompetitorMetric(
+                    'Wait Time', 'You: 8 min', 'Market avg: 12 min', true),
               ],
             ),
           ),
@@ -545,7 +558,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
   }
 
   // Helper Widgets
-  Widget _buildRevenueCard(String title, String value, String subtitle, Color color, IconData icon) {
+  Widget _buildRevenueCard(
+      String title, String value, String subtitle, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -593,7 +607,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildRevenueSource(String source, String amount, String percentage, Color color) {
+  Widget _buildRevenueSource(
+      String source, String amount, String percentage, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -648,7 +663,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, Color color, IconData icon) {
+  Widget _buildMetricCard(
+      String title, String value, String subtitle, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -729,7 +745,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildPeakHourRow(String time, String label, String occupancy, Color color) {
+  Widget _buildPeakHourRow(
+      String time, String label, String occupancy, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -775,7 +792,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildFeedbackCard(String feedback, String customer, int rating, String time) {
+  Widget _buildFeedbackCard(
+      String feedback, String customer, int rating, String time) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -802,11 +820,13 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
                 ),
               ),
               const SizedBox(width: 8),
-              ...List.generate(5, (index) => Icon(
-                Icons.star,
-                size: 12,
-                color: index < rating ? Colors.amber : Colors.grey[300],
-              )),
+              ...List.generate(
+                  5,
+                  (index) => Icon(
+                        Icons.star,
+                        size: 12,
+                        color: index < rating ? Colors.amber : Colors.grey[300],
+                      )),
               const Spacer(),
               Text(
                 time,
@@ -822,7 +842,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildKPICard(String title, String value, String change, Color color, IconData icon, bool isGood) {
+  Widget _buildKPICard(String title, String value, String change, Color color,
+      IconData icon, bool isGood) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -888,7 +909,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildCompetitorMetric(String metric, String yours, String market, bool isBetter) {
+  Widget _buildCompetitorMetric(
+      String metric, String yours, String market, bool isBetter) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -909,7 +931,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
                   yours,
                   style: TextStyle(
                     fontSize: 12,
-                    color: isBetter ? AppTheme.moroccoGreen : AppTheme.moroccoRed,
+                    color:
+                        isBetter ? AppTheme.moroccoGreen : AppTheme.moroccoRed,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -932,7 +955,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
     );
   }
 
-  Widget _buildRecommendationCard(IconData icon, String title, String description, String impact, Color color) {
+  Widget _buildRecommendationCard(IconData icon, String title,
+      String description, String impact, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -969,7 +993,8 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen>
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),

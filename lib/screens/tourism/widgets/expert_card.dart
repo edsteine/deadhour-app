@@ -38,7 +38,8 @@ class ExpertCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             child: Center(
-              child: Text(expert['avatar']!, style: const TextStyle(fontSize: 24)),
+              child:
+                  Text(expert['avatar']!, style: const TextStyle(fontSize: 24)),
             ),
           ),
           const SizedBox(width: 12),
@@ -91,7 +92,8 @@ class ExpertCard extends StatelessWidget {
                 ),
               ] else ...[
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppTheme.moroccoGold.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
@@ -107,7 +109,8 @@ class ExpertCard extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 4),
-              const Text('Online now', style: TextStyle(fontSize: 10, color: AppColors.success)),
+              const Text('Online now',
+                  style: TextStyle(fontSize: 10, color: AppColors.success)),
             ],
           ),
         ],

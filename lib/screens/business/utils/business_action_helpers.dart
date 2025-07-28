@@ -48,7 +48,8 @@ class BusinessActionHelpers {
     );
   }
 
-  static void createTargetedDeal(BuildContext context, Map<String, dynamic> hour) {
+  static void createTargetedDeal(
+      BuildContext context, Map<String, dynamic> hour) {
     // Navigate to create deal screen with pre-filled time slot
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -58,7 +59,8 @@ class BusinessActionHelpers {
     );
   }
 
-  static void optimizeTimeSlot(BuildContext context, Map<String, dynamic> hour) {
+  static void optimizeTimeSlot(
+      BuildContext context, Map<String, dynamic> hour) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -72,19 +74,22 @@ class BusinessActionHelpers {
               leading: const Icon(Icons.local_offer),
               title: const Text('Price Discount'),
               subtitle: const Text('20-30% off regular prices'),
-              onTap: () => BusinessActionHelpers.applyOptimization(context, 'discount'),
+              onTap: () =>
+                  BusinessActionHelpers.applyOptimization(context, 'discount'),
             ),
             ListTile(
               leading: const Icon(Icons.group_add),
               title: const Text('Group Incentives'),
               subtitle: const Text('Deals for parties of 3+'),
-              onTap: () => BusinessActionHelpers.applyOptimization(context, 'group'),
+              onTap: () =>
+                  BusinessActionHelpers.applyOptimization(context, 'group'),
             ),
             ListTile(
               leading: const Icon(Icons.star),
               title: const Text('Loyalty Points'),
               subtitle: const Text('Double loyalty rewards'),
-              onTap: () => BusinessActionHelpers.applyOptimization(context, 'loyalty'),
+              onTap: () =>
+                  BusinessActionHelpers.applyOptimization(context, 'loyalty'),
             ),
           ],
         ),
@@ -98,7 +103,8 @@ class BusinessActionHelpers {
     );
   }
 
-  static void applyPricingRecommendation(BuildContext context, String timeSlot) {
+  static void applyPricingRecommendation(
+      BuildContext context, String timeSlot) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Applied pricing recommendation for $timeSlot'),

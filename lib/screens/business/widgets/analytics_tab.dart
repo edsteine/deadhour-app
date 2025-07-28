@@ -93,7 +93,8 @@ class AnalyticsTab extends StatelessWidget {
         children: [
           _buildInsightRow('Peak Hours', '2:00 PM - 4:00 PM', Icons.schedule),
           const Divider(),
-          _buildInsightRow('Average Spend', '85 MAD per customer', Icons.attach_money),
+          _buildInsightRow(
+              'Average Spend', '85 MAD per customer', Icons.attach_money),
           const Divider(),
           _buildInsightRow('Return Rate', '68% customers return', Icons.repeat),
           const Divider(),

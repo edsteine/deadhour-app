@@ -92,103 +92,103 @@ class DeadHoursTab extends StatelessWidget {
           const SizedBox(height: 16),
 
           ...deadHours.map((hour) => Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey[200]!),
-            ),
-            child: Column(
-              children: [
-                Row(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[200]!),
+                ),
+                child: Column(
                   children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppTheme.moroccoRed.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Icon(
-                        Icons.schedule,
-                        color: AppTheme.moroccoRed,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            hour['time'] as String,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${hour['occupancy']}% occupancy',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    Row(
                       children: [
-                        Text(
-                          'Lost: ${(100 - hour['occupancy'] as int) * 12} MAD',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: AppTheme.moroccoRed.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.schedule,
                             color: AppTheme.moroccoRed,
                           ),
                         ),
-                        const Text(
-                          'per day',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                hour['time'] as String,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '${hour['occupancy']}% occupancy',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Lost: ${(100 - hour['occupancy'] as int) * 12} MAD',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme.moroccoRed,
+                              ),
+                            ),
+                            const Text(
+                              'per day',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: () => createTargetedDeal(context, hour),
+                            icon: const Icon(Icons.local_offer, size: 16),
+                            label: const Text('Create Deal'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppTheme.moroccoGreen,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: () => optimizeTimeSlot(context, hour),
+                            icon: const Icon(Icons.auto_fix_high, size: 16),
+                            label: const Text('Optimize'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppTheme.moroccoGreen,
+                              foregroundColor: Colors.white,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () => createTargetedDeal(context, hour),
-                        icon: const Icon(Icons.local_offer, size: 16),
-                        label: const Text('Create Deal'),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: AppTheme.moroccoGreen,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () => optimizeTimeSlot(context, hour),
-                        icon: const Icon(Icons.auto_fix_high, size: 16),
-                        label: const Text('Optimize'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppTheme.moroccoGreen,
-                          foregroundColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )),
+              )),
         ],
       ),
     );

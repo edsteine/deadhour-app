@@ -72,7 +72,9 @@ class Venue {
       amenities: List<String>.from(json['amenities'] ?? []),
       images: List<String>.from(json['images'] ?? []),
       isVerified: json['isVerified'] ?? false,
-      joinedDate: json['joinedDate'] != null ? DateTime.parse(json['joinedDate']) : null,
+      joinedDate: json['joinedDate'] != null
+          ? DateTime.parse(json['joinedDate'])
+          : null,
       businessMetrics: json['businessMetrics'],
     );
   }
@@ -199,17 +201,17 @@ class Venue {
     final now = DateTime.now();
     final dayName = _getDayName(now.weekday);
     final hours = operatingHours[dayName];
-    
+
     if (hours == null) return false;
-    
+
     final parts = hours.split('-');
     if (parts.length != 2) return false;
-    
+
     try {
       final openTime = _parseTime(parts[0]);
       final closeTime = _parseTime(parts[1]);
       final currentTime = now.hour * 60 + now.minute;
-      
+
       return currentTime >= openTime && currentTime <= closeTime;
     } catch (e) {
       return false;
@@ -255,13 +257,10 @@ class Venue {
     const double earthRadius = 6371; // km
     final double dLat = _toRadians(lat - latitude);
     final double dLng = _toRadians(lng - longitude);
-    
-    final double a = 
-        (dLat / 2) * (dLat / 2) +
-        (dLng / 2) * (dLng / 2) * 
-        (latitude * latitude) * 
-        (lat * lat);
-    
+
+    final double a = (dLat / 2) * (dLat / 2) +
+        (dLng / 2) * (dLng / 2) * (latitude * latitude) * (lat * lat);
+
     final double c = 2 * (a * (1 - a));
     return earthRadius * c;
   }
@@ -270,4 +269,3 @@ class Venue {
     return degrees * (3.14159265359 / 180);
   }
 }
-

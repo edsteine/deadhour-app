@@ -141,10 +141,10 @@ class Deal {
 
   bool get isValid {
     final now = DateTime.now();
-    return isActive && 
-           now.isAfter(validFrom) && 
-           now.isBefore(validUntil) &&
-           currentBookings < maxCapacity;
+    return isActive &&
+        now.isAfter(validFrom) &&
+        now.isBefore(validUntil) &&
+        currentBookings < maxCapacity;
   }
 
   bool get isExpired {
@@ -181,7 +181,7 @@ class Deal {
   String get urgencyLevel {
     final now = DateTime.now();
     final timeLeft = validUntil.difference(now).inMinutes;
-    
+
     if (timeLeft <= 30) {
       return 'urgent';
     } else if (timeLeft <= 120) {
@@ -194,7 +194,7 @@ class Deal {
   String get timeLeftDisplay {
     final now = DateTime.now();
     final difference = validUntil.difference(now);
-    
+
     if (difference.inDays > 0) {
       return '${difference.inDays}d ${difference.inHours % 24}h left';
     } else if (difference.inHours > 0) {
@@ -230,4 +230,3 @@ class Deal {
     }
   }
 }
-

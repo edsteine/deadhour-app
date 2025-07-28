@@ -19,10 +19,12 @@ class MainNavigationScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  ConsumerState<MainNavigationScreen> createState() =>
+      _MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> with TickerProviderStateMixin {
+class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
 
@@ -31,7 +33,8 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
-      if (_tabController.indexIsChanging || _currentIndex != _tabController.index) {
+      if (_tabController.indexIsChanging ||
+          _currentIndex != _tabController.index) {
         setState(() {
           _currentIndex = _tabController.index;
         });
@@ -99,7 +102,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
     );
   }
 
-
   Widget _buildBottomNavigationBar() {
     return Container(
       decoration: BoxDecoration(
@@ -115,7 +117,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: AppTheme.spacing8, 
+            horizontal: AppTheme.spacing8,
             vertical: AppTheme.spacing8,
           ),
           child: Row(
@@ -146,12 +148,12 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppTheme.spacing12, 
+          horizontal: AppTheme.spacing12,
           vertical: AppTheme.spacing8,
         ),
         decoration: BoxDecoration(
-          color: isActive 
-              ? AppTheme.moroccoGreen.withValues(alpha: 0.1) 
+          color: isActive
+              ? AppTheme.moroccoGreen.withValues(alpha: 0.1)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
         ),
@@ -169,7 +171,8 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color: isActive ? AppTheme.moroccoGreen : AppTheme.secondaryText,
+                color:
+                    isActive ? AppTheme.moroccoGreen : AppTheme.secondaryText,
               ),
             ),
           ],
@@ -226,7 +229,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> wit
         );
     }
   }
-
 }
 
 // Navigation Item Model
@@ -243,7 +245,6 @@ class NavigationItem {
     required this.label,
   });
 }
-
 
 class PrayerTimeIndicator extends StatelessWidget {
   final bool isVisible;
@@ -284,6 +285,4 @@ class PrayerTimeIndicator extends StatelessWidget {
       ),
     );
   }
-
-
 }

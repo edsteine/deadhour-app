@@ -92,7 +92,8 @@ class PromotionsTab extends StatelessWidget {
     );
   }
 
-  Widget _buildPromotionTemplate(String emoji, String title, String description, BuildContext context) {
+  Widget _buildPromotionTemplate(
+      String emoji, String title, String description, BuildContext context) {
     return GestureDetector(
       onTap: () => createFromTemplate(context, title),
       child: Container(

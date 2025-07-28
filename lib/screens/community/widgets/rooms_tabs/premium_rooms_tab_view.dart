@@ -16,7 +16,8 @@ class PremiumRoomsTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final premiumRooms = MockData.rooms.where((room) => room.isPremiumOnly).toList();
+    final premiumRooms =
+        MockData.rooms.where((room) => room.isPremiumOnly).toList();
 
     return premiumRooms.isEmpty
         ? const Center(child: Text('No premium rooms available.'))

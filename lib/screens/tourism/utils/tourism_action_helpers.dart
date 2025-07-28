@@ -5,7 +5,8 @@ import 'package:deadhour/utils/theme.dart';
 import 'package:deadhour/utils/auth_helpers.dart';
 
 class TourismActionHelpers {
-  static void showCitySelector(BuildContext context, String selectedCity, Function(String) onCitySelected) {
+  static void showCitySelector(BuildContext context, String selectedCity,
+      Function(String) onCitySelected) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -18,11 +19,20 @@ class TourismActionHelpers {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            ...['Casablanca', 'Marrakech', 'Fez', 'Rabat', 'Tangier', 'Essaouira'].map((city) {
+            ...[
+              'Casablanca',
+              'Marrakech',
+              'Fez',
+              'Rabat',
+              'Tangier',
+              'Essaouira'
+            ].map((city) {
               return ListTile(
                 leading: const Icon(Icons.location_city),
                 title: Text(city),
-                trailing: selectedCity == city ? const Icon(Icons.check, color: AppColors.tourismCategory) : null,
+                trailing: selectedCity == city
+                    ? const Icon(Icons.check, color: AppColors.tourismCategory)
+                    : null,
                 onTap: () {
                   onCitySelected(city);
                   Navigator.pop(context);
@@ -35,7 +45,8 @@ class TourismActionHelpers {
     );
   }
 
-  static void showTourismMenu(BuildContext context, Function() showPremiumUpgrade) {
+  static void showTourismMenu(
+      BuildContext context, Function() showPremiumUpgrade) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -43,10 +54,12 @@ class TourismActionHelpers {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Tourism Options', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Tourism Options',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             ListTile(
-              leading: const Icon(Icons.workspace_premium, color: AppTheme.moroccoGold),
+              leading: const Icon(Icons.workspace_premium,
+                  color: AppTheme.moroccoGold),
               title: const Text('Premium Features (Free Beta)'),
               onTap: () {
                 Navigator.pop(context);
@@ -69,12 +82,14 @@ class TourismActionHelpers {
     );
   }
 
-  static void showExpertRequest(BuildContext context, WidgetRef ref, bool isPremiumUser, Function() showPremiumUpgrade) {
+  static void showExpertRequest(BuildContext context, WidgetRef ref,
+      bool isPremiumUser, Function() showPremiumUpgrade) {
     // Check if user is authenticated before allowing expert request
-    if (!AuthHelpers.requireAuth(context, ref, feature: 'connect with local experts')) {
+    if (!AuthHelpers.requireAuth(context, ref,
+        feature: 'connect with local experts')) {
       return; // User not authenticated, helper will show login prompt
     }
-    
+
     // User is authenticated, proceed with expert request
     showDialog(
       context: context,
@@ -84,18 +99,25 @@ class TourismActionHelpers {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (!isPremiumUser) ...[
-              const Text('Connect with verified local experts for authentic Morocco experiences - free during beta!'),
+              const Text(
+                  'Connect with verified local experts for authentic Morocco experiences - free during beta!'),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: showPremiumUpgrade,
-                style: ElevatedButton.styleFrom(backgroundColor: AppTheme.moroccoGold),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.moroccoGold),
                 child: const Text('Learn More'),
               ),
             ] else ...[
               const Text('What type of local expert do you need?'),
               const SizedBox(height: 16),
-              ...['Cultural Guide', 'Food Expert', 'Shopping Assistant', 'Historical Tours'].map((type) =>
-                ListTile(
+              ...[
+                'Cultural Guide',
+                'Food Expert',
+                'Shopping Assistant',
+                'Historical Tours'
+              ].map(
+                (type) => ListTile(
                   title: Text(type),
                   onTap: () {
                     Navigator.pop(context);
@@ -116,7 +138,8 @@ class TourismActionHelpers {
     );
   }
 
-  static void showPremiumUpgrade(BuildContext context, Function(bool) setIsPremiumUser) {
+  static void showPremiumUpgrade(
+      BuildContext context, Function(bool) setIsPremiumUser) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -140,7 +163,8 @@ class TourismActionHelpers {
             Text('✅ Prayer-time smart planning'),
             Text('✅ Emergency assistance'),
             SizedBox(height: 16),
-            Text('🎯 All features free during beta phase', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('🎯 All features free during beta phase',
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
         actions: [
@@ -154,12 +178,14 @@ class TourismActionHelpers {
               setIsPremiumUser(true);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Premium features activated! Welcome to authentic Morocco 🇲🇦'),
+                  content: Text(
+                      'Premium features activated! Welcome to authentic Morocco 🇲🇦'),
                   backgroundColor: AppColors.success,
                 ),
               );
             },
-            style: ElevatedButton.styleFrom(backgroundColor: AppTheme.moroccoGold),
+            style:
+                ElevatedButton.styleFrom(backgroundColor: AppTheme.moroccoGold),
             child: const Text('Activate Features'),
           ),
         ],

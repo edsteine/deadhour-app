@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/constants.dart';
+import '../../services/auth_service.dart';
+import '../../utils/error_utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -198,7 +200,8 @@ class _LoginScreenState extends State<LoginScreen> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: isSelected ? AppTheme.moroccoGreen : AppTheme.secondaryText,
+              color:
+                  isSelected ? AppTheme.moroccoGreen : AppTheme.secondaryText,
             ),
           ),
         ),
@@ -214,12 +217,19 @@ class _LoginScreenState extends State<LoginScreen> {
           // Email or Phone input
           TextFormField(
             controller: _emailController,
-            keyboardType: _loginMethod == 'email' ? TextInputType.emailAddress : TextInputType.phone,
+            keyboardType: _loginMethod == 'email'
+                ? TextInputType.emailAddress
+                : TextInputType.phone,
             decoration: InputDecoration(
-              labelText: _loginMethod == 'email' ? 'Email Address' : 'Phone Number',
-              hintText: _loginMethod == 'email' ? 'your.email@example.com' : '+212 6XX XXX XXX',
+              labelText:
+                  _loginMethod == 'email' ? 'Email Address' : 'Phone Number',
+              hintText: _loginMethod == 'email'
+                  ? 'your.email@example.com'
+                  : '+212 6XX XXX XXX',
               prefixIcon: Icon(
-                _loginMethod == 'email' ? Icons.email_outlined : Icons.phone_outlined,
+                _loginMethod == 'email'
+                    ? Icons.email_outlined
+                    : Icons.phone_outlined,
               ),
             ),
             validator: (value) {
@@ -229,7 +239,8 @@ class _LoginScreenState extends State<LoginScreen> {
               if (_loginMethod == 'email' && !value.contains('@')) {
                 return 'Please enter a valid email address';
               }
-              if (_loginMethod == 'phone' && !RegExp(AppConstants.phonePattern).hasMatch(value)) {
+              if (_loginMethod == 'phone' &&
+                  !RegExp(AppConstants.phonePattern).hasMatch(value)) {
                 return 'Please enter a valid Moroccan phone number';
               }
               return null;
@@ -445,8 +456,21 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Simulate login API call
-      await Future.delayed(const Duration(seconds: 2));
+      final authService = AuthService();
+
+      if (_loginMethod == 'email') {
+        await authService.loginWithEmail(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+          rememberMe: _rememberMe,
+        );
+      } else {
+        await authService.loginWithPhone(
+          phoneNumber: _emailController.text.trim(),
+          password: _passwordController.text,
+          rememberMe: _rememberMe,
+        );
+      }
 
       // Navigate to main app
       if (mounted) {
@@ -454,12 +478,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Login failed: ${e.toString()}'),
-            backgroundColor: AppColors.error,
-          ),
-        );
+        final appError = AppErrorHandler.parseError(e);
+        AppErrorHandler.showErrorSnackbar(context, appError,
+            onRetry: _handleLogin);
       }
     } finally {
       if (mounted) {
@@ -468,23 +489,68 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _handleSocialLogin(String provider) {
-    // Implement social login
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('$provider login not implemented yet'),
-        backgroundColor: AppColors.info,
-      ),
-    );
+  void _handleSocialLogin(String provider) async {
+    try {
+      setState(() => _isLoading = true);
+
+      final authService = AuthService();
+      SocialProvider socialProvider;
+
+      switch (provider.toLowerCase()) {
+        case 'google':
+          socialProvider = SocialProvider.google;
+          break;
+        case 'facebook':
+          socialProvider = SocialProvider.facebook;
+          break;
+        default:
+          throw Exception('Unsupported social provider: $provider');
+      }
+
+      await authService.loginWithSocial(
+        provider: socialProvider,
+        rememberMe: _rememberMe,
+      );
+
+      if (mounted) {
+        context.go('/home');
+      }
+    } catch (e) {
+      if (mounted) {
+        final appError = AppErrorHandler.parseError(e);
+        AppErrorHandler.showErrorSnackbar(context, appError);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   void _showForgotPasswordDialog() {
+    final emailController = TextEditingController();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Reset Password'),
-        content: const Text(
-          'Enter your email address and we\'ll send you a link to reset your password.',
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Enter your email address and we\'ll send you a link to reset your password.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email Address',
+                hintText: 'your.email@example.com',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.emailAddress,
+            ),
+          ],
         ),
         actions: [
           TextButton(
@@ -492,13 +558,33 @@ class _LoginScreenState extends State<LoginScreen> {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Password reset link sent to your email'),
-                ),
-              );
+            onPressed: () async {
+              if (emailController.text.trim().isEmpty ||
+                  !emailController.text.contains('@')) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please enter a valid email address'),
+                    backgroundColor: AppColors.error,
+                  ),
+                );
+                return;
+              }
+
+              try {
+                final authService = AuthService();
+                await authService.resetPassword(emailController.text.trim());
+
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Password reset link sent to your email'),
+                    backgroundColor: AppColors.success,
+                  ),
+                );
+              } catch (e) {
+                final appError = AppErrorHandler.parseError(e);
+                AppErrorHandler.showErrorSnackbar(context, appError);
+              }
             },
             child: const Text('Send Link'),
           ),

@@ -7,6 +7,9 @@ import '../../utils/error_handler.dart';
 import '../../utils/performance_utils.dart';
 import '../../widgets/common/deal_card.dart';
 import '../../widgets/common/venue_card.dart';
+import '../../widgets/common/offline_status_widget.dart';
+import '../../widgets/cultural/prayer_times_widget.dart';
+import '../../services/offline_service.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +20,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  final String _selectedCity = 'Casablanca';
+  // final String _selectedCity = 'Casablanca'; // TODO: Implement city selection
   String _selectedCategory = 'all';
 
   @override
@@ -29,13 +32,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ErrorBoundary(
-        errorMessage: 'Unable to load home screen content',
-        child: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: CustomScrollView(
-            controller: _scrollController,
-            physics: const OptimizedScrollPhysics(),
-            slivers: [
+      errorMessage: 'Unable to load home screen content',
+      child: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: CustomScrollView(
+          controller: _scrollController,
+          physics: const OptimizedScrollPhysics(),
+          slivers: [
+            // Offline status indicator
+            const SliverToBoxAdapter(
+              child: OfflineStatusWidget(),
+            ),
+
+            // Prayer times widget
+            const SliverToBoxAdapter(
+              child: PrayerTimesWidget(showCompact: true),
+            ),
+
             // Category filter
             SliverToBoxAdapter(
               child: ErrorHandler.safeBuild(
@@ -99,9 +112,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
-
-
-
 
   Widget _buildCategoryFilter() {
     final categories = [
@@ -255,7 +265,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     var venues = MockData.venues;
 
     if (_selectedCategory != 'all') {
-      venues = venues.where((venue) => venue.category == _selectedCategory).toList();
+      venues =
+          venues.where((venue) => venue.category == _selectedCategory).toList();
     }
 
     return venues;
@@ -264,11 +275,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Future<void> _handleRefresh() async {
     return ErrorHandler.safeExecute(
       () async {
-        // Simulate data refresh
-        await Future.delayed(const Duration(seconds: 1));
+        final offlineService = OfflineService();
+
+        if (offlineService.isOnline) {
+          // Force refresh from server when online
+          await offlineService.forceRefresh();
+        } else {
+          // Simulate refresh with cached data when offline
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+
         if (mounted) {
           setState(() {
-            // Refresh mock data or reload from source
+            // Trigger rebuild to show refreshed data
           });
         }
       },
@@ -278,7 +297,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-
+  // TODO: Implement search dialog
+  /*
   void _showSearchDialog() {
     showDialog(
       context: context,
@@ -303,6 +323,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
+  */
 
   void _showVenueDetails(dynamic venue) {
     showModalBottomSheet(
@@ -481,7 +502,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Booking confirmed! Check your email for details.'),
+                  content:
+                      Text('Booking confirmed! Check your email for details.'),
                   backgroundColor: AppColors.success,
                 ),
               );
@@ -492,8 +514,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
-
-  
 
   void _shareDeal(dynamic deal) {
     Navigator.pop(context);
@@ -515,6 +535,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  // TODO: Implement create deal alert
+  /*
   void _showCreateDealAlert() {
     showDialog(
       context: context,
@@ -539,6 +561,5 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
-
+  */
 }
-

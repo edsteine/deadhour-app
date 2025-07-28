@@ -25,9 +25,15 @@ class RoleToggleWidget extends ConsumerWidget {
         border: Border.all(color: AppTheme.hintText.withValues(alpha: 0.3)),
       ),
       child: Row(
-        children: UserRole.values.where((role) => role != UserRole.driver && role != UserRole.host && role != UserRole.chef && role != UserRole.photographer).map((role) {
+        children: UserRole.values
+            .where((role) =>
+                role != UserRole.driver &&
+                role != UserRole.host &&
+                role != UserRole.chef &&
+                role != UserRole.photographer)
+            .map((role) {
           final isSelected = currentRole == role;
-          
+
           return Expanded(
             child: GestureDetector(
               onTap: () => roleNotifier.setRole(role),
@@ -53,8 +59,10 @@ class RoleToggleWidget extends ConsumerWidget {
                       role.label,
                       style: TextStyle(
                         fontSize: 11,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? Colors.white : AppTheme.secondaryText,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
+                        color:
+                            isSelected ? Colors.white : AppTheme.secondaryText,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -106,9 +114,9 @@ class MockAuthSection extends ConsumerWidget {
               Text(
                 '🧪 Demo Mode',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppTheme.moroccoGreen,
-                  fontWeight: FontWeight.bold,
-                ),
+                      color: AppTheme.moroccoGreen,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const Spacer(),
               Switch(
@@ -120,20 +128,20 @@ class MockAuthSection extends ConsumerWidget {
           ),
           const SizedBox(height: AppTheme.spacing12),
           Text(
-            isLoggedIn 
+            isLoggedIn
                 ? 'You\'re now logged in! Switch between Roles to see different features.'
                 : 'Toggle this switch to simulate logging in and explore Role features.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.secondaryText,
-            ),
+                  color: AppTheme.secondaryText,
+                ),
           ),
           if (isLoggedIn) ...[
             const SizedBox(height: AppTheme.spacing16),
             Text(
               'Current User Type:',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppTheme.lightText,
-              ),
+                    color: AppTheme.lightText,
+                  ),
             ),
             const SizedBox(height: AppTheme.spacing8),
             Row(
@@ -146,9 +154,9 @@ class MockAuthSection extends ConsumerWidget {
                 Text(
                   currentRole.label,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: currentRole.color,
-                    fontWeight: FontWeight.bold,
-                  ),
+                        color: currentRole.color,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ],
             ),

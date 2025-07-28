@@ -33,7 +33,8 @@ class TrendingExperiences extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(
                     color: AppColors.tourismCategory.withValues(alpha: 0.3),
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(12)),
                   ),
                   child: const Center(
                     child: Text('🕌', style: TextStyle(fontSize: 40)),
@@ -72,10 +73,11 @@ class TrendingExperiences extends StatelessWidget {
                           children: [
                             Icon(Icons.star, color: Colors.amber, size: 16),
                             Text(' 4.9 • '),
-                            Text('25€', style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.tourismCategory,
-                            )),
+                            Text('25€',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.tourismCategory,
+                                )),
                           ],
                         ),
                       ],

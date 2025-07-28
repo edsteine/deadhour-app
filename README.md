@@ -58,6 +58,30 @@ This system allows for powerful **revenue stacking** (a single user generating �
 
 This project is comprehensively documented to guide investors, developers, and product teams.
 
+### 🚀 Quick Development Setup
+
+```bash
+# Get all project dependencies and setup
+make install
+
+# Run the app
+make run
+
+# View all available commands
+make help
+```
+
+### Essential Development Commands
+
+| Command | Description |
+|---------|-------------|
+| `make setup` | Clean and get dependencies |
+| `make run` | Run the app in debug mode |
+| `make format` | Format all Dart code |
+| `make lint` | Run static analysis |
+| `make build` | Build debug APK |
+| `make git-commit` | Add all changes and commit |
+
 ### For Investors & Business Stakeholders:
 1.  **Start Here**: [Executive Summary](docs/01_executive_summary_MERGED.md)
 2.  **The Plan**: [Master Execution Plan](docs/14_master_execution_plan.md)
@@ -67,6 +91,18 @@ This project is comprehensively documented to guide investors, developers, and p
 1.  **The Code**: The `lib/` directory contains the full Flutter application.
 2.  **The APIs**: [API Documentation](docs/development/17_api_documentation.md)
 3.  **The Architecture**: [Production App Architecture](docs/07_production_app_architecture_MERGED.md)
+
+### Prerequisites
+- Flutter SDK (latest stable)
+- Android Studio / VS Code
+- Android device or emulator
+
+### 🇲🇦 Morocco Market Features
+- **Prayer Times Integration** - Respects Islamic prayer schedules
+- **Arabic RTL Support** - Full right-to-left text support
+- **Halal Certification** - Filter for halal-certified venues
+- **Cultural Calendar** - Ramadan mode and cultural events
+- **Multi-language** - Arabic, French, and English support
 
 ---
 

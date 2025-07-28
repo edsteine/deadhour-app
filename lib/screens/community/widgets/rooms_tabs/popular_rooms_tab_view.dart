@@ -14,7 +14,8 @@ class PopularRoomsTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final popularRooms = MockData.rooms.where((room) => room.isPopular).toList();
+    final popularRooms =
+        MockData.rooms.where((room) => room.isPopular).toList();
 
     return popularRooms.isEmpty
         ? const Center(child: Text('No popular rooms available.'))

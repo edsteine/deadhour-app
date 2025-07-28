@@ -4,9 +4,9 @@ import 'theme.dart';
 
 /// Centralized error handling utility for the DeadHour app
 class ErrorHandler {
-  
   /// Show a user-friendly error message
-  static void showError(BuildContext context, {
+  static void showError(
+    BuildContext context, {
     String? title,
     String? message,
     String? actionLabel,
@@ -14,10 +14,10 @@ class ErrorHandler {
     bool isWarning = false,
   }) {
     final defaultTitle = isWarning ? 'Warning' : 'Something went wrong';
-    final defaultMessage = isWarning 
+    final defaultMessage = isWarning
         ? 'Please check your input and try again.'
         : 'We encountered an unexpected error. Please try again.';
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -50,7 +50,7 @@ class ErrorHandler {
       ),
     );
   }
-  
+
   /// Show a simple snackbar error
   static void showSnackBarError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +72,7 @@ class ErrorHandler {
       ),
     );
   }
-  
+
   /// Show a success message
   static void showSuccess(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -89,7 +89,7 @@ class ErrorHandler {
       ),
     );
   }
-  
+
   /// Handle network errors specifically
   static void handleNetworkError(BuildContext context) {
     showError(
@@ -100,7 +100,7 @@ class ErrorHandler {
       onAction: () => Navigator.of(context).pop(),
     );
   }
-  
+
   /// Handle authentication errors
   static void handleAuthError(BuildContext context, {String? customMessage}) {
     showError(
@@ -114,7 +114,7 @@ class ErrorHandler {
       },
     );
   }
-  
+
   /// Handle permission errors
   static void handlePermissionError(BuildContext context, String permission) {
     showError(
@@ -128,7 +128,7 @@ class ErrorHandler {
       },
     );
   }
-  
+
   /// Handle validation errors
   static void handleValidationError(BuildContext context, String field) {
     showError(
@@ -138,7 +138,7 @@ class ErrorHandler {
       isWarning: true,
     );
   }
-  
+
   /// Safe execution wrapper
   static Future<T?> safeExecute<T>(
     Future<T> Function() operation, {
@@ -150,17 +150,17 @@ class ErrorHandler {
       return await operation();
     } catch (e) {
       final message = errorMessage ?? 'Operation failed. Please try again.';
-      
+
       if (showSnackBar) {
         showSnackBarError(context, message);
       } else {
         showError(context, message: message);
       }
-      
+
       return null;
     }
   }
-  
+
   /// Safe widget builder with error fallback
   static Widget safeBuild(
     Widget Function() builder, {
@@ -173,7 +173,7 @@ class ErrorHandler {
       return fallback ?? _buildErrorWidget(errorMessage);
     }
   }
-  
+
   /// Default error widget
   static Widget _buildErrorWidget(String? message) {
     return Container(
@@ -199,7 +199,7 @@ class ErrorHandler {
       ),
     );
   }
-  
+
   /// Vibrate for error feedback (if available)
   static void errorFeedback() {
     try {
@@ -208,9 +208,10 @@ class ErrorHandler {
       // Ignore if haptic feedback not available
     }
   }
-  
+
   /// Log error for debugging (in development)
-  static void logError(String context, dynamic error, [StackTrace? stackTrace]) {
+  static void logError(String context, dynamic error,
+      [StackTrace? stackTrace]) {
     // In development, print errors
     // In production, this would send to analytics/crash reporting
     debugPrint('Error in $context: $error');
@@ -225,14 +226,14 @@ class ErrorBoundary extends StatelessWidget {
   final Widget child;
   final Widget? errorWidget;
   final String? errorMessage;
-  
+
   const ErrorBoundary({
     super.key,
     required this.child,
     this.errorWidget,
     this.errorMessage,
   });
-  
+
   @override
   Widget build(BuildContext context) {
     return ErrorHandler.safeBuild(

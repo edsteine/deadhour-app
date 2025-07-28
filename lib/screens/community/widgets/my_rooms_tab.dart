@@ -22,7 +22,8 @@ class MyRoomsTab extends StatelessWidget {
       return EmptyStateWidget(
         icon: Icons.person_outline,
         title: 'No joined rooms',
-        subtitle: 'Join rooms to start discovering and connecting with the community',
+        subtitle:
+            'Join rooms to start discovering and connecting with the community',
         actionText: 'Browse Rooms',
         onAction: () => tabController.animateTo(0),
       );

@@ -15,13 +15,15 @@ class PremiumRoomsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final premiumRooms = MockData.rooms.where((room) => room.isPremiumOnly).toList();
+    final premiumRooms =
+        MockData.rooms.where((room) => room.isPremiumOnly).toList();
 
     if (premiumRooms.isEmpty) {
       return EmptyStateWidget(
         icon: Icons.workspace_premium,
         title: 'Premium Rooms',
-        subtitle: 'Exclusive rooms with local experts and curated experiences - Free during beta!',
+        subtitle:
+            'Exclusive rooms with local experts and curated experiences - Free during beta!',
         actionText: 'Learn More',
         onAction: onShowPremiumUpgrade,
       );

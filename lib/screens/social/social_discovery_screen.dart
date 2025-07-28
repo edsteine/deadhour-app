@@ -19,7 +19,6 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   String _selectedInterest = 'all';
-  
 
   final List<Map<String, dynamic>> _socialInterests = [
     {'id': 'all', 'name': 'All Interests', 'icon': '🌟'},
@@ -148,13 +147,13 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
     var experiences = _mockSocialExperiences;
 
     if (_selectedInterest != 'all') {
-      experiences = experiences.where((exp) => exp['category'] == _selectedInterest).toList();
+      experiences = experiences
+          .where((exp) => exp['category'] == _selectedInterest)
+          .toList();
     }
 
     return experiences;
   }
-
-  
 
   @override
   void initState() {
@@ -167,8 +166,6 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
     _tabController.dispose();
     super.dispose();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +187,8 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
                 _selectedInterest = interest;
               });
             },
-            onAdvancedFiltersPressed: () => SocialActionHelpers.showAdvancedFilters(context),
+            onAdvancedFiltersPressed: () =>
+                SocialActionHelpers.showAdvancedFilters(context),
           ),
           SocialTabBar(tabController: _tabController),
           Expanded(
@@ -202,12 +200,16 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
                   socialInterests: _socialInterests,
                 ),
                 MyConnectionsTab(
-                  onViewExperienceDetails: (exp) => SocialActionHelpers.viewExperienceDetails(context, exp),
-                  onMessageConnection: (name) => SocialActionHelpers.messageConnection(context, name),
+                  onViewExperienceDetails: (exp) =>
+                      SocialActionHelpers.viewExperienceDetails(context, exp),
+                  onMessageConnection: (name) =>
+                      SocialActionHelpers.messageConnection(context, name),
                 ),
                 CreateExperienceTab(
-                  onStartHostApplication: () => SocialActionHelpers.startHostApplication(context),
-                  onExploreCategory: (category) => SocialActionHelpers.exploreCategory(context, category),
+                  onStartHostApplication: () =>
+                      SocialActionHelpers.startHostApplication(context),
+                  onExploreCategory: (category) =>
+                      SocialActionHelpers.exploreCategory(context, category),
                 ),
               ],
             ),
@@ -222,8 +224,4 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
       ),
     );
   }
-
-  
-
-  
 }

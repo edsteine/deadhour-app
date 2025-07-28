@@ -23,7 +23,8 @@ class AllRoomsTabView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Room> filteredRooms = MockData.rooms.where((room) {
-      final matchesCategory = selectedCategory == 'all' || room.category == selectedCategory;
+      final matchesCategory =
+          selectedCategory == 'all' || room.category == selectedCategory;
       final matchesPrayerTime = !showPrayerTimeAware || room.isPrayerTimeAware;
       final matchesHalal = !showHalalOnly || room.isHalalOnly;
       return matchesCategory && matchesPrayerTime && matchesHalal;

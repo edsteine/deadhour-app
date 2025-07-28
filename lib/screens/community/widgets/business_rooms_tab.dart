@@ -8,9 +8,24 @@ class BusinessRoomsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     // Role-enhanced rooms for business owners
     final businessRooms = [
-      {'id': 'business-owners-lounge', 'name': 'Business Owners Lounge', 'category': 'business', 'members': 234},
-      {'id': 'revenue-optimization', 'name': 'Revenue Optimization', 'category': 'business', 'members': 156},
-      {'id': 'dead-hours-strategies', 'name': 'Dead Hours Strategies', 'category': 'business', 'members': 89},
+      {
+        'id': 'business-owners-lounge',
+        'name': 'Business Owners Lounge',
+        'category': 'business',
+        'members': 234
+      },
+      {
+        'id': 'revenue-optimization',
+        'name': 'Revenue Optimization',
+        'category': 'business',
+        'members': 156
+      },
+      {
+        'id': 'dead-hours-strategies',
+        'name': 'Dead Hours Strategies',
+        'category': 'business',
+        'members': 89
+      },
     ];
 
     return ListView.builder(
@@ -24,7 +39,8 @@ class BusinessRoomsTab extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
+            border:
+                Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -35,7 +51,8 @@ class BusinessRoomsTab extends StatelessWidget {
                   color: AppTheme.moroccoGreen,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.business, color: Colors.white, size: 20),
+                child:
+                    const Icon(Icons.business, color: Colors.white, size: 20),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -48,12 +65,14 @@ class BusinessRoomsTab extends StatelessWidget {
                     ),
                     Text(
                       '${room['members']} business owners',
-                      style: const TextStyle(fontSize: 12, color: AppTheme.secondaryText),
+                      style: const TextStyle(
+                          fontSize: 12, color: AppTheme.secondaryText),
                     ),
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.secondaryText),
+              const Icon(Icons.arrow_forward_ios,
+                  size: 16, color: AppTheme.secondaryText),
             ],
           ),
         );

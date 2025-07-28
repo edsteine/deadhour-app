@@ -56,7 +56,8 @@ class PremiumUpgradeCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => TourismActionHelpers.showPremiumUpgrade(context, onUpgrade),
+              onPressed: () =>
+                  TourismActionHelpers.showPremiumUpgrade(context, onUpgrade),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.moroccoGreen,
                 foregroundColor: AppTheme.nearlyWhite,

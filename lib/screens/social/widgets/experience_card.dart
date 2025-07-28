@@ -34,7 +34,8 @@ class ExperienceCard extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.network(
                     experience['images'][0] as String,
                     height: 160,
@@ -52,7 +53,8 @@ class ExperienceCard extends StatelessWidget {
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppTheme.moroccoGreen,
                         borderRadius: BorderRadius.circular(4),
@@ -71,7 +73,8 @@ class ExperienceCard extends StatelessWidget {
                   top: 8,
                   right: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(4),
@@ -99,7 +102,8 @@ class ExperienceCard extends StatelessWidget {
                     children: [
                       Text(
                         socialInterests.firstWhere(
-                          (interest) => interest['id'] == experience['category'],
+                          (interest) =>
+                              interest['id'] == experience['category'],
                           orElse: () => socialInterests.first,
                         )['icon'] as String,
                         style: const TextStyle(fontSize: 20),
@@ -169,7 +173,8 @@ class ExperienceCard extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.star, size: 12, color: Colors.amber),
+                                const Icon(Icons.star,
+                                    size: 12, color: Colors.amber),
                                 const SizedBox(width: 2),
                                 Text(
                                   '${host['rating']}',
@@ -185,21 +190,25 @@ class ExperienceCard extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.schedule, size: 12, color: Colors.grey),
+                              const Icon(Icons.schedule,
+                                  size: 12, color: Colors.grey),
                               const SizedBox(width: 2),
                               Text(
                                 experience['duration'] as String,
-                                style: const TextStyle(fontSize: 10, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 10, color: Colors.grey),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              const Icon(Icons.location_on, size: 12, color: Colors.grey),
+                              const Icon(Icons.location_on,
+                                  size: 12, color: Colors.grey),
                               const SizedBox(width: 2),
                               Text(
                                 experience['location'] as String,
-                                style: const TextStyle(fontSize: 10, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 10, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -216,7 +225,8 @@ class ExperienceCard extends StatelessWidget {
                     runSpacing: 4,
                     children: (experience['tags'] as List<String>).map((tag) {
                       return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
@@ -264,7 +274,8 @@ class ExperienceCard extends StatelessWidget {
                         children: [
                           OutlinedButton(
                             onPressed: () => onContactHost(experience),
-                            child: const Text('Message', style: TextStyle(fontSize: 12)),
+                            child: const Text('Message',
+                                style: TextStyle(fontSize: 12)),
                           ),
                           const SizedBox(width: 8),
                           ElevatedButton(
@@ -273,7 +284,8 @@ class ExperienceCard extends StatelessWidget {
                               backgroundColor: AppTheme.moroccoGreen,
                               foregroundColor: Colors.white,
                             ),
-                            child: const Text('Join', style: TextStyle(fontSize: 12)),
+                            child: const Text('Join',
+                                style: TextStyle(fontSize: 12)),
                           ),
                         ],
                       ),

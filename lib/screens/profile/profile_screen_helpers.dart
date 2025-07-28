@@ -8,7 +8,6 @@ import '../../providers/guest_mode_provider.dart';
 
 // Helper methods for profile screen functionality
 class ProfileScreenHelpers {
-  
   // Action Methods
   static Future<void> continueAsGuest(BuildContext context) async {
     try {
@@ -16,7 +15,7 @@ class ProfileScreenHelpers {
       if (context.mounted) {
         final container = ProviderScope.containerOf(context);
         await container.read(guestModeProvider.notifier).enableGuestMode();
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Continuing as guest - explore all features!'),
@@ -94,7 +93,7 @@ class ProfileScreenHelpers {
   static String formatMemberSince(DateTime joinDate) {
     final now = DateTime.now();
     final difference = now.difference(joinDate);
-    
+
     if (difference.inDays < 30) {
       return '${difference.inDays}d';
     } else if (difference.inDays < 365) {

@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
 import '../../utils/error_handler.dart';
 import '../../utils/performance_utils.dart';
-import '../../providers/role_toggle_provider.dart';
-import '../../models/user.dart';
+// TODO: Uncomment when premium features are re-enabled
+// import '../../providers/role_toggle_provider.dart';
+// import '../../models/user.dart';
 import 'package:deadhour/screens/tourism/widgets/tourism_welcome_banner.dart';
 import 'package:deadhour/screens/tourism/widgets/discover_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/local_experts_tab.dart';
@@ -26,10 +27,10 @@ class TourismScreen extends ConsumerStatefulWidget {
   ConsumerState<TourismScreen> createState() => _TourismScreenState();
 }
 
-class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProviderStateMixin {
+class _TourismScreenState extends ConsumerState<TourismScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
-  final String _selectedCity = 'Casablanca';
-  
+  // final String _selectedCity = 'Casablanca'; // TODO: Implement city selection
 
   final List<Tab> _tabs = [
     const Tab(text: 'Discover'),
@@ -38,19 +39,35 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
     const Tab(text: 'Cultural'),
   ];
 
-  bool _isPremiumUser = false;
+  // bool _isPremiumUser = false; // TODO: Uncomment when premium features are re-enabled
   final List<Map<String, String>> _experts = [
-    {'name': 'Aisha Khan', 'specialty': 'History & Culture', 'image': 'assets/images/aisha.jpg'},
-    {'name': 'Omar Benali', 'specialty': 'Food & Markets', 'image': 'assets/images/omar.jpg'},
-    {'name': 'Fatima Zahra', 'specialty': 'Art & Architecture', 'image': 'assets/images/fatima.jpg'},
-    {'name': 'Youssef El Fassi', 'specialty': 'Outdoor Adventures', 'image': 'assets/images/youssef.jpg'},
+    {
+      'name': 'Aisha Khan',
+      'specialty': 'History & Culture',
+      'image': 'assets/images/aisha.jpg'
+    },
+    {
+      'name': 'Omar Benali',
+      'specialty': 'Food & Markets',
+      'image': 'assets/images/omar.jpg'
+    },
+    {
+      'name': 'Fatima Zahra',
+      'specialty': 'Art & Architecture',
+      'image': 'assets/images/fatima.jpg'
+    },
+    {
+      'name': 'Youssef El Fassi',
+      'specialty': 'Outdoor Adventures',
+      'image': 'assets/images/youssef.jpg'
+    },
   ];
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
-    _isPremiumUser = ref.read(roleToggleProvider) == UserRole.premium;
+    // _isPremiumUser = ref.read(roleToggleProvider) == UserRole.premium; // TODO: Uncomment when premium features are re-enabled
   }
 
   Widget _buildSectionHeader(String title) {
@@ -100,7 +117,8 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => TourismActionHelpers.showPremiumUpgrade(context, (value) => setState(() => _isPremiumUser = value)),
+              onPressed: () => TourismActionHelpers.showPremiumUpgrade(context,
+                  (value) => setState(() => {} /* _isPremiumUser = value */)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.moroccoGreen,
                 foregroundColor: AppTheme.nearlyWhite,
@@ -200,67 +218,68 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
     );
   }
 
-    Widget _buildTourismWelcomeBanner() {
+  Widget _buildTourismWelcomeBanner() {
     return const TourismWelcomeBanner();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-          children: [
-            // Tourism welcome banner
-            ErrorHandler.safeBuild(
-              () => _buildTourismWelcomeBanner(),
-              errorMessage: 'Unable to load welcome banner',
-            ),
+      children: [
+        // Tourism welcome banner
+        ErrorHandler.safeBuild(
+          () => _buildTourismWelcomeBanner(),
+          errorMessage: 'Unable to load welcome banner',
+        ),
 
-            // Tab bar
-            TabBar(
-              controller: _tabController,
-              labelColor: AppTheme.moroccoGreen,
-              unselectedLabelColor: AppTheme.secondaryText,
-              indicatorColor: AppTheme.moroccoGreen,
-              tabs: _tabs,
-              physics: const OptimizedScrollPhysics(),
-            ),
+        // Tab bar
+        TabBar(
+          controller: _tabController,
+          labelColor: AppTheme.moroccoGreen,
+          unselectedLabelColor: AppTheme.secondaryText,
+          indicatorColor: AppTheme.moroccoGreen,
+          tabs: _tabs,
+          physics: const OptimizedScrollPhysics(),
+        ),
 
-            // Tab views
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                physics: const OptimizedScrollPhysics(),
-                children: [
-                  DiscoverTab(
-                    buildSectionHeader: _buildSectionHeader,
-                    buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
-                    buildTrendingExperiences: () => const TrendingExperiences(),
-                    buildSocialDiscoveryButton: () => const SocialDiscoveryButton(),
-                    buildTouristFriendlyDeals: () => const TouristFriendlyDeals(),
-                  ),
-                  LocalExpertsTab(
-                    buildSectionHeader: _buildSectionHeader,
-                    buildPremiumUpgradeCard: _buildPremiumUpgradeCard,
-                    buildExpertCard: (expert) => _buildExpertCard(expert),
-                    experts: _experts,
-                  ),
-                  ExperiencesTab(
-                    buildSectionHeader: _buildSectionHeader,
-                    buildExperienceCard: _buildExperienceCard,
-                  ),
-                  CulturalTab(
-                    buildCulturalDashboard: () => const CulturalDashboard(),
-                    buildSectionHeader: _buildSectionHeader,
-                    buildCulturalEvents: () => const CulturalEvents(),
-                    buildCulturalTips: () => const CulturalTips(),
-                  ),
-                ],
+        // Tab views
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            physics: const OptimizedScrollPhysics(),
+            children: [
+              DiscoverTab(
+                buildSectionHeader: _buildSectionHeader,
+                buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
+                buildTrendingExperiences: () => const TrendingExperiences(),
+                buildSocialDiscoveryButton: () => const SocialDiscoveryButton(),
+                buildTouristFriendlyDeals: () => const TouristFriendlyDeals(),
               ),
-            ),
-          ],
-        );
+              LocalExpertsTab(
+                buildSectionHeader: _buildSectionHeader,
+                buildPremiumUpgradeCard: _buildPremiumUpgradeCard,
+                buildExpertCard: (expert) => _buildExpertCard(expert),
+                experts: _experts,
+              ),
+              ExperiencesTab(
+                buildSectionHeader: _buildSectionHeader,
+                buildExperienceCard: _buildExperienceCard,
+              ),
+              CulturalTab(
+                buildCulturalDashboard: () => const CulturalDashboard(),
+                buildSectionHeader: _buildSectionHeader,
+                buildCulturalEvents: () => const CulturalEvents(),
+                buildCulturalTips: () => const CulturalTips(),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-
+  // TODO: Implement menu and expert request features
+  /*
   void _handleMenuPress() {
     PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
     TourismActionHelpers.showTourismMenu(
@@ -284,47 +303,5 @@ class _TourismScreenState extends ConsumerState<TourismScreen> with TickerProvid
       )
     );
   }
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+  */
 }

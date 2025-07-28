@@ -35,6 +35,7 @@ class RoleToggleNotifier extends StateNotifier<UserRole> {
   }
 }
 
-final roleToggleProvider = StateNotifierProvider<RoleToggleNotifier, UserRole>((ref) {
+final roleToggleProvider =
+    StateNotifierProvider<RoleToggleNotifier, UserRole>((ref) {
   return RoleToggleNotifier();
 });

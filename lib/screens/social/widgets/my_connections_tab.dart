@@ -45,13 +45,20 @@ class MyConnectionsTab extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: NetworkStat(value: '23', label: 'Connections', icon: Icons.people),
+                      child: NetworkStat(
+                          value: '23',
+                          label: 'Connections',
+                          icon: Icons.people),
                     ),
                     Expanded(
-                      child: NetworkStat(value: '8', label: 'Experiences', icon: Icons.explore),
+                      child: NetworkStat(
+                          value: '8',
+                          label: 'Experiences',
+                          icon: Icons.explore),
                     ),
                     Expanded(
-                      child: NetworkStat(value: '4.9', label: 'Rating', icon: Icons.star),
+                      child: NetworkStat(
+                          value: '4.9', label: 'Rating', icon: Icons.star),
                     ),
                   ],
                 ),
@@ -68,9 +75,24 @@ class MyConnectionsTab extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          ConnectionCard(name: 'Sarah Expat', role: 'Rooftop Social Host', rating: 4.8, connection: 'Connected after joining sunset experience', onMessageConnection: onMessageConnection),
-          ConnectionCard(name: 'Hassan Guide', role: 'Cultural Expert', rating: 4.9, connection: 'Coffee culture experience leader', onMessageConnection: onMessageConnection),
-          ConnectionCard(name: 'Omar Mountain', role: 'Adventure Guide', rating: 4.7, connection: 'Atlas Mountains hiking guide', onMessageConnection: onMessageConnection),
+          ConnectionCard(
+              name: 'Sarah Expat',
+              role: 'Rooftop Social Host',
+              rating: 4.8,
+              connection: 'Connected after joining sunset experience',
+              onMessageConnection: onMessageConnection),
+          ConnectionCard(
+              name: 'Hassan Guide',
+              role: 'Cultural Expert',
+              rating: 4.9,
+              connection: 'Coffee culture experience leader',
+              onMessageConnection: onMessageConnection),
+          ConnectionCard(
+              name: 'Omar Mountain',
+              role: 'Adventure Guide',
+              rating: 4.7,
+              connection: 'Atlas Mountains hiking guide',
+              onMessageConnection: onMessageConnection),
 
           const SizedBox(height: 24),
 
@@ -81,8 +103,18 @@ class MyConnectionsTab extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          UpcomingExperienceCard(title: 'Traditional Hammam', dateTime: 'Saturday 14:00', location: 'Fez Medina', price: 250, onViewDetails: () => onViewExperienceDetails({})),
-          UpcomingExperienceCard(title: 'Atlas Day Trip', dateTime: 'Sunday 07:00', location: 'Imlil Village', price: 380, onViewDetails: () => onViewExperienceDetails({})),
+          UpcomingExperienceCard(
+              title: 'Traditional Hammam',
+              dateTime: 'Saturday 14:00',
+              location: 'Fez Medina',
+              price: 250,
+              onViewDetails: () => onViewExperienceDetails({})),
+          UpcomingExperienceCard(
+              title: 'Atlas Day Trip',
+              dateTime: 'Sunday 07:00',
+              location: 'Imlil Village',
+              price: 380,
+              onViewDetails: () => onViewExperienceDetails({})),
         ],
       ),
     );

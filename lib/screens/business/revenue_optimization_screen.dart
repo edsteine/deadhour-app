@@ -13,7 +13,8 @@ class RevenueOptimizationScreen extends StatefulWidget {
   const RevenueOptimizationScreen({super.key});
 
   @override
-  State<RevenueOptimizationScreen> createState() => _RevenueOptimizationScreenState();
+  State<RevenueOptimizationScreen> createState() =>
+      _RevenueOptimizationScreenState();
 }
 
 class _RevenueOptimizationScreenState extends State<RevenueOptimizationScreen>
@@ -59,20 +60,24 @@ class _RevenueOptimizationScreenState extends State<RevenueOptimizationScreen>
               controller: _tabController,
               children: const [
                 DeadHoursTab(
-                  showOptimizationSuggestions: BusinessActionHelpers.showOptimizationSuggestions,
+                  showOptimizationSuggestions:
+                      BusinessActionHelpers.showOptimizationSuggestions,
                   createTargetedDeal: BusinessActionHelpers.createTargetedDeal,
                   optimizeTimeSlot: BusinessActionHelpers.optimizeTimeSlot,
                 ),
                 PricingTab(
-                  applyPricingRecommendation: BusinessActionHelpers.applyPricingRecommendation,
+                  applyPricingRecommendation:
+                      BusinessActionHelpers.applyPricingRecommendation,
                 ),
                 PromotionsTab(
-                  enableAutomatedPromotions: BusinessActionHelpers.enableAutomatedPromotions,
+                  enableAutomatedPromotions:
+                      BusinessActionHelpers.enableAutomatedPromotions,
                   togglePromotion: BusinessActionHelpers.togglePromotion,
                   createFromTemplate: BusinessActionHelpers.createFromTemplate,
                 ),
                 InsightsTab(
-                  generateNewInsights: BusinessActionHelpers.generateNewInsights,
+                  generateNewInsights:
+                      BusinessActionHelpers.generateNewInsights,
                   implementInsight: BusinessActionHelpers.implementInsight,
                 ),
               ],
@@ -82,28 +87,4 @@ class _RevenueOptimizationScreenState extends State<RevenueOptimizationScreen>
       ),
     );
   }
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 }

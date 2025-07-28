@@ -46,6 +46,7 @@ dependencies:
   uuid: ^4.5.1
   back_button_interceptor: ^6.0.2
   cached_network_image: ^3.3.1
+  connectivity_plus: ^6.1.0
 
 dev_dependencies:
   alchemist: ^0.12.0

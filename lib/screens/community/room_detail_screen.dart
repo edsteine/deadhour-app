@@ -83,9 +83,13 @@ class RoomDetailScreen extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Chip(
                   label: Text(room.categoryName),
-                  backgroundColor: _getCategoryColor(room.category).withValues(alpha: 0.1),
-                  labelStyle: TextStyle(color: _getCategoryColor(room.category), fontWeight: FontWeight.bold),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppBorderRadius.sm)),
+                  backgroundColor:
+                      _getCategoryColor(room.category).withValues(alpha: 0.1),
+                  labelStyle: TextStyle(
+                      color: _getCategoryColor(room.category),
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppBorderRadius.sm)),
                 ),
               ],
             ),
@@ -97,7 +101,8 @@ class RoomDetailScreen extends StatelessWidget {
 
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md, vertical: AppSpacing.md),
       child: Text(
         title,
         style: Theme.of(context).textTheme.headlineSmall,
@@ -126,19 +131,26 @@ class RoomDetailScreen extends StatelessWidget {
         mainAxisSpacing: AppSpacing.md,
         crossAxisSpacing: AppSpacing.md,
         children: [
-          _buildStatCard(context, Icons.people, 'Members', room.memberCount.toString()),
-          _buildStatCard(context, Icons.circle, 'Online', room.onlineCount.toString(), color: AppColors.online),
+          _buildStatCard(
+              context, Icons.people, 'Members', room.memberCount.toString()),
+          _buildStatCard(
+              context, Icons.circle, 'Online', room.onlineCount.toString(),
+              color: AppColors.online),
           _buildStatCard(context, Icons.message, 'Messages', '1.2K'),
-          _buildStatCard(context, Icons.local_fire_department, 'Deals Shared', '50+'),
+          _buildStatCard(
+              context, Icons.local_fire_department, 'Deals Shared', '50+'),
         ],
       ),
     );
   }
 
-  Widget _buildStatCard(BuildContext context, IconData icon, String title, String value, {Color? color}) {
+  Widget _buildStatCard(
+      BuildContext context, IconData icon, String title, String value,
+      {Color? color}) {
     return Card(
       elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppBorderRadius.md)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppBorderRadius.md)),
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.md),
         child: Column(
@@ -172,22 +184,25 @@ class RoomDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: room.rules.map<Widget>((rule) => Padding(
-          padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(Icons.check_circle_outline, size: 18, color: AppTheme.moroccoGreen),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: Text(
-                  rule,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
-        )).toList(),
+        children: room.rules
+            .map<Widget>((rule) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.check_circle_outline,
+                          size: 18, color: AppTheme.moroccoGreen),
+                      const SizedBox(width: AppSpacing.sm),
+                      Expanded(
+                        child: Text(
+                          rule,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ))
+            .toList(),
       ),
     );
   }
@@ -261,18 +276,22 @@ class RoomDetailScreen extends StatelessWidget {
     List<Widget> featureChips = [];
 
     if (room.isPrayerTimeAware) {
-      featureChips.add(_buildFeatureChip(context, 'Prayer Time Aware 🕌', AppTheme.moroccoGreen));
+      featureChips.add(_buildFeatureChip(
+          context, 'Prayer Time Aware 🕌', AppTheme.moroccoGreen));
     }
     if (room.isHalalOnly) {
-      featureChips.add(_buildFeatureChip(context, 'Halal Only ✅', AppTheme.moroccoGreen));
+      featureChips.add(
+          _buildFeatureChip(context, 'Halal Only ✅', AppTheme.moroccoGreen));
     }
     if (room.isPremiumOnly) {
-      featureChips.add(_buildFeatureChip(context, 'Premium Room ⭐', AppTheme.moroccoGold));
+      featureChips.add(
+          _buildFeatureChip(context, 'Premium Room ⭐', AppTheme.moroccoGold));
     }
 
     if (room.specialFeatures.isNotEmpty) {
       for (var feature in room.specialFeatures) {
-        featureChips.add(_buildFeatureChip(context, feature, AppTheme.moroccoGreen));
+        featureChips
+            .add(_buildFeatureChip(context, feature, AppTheme.moroccoGreen));
       }
     }
 
@@ -281,7 +300,10 @@ class RoomDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         child: Text(
           'No special cultural or unique features for this room.',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(fontStyle: FontStyle.italic),
         ),
       );
     }
@@ -301,7 +323,8 @@ class RoomDetailScreen extends StatelessWidget {
       label: Text(label),
       backgroundColor: color.withValues(alpha: 0.1),
       labelStyle: TextStyle(color: color, fontWeight: FontWeight.w500),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppBorderRadius.sm)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppBorderRadius.sm)),
       side: BorderSide(color: color.withValues(alpha: 0.3)),
     );
   }
@@ -325,5 +348,3 @@ class RoomDetailScreen extends StatelessWidget {
     }
   }
 }
-
-

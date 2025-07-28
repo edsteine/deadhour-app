@@ -80,21 +80,24 @@ class CreateExperienceTab extends StatelessWidget {
           const BenefitCard(
             icon: Icons.people,
             title: 'Meet Like-minded People',
-            description: 'Connect with travelers and locals who share your interests',
+            description:
+                'Connect with travelers and locals who share your interests',
             color: AppTheme.moroccoGold,
           ),
 
           const BenefitCard(
             icon: Icons.local_offer,
             title: 'Connect with Venues',
-            description: 'Partner with local businesses for special deals and enhanced experiences',
+            description:
+                'Partner with local businesses for special deals and enhanced experiences',
             color: Colors.blue,
           ),
 
           const BenefitCard(
             icon: Icons.support,
             title: 'Full Support',
-            description: 'Marketing help, insurance coverage, and 24/7 customer support',
+            description:
+                'Marketing help, insurance coverage, and 24/7 customer support',
             color: Colors.green,
           ),
 
@@ -114,12 +117,36 @@ class CreateExperienceTab extends StatelessWidget {
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
             children: [
-              CategoryCard(emoji: '🍽️', title: 'Food Tours', description: 'Share local cuisine', onTap: () => onExploreCategory('Food Tours')),
-              CategoryCard(emoji: '🎭', title: 'Cultural', description: 'Traditional experiences', onTap: () => onExploreCategory('Cultural')),
-              CategoryCard(emoji: '🏔️', title: 'Adventure', description: 'Outdoor activities', onTap: () => onExploreCategory('Adventure')),
-              CategoryCard(emoji: '🧘', title: 'Wellness', description: 'Relaxation & health', onTap: () => onExploreCategory('Wellness')),
-              CategoryCard(emoji: '🌙', title: 'Nightlife', description: 'Evening experiences', onTap: () => onExploreCategory('Nightlife')),
-              CategoryCard(emoji: '🗝️', title: 'Hidden Gems', description: 'Secret local spots', onTap: () => onExploreCategory('Hidden Gems')),
+              CategoryCard(
+                  emoji: '🍽️',
+                  title: 'Food Tours',
+                  description: 'Share local cuisine',
+                  onTap: () => onExploreCategory('Food Tours')),
+              CategoryCard(
+                  emoji: '🎭',
+                  title: 'Cultural',
+                  description: 'Traditional experiences',
+                  onTap: () => onExploreCategory('Cultural')),
+              CategoryCard(
+                  emoji: '🏔️',
+                  title: 'Adventure',
+                  description: 'Outdoor activities',
+                  onTap: () => onExploreCategory('Adventure')),
+              CategoryCard(
+                  emoji: '🧘',
+                  title: 'Wellness',
+                  description: 'Relaxation & health',
+                  onTap: () => onExploreCategory('Wellness')),
+              CategoryCard(
+                  emoji: '🌙',
+                  title: 'Nightlife',
+                  description: 'Evening experiences',
+                  onTap: () => onExploreCategory('Nightlife')),
+              CategoryCard(
+                  emoji: '🗝️',
+                  title: 'Hidden Gems',
+                  description: 'Secret local spots',
+                  onTap: () => onExploreCategory('Hidden Gems')),
             ],
           ),
         ],

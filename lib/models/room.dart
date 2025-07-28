@@ -64,7 +64,8 @@ class Room {
       createdAt: DateTime.parse(json['createdAt']),
       lastActivity: DateTime.parse(json['lastActivity']),
       moderators: List<String>.from(json['moderators'] ?? []),
-      recentMessages: List<Map<String, dynamic>>.from(json['recentMessages'] ?? []),
+      recentMessages:
+          List<Map<String, dynamic>>.from(json['recentMessages'] ?? []),
       isPremiumOnly: json['isPremiumOnly'] ?? false,
       imageUrl: json['imageUrl'],
       settings: json['settings'],
@@ -198,7 +199,7 @@ class Room {
   String get activityStatus {
     final now = DateTime.now();
     final timeSinceLastActivity = now.difference(lastActivity);
-    
+
     if (timeSinceLastActivity.inMinutes < 5) {
       return 'Very Active';
     } else if (timeSinceLastActivity.inMinutes < 30) {
@@ -215,7 +216,7 @@ class Room {
   String get lastActivityDisplay {
     final now = DateTime.now();
     final difference = now.difference(lastActivity);
-    
+
     if (difference.inMinutes < 1) {
       return 'Just now';
     } else if (difference.inMinutes < 60) {
@@ -267,4 +268,3 @@ class Room {
     return features;
   }
 }
-

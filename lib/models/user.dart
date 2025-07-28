@@ -4,7 +4,7 @@ import '../utils/theme.dart';
 enum UserRole {
   consumer,
   business,
-  guide, 
+  guide,
   premium,
   driver,
   host,
@@ -114,12 +114,17 @@ class DeadHourUser {
     Set<UserRole> roles = {};
     if (json['activeRoles'] != null) {
       List<String> roleStrings = List<String>.from(json['activeRoles']);
-      roles = roleStrings.map((role) => UserRole.values.firstWhere(
-        (e) => e.name.toLowerCase() == role.toLowerCase(), // Use toLowerCase for comparison
-        orElse: () => UserRole.consumer, // Default to consumer if role not found
-      )).toSet();
+      roles = roleStrings
+          .map((role) => UserRole.values.firstWhere(
+                (e) =>
+                    e.name.toLowerCase() ==
+                    role.toLowerCase(), // Use toLowerCase for comparison
+                orElse: () =>
+                    UserRole.consumer, // Default to consumer if role not found
+              ))
+          .toSet();
     }
-    
+
     return DeadHourUser(
       id: json['id'],
       name: json['name'],
@@ -131,9 +136,12 @@ class DeadHourUser {
       joinDate: DateTime.parse(json['joinDate']),
       preferredLanguage: json['preferredLanguage'] ?? 'en',
       isVerified: json['isVerified'] ?? false,
-      roleCapabilities: Map<UserRole, Map<String, dynamic>>.from(json['roleCapabilities'] ?? {}),
-      crossRoleMetrics: Map<String, dynamic>.from(json['crossRoleMetrics'] ?? {}),
-      networkEffectMultiplier: (json['networkEffectMultiplier'] ?? 1.0).toDouble(),
+      roleCapabilities: Map<UserRole, Map<String, dynamic>>.from(
+          json['roleCapabilities'] ?? {}),
+      crossRoleMetrics:
+          Map<String, dynamic>.from(json['crossRoleMetrics'] ?? {}),
+      networkEffectMultiplier:
+          (json['networkEffectMultiplier'] ?? 1.0).toDouble(),
       favoriteCategories: List<String>.from(json['favoriteCategories'] ?? []),
       languages: List<String>.from(json['languages'] ?? ['en']),
     );
@@ -189,7 +197,8 @@ class DeadHourUser {
       isVerified: isVerified ?? this.isVerified,
       roleCapabilities: roleCapabilities ?? this.roleCapabilities,
       crossRoleMetrics: crossRoleMetrics ?? this.crossRoleMetrics,
-      networkEffectMultiplier: networkEffectMultiplier ?? this.networkEffectMultiplier,
+      networkEffectMultiplier:
+          networkEffectMultiplier ?? this.networkEffectMultiplier,
       favoriteCategories: favoriteCategories ?? this.favoriteCategories,
       languages: languages ?? this.languages,
     );
@@ -203,7 +212,7 @@ class DeadHourUser {
   bool get hasHostRole => activeRoles.contains(UserRole.host);
   bool get hasChefRole => activeRoles.contains(UserRole.chef);
   bool get hasPhotographerRole => activeRoles.contains(UserRole.photographer);
-  
+
   // Generic hasRole method for backward compatibility
   bool hasRole(String roleName) {
     final role = UserRole.values.firstWhere(
@@ -212,15 +221,15 @@ class DeadHourUser {
     );
     return activeRoles.contains(role);
   }
-  
+
   double get monthlyRevenuePotential {
     double revenue = 0;
     if (hasBusinessRole) revenue += 30; // €30/month
-    if (hasGuideRole) revenue += 20;    // €20/month  
-    if (hasPremiumRole) revenue += 15;  // €15/month
+    if (hasGuideRole) revenue += 20; // €20/month
+    if (hasPremiumRole) revenue += 15; // €15/month
     return revenue * networkEffectMultiplier;
   }
-  
+
   String get displayRoles {
     if (activeRoles.isEmpty) return 'Consumer';
     return activeRoles.map((role) => role.name).join(' + ');
@@ -228,7 +237,8 @@ class DeadHourUser {
 
   String get userTypeIcon {
     if (activeRoles.isEmpty) return '👤'; // Consumer
-    if (hasBusinessRole && hasGuideRole && hasPremiumRole) return '💎'; // Triple Role
+    if (hasBusinessRole && hasGuideRole && hasPremiumRole)
+      return '💎'; // Triple Role
     if (hasBusinessRole && hasGuideRole) return '🏢✈️'; // Business + Guide
     if (hasBusinessRole && hasPremiumRole) return '🏢💎'; // Business + Premium
     if (hasGuideRole && hasPremiumRole) return '✈️💎'; // Guide + Premium
@@ -237,31 +247,35 @@ class DeadHourUser {
     if (hasPremiumRole) return '💎'; // Premium Role
     return '👤'; // Default Consumer
   }
-  
+
   // Additional getters for compatibility with existing code
-  String get profilePicture => profileImageUrl ?? 'https://i.pravatar.cc/150?img=1';
+  String get profilePicture =>
+      profileImageUrl ?? 'https://i.pravatar.cc/150?img=1';
   String get userTypeDisplay => displayRoles;
-  String get memberSince => '${joinDate.day}/${joinDate.month}/${joinDate.year}';
+  String get memberSince =>
+      '${joinDate.day}/${joinDate.month}/${joinDate.year}';
   double get rating => networkEffectMultiplier;
-  
+
   Map<String, dynamic> get stats => {
-    'activeRoles': activeRoles.length,
-    'monthlyRevenue': monthlyRevenuePotential.toInt(),
-    'roomsJoined': favoriteCategories.length * (activeRoles.length + 1), // Role multiplier
-    'networkEffect': (networkEffectMultiplier * 100).toInt(), // Network effect score
-  };
-  
+        'activeRoles': activeRoles.length,
+        'monthlyRevenue': monthlyRevenuePotential.toInt(),
+        'roomsJoined': favoriteCategories.length *
+            (activeRoles.length + 1), // Role multiplier
+        'networkEffect':
+            (networkEffectMultiplier * 100).toInt(), // Network effect score
+      };
+
   // Role management methods
   DeadHourUser addRole(UserRole role) {
     final newRoles = Set<UserRole>.from(activeRoles)..add(role);
     return copyWith(activeRoles: newRoles);
   }
-  
+
   DeadHourUser removeRole(UserRole role) {
     final newRoles = Set<UserRole>.from(activeRoles)..remove(role);
     return copyWith(activeRoles: newRoles);
   }
-  
+
   bool canAccessRoleFeature(UserRole requiredRole) {
     return activeRoles.contains(requiredRole);
   }

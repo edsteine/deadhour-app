@@ -218,45 +218,83 @@ This prevents unnecessary resource usage and potential device conflicts during d
 **Backend Strategy**: Use mock data until explicitly told to integrate Firebase
 **Monetization**: Hidden for now - app must be "really free" initially
 
+## Development Strategy
+All development should proceed using the mock data available in `lib/utils/mock_data.dart`. Do not implement or connect to Firebase until all features are fully functional with mock data and a final confirmation is given to switch to the live backend.
+
 ## AI Orchestration Collaboration
 
 ### Division of Labor
+- **Gemini**: Research, analysis, strategy, market intelligence, cultural guidance
 - **Claude (You)**: Implementation, architecture, code review, technical execution
-- **Gemini**: Research, analysis, strategy, market intelligence
 - **Human Architect**: Vision, direction, quality control, final decisions
 
-### Your Specialized Tasks
-1. **Code Implementation**: Write, edit, and refactor Flutter code
-2. **Architecture Decisions**: Design scalable app structure and patterns
-3. **Quality Assurance**: Run linting, fix issues, ensure code quality
-4. **Technical Problem Solving**: Debug issues, optimize performance
-5. **Development Workflow**: Manage dependencies, build processes, testing
+### Implementation Guidelines
+- **Complete One Task Before Moving to Next**: Never leave tasks partially completed.
+- **Fix Issues Immediately**: When verification finds problems, fix them immediately rather than saving for later.
+- **Document Progress**: Update verification TODOs and track what was fixed vs what needs fixing.
+- **Context Preservation**: With limited context (70% remaining), complete each file transformation before moving to next.
+- **No Batch Processing**: Avoid trying to do everything at once - this leads to lost work when context runs out.
+- **Verification → Fix → Document → Next**: Always follow this sequence to preserve progress.
 
-## Critical Terminology Rules
+### Code Style & Conventions
+- Use **Dart naming conventions**: `camelCase` for variables/functions, `PascalCase` for classes.
+- **File naming**: `snake_case` for file names (e.g., `home_screen.dart`).
+- **Import order**: Flutter packages first, then third-party, then local imports.
+- **Widget structure**: Prefer `StatelessWidget` over `StatefulWidget` when possible.
+- **State management**: Use flutter_riverpod pattern consistently (migrating from provider).
+- **Error handling**: Always implement try-catch for async operations.
+- **Firebase**: Use streams for real-time data, handle null values properly.
+- **UI**: Follow Material Design guidelines, use consistent spacing (8px multiples).
+- **Comments**: Add code comments sparingly. Focus on *why* something is done, especially for complex logic, rather than *what* is done. Only add high-value comments if necessary for clarity or if requested by the user. Do not edit comments that are separate from the code you are changing. *NEVER* talk to the user or describe your changes through comments.
+- **Dual-Problem Focus**: Every feature must help solve both the business optimization and social discovery problems.
+- **Account Architecture**: All features must support the multi-role account system (Consumer, Business, Guide, Premium).
+- **Community Integration**: Code architecture should make deal discovery feel social through category-based rooms.
+- **User Interface**: An Instagram-inspired interface should be used for seamless switching between active roles.
+- **Cross-Role Features**: User roles should enhance each other (e.g., business owners can also be guides).
+
+### Critical Terminology Rules
 **ALWAYS use "Role" terminology - NEVER use "ADDON":**
 - ✅ **Correct**: UserRole, activeRoles, RoleToggleProvider, rolePricing
 - ❌ **Incorrect**: UserAddon, activeAddons, AddonToggleProvider, addonPricing
 
-The project had historical inconsistency with "ADDON" terminology which has been officially deprecated.
+The project had historical inconsistency with "ADDON" terminology which has been officially deprecated. All new code and refactoring must use "Role" terminology consistently.
 
-## Preferred Dependencies (Production Stack)
-- **State Management**: flutter_riverpod (migrate from provider)
-- **HTTP Client**: dio (for networking)
-- **Localization**: easy_localization (multi-language support)
-- **Development Tools**: very_good_analysis, custom_lint, dcm
-- **Testing**: alchemist, mockito, integration_test
-- **Utilities**: url_launcher, permission_handler, shared_preferences, shimmer
+### Flutter App Execution
+**NEVER run `flutter run` or any Flutter app execution commands.** Only use Flutter commands for:
+- Dependencies: `flutter pub get`
+- Code analysis: `flutter analyze`
+- Build verification: `flutter build --dry-run`
+- Project setup: `flutter create`, `flutterfire configure`
 
-## CRITICAL RULE: No Unsolicited Recommendations
-**NEVER recommend changes, additions, or modifications without explicit request.** 
-- If confused about implementation or documentation, ASK first
-- Do NOT suggest missing features or improvements unless specifically asked
-- Focus ONLY on what was requested - nothing more, nothing less
-- The user has spent significant time building what exists for specific reasons
-- When analyzing coverage or gaps, provide facts only - no recommendations
-- If you think something is missing or wrong, ASK before suggesting changes
+This prevents unnecessary resource usage and potential device conflicts during development.
 
-## CRITICAL RULE: Never Delete Files
+### Mandatory Linting Rule
+**ALWAYS run linters and fix ALL issues after each code change:**
+1. After editing any Dart file, immediately run `flutter analyze`
+2. Fix all linting errors and warnings before proceeding
+3. Use `dart fix --apply` for auto-fixable issues
+4. Manually fix remaining issues
+5. This is MANDATORY - never leave linting issues unresolved
+
+### Deprecated API Rule
+**NEVER use deprecated APIs - always use modern replacements:**
+- ❌ `color.withOpacity(0.5)` (deprecated)
+- ✅ `color.withValues(alpha: 0.5)` (modern replacement)
+- Always replace `.withOpacity()` with `.withValues(alpha:)` to avoid precision loss
+
+### Morocco Cultural Requirements
+- **Prayer Times**: Integrate 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha)
+- **Ramadan Mode**: Special scheduling for Suhoor/Iftar times
+- **Halal Certification**: Filter and display halal requirements
+- **Multi-language UI**: Arabic RTL text support + French/English
+- **Local Currency**: Moroccan Dirham (MAD), primary, EUR for tourists
+- **Cultural Calendar**: Religious holidays (Eid, Mawlid), local festivals (Moussem)
+
+### Security and Safety Rules
+- **Never introduce code that exposes, logs, or commits secrets, API keys, or other sensitive information.**
+- **Always apply security best practices.**
+
+### Critical Rule: Never Delete Files
 **NEVER delete any files using rm, deletion commands, or file removal operations.**
 - If files need to be removed, ALWAYS move them to `/trash/` folder instead
 - Use commands like `mv filename /Users/edsteine/AndroidStudioProjects/deadhour/trash/`
@@ -265,11 +303,20 @@ The project had historical inconsistency with "ADDON" terminology which has been
 - ALWAYS preserve user work - never permanently delete anything
 - Ask user for confirmation before moving files to trash if uncertain
 
-## Important Instruction Reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+### Testing Guidelines
+- **Write tests for all new features and bug fixes.**
+- **Aim for high test coverage, especially for critical paths.**
+- **Use unit, widget, and integration tests as appropriate.**
+- **Ensure tests are clear, concise, and maintainable.**
 
-## Development Strategy
-All development should proceed using the mock data available in `lib/utils/mock_data.dart`. Do not implement or connect to Firebase until all features are fully functional with mock data and explicit confirmation is given to switch to the live backend.
+### Documentation Guidelines
+- **Update relevant documentation (e.g., `README.md`, `API_DOCUMENTATION.md`) for any changes you make.**
+- **Ensure documentation is clear, accurate, and up-to-date.**
+
+### Communication Guidelines
+- **Communicate clearly and concisely with the Human Architect and Gemini.**
+- **Provide regular updates on your progress and any challenges you encounter.**
+- **Ask for clarification if any instructions are unclear.**
+
+### Final Reminder
+Your primary goal is to implement the DeadHour platform according to the provided specifications and guidelines. Adhere strictly to all rules and best practices. Your work will be reviewed by the Human Architect and Gemini for quality and adherence to standards.

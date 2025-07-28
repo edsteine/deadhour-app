@@ -2,6 +2,7 @@ import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
+import '../../services/deal_suggestions_service.dart';
 
 class CreateDealScreen extends StatefulWidget {
   const CreateDealScreen({super.key});
@@ -12,11 +13,12 @@ class CreateDealScreen extends StatefulWidget {
 
 class _CreateDealScreenState extends State<CreateDealScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _titleController = TextEditingController(text: 'Afternoon Coffee Special');
+  final TextEditingController _titleController =
+      TextEditingController(text: 'Afternoon Coffee Special');
   final TextEditingController _communityMessageController = TextEditingController(
-    text: 'Perfect afternoon study spot! Quiet atmosphere, great coffee, free WiFi. Beat the afternoon energy dip with our special! ☕'
-  );
-  
+      text:
+          'Perfect afternoon study spot! Quiet atmosphere, great coffee, free WiFi. Beat the afternoon energy dip with our special! ☕');
+
   String _dealType = 'percentage';
   int _discountPercentage = 35;
   String _targetItems = 'all';
@@ -28,8 +30,27 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
   bool _notifyCommunity = true;
   bool _isHalalCertified = false;
   bool _isPrayerTimeAware = false;
+  final String _businessType = 'food';
+  bool _showSuggestions = true;
 
-  final List<String> _weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  final List<String> _weekDays = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun'
+  ];
+
+  List<DealSuggestion> get _suggestions {
+    return DealSuggestionsService().generateSuggestions(
+      businessType: _businessType,
+      currentTime: TimeOfDay.now(),
+      city: 'Casablanca',
+      dayOfWeek: DateTime.now().weekday,
+    );
+  }
 
   @override
   void dispose() {
@@ -57,7 +78,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
               Text('🔥 ${_titleController.text}'),
               const SizedBox(height: 12),
               Text('$_discountPercentage% OFF during dead hours'),
-              Text('${_startTime.format(context)} - ${_endTime.format(context)}'),
+              Text(
+                  '${_startTime.format(context)} - ${_endTime.format(context)}'),
               const SizedBox(height: 12),
               const Text('Your deal will be:'),
               const Text('✅ Posted to community rooms'),
@@ -190,10 +212,14 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Smart Suggestions Section
+                    if (_showSuggestions) _buildSuggestionsSection(),
+                    if (_showSuggestions) const SizedBox(height: 24),
+
                     // Deal Information Section
                     _buildSectionHeader('🎯 Deal Information'),
                     const SizedBox(height: 16),
-                    
+
                     TextFormField(
                       controller: _titleController,
                       decoration: const InputDecoration(
@@ -211,7 +237,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     const SizedBox(height: 16),
                     SwitchListTile(
                       title: const Text('Halal Certified'),
-                      subtitle: const Text('Indicate if this deal is for halal-certified venues/products'),
+                      subtitle: const Text(
+                          'Indicate if this deal is for halal-certified venues/products'),
                       value: _isHalalCertified,
                       onChanged: (value) {
                         setState(() {
@@ -221,7 +248,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     ),
                     SwitchListTile(
                       title: const Text('Prayer Time Aware'),
-                      subtitle: const Text('Consider prayer times when promoting this deal'),
+                      subtitle: const Text(
+                          'Consider prayer times when promoting this deal'),
                       value: _isPrayerTimeAware,
                       onChanged: (value) {
                         setState(() {
@@ -234,7 +262,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     // Deal Type Section
                     _buildSectionHeader('💰 Deal Type'),
                     const SizedBox(height: 12),
-                    
+
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -244,31 +272,37 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       child: Column(
                         children: [
                           RadioListTile<String>(
-                            title: Text('📉 Percentage Discount ($_discountPercentage% OFF)'),
-                            subtitle: Text('Preview: 45 MAD → ${(45 * (100 - _discountPercentage) / 100).round()} MAD'),
+                            title: Text(
+                                '📉 Percentage Discount ($_discountPercentage% OFF)'),
+                            subtitle: Text(
+                                'Preview: 45 MAD → ${(45 * (100 - _discountPercentage) / 100).round()} MAD'),
                             value: 'percentage',
                             groupValue: _dealType,
-                            onChanged: (value) => setState(() => _dealType = value!),
+                            onChanged: (value) =>
+                                setState(() => _dealType = value!),
                             activeColor: AppTheme.moroccoGreen,
                           ),
                           RadioListTile<String>(
-                            title: const Text('💰 Fixed Price (Coffee + Pastry = 25 MAD)'),
+                            title: const Text(
+                                '💰 Fixed Price (Coffee + Pastry = 25 MAD)'),
                             value: 'fixed',
                             groupValue: _dealType,
-                            onChanged: (value) => setState(() => _dealType = value!),
+                            onChanged: (value) =>
+                                setState(() => _dealType = value!),
                             activeColor: AppTheme.moroccoGreen,
                           ),
                           RadioListTile<String>(
                             title: const Text('🎁 Buy One Get One'),
                             value: 'bogo',
                             groupValue: _dealType,
-                            onChanged: (value) => setState(() => _dealType = value!),
+                            onChanged: (value) =>
+                                setState(() => _dealType = value!),
                             activeColor: AppTheme.moroccoGreen,
                           ),
                         ],
                       ),
                     ),
-                    
+
                     if (_dealType == 'percentage') ...[
                       const SizedBox(height: 16),
                       Text('Discount Amount: $_discountPercentage%'),
@@ -278,7 +312,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                         max: 70,
                         divisions: 12,
                         label: '$_discountPercentage%',
-                        onChanged: (value) => setState(() => _discountPercentage = value.round()),
+                        onChanged: (value) =>
+                            setState(() => _discountPercentage = value.round()),
                         activeColor: AppTheme.moroccoGreen,
                       ),
                     ],
@@ -288,18 +323,20 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     // Dead Hours Schedule Section
                     _buildSectionHeader('⏰ Dead Hours Schedule'),
                     const SizedBox(height: 12),
-                    
+
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: AppColors.error.withValues(alpha: 0.05),
-                        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
+                        border: Border.all(
+                            color: AppColors.error.withValues(alpha: 0.3)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Days:', style: TextStyle(fontWeight: FontWeight.w600)),
+                          const Text('Days:',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
                           const SizedBox(height: 8),
                           Wrap(
                             spacing: 8,
@@ -317,7 +354,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                     }
                                   });
                                 },
-                                selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+                                selectedColor: AppTheme.moroccoGreen
+                                    .withValues(alpha: 0.2),
                                 checkmarkColor: AppTheme.moroccoGreen,
                               );
                             }).toList(),
@@ -329,20 +367,25 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('Start Time:', style: TextStyle(fontWeight: FontWeight.w600)),
+                                    const Text('Start Time:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
                                     InkWell(
                                       onTap: () async {
                                         final time = await showTimePicker(
                                           context: context,
                                           initialTime: _startTime,
                                         );
-                                        if (time != null) setState(() => _startTime = time);
+                                        if (time != null)
+                                          setState(() => _startTime = time);
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(12),
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey.shade300),
-                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                              color: Colors.grey.shade300),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         child: Text(_startTime.format(context)),
                                       ),
@@ -355,20 +398,25 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('End Time:', style: TextStyle(fontWeight: FontWeight.w600)),
+                                    const Text('End Time:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
                                     InkWell(
                                       onTap: () async {
                                         final time = await showTimePicker(
                                           context: context,
                                           initialTime: _endTime,
                                         );
-                                        if (time != null) setState(() => _endTime = time);
+                                        if (time != null)
+                                          setState(() => _endTime = time);
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(12),
                                         decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey.shade300),
-                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                              color: Colors.grey.shade300),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         child: Text(_endTime.format(context)),
                                       ),
@@ -381,7 +429,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                           const SizedBox(height: 8),
                           Text(
                             'Duration: ${_endTime.hour - _startTime.hour} hours daily',
-                            style: const TextStyle(fontSize: 12, color: AppTheme.secondaryText),
+                            style: const TextStyle(
+                                fontSize: 12, color: AppTheme.secondaryText),
                           ),
                         ],
                       ),
@@ -392,19 +441,21 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     // Target Items Section
                     _buildSectionHeader('🎯 Target Items'),
                     const SizedBox(height: 12),
-                    
+
                     RadioListTile<String>(
                       title: const Text('All menu items'),
                       value: 'all',
                       groupValue: _targetItems,
-                      onChanged: (value) => setState(() => _targetItems = value!),
+                      onChanged: (value) =>
+                          setState(() => _targetItems = value!),
                       activeColor: AppTheme.moroccoGreen,
                     ),
                     RadioListTile<String>(
                       title: const Text('Coffee & beverages only'),
                       value: 'beverages',
                       groupValue: _targetItems,
-                      onChanged: (value) => setState(() => _targetItems = value!),
+                      onChanged: (value) =>
+                          setState(() => _targetItems = value!),
                       activeColor: AppTheme.moroccoGreen,
                     ),
 
@@ -413,7 +464,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     // Deal Capacity Section
                     _buildSectionHeader('👥 Deal Capacity'),
                     const SizedBox(height: 12),
-                    
+
                     Row(
                       children: [
                         Expanded(
@@ -427,7 +478,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                 max: 50,
                                 divisions: 9,
                                 label: '$_maxCustomersPerDay',
-                                onChanged: (value) => setState(() => _maxCustomersPerDay = value.round()),
+                                onChanged: (value) => setState(
+                                    () => _maxCustomersPerDay = value.round()),
                                 activeColor: AppTheme.moroccoGreen,
                               ),
                             ],
@@ -445,7 +497,8 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                 max: 20,
                                 divisions: 9,
                                 label: '$_maxPerTimeSlot',
-                                onChanged: (value) => setState(() => _maxPerTimeSlot = value.round()),
+                                onChanged: (value) => setState(
+                                    () => _maxPerTimeSlot = value.round()),
                                 activeColor: AppTheme.moroccoGreen,
                               ),
                             ],
@@ -459,23 +512,26 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                     // Community Message Section
                     _buildSectionHeader('💬 Community Message'),
                     const SizedBox(height: 12),
-                    
+
                     TextFormField(
                       controller: _communityMessageController,
                       maxLines: 4,
                       decoration: const InputDecoration(
-                        hintText: 'Tell the community why this deal is special...',
+                        hintText:
+                            'Tell the community why this deal is special...',
                         border: OutlineInputBorder(),
                       ),
                     ),
 
                     const SizedBox(height: 16),
-                    
+
                     SwitchListTile(
                       title: const Text('📱 Notify Community'),
-                      subtitle: const Text('Send push notification to relevant rooms'),
+                      subtitle: const Text(
+                          'Send push notification to relevant rooms'),
                       value: _notifyCommunity,
-                      onChanged: (value) => setState(() => _notifyCommunity = value),
+                      onChanged: (value) =>
+                          setState(() => _notifyCommunity = value),
                       activeColor: AppTheme.moroccoGreen,
                     ),
 
@@ -502,7 +558,7 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    
+
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
@@ -532,6 +588,199 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
         fontSize: 18,
         fontWeight: FontWeight.bold,
         color: AppTheme.moroccoGreen,
+      ),
+    );
+  }
+
+  Widget _buildSuggestionsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            _buildSectionHeader('💡 Smart Suggestions'),
+            const Spacer(),
+            TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  _showSuggestions = !_showSuggestions;
+                });
+              },
+              icon: Icon(
+                  _showSuggestions ? Icons.visibility_off : Icons.visibility),
+              label: Text(_showSuggestions ? 'Hide' : 'Show'),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'AI-powered suggestions based on your business type and current market data',
+          style: TextStyle(
+            color: AppTheme.secondaryText,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 160,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _suggestions.length,
+            itemBuilder: (context, index) {
+              final suggestion = _suggestions[index];
+              return _buildSuggestionCard(suggestion);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSuggestionCard(DealSuggestion suggestion) {
+    return Container(
+      width: 280,
+      margin: const EdgeInsets.only(right: 12),
+      child: Card(
+        elevation: 2,
+        child: InkWell(
+          onTap: () => _applySuggestion(suggestion),
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      suggestion.icon,
+                      style: const TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        suggestion.title,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: AppTheme.moroccoGreen,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '${suggestion.discountPercentage}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  suggestion.description,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppTheme.secondaryText,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.schedule,
+                        size: 14, color: AppTheme.secondaryText),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${suggestion.targetTime.format(context)} - ${suggestion.endTime.format(context)}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppTheme.secondaryText,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.trending_up,
+                      size: 14,
+                      color:
+                          _getEffectivenessColor(suggestion.effectivenessScore),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${suggestion.effectivenessScore}% effective',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: _getEffectivenessColor(
+                            suggestion.effectivenessScore),
+                      ),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      'Tap to apply',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppTheme.moroccoGreen,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _getEffectivenessColor(int score) {
+    if (score >= 80) return Colors.green;
+    if (score >= 60) return Colors.orange;
+    return Colors.red;
+  }
+
+  void _applySuggestion(DealSuggestion suggestion) {
+    setState(() {
+      _titleController.text = suggestion.title;
+      _discountPercentage = suggestion.discountPercentage;
+      _startTime = suggestion.targetTime;
+      _endTime = suggestion.endTime;
+
+      // Generate a community message suggestion
+      final messageSuggestions =
+          DealSuggestionsService().getCommunityMessageSuggestions(
+        dealTitle: suggestion.title,
+        businessType: _businessType,
+        discountPercentage: suggestion.discountPercentage,
+      );
+
+      if (messageSuggestions.isNotEmpty) {
+        _communityMessageController.text = messageSuggestions.first;
+      }
+    });
+
+    // Show applied confirmation
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Applied suggestion: ${suggestion.title}'),
+        backgroundColor: AppTheme.moroccoGreen,
+        duration: const Duration(seconds: 2),
       ),
     );
   }

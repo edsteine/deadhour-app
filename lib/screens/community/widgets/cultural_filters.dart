@@ -23,7 +23,10 @@ class CulturalFilters extends StatelessWidget {
         children: [
           Text(
             'Cultural Filters',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           SwitchListTile(

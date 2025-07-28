@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String selectedCity;
   final VoidCallback onCitySelectorPressed;

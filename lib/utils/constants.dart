@@ -2,8 +2,9 @@ class AppConstants {
   // App Information
   static const String appName = 'DeadHour Morocco';
   static const String appVersion = '1.0.0';
-  static const String appDescription = 'World\'s first dual-problem platform for Morocco';
-  
+  static const String appDescription =
+      'World\'s first dual-problem platform for Morocco';
+
   // Morocco Cities
   static const List<String> moroccoCities = [
     'Casablanca',
@@ -17,14 +18,14 @@ class AppConstants {
     'Kenitra',
     'Tetouan',
   ];
-  
+
   // Languages
   static const List<Map<String, String>> supportedLanguages = [
     {'code': 'ar', 'name': 'العربية', 'englishName': 'Arabic'},
     {'code': 'fr', 'name': 'Français', 'englishName': 'French'},
     {'code': 'en', 'name': 'English', 'englishName': 'English'},
   ];
-  
+
   // Prayer Times (Sample for Casablanca)
   static const List<Map<String, String>> prayerTimes = [
     {'name': 'Fajr', 'time': '06:18', 'arabic': 'الفجر'},
@@ -33,7 +34,7 @@ class AppConstants {
     {'name': 'Maghrib', 'time': '18:28', 'arabic': 'المغرب'},
     {'name': 'Isha', 'time': '19:54', 'arabic': 'العشاء'},
   ];
-  
+
   // Business Categories
   static const List<Map<String, dynamic>> businessCategories = [
     {
@@ -85,7 +86,7 @@ class AppConstants {
       'french': 'Famille'
     },
   ];
-  
+
   // User Types for registration
   static const List<Map<String, String>> userTypes = [
     {
@@ -113,14 +114,14 @@ class AppConstants {
       'french': 'Guide Local'
     },
   ];
-  
-  // Available Roles for Role Marketplace - Currently Free During Beta
+
+  // Available Roles for Role Marketplace - Completely Free
   static const List<Map<String, String>> availableRoles = [
     {
       'id': 'business',
       'name': 'Business Role',
       'icon': '🏢',
-      'price': 'Free Beta',
+      'price': 'Free',
       'description': 'Venue management, deal creation, analytics dashboard',
       'arabic': 'دور الأعمال',
       'french': 'Rôle Entreprise'
@@ -129,19 +130,10 @@ class AppConstants {
       'id': 'guide',
       'name': 'Guide Role',
       'icon': '🌍',
-      'price': 'Free Beta',
+      'price': 'Free',
       'description': 'Local expertise, cultural guidance, tourism services',
       'arabic': 'دور الدليل',
       'french': 'Rôle Guide'
-    },
-    {
-      'id': 'premium',
-      'name': 'Premium Role',
-      'icon': '⭐',
-      'price': 'Free Beta',
-      'description': 'Enhanced features, cross-Role analytics, priority support',
-      'arabic': 'دور البريميوم',
-      'french': 'Rôle Premium'
     },
   ];
 
@@ -184,7 +176,7 @@ class AppConstants {
       'french': 'Rôle Photographe'
     },
   ];
-  
+
   // Deal Types
   static const List<Map<String, String>> dealTypes = [
     {
@@ -212,15 +204,16 @@ class AppConstants {
       'example': 'Special menu combo',
     },
   ];
-  
+
   // Currency
   static const String currency = 'MAD';
   static const String currencySymbol = 'MAD';
-  
+
   // Role Revenue Model (replacing commission-based model)
-  static const double maxMonthlyRevenuePerUser = 65.0; // EUR (Business + Guide + Premium)
+  static const double maxMonthlyRevenuePerUser =
+      65.0; // EUR (Business + Guide + Premium)
   static const double futureMaxMonthlyRevenue = 155.0; // EUR (all 7 Roles)
-  
+
   // Role Pricing (Monthly)
   static const Map<String, double> rolePricing = {
     'business': 30.0, // EUR per month
@@ -242,34 +235,34 @@ class AppConstants {
     'chef': 300.0, // EUR per year (future)
     'photographer': 150.0, // EUR per year (future)
   };
-  
+
   // API Endpoints (Mock)
   static const String baseUrl = 'https://api.deadhour.ma';
   static const String venuesEndpoint = '/venues';
   static const String dealsEndpoint = '/deals';
   static const String roomsEndpoint = '/rooms';
   static const String usersEndpoint = '/users';
-  
+
   // Default Values
   static const int defaultPageSize = 20;
   static const int maxImageSize = 5 * 1024 * 1024; // 5MB
   static const List<String> supportedImageFormats = ['jpg', 'jpeg', 'png'];
-  
+
   // Validation
   static const int minPasswordLength = 6;
   static const int maxMessageLength = 500;
   static const int maxReviewLength = 1000;
-  
+
   // Time Formats
   static const String timeFormat24 = 'HH:mm';
   static const String timeFormat12 = 'h:mm a';
   static const String dateFormat = 'dd/MM/yyyy';
   static const String dateTimeFormat = 'dd/MM/yyyy HH:mm';
-  
+
   // Morocco Phone Number Format
   static const String phonePrefix = '+212';
   static const String phonePattern = r'^(\+212|0)[5-7][0-9]{8}$';
-  
+
   // Social Media Links
   static const Map<String, String> socialLinks = {
     'facebook': 'https://facebook.com/deadhour.ma',
@@ -277,7 +270,7 @@ class AppConstants {
     'twitter': 'https://twitter.com/deadhour_ma',
     'linkedin': 'https://linkedin.com/company/deadhour',
   };
-  
+
   // Support Information
   static const Map<String, String> supportInfo = {
     'email': 'hello@deadhour.ma',
@@ -295,7 +288,7 @@ class AppSpacing {
   static const double lg = 24.0;
   static const double xl = 32.0;
   static const double xxl = 48.0;
-  
+
   // Specific spacing
   static const double cardPadding = 16.0;
   static const double screenPadding = 20.0;
@@ -310,7 +303,7 @@ class AppBorderRadius {
   static const double lg = 16.0;
   static const double xl = 24.0;
   static const double circular = 50.0;
-  
+
   // Specific radii
   static const double card = 12.0;
   static const double button = 8.0;

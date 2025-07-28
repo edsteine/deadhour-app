@@ -20,10 +20,11 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
   String _selectedTime = '15:00';
   String _selectedPaymentMethod = 'venue';
   bool _shareInCommunity = true;
-  final TextEditingController _specialRequestsController = TextEditingController();
+  final TextEditingController _specialRequestsController =
+      TextEditingController();
 
   final List<String> _timeSlots = ['14:30', '15:00', '15:30', '16:00'];
-  
+
   @override
   void dispose() {
     _specialRequestsController.dispose();
@@ -50,31 +51,31 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
             // Deal summary
             _buildDealSummary(),
             const SizedBox(height: 24),
-            
+
             // Booking options
             _buildBookingOptions(),
             const SizedBox(height: 24),
-            
+
             // Date & Time selection
             _buildTimeSelection(),
             const SizedBox(height: 24),
-            
+
             // Community group option
             _buildCommunityGroupOption(),
             const SizedBox(height: 24),
-            
+
             // Special requests
             _buildSpecialRequests(),
             const SizedBox(height: 24),
-            
+
             // Payment method
             _buildPaymentMethod(),
             const SizedBox(height: 24),
-            
+
             // Total & sharing option
             _buildTotalAndSharing(),
             const SizedBox(height: 32),
-            
+
             // Confirm booking button
             _buildConfirmButton(),
           ],
@@ -175,7 +176,8 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isSelected ? AppTheme.moroccoGreen : Colors.grey[200],
+                    backgroundColor:
+                        isSelected ? AppTheme.moroccoGreen : Colors.grey[200],
                     foregroundColor: isSelected ? Colors.white : Colors.black,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -194,7 +196,7 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
 
   Widget _buildCommunityGroupOption() {
     if (_selectedBookingType != 'join_group') return const SizedBox.shrink();
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -426,7 +428,8 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
             Text('Your booking for ${widget.deal.title} is confirmed!'),
             const SizedBox(height: 8),
             Text('Time: $_selectedTime'),
-            Text('Confirmation code: DH${DateTime.now().millisecondsSinceEpoch % 100000}'),
+            Text(
+                'Confirmation code: DH${DateTime.now().millisecondsSinceEpoch % 100000}'),
           ],
         ),
         actions: [

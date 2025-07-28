@@ -34,7 +34,9 @@ class ChatMessageBubble extends StatelessWidget {
           ],
           Expanded(
             child: Column(
-              crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              crossAxisAlignment: isCurrentUser
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 if (!isCurrentUser)
                   Padding(
@@ -66,7 +68,8 @@ class ChatMessageBubble extends StatelessWidget {
             const SizedBox(width: 8),
             CircleAvatar(
               radius: 16,
-              backgroundImage: NetworkImage(MockData.currentUser.profilePicture),
+              backgroundImage:
+                  NetworkImage(MockData.currentUser.profilePicture),
             ),
           ],
         ],
@@ -185,7 +188,8 @@ class ChatMessageBubble extends StatelessWidget {
                   onPressed: () => bookDeal(dealInfo),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.error,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     minimumSize: Size.zero,
                   ),
                   child: const Text(
@@ -281,7 +285,8 @@ class ChatMessageBubble extends StatelessWidget {
                   onPressed: () => joinGroup(groupInfo),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.info,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     minimumSize: Size.zero,
                   ),
                   child: const Text(

@@ -7,7 +7,6 @@ import '../../utils/guest_mode.dart';
 class RoleMarketplaceScreen extends StatefulWidget {
   const RoleMarketplaceScreen({super.key});
 
-
   @override
   State<RoleMarketplaceScreen> createState() => _RoleMarketplaceScreenState();
 }
@@ -44,7 +43,7 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Start as Consumer and add Roles to unlock capabilities. All roles are free during beta.',
+                'Choose your roles to unlock capabilities. Everything is completely free.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.secondaryText,
                     ),
@@ -103,11 +102,9 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text(
-                    _selectedRoles.isEmpty 
-                        ? 'Create Consumer Account (Free)'
-                        : 'Create Account with Roles (€${_calculateMonthlyRevenue()}/month)',
-                    style: const TextStyle(
+                  child: const Text(
+                    'Create Free Account',
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -185,7 +182,9 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: isSelected ? AppTheme.moroccoGreen.withValues(alpha: 0.1) : Colors.white,
+            color: isSelected
+                ? AppTheme.moroccoGreen.withValues(alpha: 0.1)
+                : Colors.white,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: isSelected ? AppTheme.moroccoGreen : Colors.grey.shade300,
@@ -206,7 +205,9 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: isSelected ? AppTheme.moroccoGreen : AppTheme.surfaceColor,
+                  color: isSelected
+                      ? AppTheme.moroccoGreen
+                      : AppTheme.surfaceColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
@@ -230,7 +231,9 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: isSelected ? AppTheme.moroccoGreen : AppTheme.primaryText,
+                            color: isSelected
+                                ? AppTheme.moroccoGreen
+                                : AppTheme.primaryText,
                           ),
                         ),
                         const Spacer(),
@@ -264,9 +267,12 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: isSelected ? AppTheme.moroccoGreen : Colors.transparent,
+                  color:
+                      isSelected ? AppTheme.moroccoGreen : Colors.transparent,
                   border: Border.all(
-                    color: isSelected ? AppTheme.moroccoGreen : Colors.grey.shade400,
+                    color: isSelected
+                        ? AppTheme.moroccoGreen
+                        : Colors.grey.shade400,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -297,7 +303,11 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
         features = ['Local expertise', 'Cultural guidance', 'Tourism services'];
         break;
       case 'premium':
-        features = ['Enhanced features', 'Cross-Role analytics', 'Priority support'];
+        features = [
+          'Enhanced features',
+          'Cross-Role analytics',
+          'Priority support'
+        ];
         break;
     }
 
@@ -325,34 +335,16 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
   }
 
   void _createUniversalAccount() {
-    // Create universal DeadHour account with selected ADDONs
+    // Create universal DeadHour account with selected roles
     // Store selected roles in user profile
     final rolesQuery = _selectedRoles.join(',');
     context.go('/register?roles=$rolesQuery');
   }
 
-  int _calculateMonthlyRevenue() {
-    int total = 0;
-    for (String roleId in _selectedRoles) {
-      switch (roleId) {
-        case 'business':
-          total += 30;
-          break;
-        case 'guide':
-          total += 20;
-          break;
-        case 'premium':
-          total += 15;
-          break;
-      }
-    }
-    return total;
-  }
-
   void _continueAsGuest() async {
     // Enable guest mode
     await GuestMode.enableGuestMode();
-    
+
     // Navigate directly to home as guest user
     if (mounted) {
       context.go('/home');

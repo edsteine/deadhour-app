@@ -139,7 +139,8 @@ class SettingsTab extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(Icons.workspace_premium, color: AppTheme.moroccoGold),
+            leading: const Icon(Icons.workspace_premium,
+                color: AppTheme.moroccoGold),
             title: const Text('Upgrade to Premium'),
             subtitle: const Text('Get more features and analytics'),
             trailing: const Icon(Icons.chevron_right),

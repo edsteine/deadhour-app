@@ -199,7 +199,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Year 3**: $4M revenue (full dual-problem platform + international potential).
 - **Unit Economics**: €60-65 average revenue per user (multiple streams + role stacking), 75%+ gross margins.
 - **Key Multipliers**: Tourism users spend 3-5x more than locals; multi-role users generate 2-3x more revenue.
-- **Multi-Role Economics**: Users with multiple roles (€65/month) create exponential value vs. single-role users.
+- **Multi-Role Economics**: Users with multiple roles (€65/month) create exponential value vs single-role users.
 
 **Success Metrics**: Cross-problem engagement rate, venue fill rate during off-peak hours, community activity, multi-role adoption rate, network effects acceleration, role switching frequency.
 
@@ -246,6 +246,9 @@ The project had historical inconsistency with "ADDON" terminology which has been
 **Priority**: App functionality and user experience over backend architecture
 **Backend Strategy**: Use mock data until explicitly told to integrate Firebase
 **Monetization**: Hidden for now - app must be "really free" initially
+
+## Development Strategy
+All development should proceed using the mock data available in `lib/utils/mock_data.dart`. Do not implement or connect to Firebase until all features are fully functional with mock data and a final confirmation is given to switch to the live backend.
 
 ## AI Orchestration Collaboration
 

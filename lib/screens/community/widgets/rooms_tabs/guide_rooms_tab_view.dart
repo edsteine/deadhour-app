@@ -8,7 +8,8 @@ class GuideRoomsTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final guideRooms = MockData.rooms.where((room) => room.category == 'guide').toList();
+    final guideRooms =
+        MockData.rooms.where((room) => room.category == 'guide').toList();
 
     return guideRooms.isEmpty
         ? const Center(child: Text('No guide network rooms available.'))

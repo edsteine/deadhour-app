@@ -21,7 +21,7 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
-  
+
   String _selectedCategory = 'food';
   String _selectedCity = 'Casablanca';
   bool _isPublic = true;
@@ -36,42 +36,72 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
       'name': 'Food & Dining',
       'icon': '🍕',
       'description': 'Restaurants, cafés, and culinary experiences',
-      'examples': ['Coffee meetups', 'Restaurant deals', 'Food tours', 'Cooking classes']
+      'examples': [
+        'Coffee meetups',
+        'Restaurant deals',
+        'Food tours',
+        'Cooking classes'
+      ]
     },
     {
       'id': 'entertainment',
       'name': 'Entertainment',
       'icon': '🎮',
       'description': 'Movies, games, and fun activities',
-      'examples': ['Gaming tournaments', 'Cinema groups', 'Escape rooms', 'Comedy shows']
+      'examples': [
+        'Gaming tournaments',
+        'Cinema groups',
+        'Escape rooms',
+        'Comedy shows'
+      ]
     },
     {
       'id': 'wellness',
       'name': 'Wellness & Spa',
       'icon': '💆',
       'description': 'Health, fitness, and relaxation',
-      'examples': ['Spa deals', 'Hammam sessions', 'Fitness groups', 'Yoga classes']
+      'examples': [
+        'Spa deals',
+        'Hammam sessions',
+        'Fitness groups',
+        'Yoga classes'
+      ]
     },
     {
       'id': 'sports',
       'name': 'Sports & Fitness',
       'icon': '⚽',
       'description': 'Sports activities and fitness',
-      'examples': ['Padel matches', 'Football teams', 'Gym buddies', 'Running groups']
+      'examples': [
+        'Padel matches',
+        'Football teams',
+        'Gym buddies',
+        'Running groups'
+      ]
     },
     {
       'id': 'tourism',
       'name': 'Tourism & Culture',
       'icon': '🌍',
       'description': 'Local experiences and cultural activities',
-      'examples': ['City tours', 'Cultural events', 'Local guides', 'Historical sites']
+      'examples': [
+        'City tours',
+        'Cultural events',
+        'Local guides',
+        'Historical sites'
+      ]
     },
     {
       'id': 'family',
       'name': 'Family Fun',
       'icon': '👨‍👩‍👧‍👦',
       'description': 'Family-friendly activities and events',
-      'examples': ['Kids activities', 'Family outings', 'Parent groups', 'Children events']
+      'examples': [
+        'Kids activities',
+        'Family outings',
+        'Parent groups',
+        'Children events'
+      ]
     },
   ];
 
@@ -134,7 +164,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                         ),
                         Text(
                           'Build a community around ${selectedCategoryData['name']}',
-                          style: const TextStyle(fontSize: 14, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -167,11 +198,15 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: isSelected ? AppTheme.moroccoGreen : Colors.grey[300]!,
+                            color: isSelected
+                                ? AppTheme.moroccoGreen
+                                : Colors.grey[300]!,
                             width: isSelected ? 2 : 1,
                           ),
                           borderRadius: BorderRadius.circular(12),
-                          color: isSelected ? AppTheme.moroccoGreen.withValues(alpha: 0.1) : null,
+                          color: isSelected
+                              ? AppTheme.moroccoGreen.withValues(alpha: 0.1)
+                              : null,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -185,8 +220,11 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                               category['name'] as String,
                               style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                color: isSelected ? AppTheme.moroccoGreen : null,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color:
+                                    isSelected ? AppTheme.moroccoGreen : null,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -214,15 +252,19 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                     const SizedBox(height: 8),
                     const Text(
                       'Popular room types:',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 4),
                     Wrap(
                       spacing: 8,
                       runSpacing: 4,
-                      children: (selectedCategoryData['examples'] as List<String>).map((example) {
+                      children:
+                          (selectedCategoryData['examples'] as List<String>)
+                              .map((example) {
                         return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -265,8 +307,16 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                   labelText: 'City *',
                   border: OutlineInputBorder(),
                 ),
-                items: ['Casablanca', 'Marrakech', 'Rabat', 'Fez', 'Tangier', 'Agadir']
-                    .map((city) => DropdownMenuItem(value: city, child: Text(city)))
+                items: [
+                  'Casablanca',
+                  'Marrakech',
+                  'Rabat',
+                  'Fez',
+                  'Tangier',
+                  'Agadir'
+                ]
+                    .map((city) =>
+                        DropdownMenuItem(value: city, child: Text(city)))
                     .toList(),
                 onChanged: (value) {
                   setState(() {
@@ -308,7 +358,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
               ),
               SwitchListTile(
                 title: const Text('Allow Deal Sharing'),
-                subtitle: const Text('Members can share venue deals and offers'),
+                subtitle:
+                    const Text('Members can share venue deals and offers'),
                 value: _allowDeals,
                 onChanged: (value) {
                   setState(() {
@@ -316,7 +367,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                   });
                 },
               ),
-              if (_selectedCategory == 'food' || _selectedCategory == 'wellness')
+              if (_selectedCategory == 'food' ||
+                  _selectedCategory == 'wellness')
                 SwitchListTile(
                   title: const Text('Halal Only'),
                   subtitle: const Text('Focus on halal venues and activities'),
@@ -329,7 +381,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
                 ),
               SwitchListTile(
                 title: const Text('Prayer Time Aware'),
-                subtitle: const Text('Consider prayer times when scheduling activities'),
+                subtitle: const Text(
+                    'Consider prayer times when scheduling activities'),
                 value: _isPrayerTimeAware,
                 onChanged: (value) {
                   setState(() {
@@ -384,7 +437,8 @@ class _CreateRoomSheetState extends State<CreateRoomSheet> {
       final newRoom = Room(
         id: DateTime.now().millisecondsSinceEpoch.toString(), // Unique ID
         name: _nameController.text,
-        displayName: _nameController.text, // Assuming display name is same as name for now
+        displayName: _nameController
+            .text, // Assuming display name is same as name for now
         category: _selectedCategory,
         city: _selectedCity,
         description: _descriptionController.text,

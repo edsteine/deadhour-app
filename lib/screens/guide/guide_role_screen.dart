@@ -30,7 +30,10 @@ class _GuideRoleScreenState extends State<GuideRoleScreen> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
+                  colors: [
+                    AppColors.primary,
+                    AppColors.primary.withValues(alpha: 0.8)
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -93,12 +96,19 @@ class _GuideRoleScreenState extends State<GuideRoleScreen> {
                       border: OutlineInputBorder(),
                     ),
                     items: const [
-                      DropdownMenuItem(value: 'All', child: Text('All Specialties')),
-                      DropdownMenuItem(value: 'Cultural', child: Text('Cultural Tours')),
-                      DropdownMenuItem(value: 'Food', child: Text('Food Experiences')),
-                      DropdownMenuItem(value: 'Historical', child: Text('Historical Sites')),
-                      DropdownMenuItem(value: 'Adventure', child: Text('Adventure Activities')),
-                      DropdownMenuItem(value: 'Shopping', child: Text('Shopping & Souks')),
+                      DropdownMenuItem(
+                          value: 'All', child: Text('All Specialties')),
+                      DropdownMenuItem(
+                          value: 'Cultural', child: Text('Cultural Tours')),
+                      DropdownMenuItem(
+                          value: 'Food', child: Text('Food Experiences')),
+                      DropdownMenuItem(
+                          value: 'Historical', child: Text('Historical Sites')),
+                      DropdownMenuItem(
+                          value: 'Adventure',
+                          child: Text('Adventure Activities')),
+                      DropdownMenuItem(
+                          value: 'Shopping', child: Text('Shopping & Souks')),
                     ],
                     onChanged: (value) {
                       setState(() {
@@ -116,12 +126,16 @@ class _GuideRoleScreenState extends State<GuideRoleScreen> {
                       border: OutlineInputBorder(),
                     ),
                     items: const [
-                      DropdownMenuItem(value: 'All Cities', child: Text('All Cities')),
-                      DropdownMenuItem(value: 'Casablanca', child: Text('Casablanca')),
-                      DropdownMenuItem(value: 'Marrakech', child: Text('Marrakech')),
+                      DropdownMenuItem(
+                          value: 'All Cities', child: Text('All Cities')),
+                      DropdownMenuItem(
+                          value: 'Casablanca', child: Text('Casablanca')),
+                      DropdownMenuItem(
+                          value: 'Marrakech', child: Text('Marrakech')),
                       DropdownMenuItem(value: 'Rabat', child: Text('Rabat')),
                       DropdownMenuItem(value: 'Fez', child: Text('Fez')),
-                      DropdownMenuItem(value: 'Tangier', child: Text('Tangier')),
+                      DropdownMenuItem(
+                          value: 'Tangier', child: Text('Tangier')),
                     ],
                     onChanged: (value) {
                       setState(() {
@@ -172,15 +186,18 @@ class _GuideRoleScreenState extends State<GuideRoleScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: _buildMetricCard('Rating', '4.8⭐', Colors.orange),
+                        child:
+                            _buildMetricCard('Rating', '4.8⭐', Colors.orange),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _buildMetricCard('Tours', '47', AppColors.primary),
+                        child:
+                            _buildMetricCard('Tours', '47', AppColors.primary),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _buildMetricCard('Revenue', '€840', Colors.green),
+                        child:
+                            _buildMetricCard('Revenue', '€840', Colors.green),
                       ),
                     ],
                   ),

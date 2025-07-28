@@ -1,24 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
+import '../../services/morocco_cultural_service.dart';
 
-class PrayerTimesWidget extends StatelessWidget {
+class PrayerTimesWidget extends ConsumerWidget {
   final bool isVisible;
-  final String currentPrayer;
-  final String nextPrayer;
-  final String nextPrayerTime;
+  final bool showCompact;
 
   const PrayerTimesWidget({
     super.key,
     this.isVisible = true,
-    this.currentPrayer = 'Dhuhr',
-    this.nextPrayer = 'Asr',
-    this.nextPrayerTime = '15:45',
+    this.showCompact = false,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (!isVisible) return const SizedBox.shrink();
 
+    return ListenableBuilder(
+      listenable: MoroccoCulturalService(),
+      builder: (context, child) {
+        final culturalService = MoroccoCulturalService();
+
+        if (!culturalService.isInitialized) {
+          return const SizedBox.shrink();
+        }
+
+        final nextPrayer = culturalService.getNextPrayer();
+
+        if (showCompact) {
+          return _buildCompactView(nextPrayer);
+        }
+
+        return _buildFullView(nextPrayer);
+      },
+    );
+  }
+
+  Widget _buildCompactView(NextPrayerInfo nextPrayer) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.access_time,
+            size: 16,
+            color: AppTheme.moroccoGreen,
+          ),
+          const SizedBox(width: 6),
+          Text(
+            'Next: ${nextPrayer.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppTheme.primaryText,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            _formatTimeUntil(nextPrayer.timeUntil),
+            style: const TextStyle(
+              fontSize: 11,
+              color: AppTheme.moroccoGreen,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFullView(NextPrayerInfo nextPrayer) {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: AppTheme.spacing16,
@@ -56,14 +115,14 @@ class PrayerTimesWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: AppTheme.spacing12),
-          
+
           // Prayer info
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Next Prayer: $nextPrayer',
+                  'Next Prayer: ${nextPrayer.name}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -72,7 +131,7 @@ class PrayerTimesWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: AppTheme.spacing4),
                 Text(
-                  'in 2h 15min • $nextPrayerTime',
+                  '${_formatTimeUntil(nextPrayer.timeUntil)} • ${_formatTime(nextPrayer.time)}',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 12,
@@ -81,7 +140,7 @@ class PrayerTimesWidget extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Qibla indicator
           Container(
             padding: const EdgeInsets.all(AppTheme.spacing8),
@@ -111,6 +170,25 @@ class PrayerTimesWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatTime(DateTime time) {
+    final hour = time.hour;
+    final minute = time.minute;
+    final period = hour >= 12 ? 'PM' : 'AM';
+    final displayHour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
+
+    return '${displayHour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+  }
+
+  String _formatTimeUntil(Duration duration) {
+    if (duration.inDays > 0) {
+      return 'in ${duration.inDays}d ${duration.inHours % 24}h';
+    } else if (duration.inHours > 0) {
+      return 'in ${duration.inHours}h ${duration.inMinutes % 60}m';
+    } else {
+      return 'in ${duration.inMinutes}m';
+    }
   }
 }
 
@@ -182,13 +260,13 @@ class PrayerScheduleCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppTheme.spacing16),
-          
+
           // Prayer times list
           ...prayers.map((prayer) => _buildPrayerTimeItem(
-            prayer['name']!,
-            prayer['time']!,
-            prayer['status']!,
-          )),
+                prayer['name']!,
+                prayer['time']!,
+                prayer['status']!,
+              )),
         ],
       ),
     );
@@ -197,7 +275,7 @@ class PrayerScheduleCard extends StatelessWidget {
   Widget _buildPrayerTimeItem(String name, String time, String status) {
     Color statusColor;
     IconData statusIcon;
-    
+
     switch (status) {
       case 'completed':
         statusColor = AppColors.success;
@@ -227,8 +305,11 @@ class PrayerScheduleCard extends StatelessWidget {
               name,
               style: TextStyle(
                 fontSize: 14,
-                fontWeight: status == 'current' ? FontWeight.w600 : FontWeight.w400,
-                color: status == 'current' ? AppTheme.primaryText : AppTheme.secondaryText,
+                fontWeight:
+                    status == 'current' ? FontWeight.w600 : FontWeight.w400,
+                color: status == 'current'
+                    ? AppTheme.primaryText
+                    : AppTheme.secondaryText,
               ),
             ),
           ),
@@ -236,7 +317,8 @@ class PrayerScheduleCard extends StatelessWidget {
             time,
             style: TextStyle(
               fontSize: 14,
-              fontWeight: status == 'current' ? FontWeight.w600 : FontWeight.w400,
+              fontWeight:
+                  status == 'current' ? FontWeight.w600 : FontWeight.w400,
               color: status == 'current' ? statusColor : AppTheme.secondaryText,
             ),
           ),

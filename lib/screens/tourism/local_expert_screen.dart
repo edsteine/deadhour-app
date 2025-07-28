@@ -43,10 +43,19 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
               value: _selectedSpecialty,
               decoration: const InputDecoration(
                 labelText: 'Specialty',
-                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
-              items: ['All', 'Historical Tours', 'Cultural Experiences', 'Adventure Guide', 'Food Tours', 'Shopping Guide']
-                  .map((specialty) => DropdownMenuItem(value: specialty, child: Text(specialty)))
+              items: [
+                'All',
+                'Historical Tours',
+                'Cultural Experiences',
+                'Adventure Guide',
+                'Food Tours',
+                'Shopping Guide'
+              ]
+                  .map((specialty) => DropdownMenuItem(
+                      value: specialty, child: Text(specialty)))
                   .toList(),
               onChanged: (value) {
                 setState(() {
@@ -61,10 +70,19 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
               value: _selectedCity,
               decoration: const InputDecoration(
                 labelText: 'City',
-                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
-              items: ['All Cities', 'Marrakech', 'Casablanca', 'Fez', 'Rabat', 'Tangier']
-                  .map((city) => DropdownMenuItem(value: city, child: Text(city)))
+              items: [
+                'All Cities',
+                'Marrakech',
+                'Casablanca',
+                'Fez',
+                'Rabat',
+                'Tangier'
+              ]
+                  .map((city) =>
+                      DropdownMenuItem(value: city, child: Text(city)))
                   .toList(),
               onChanged: (value) {
                 setState(() {
@@ -90,7 +108,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
         'experience': '8 years',
         'languages': ['Arabic', 'French', 'English'],
         'image': 'https://i.pravatar.cc/150?img=1',
-        'description': 'Passionate historian specializing in Marrakech\'s rich heritage and hidden stories.',
+        'description':
+            'Passionate historian specializing in Marrakech\'s rich heritage and hidden stories.',
         'pricePerHour': 150,
         'isVerified': true,
       },
@@ -104,7 +123,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
         'experience': '6 years',
         'languages': ['Arabic', 'French', 'English', 'Spanish'],
         'image': 'https://i.pravatar.cc/150?img=2',
-        'description': 'Cultural enthusiast offering authentic Moroccan experiences and traditional crafts.',
+        'description':
+            'Cultural enthusiast offering authentic Moroccan experiences and traditional crafts.',
         'pricePerHour': 120,
         'isVerified': true,
       },
@@ -118,7 +138,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
         'experience': '10 years',
         'languages': ['Arabic', 'French', 'English'],
         'image': 'https://i.pravatar.cc/150?img=3',
-        'description': 'Mountain guide with extensive knowledge of Atlas Mountains and Berber culture.',
+        'description':
+            'Mountain guide with extensive knowledge of Atlas Mountains and Berber culture.',
         'pricePerHour': 200,
         'isVerified': true,
       },
@@ -132,7 +153,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
         'experience': '5 years',
         'languages': ['Arabic', 'French', 'English'],
         'image': 'https://i.pravatar.cc/150?img=4',
-        'description': 'Culinary expert showcasing Morocco\'s diverse flavors and cooking traditions.',
+        'description':
+            'Culinary expert showcasing Morocco\'s diverse flavors and cooking traditions.',
         'pricePerHour': 180,
         'isVerified': true,
       },
@@ -146,7 +168,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
         'experience': '4 years',
         'languages': ['Arabic', 'French', 'English'],
         'image': 'https://i.pravatar.cc/150?img=5',
-        'description': 'Shopping specialist helping visitors find authentic Moroccan crafts and souvenirs.',
+        'description':
+            'Shopping specialist helping visitors find authentic Moroccan crafts and souvenirs.',
         'pricePerHour': 100,
         'isVerified': false,
       },
@@ -165,7 +188,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
     return Card(
       margin: const EdgeInsets.only(bottom: AppSpacing.md),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppBorderRadius.md)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppBorderRadius.md)),
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.md),
         child: Column(
@@ -201,9 +225,9 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                       Text(
                         expert['specialty'],
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppTheme.moroccoGreen,
-                          fontWeight: FontWeight.w500,
-                        ),
+                              color: AppTheme.moroccoGreen,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                       Text(
                         '${expert['city']} • ${expert['experience']} experience',
@@ -217,7 +241,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.star, size: 16, color: AppColors.warning),
+                        const Icon(Icons.star,
+                            size: 16, color: AppColors.warning),
                         Text(
                           expert['rating'].toString(),
                           style: Theme.of(context).textTheme.labelMedium,
@@ -240,7 +265,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
             const SizedBox(height: AppSpacing.md),
             Row(
               children: [
-                const Icon(Icons.language, size: 16, color: AppTheme.secondaryText),
+                const Icon(Icons.language,
+                    size: 16, color: AppTheme.secondaryText),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(
@@ -325,7 +351,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                               children: [
                                 Text(
                                   expert['name'],
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 if (expert['isVerified']) ...[
                                   const SizedBox(width: AppSpacing.sm),
@@ -339,13 +366,17 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                             ),
                             Text(
                               expert['specialty'],
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: AppTheme.moroccoGreen,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    color: AppTheme.moroccoGreen,
+                                  ),
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.star, size: 16, color: AppColors.warning),
+                                const Icon(Icons.star,
+                                    size: 16, color: AppColors.warning),
                                 Text(
                                   '${expert['rating']} (${expert['reviewCount']} reviews)',
                                   style: Theme.of(context).textTheme.bodySmall,
@@ -375,7 +406,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                   const SizedBox(height: AppSpacing.sm),
                   Row(
                     children: [
-                      const Icon(Icons.work, size: 16, color: AppTheme.secondaryText),
+                      const Icon(Icons.work,
+                          size: 16, color: AppTheme.secondaryText),
                       const SizedBox(width: AppSpacing.sm),
                       Text('${expert['experience']} of experience'),
                     ],
@@ -383,7 +415,8 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
                   const SizedBox(height: AppSpacing.sm),
                   Row(
                     children: [
-                      const Icon(Icons.language, size: 16, color: AppTheme.secondaryText),
+                      const Icon(Icons.language,
+                          size: 16, color: AppTheme.secondaryText),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
                         child: Text(expert['languages'].join(', ')),
@@ -477,4 +510,3 @@ class _LocalExpertScreenState extends State<LocalExpertScreen> {
     );
   }
 }
-

@@ -44,7 +44,8 @@ class SocialStatsHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildStatItem(String value, String label, IconData icon, Color color) {
+  Widget _buildStatItem(
+      String value, String label, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

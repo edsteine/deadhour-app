@@ -8,9 +8,24 @@ class GuideRoomsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     // Role-enhanced rooms for guide network
     final guideRooms = [
-      {'id': 'guide-network', 'name': 'Guide Network Hub', 'category': 'guide', 'members': 189},
-      {'id': 'cultural-insights', 'name': 'Cultural Insights', 'category': 'guide', 'members': 267},
-      {'id': 'local-secrets', 'name': 'Local Secrets Exchange', 'category': 'guide', 'members': 134},
+      {
+        'id': 'guide-network',
+        'name': 'Guide Network Hub',
+        'category': 'guide',
+        'members': 189
+      },
+      {
+        'id': 'cultural-insights',
+        'name': 'Cultural Insights',
+        'category': 'guide',
+        'members': 267
+      },
+      {
+        'id': 'local-secrets',
+        'name': 'Local Secrets Exchange',
+        'category': 'guide',
+        'members': 134
+      },
     ];
 
     return ListView.builder(
@@ -24,7 +39,8 @@ class GuideRoomsTab extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
+            border:
+                Border.all(color: AppTheme.moroccoGreen.withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
@@ -48,12 +64,14 @@ class GuideRoomsTab extends StatelessWidget {
                     ),
                     Text(
                       '${room['members']} local guides',
-                      style: const TextStyle(fontSize: 12, color: AppTheme.secondaryText),
+                      style: const TextStyle(
+                          fontSize: 12, color: AppTheme.secondaryText),
                     ),
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.secondaryText),
+              const Icon(Icons.arrow_forward_ios,
+                  size: 16, color: AppTheme.secondaryText),
             ],
           ),
         );

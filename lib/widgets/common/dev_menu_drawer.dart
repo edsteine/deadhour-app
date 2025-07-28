@@ -87,7 +87,8 @@ class DevMenuDrawer extends StatelessWidget {
                     [
                       DevRoute('Business Dashboard', '/business'),
                       DevRoute('Create Deal', '/business/create-deal'),
-                      DevRoute('Revenue Optimization', '/business/optimization'),
+                      DevRoute(
+                          'Revenue Optimization', '/business/optimization'),
                       DevRoute('Business Analytics', '/business/analytics'),
                     ],
                   ),
@@ -149,7 +150,8 @@ class DevMenuDrawer extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        children: routes.map((route) => _buildRouteItem(context, route)).toList(),
+        children:
+            routes.map((route) => _buildRouteItem(context, route)).toList(),
       ),
     );
   }

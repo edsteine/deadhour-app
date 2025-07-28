@@ -32,7 +32,8 @@ class DealCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: EdgeInsets.all(isCompact ? 12 : 16),
-          child: isCompact ? _buildCompactLayout(venue) : _buildFullLayout(venue),
+          child:
+              isCompact ? _buildCompactLayout(venue) : _buildFullLayout(venue),
         ),
       ),
     );
@@ -308,7 +309,9 @@ class DealCard extends StatelessWidget {
             value: deal.occupancyRate / 100,
             backgroundColor: Colors.grey.shade300,
             valueColor: AlwaysStoppedAnimation<Color>(
-              deal.availableSpots <= 3 ? AppColors.error : AppTheme.moroccoGreen,
+              deal.availableSpots <= 3
+                  ? AppColors.error
+                  : AppTheme.moroccoGreen,
             ),
             minHeight: 4,
           ),

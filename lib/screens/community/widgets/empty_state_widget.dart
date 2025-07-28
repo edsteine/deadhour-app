@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:deadhour/utils/theme.dart';
+import '../../../widgets/common/engaging_empty_state.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   final IconData icon;
@@ -7,6 +8,7 @@ class EmptyStateWidget extends StatelessWidget {
   final String subtitle;
   final String? actionText;
   final VoidCallback? onAction;
+  final EmptyStateType? type;
 
   const EmptyStateWidget({
     super.key,
@@ -15,10 +17,23 @@ class EmptyStateWidget extends StatelessWidget {
     required this.subtitle,
     this.actionText,
     this.onAction,
+    this.type,
   });
 
   @override
   Widget build(BuildContext context) {
+    // If we have a specific type, use the engaging empty state
+    if (type != null) {
+      return EngagingEmptyState(
+        type: type!,
+        customTitle: title,
+        customDescription: subtitle,
+        primaryAction: onAction,
+        primaryActionText: actionText,
+      );
+    }
+
+    // Fallback to the original simple design
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),

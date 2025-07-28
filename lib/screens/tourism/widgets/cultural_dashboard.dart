@@ -49,14 +49,15 @@ class CulturalDashboard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-            '🕐 Prayer Schedule - Casablanca:',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          ),
+                  '🕐 Prayer Schedule - Casablanca:',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(height: 8),
                 const Text(
-            'Fajr: 06:18 (Completed)\nDhuhr: 13:42 (Completed)\nAsr: 16:55 (in 1h 25min)\nMaghrib: 18:28\nIsha: 19:54',
-            style: TextStyle(color: Colors.white, fontSize: 12),
-          ),
+                  'Fajr: 06:18 (Completed)\nDhuhr: 13:42 (Completed)\nAsr: 16:55 (in 1h 25min)\nMaghrib: 18:28\nIsha: 19:54',
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
                 const SizedBox(height: 12),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -65,13 +66,13 @@ class CulturalDashboard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: const Text(
-                  'Smart Planning: Best activity window Now-16:30',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    'Smart Planning: Best activity window Now-16:30',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
                 ),
               ],
             ),

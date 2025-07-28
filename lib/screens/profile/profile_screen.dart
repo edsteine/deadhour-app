@@ -30,11 +30,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     try {
       // Initialize through provider
       final roleNotifier = ref.read(roleToggleProvider.notifier);
-      
+
       setState(() {
         _isGuest = ref.read(guestModeProvider);
         _isLoggedIn = roleNotifier.isLoggedIn;
-        
+
         // Mock user data for development - only if logged in and not guest
         if (_isLoggedIn && !_isGuest) {
           _currentUser = DeadHourUser(
@@ -65,37 +65,37 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (_isGuest) ...[
-              _buildGuestWelcomeSection(),
-              const SizedBox(height: 24),
-            ] else if (!_isLoggedIn) ...[
-              _buildAuthenticationSection(),
-              const SizedBox(height: 24),
-            ] else ...[
-              _buildUserProfileSection(),
-              const SizedBox(height: 24),
-              _buildRoleManagementSection(),
-              const SizedBox(height: 24),
-              _buildActivitySection(),
-              const SizedBox(height: 24),
-            ],
-            
-            _buildAppFeaturesSection(),
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (_isGuest) ...[
+            _buildGuestWelcomeSection(),
             const SizedBox(height: 24),
-            _buildSettingsSection(),
+          ] else if (!_isLoggedIn) ...[
+            _buildAuthenticationSection(),
             const SizedBox(height: 24),
-            _buildSupportSection(),
+          ] else ...[
+            _buildUserProfileSection(),
             const SizedBox(height: 24),
-            
-            // Cultural integration
-            const PrayerTimesWidget(isVisible: true),
+            _buildRoleManagementSection(),
+            const SizedBox(height: 24),
+            _buildActivitySection(),
+            const SizedBox(height: 24),
           ],
-        ),
-      );
+
+          _buildAppFeaturesSection(),
+          const SizedBox(height: 24),
+          _buildSettingsSection(),
+          const SizedBox(height: 24),
+          _buildSupportSection(),
+          const SizedBox(height: 24),
+
+          // Cultural integration
+          const PrayerTimesWidget(isVisible: true),
+        ],
+      ),
+    );
   }
 
   // Guest Mode Section
@@ -104,7 +104,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppTheme.moroccoGreen.withValues(alpha: 0.1), AppTheme.moroccoGold.withValues(alpha: 0.1)],
+          colors: [
+            AppTheme.moroccoGreen.withValues(alpha: 0.1),
+            AppTheme.moroccoGold.withValues(alpha: 0.1)
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -275,7 +278,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   // User Profile Section for logged in users
   Widget _buildUserProfileSection() {
     if (_currentUser == null) return const SizedBox.shrink();
-    
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -297,7 +300,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 radius: 40,
                 backgroundColor: AppTheme.moroccoGreen.withValues(alpha: 0.1),
                 child: _currentUser!.profileImageUrl != null
-                    ? ClipOval(child: Image.network(_currentUser!.profileImageUrl!, fit: BoxFit.cover))
+                    ? ClipOval(
+                        child: Image.network(_currentUser!.profileImageUrl!,
+                            fit: BoxFit.cover))
                     : Text(
                         _currentUser!.name.substring(0, 2).toUpperCase(),
                         style: const TextStyle(
@@ -365,9 +370,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildProfileStat('Active Roles', _currentUser!.activeRoles.length.toString()),
-                _buildProfileStat('Member Since', ProfileScreenHelpers.formatMemberSince(_currentUser!.joinDate)),
-                _buildProfileStat('Active Roles', _currentUser!.activeRoles.length.toString()),
+                _buildProfileStat('Active Roles',
+                    _currentUser!.activeRoles.length.toString()),
+                _buildProfileStat(
+                    'Member Since',
+                    ProfileScreenHelpers.formatMemberSince(
+                        _currentUser!.joinDate)),
+                _buildProfileStat('Active Roles',
+                    _currentUser!.activeRoles.length.toString()),
               ],
             ),
           ),
@@ -403,7 +413,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   // Role Management Section
   Widget _buildRoleManagementSection() {
     if (_currentUser == null) return const SizedBox.shrink();
-    
+
     final roleNotifier = ref.watch(roleToggleProvider.notifier);
     final currentRole = ref.watch(roleToggleProvider);
 
@@ -461,26 +471,34 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             return Container(
               margin: const EdgeInsets.only(bottom: 12),
               decoration: BoxDecoration(
-                color: isActive ? AppTheme.moroccoGreen.withValues(alpha: 0.1) : AppTheme.surfaceColor,
+                color: isActive
+                    ? AppTheme.moroccoGreen.withValues(alpha: 0.1)
+                    : AppTheme.surfaceColor,
                 borderRadius: BorderRadius.circular(12),
-                border: isActive ? Border.all(color: AppTheme.moroccoGreen, width: 2) : null,
+                border: isActive
+                    ? Border.all(color: AppTheme.moroccoGreen, width: 2)
+                    : null,
               ),
               child: ListTile(
                 leading: Icon(
                   ProfileScreenHelpers.getRoleIcon(role),
-                  color: isActive ? AppTheme.moroccoGreen : AppTheme.secondaryText,
+                  color:
+                      isActive ? AppTheme.moroccoGreen : AppTheme.secondaryText,
                 ),
                 title: Text(
                   ProfileScreenHelpers.getRoleName(role),
                   style: TextStyle(
                     fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                    color: isActive ? AppTheme.moroccoGreen : AppTheme.primaryText,
+                    color:
+                        isActive ? AppTheme.moroccoGreen : AppTheme.primaryText,
                   ),
                 ),
                 subtitle: Text(ProfileScreenHelpers.getRoleDescription(role)),
-                trailing: isActive 
-                    ? const Icon(Icons.check_circle, color: AppTheme.moroccoGreen)
-                    : const Icon(Icons.radio_button_unchecked, color: AppTheme.secondaryText),
+                trailing: isActive
+                    ? const Icon(Icons.check_circle,
+                        color: AppTheme.moroccoGreen)
+                    : const Icon(Icons.radio_button_unchecked,
+                        color: AppTheme.secondaryText),
                 onTap: () {
                   if (!isActive) {
                     roleNotifier.setRole(role);
@@ -495,7 +513,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           })),
           const SizedBox(height: 16),
           Column(
-            children: ProfileScreenHelpers.buildRoleFeatures(context, currentRole),
+            children:
+                ProfileScreenHelpers.buildRoleFeatures(context, currentRole),
           ),
         ],
       ),
@@ -505,7 +524,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   // Activity Section
   Widget _buildActivitySection() {
     if (_currentUser == null) return const SizedBox.shrink();
-    
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -564,7 +583,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Full activity history - Coming Soon')),
+                  const SnackBar(
+                      content: Text('Full activity history - Coming Soon')),
                 );
               },
               child: const Text('View All Activity'),
@@ -667,7 +687,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Widget _buildFeatureGrid() {
     final features = [
-      {'icon': Icons.local_offer, 'title': 'Browse Deals', 'route': '/home/deals'},
+      {
+        'icon': Icons.local_offer,
+        'title': 'Browse Deals',
+        'route': '/home/deals'
+      },
       {'icon': Icons.people, 'title': 'Communities', 'route': '/community'},
       {'icon': Icons.explore, 'title': 'Explore Morocco', 'route': '/tourism'},
       {'icon': Icons.favorite, 'title': 'Favorites', 'route': null},
@@ -813,7 +837,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }) {
     return ListTile(
       leading: Icon(
-        icon, 
+        icon,
         color: isDestructive ? Colors.red : AppTheme.moroccoGreen,
       ),
       title: Text(

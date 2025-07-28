@@ -8,7 +8,8 @@ class BusinessRoomsTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final businessRooms = MockData.rooms.where((room) => room.category == 'business').toList();
+    final businessRooms =
+        MockData.rooms.where((room) => room.category == 'business').toList();
 
     return businessRooms.isEmpty
         ? const Center(child: Text('No business rooms available.'))

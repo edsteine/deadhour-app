@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:deadhour/utils/theme.dart';
 import 'package:deadhour/utils/auth_helpers.dart';
 import 'package:deadhour/screens/community/widgets/create_room_sheet.dart';
-
+import 'package:deadhour/screens/community/widgets/enhanced_room_search.dart';
 
 class RoomInteractionHelpers {
   static Future<void> handleRefresh(Function setStateCallback) async {
@@ -12,7 +12,8 @@ class RoomInteractionHelpers {
     setStateCallback();
   }
 
-  static void showCitySelector(BuildContext context, String selectedCity, Function(String) onCitySelected) {
+  static void showCitySelector(BuildContext context, String selectedCity,
+      Function(String) onCitySelected) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -46,36 +47,26 @@ class RoomInteractionHelpers {
   }
 
   static void showRoomSearch(BuildContext context) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Search Rooms'),
-        content: const TextField(
-          decoration: InputDecoration(
-            hintText: 'Search for rooms, topics, or categories...',
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Search'),
-          ),
-        ],
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => EnhancedRoomSearch(
+        onRoomSelected: (room) {
+          openRoom(context, room);
+        },
       ),
     );
   }
 
-  static void showCreateRoomDialog(BuildContext context, WidgetRef ref, String selectedCity) {
+  static void showCreateRoomDialog(
+      BuildContext context, WidgetRef ref, String selectedCity) {
     // Check if user is authenticated before allowing room creation
-    if (!AuthHelpers.requireAuthForCreating(context, ref, contentType: 'community rooms')) {
+    if (!AuthHelpers.requireAuthForCreating(context, ref,
+        contentType: 'community rooms')) {
       return; // User not authenticated, helper will show login prompt
     }
-    
+
     // User is authenticated, proceed with room creation
     showModalBottomSheet(
       context: context,
@@ -92,12 +83,13 @@ class RoomInteractionHelpers {
     );
   }
 
-  static void joinRoom(BuildContext context, WidgetRef ref, dynamic room, Function(dynamic) openRoomCallback) {
+  static void joinRoom(BuildContext context, WidgetRef ref, dynamic room,
+      Function(dynamic) openRoomCallback) {
     // Check if user is authenticated before allowing room join
     if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
       return; // User not authenticated, helper will show login prompt
     }
-    
+
     // User is authenticated, proceed with join dialog
     showDialog(
       context: context,
@@ -111,7 +103,8 @@ class RoomInteractionHelpers {
             const SizedBox(height: 16),
             Row(
               children: [
-                const Icon(Icons.people, size: 16, color: AppTheme.secondaryText),
+                const Icon(Icons.people,
+                    size: 16, color: AppTheme.secondaryText),
                 const SizedBox(width: 4),
                 Text('${room.memberCount} members'),
                 const SizedBox(width: 16),
@@ -143,7 +136,8 @@ class RoomInteractionHelpers {
     context.go('/community/room/${room.id}');
   }
 
-  static void joinPremiumRoom(BuildContext context, dynamic room, VoidCallback showPremiumUpgradeCallback) {
+  static void joinPremiumRoom(BuildContext context, dynamic room,
+      VoidCallback showPremiumUpgradeCallback) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -188,4 +182,3 @@ class RoomInteractionHelpers {
     );
   }
 }
-

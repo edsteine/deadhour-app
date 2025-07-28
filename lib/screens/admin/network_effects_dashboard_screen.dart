@@ -6,10 +6,12 @@ class NetworkEffectsDashboardScreen extends StatefulWidget {
   const NetworkEffectsDashboardScreen({super.key});
 
   @override
-  State<NetworkEffectsDashboardScreen> createState() => _NetworkEffectsDashboardScreenState();
+  State<NetworkEffectsDashboardScreen> createState() =>
+      _NetworkEffectsDashboardScreenState();
 }
 
-class _NetworkEffectsDashboardScreenState extends State<NetworkEffectsDashboardScreen> {
+class _NetworkEffectsDashboardScreenState
+    extends State<NetworkEffectsDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +50,23 @@ class _NetworkEffectsDashboardScreenState extends State<NetworkEffectsDashboardS
             // Network Effects KPIs
             _buildNetworkEffectsKPIs(),
             const SizedBox(height: 24),
-            
+
             // This Month's Network Effects
             _buildMonthlyNetworkEffects(),
             const SizedBox(height: 24),
-            
+
             // Top Network Multipliers
             _buildTopNetworkMultipliers(),
             const SizedBox(height: 24),
-            
+
             // Platform Health Metrics
             _buildPlatformHealthMetrics(),
             const SizedBox(height: 24),
-            
+
             // Optimization Opportunities
             _buildOptimizationOpportunities(),
             const SizedBox(height: 24),
-            
+
             // Action buttons
             _buildActionButtons(),
           ],
@@ -109,7 +111,9 @@ class _NetworkEffectsDashboardScreenState extends State<NetworkEffectsDashboardS
     );
   }
 
-  Widget _buildKPICard(String title, String subtitle, IconData icon, Color color, {bool isTarget = false}) {
+  Widget _buildKPICard(
+      String title, String subtitle, IconData icon, Color color,
+      {bool isTarget = false}) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -237,15 +241,19 @@ class _NetworkEffectsDashboardScreenState extends State<NetworkEffectsDashboardS
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          _buildMultiplierItem('1.', '#coffee-afternoon-deals', '156 bookings', Icons.coffee),
-          _buildMultiplierItem('2.', '#cultural-experiences', '89 tourism€', Icons.attractions),
-          _buildMultiplierItem('3.', '#escape-rooms-weekend', '67 groups', Icons.games),
+          _buildMultiplierItem(
+              '1.', '#coffee-afternoon-deals', '156 bookings', Icons.coffee),
+          _buildMultiplierItem(
+              '2.', '#cultural-experiences', '89 tourism€', Icons.attractions),
+          _buildMultiplierItem(
+              '3.', '#escape-rooms-weekend', '67 groups', Icons.games),
         ],
       ),
     );
   }
 
-  Widget _buildMultiplierItem(String rank, String room, String metric, IconData icon) {
+  Widget _buildMultiplierItem(
+      String rank, String room, String metric, IconData icon) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -432,7 +440,8 @@ class _NetworkEffectsDashboardScreenState extends State<NetworkEffectsDashboardS
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Detailed Analytics'),
-        content: const Text('This would show more detailed network effects analytics and charts.'),
+        content: const Text(
+            'This would show more detailed network effects analytics and charts.'),
         actions: [
           TextButton(
             onPressed: () => context.pop(),

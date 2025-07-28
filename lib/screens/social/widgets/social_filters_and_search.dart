@@ -53,7 +53,7 @@ class _SocialFiltersAndSearchState extends State<SocialFiltersAndSearch> {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Interest Filter
           SizedBox(
             height: 40,
@@ -71,9 +71,11 @@ class _SocialFiltersAndSearchState extends State<SocialFiltersAndSearch> {
                     label: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(interest['icon'] as String, style: const TextStyle(fontSize: 14)),
+                        Text(interest['icon'] as String,
+                            style: const TextStyle(fontSize: 14)),
                         const SizedBox(width: 4),
-                        Text(interest['name'] as String, style: const TextStyle(fontSize: 12)),
+                        Text(interest['name'] as String,
+                            style: const TextStyle(fontSize: 12)),
                       ],
                     ),
                     selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),

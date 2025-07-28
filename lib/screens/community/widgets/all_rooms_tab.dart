@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:deadhour/utils/mock_data.dart';
 import 'package:deadhour/widgets/common/room_card.dart';
 import 'package:deadhour/screens/community/widgets/empty_state_widget.dart';
+import 'package:deadhour/widgets/common/engaging_empty_state.dart';
 
 class AllRoomsTab extends StatelessWidget {
   final String selectedCategory;
@@ -46,6 +47,7 @@ class AllRoomsTab extends StatelessWidget {
         icon: Icons.forum_outlined,
         title: 'No rooms found',
         subtitle: 'Try adjusting your filters or create a new room',
+        type: EmptyStateType.noRooms,
       );
     }
 

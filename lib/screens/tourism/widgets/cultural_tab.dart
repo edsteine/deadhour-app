@@ -23,15 +23,15 @@ class CulturalTab extends StatelessWidget {
         children: [
           // Cultural integration dashboard
           buildCulturalDashboard(),
-          
+
           const SizedBox(height: 24),
-          
+
           buildSectionHeader('📅 Cultural Calendar'),
           const SizedBox(height: 12),
           buildCulturalEvents(),
-          
+
           const SizedBox(height: 24),
-          
+
           buildSectionHeader('🧭 Cultural Tips'),
           const SizedBox(height: 12),
           buildCulturalTips(),

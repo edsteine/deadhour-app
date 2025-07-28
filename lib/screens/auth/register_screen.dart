@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/theme.dart';
 import '../../utils/constants.dart';
+import '../../services/auth_service.dart';
+import '../../utils/error_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -178,12 +180,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: AppConstants.userTypes.map((userType) {
               final isSelected = _selectedUserType == userType['id'];
               return Container(
-                decoration: isSelected ? BoxDecoration(
-                  color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ) : null,
+                decoration: isSelected
+                    ? BoxDecoration(
+                        color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      )
+                    : null,
                 child: ListTile(
-                  leading: Text(userType['icon']!, style: const TextStyle(fontSize: 20)),
+                  leading: Text(userType['icon']!,
+                      style: const TextStyle(fontSize: 20)),
                   title: Text(userType['name']!),
                   subtitle: Text(userType['description']!),
                   trailing: Radio<String>(
@@ -333,7 +338,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 prefixIcon: Icon(Icons.business_outlined),
               ),
               validator: (value) {
-                if (_selectedUserType == 'business' && (value == null || value.isEmpty)) {
+                if (_selectedUserType == 'business' &&
+                    (value == null || value.isEmpty)) {
                   return 'Please enter your business name';
                 }
                 return null;
@@ -351,7 +357,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   value: category['id'] as String,
                   child: Row(
                     children: [
-                      Text(category['icon'] as String, style: const TextStyle(fontSize: 16)),
+                      Text(category['icon'] as String,
+                          style: const TextStyle(fontSize: 16)),
                       const SizedBox(width: 8),
                       Text(category['name'] as String),
                     ],
@@ -419,7 +426,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   });
                 },
                 icon: Icon(
-                  _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  _isConfirmPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
                 ),
               ),
             ),
@@ -555,14 +564,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Simulate registration API call
-      await Future.delayed(const Duration(seconds: 2));
+      final authService = AuthService();
+
+      await authService.register(
+        fullName: _nameController.text.trim(),
+        email: _emailController.text.trim(),
+        phoneNumber: _phoneController.text.trim(),
+        password: _passwordController.text,
+        city: _selectedCity,
+        language: _selectedLanguage,
+        userType: _selectedUserType,
+        businessName: _selectedUserType == 'business'
+            ? _businessNameController.text.trim()
+            : null,
+        businessCategory:
+            _selectedUserType == 'business' ? _selectedBusinessCategory : null,
+      );
 
       // Show success message
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Account created successfully! Please verify your email.'),
+            content:
+                Text('Account created successfully! Please verify your email.'),
             backgroundColor: AppColors.success,
           ),
         );
@@ -572,12 +596,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Registration failed: ${e.toString()}'),
-            backgroundColor: AppColors.error,
-          ),
-        );
+        final appError = AppErrorHandler.parseError(e);
+        AppErrorHandler.showErrorSnackbar(context, appError,
+            onRetry: _handleRegister);
       }
     } finally {
       if (mounted) {

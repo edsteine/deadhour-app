@@ -17,7 +17,8 @@ class DealsScreen extends ConsumerStatefulWidget {
 class _DealsScreenState extends ConsumerState<DealsScreen> {
   String _selectedFilter = 'all'; // 'all', 'active', 'ending_soon', 'category'
   String _selectedCategory = 'all';
-  String _sortBy = 'ending_soon'; // 'ending_soon', 'discount', 'distance', 'rating'
+  String _sortBy =
+      'ending_soon'; // 'ending_soon', 'discount', 'distance', 'rating'
   bool _showMap = false;
 
   @override
@@ -277,12 +278,17 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
         deals = deals.where((deal) => deal.isValid).toList();
         break;
       case 'ending_soon':
-        deals = deals.where((deal) => deal.isValid && deal.urgencyLevel == 'urgent').toList();
+        deals = deals
+            .where((deal) => deal.isValid && deal.urgencyLevel == 'urgent')
+            .toList();
         break;
       case 'food':
       case 'entertainment':
       case 'wellness':
-        final venues = MockData.venues.where((venue) => venue.category == _selectedFilter).map((venue) => venue.id).toList();
+        final venues = MockData.venues
+            .where((venue) => venue.category == _selectedFilter)
+            .map((venue) => venue.id)
+            .toList();
         deals = deals.where((deal) => venues.contains(deal.venueId)).toList();
         break;
     }
@@ -417,36 +423,39 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
         ),
         const SizedBox(height: 12),
         ...options.map((option) {
-          final isSelected = (title == 'Deal Status' && _selectedFilter == option['id']) ||
-              (title == 'Category' && _selectedCategory == option['id']) ||
-              (title == 'Sort By' && _sortBy == option['id']);
+          final isSelected =
+              (title == 'Deal Status' && _selectedFilter == option['id']) ||
+                  (title == 'Category' && _selectedCategory == option['id']) ||
+                  (title == 'Sort By' && _sortBy == option['id']);
 
           return Container(
-            decoration: isSelected ? BoxDecoration(
-              color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ) : null,
+            decoration: isSelected
+                ? BoxDecoration(
+                    color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  )
+                : null,
             child: RadioListTile<String>(
               title: Text(option['name']!),
               value: option['id']!,
-            groupValue: title == 'Deal Status'
-                ? _selectedFilter
-                : title == 'Category'
-                    ? _selectedCategory
-                    : _sortBy,
-            onChanged: (value) {
-              setState(() {
-                if (title == 'Deal Status') {
-                  _selectedFilter = value!;
-                } else if (title == 'Category') {
-                  _selectedCategory = value!;
-                } else {
-                  _sortBy = value!;
-                }
-              });
-            },
-            activeColor: AppTheme.moroccoGreen,
-            dense: true,
+              groupValue: title == 'Deal Status'
+                  ? _selectedFilter
+                  : title == 'Category'
+                      ? _selectedCategory
+                      : _sortBy,
+              onChanged: (value) {
+                setState(() {
+                  if (title == 'Deal Status') {
+                    _selectedFilter = value!;
+                  } else if (title == 'Category') {
+                    _selectedCategory = value!;
+                  } else {
+                    _sortBy = value!;
+                  }
+                });
+              },
+              activeColor: AppTheme.moroccoGreen,
+              dense: true,
             ),
           );
         }),
@@ -513,7 +522,8 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppTheme.moroccoGreen,
                         borderRadius: BorderRadius.circular(12),
@@ -635,12 +645,12 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
 
   void _bookDeal(dynamic deal) {
     Navigator.pop(context);
-    
+
     // Check if user is authenticated before allowing booking
     if (!AuthHelpers.requireAuthForBooking(context, ref)) {
       return; // User not authenticated, helper will show login prompt
     }
-    
+
     // User is authenticated, proceed with booking
     showDialog(
       context: context,
@@ -657,7 +667,8 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Booking confirmed! Check your email for details.'),
+                  content:
+                      Text('Booking confirmed! Check your email for details.'),
                   backgroundColor: AppColors.success,
                 ),
               );

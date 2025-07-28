@@ -8,10 +8,8 @@ import 'package:deadhour/screens/community/widgets/room_interaction_helpers.dart
 import 'package:deadhour/screens/community/widgets/all_rooms_tab.dart';
 import 'package:deadhour/screens/community/widgets/my_rooms_tab.dart';
 import 'package:deadhour/screens/community/widgets/popular_rooms_tab.dart';
-import 'package:deadhour/screens/community/widgets/premium_rooms_tab.dart';
 import 'package:deadhour/screens/community/widgets/business_rooms_tab.dart';
 import 'package:deadhour/screens/community/widgets/guide_rooms_tab.dart';
-import 'package:deadhour/screens/community/widgets/premium_upgrade_helper.dart';
 import '../../utils/mock_data.dart';
 
 class RoomsScreen extends ConsumerStatefulWidget {
@@ -21,7 +19,8 @@ class RoomsScreen extends ConsumerStatefulWidget {
   ConsumerState<RoomsScreen> createState() => _RoomsScreenState();
 }
 
-class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderStateMixin {
+class _RoomsScreenState extends ConsumerState<RoomsScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
@@ -68,9 +67,6 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
     if (user?.hasRole('guide') == true) {
       baseTabs.add(const Tab(text: 'Guide Network'));
     }
-    if (user?.hasRole('premium') == true) {
-      baseTabs.add(const Tab(text: 'Premium'));
-    }
 
     return baseTabs;
   }
@@ -82,15 +78,18 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
         selectedCategory: _selectedCategory,
         showPrayerTimeAware: _showPrayerTimeAware,
         showHalalOnly: _showHalalOnly,
-        onRefresh: () => RoomInteractionHelpers.handleRefresh(() => setState(() {})),
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        onRefresh: () =>
+            RoomInteractionHelpers.handleRefresh(() => setState(() {})),
+        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
+            room, (r) => RoomInteractionHelpers.openRoom(context, r)),
       ),
       MyRoomsTab(
         tabController: _tabController,
         onOpenRoom: (room) => RoomInteractionHelpers.openRoom(context, room),
       ),
       PopularRoomsTab(
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref, room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
+            room, (r) => RoomInteractionHelpers.openRoom(context, r)),
       ),
     ];
 
@@ -99,12 +98,6 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
     }
     if (user?.hasRole('guide') == true) {
       views.add(const GuideRoomsTab());
-    }
-    if (user?.hasRole('premium') == true) {
-      views.add(PremiumRoomsTab(
-        onJoinPremiumRoom: (room) => RoomInteractionHelpers.joinPremiumRoom(context, room, () => showPremiumUpgrade(context)),
-        onShowPremiumUpgrade: () => showPremiumUpgrade(context),
-      ));
     }
 
     return views;
@@ -123,11 +116,13 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
         showPrayerTimeAware: _showPrayerTimeAware,
         showHalalOnly: _showHalalOnly,
         onCitySelectorPressed: () => _handleCitySelection(),
-        onRoomSearchPressed: () => RoomInteractionHelpers.showRoomSearch(context),
+        onRoomSearchPressed: () =>
+            RoomInteractionHelpers.showRoomSearch(context),
         onCategorySelected: _handleCategorySelection,
         onPrayerTimeAwareChanged: _handlePrayerTimeAwareChanged,
         onHalalOnlyChanged: _handleHalalOnlyChanged,
-        onCreateRoomPressed: () => RoomInteractionHelpers.showCreateRoomDialog(context, ref, _selectedCity),
+        onCreateRoomPressed: () => RoomInteractionHelpers.showCreateRoomDialog(
+            context, ref, _selectedCity),
         tabs: _tabs,
         tabViews: _buildTabViews(),
       ),
@@ -137,7 +132,8 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> with TickerProviderSt
   void _handleCitySelection() {
     PerformanceUtils.debounce(
       const Duration(milliseconds: 300),
-      () => RoomInteractionHelpers.showCitySelector(context, _selectedCity, (city) {
+      () => RoomInteractionHelpers.showCitySelector(context, _selectedCity,
+          (city) {
         setState(() {
           _selectedCity = city;
         });

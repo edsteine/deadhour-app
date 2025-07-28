@@ -176,13 +176,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.lg, AppSpacing.md, AppSpacing.sm),
+          padding: const EdgeInsets.fromLTRB(
+              AppSpacing.md, AppSpacing.lg, AppSpacing.md, AppSpacing.sm),
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: AppTheme.moroccoGreen,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: AppTheme.moroccoGreen,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ),
         Container(
@@ -248,10 +249,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       trailing: DropdownButton<String>(
         value: value,
         underline: const SizedBox(),
-        items: items.map((item) => DropdownMenuItem(
-          value: item,
-          child: Text(item),
-        )).toList(),
+        items: items
+            .map((item) => DropdownMenuItem(
+                  value: item,
+                  child: Text(item),
+                ))
+            .toList(),
         onChanged: onChanged,
       ),
     );
@@ -316,7 +319,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(height: AppSpacing.sm),
             Text('Build: 100'),
             SizedBox(height: AppSpacing.md),
-            Text('DeadHour is Morocco\'s premier social discovery platform for finding deals, venues, and connecting with like-minded people during dead hours.'),
+            Text(
+                'DeadHour is Morocco\'s premier social discovery platform for finding deals, venues, and connecting with like-minded people during dead hours.'),
             SizedBox(height: AppSpacing.md),
             Text('© 2024 DeadHour. All rights reserved.'),
           ],
@@ -336,7 +340,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out of your account?'),
+        content:
+            const Text('Are you sure you want to sign out of your account?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -366,7 +371,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('This action cannot be undone. All your data will be permanently deleted.'),
+            Text(
+                'This action cannot be undone. All your data will be permanently deleted.'),
             SizedBox(height: AppSpacing.md),
             Text('Are you sure you want to delete your account?'),
           ],
@@ -396,4 +402,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-

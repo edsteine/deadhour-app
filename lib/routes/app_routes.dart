@@ -98,7 +98,7 @@ class AppRouter {
         },
       ),
 
-      // Community sub-routes  
+      // Community sub-routes
       GoRoute(
         path: '/room/:roomId',
         name: 'room-detail',

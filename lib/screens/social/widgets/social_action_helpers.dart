@@ -28,9 +28,12 @@ class SocialActionHelpers {
             DropdownButton<String>(
               isExpanded: true,
               items: const [
-                DropdownMenuItem(value: 'small', child: Text('Small (2-8 people)')),
-                DropdownMenuItem(value: 'medium', child: Text('Medium (8-15 people)')),
-                DropdownMenuItem(value: 'large', child: Text('Large (15+ people)')),
+                DropdownMenuItem(
+                    value: 'small', child: Text('Small (2-8 people)')),
+                DropdownMenuItem(
+                    value: 'medium', child: Text('Medium (8-15 people)')),
+                DropdownMenuItem(
+                    value: 'large', child: Text('Large (15+ people)')),
               ],
               onChanged: (value) {},
             ),
@@ -48,7 +51,8 @@ class SocialActionHelpers {
     );
   }
 
-  static void viewExperienceDetails(BuildContext context, Map<String, dynamic> experience) {
+  static void viewExperienceDetails(
+      BuildContext context, Map<String, dynamic> experience) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -98,7 +102,8 @@ class SocialActionHelpers {
     );
   }
 
-  static void contactHost(BuildContext context, Map<String, dynamic> experience) {
+  static void contactHost(
+      BuildContext context, Map<String, dynamic> experience) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Opening chat with host...'),
@@ -107,7 +112,8 @@ class SocialActionHelpers {
     );
   }
 
-  static void joinExperience(BuildContext context, Map<String, dynamic> experience) {
+  static void joinExperience(
+      BuildContext context, Map<String, dynamic> experience) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

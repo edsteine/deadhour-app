@@ -189,9 +189,11 @@ class VenueCard extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 children: [
-                  if (venue.isHalal) _buildFeatureChip('Halal', Icons.restaurant),
+                  if (venue.isHalal)
+                    _buildFeatureChip('Halal', Icons.restaurant),
                   if (venue.hasWifi) _buildFeatureChip('WiFi', Icons.wifi),
-                  if (venue.acceptsCards) _buildFeatureChip('Cards', Icons.credit_card),
+                  if (venue.acceptsCards)
+                    _buildFeatureChip('Cards', Icons.credit_card),
                   _buildFeatureChip(
                     venue.openingStatus,
                     venue.isOpen ? Icons.access_time : Icons.schedule,
@@ -243,7 +245,8 @@ class VenueCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(venue.categoryIcon, style: const TextStyle(fontSize: 16)),
+                    Text(venue.categoryIcon,
+                        style: const TextStyle(fontSize: 16)),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -312,7 +315,8 @@ class VenueCard extends StatelessWidget {
                 Row(
                   children: [
                     if (venue.isHalal) ...[
-                      const Icon(Icons.restaurant, size: 12, color: AppColors.success),
+                      const Icon(Icons.restaurant,
+                          size: 12, color: AppColors.success),
                       const SizedBox(width: 4),
                     ],
                     if (venue.hasWifi) ...[
@@ -323,7 +327,8 @@ class VenueCard extends StatelessWidget {
                       venue.openingStatus,
                       style: TextStyle(
                         fontSize: 10,
-                        color: venue.isOpen ? AppColors.success : AppColors.error,
+                        color:
+                            venue.isOpen ? AppColors.success : AppColors.error,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

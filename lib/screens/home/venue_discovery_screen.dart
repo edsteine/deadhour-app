@@ -48,7 +48,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     var venues = MockData.venues;
 
     if (_selectedCategory != 'all') {
-      venues = venues.where((venue) => venue.category == _selectedCategory).toList();
+      venues =
+          venues.where((venue) => venue.category == _selectedCategory).toList();
     }
 
     if (_selectedCity != 'all') {
@@ -60,7 +61,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     }
 
     if (_priceRange != 'all') {
-      venues = venues.where((venue) => venue.priceRange == _priceRange).toList();
+      venues =
+          venues.where((venue) => venue.priceRange == _priceRange).toList();
     }
 
     switch (_sortBy) {
@@ -71,7 +73,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
         venues.sort((a, b) => a.id.compareTo(b.id));
         break;
       case 'newest':
-        venues.sort((a, b) => (b.joinedDate ?? DateTime.now()).compareTo(a.joinedDate ?? DateTime.now()));
+        venues.sort((a, b) => (b.joinedDate ?? DateTime.now())
+            .compareTo(a.joinedDate ?? DateTime.now()));
         break;
       case 'deals':
         venues.sort((a, b) => b.id.compareTo(a.id));
@@ -167,10 +170,18 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                 value: _selectedCity,
                 decoration: const InputDecoration(
                   labelText: 'City',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   border: OutlineInputBorder(),
                 ),
-                items: ['all', 'Marrakech', 'Casablanca', 'Fez', 'Rabat', 'Tangier']
+                items: [
+                  'all',
+                  'Marrakech',
+                  'Casablanca',
+                  'Fez',
+                  'Rabat',
+                  'Tangier'
+                ]
                     .map((city) => DropdownMenuItem(
                           value: city,
                           child: Text(city == 'all' ? 'All Cities' : city),
@@ -189,7 +200,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                 value: _sortBy,
                 decoration: const InputDecoration(
                   labelText: 'Sort by',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   border: OutlineInputBorder(),
                 ),
                 items: const [
@@ -228,7 +240,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                 value: _priceRange,
                 decoration: const InputDecoration(
                   labelText: 'Price',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   border: OutlineInputBorder(),
                 ),
                 items: const [
@@ -296,9 +309,11 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
               label: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(category['icon'] as String, style: const TextStyle(fontSize: 14)),
+                  Text(category['icon'] as String,
+                      style: const TextStyle(fontSize: 14)),
                   const SizedBox(width: 4),
-                  Text(category['name'] as String, style: const TextStyle(fontSize: 12)),
+                  Text(category['name'] as String,
+                      style: const TextStyle(fontSize: 12)),
                 ],
               ),
               selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
@@ -366,7 +381,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.network(
                     venue.imageUrl,
                     height: 160,
@@ -384,7 +400,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(4),
@@ -403,7 +420,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                   top: 8,
                   right: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: venue.isOpen ? Colors.green : Colors.orange,
                       borderRadius: BorderRadius.circular(4),
@@ -427,7 +445,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                 children: [
                   Row(
                     children: [
-                      Text(venue.categoryIcon, style: const TextStyle(fontSize: 20)),
+                      Text(venue.categoryIcon,
+                          style: const TextStyle(fontSize: 20)),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Column(
@@ -456,17 +475,20 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.star, size: 16, color: Colors.amber),
+                              const Icon(Icons.star,
+                                  size: 16, color: Colors.amber),
                               const SizedBox(width: 4),
                               Text(
                                 '${venue.rating}',
-                                style: const TextStyle(fontWeight: FontWeight.w600),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                           Text(
                             '${venue.reviewCount} reviews',
-                            style: const TextStyle(fontSize: 12, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.grey),
                           ),
                         ],
                       ),
@@ -475,12 +497,14 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
+                      Icon(Icons.location_on,
+                          size: 16, color: Colors.grey[600]),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           '${venue.address}, ${venue.city}',
-                          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey[600]),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -505,10 +529,13 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                   Wrap(
                     spacing: 8,
                     children: [
-                      if (venue.isHalal) _buildAmenityChip('Halal', Icons.restaurant),
+                      if (venue.isHalal)
+                        _buildAmenityChip('Halal', Icons.restaurant),
                       if (venue.hasWifi) _buildAmenityChip('WiFi', Icons.wifi),
-                      if (venue.acceptsCards) _buildAmenityChip('Cards', Icons.credit_card),
-                      if (venue.isVerified) _buildAmenityChip('Verified', Icons.verified),
+                      if (venue.acceptsCards)
+                        _buildAmenityChip('Cards', Icons.credit_card),
+                      if (venue.isVerified)
+                        _buildAmenityChip('Verified', Icons.verified),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -526,9 +553,12 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         child: ElevatedButton.icon(
                           onPressed: () => _bookVenue(venue),
                           icon: const Icon(Icons.book_online, size: 16),
-                          label: Text(hasActiveDeals ? 'Book Deal' : 'Book Now'),
+                          label:
+                              Text(hasActiveDeals ? 'Book Deal' : 'Book Now'),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: hasActiveDeals ? Colors.red : AppTheme.moroccoGreen,
+                            backgroundColor: hasActiveDeals
+                                ? Colors.red
+                                : AppTheme.moroccoGreen,
                             foregroundColor: Colors.white,
                           ),
                         ),
@@ -709,7 +739,9 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Distance', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      const Text('Distance',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                       Slider(
                         value: _maxDistance,
                         min: 1,
@@ -723,7 +755,9 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         },
                       ),
                       const SizedBox(height: 16),
-                      const Text('Amenities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      const Text('Amenities',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                       CheckboxListTile(
                         title: const Text('Halal Food'),
                         value: false,
@@ -800,7 +834,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    Text(venue.categoryIcon, style: const TextStyle(fontSize: 24)),
+                    Text(venue.categoryIcon,
+                        style: const TextStyle(fontSize: 24)),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
@@ -808,11 +843,13 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         children: [
                           Text(
                             venue.name,
-                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             venue.categoryName,
-                            style: const TextStyle(fontSize: 16, color: AppTheme.moroccoGreen),
+                            style: const TextStyle(
+                                fontSize: 16, color: AppTheme.moroccoGreen),
                           ),
                         ],
                       ),
@@ -822,7 +859,9 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         Row(
                           children: [
                             const Icon(Icons.star, color: Colors.amber),
-                            Text('${venue.rating}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            Text('${venue.rating}',
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         Text('${venue.reviewCount} reviews'),
@@ -849,20 +888,24 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Text('Operating Hours', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const Text('Operating Hours',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 ...venue.operatingHours.entries.map((entry) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: Text(entry.key.capitalize(), style: const TextStyle(fontWeight: FontWeight.w500)),
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 80,
+                            child: Text(entry.key.capitalize(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500)),
+                          ),
+                          Text(entry.value),
+                        ],
                       ),
-                      Text(entry.value),
-                    ],
-                  ),
-                )),
+                    )),
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
@@ -876,7 +919,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    child: const Text('Book Now', style: TextStyle(fontSize: 16)),
+                    child:
+                        const Text('Book Now', style: TextStyle(fontSize: 16)),
                   ),
                 ),
               ],
@@ -892,8 +936,10 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
   }
 
   void _bookVenue(Venue venue) {
-    final deals = MockData.deals.where((deal) => deal.venueId == venue.id && deal.isValid).toList();
-    
+    final deals = MockData.deals
+        .where((deal) => deal.venueId == venue.id && deal.isValid)
+        .toList();
+
     if (deals.isNotEmpty) {
       _showDealBookingDialog(venue, deals.first);
     } else {
@@ -990,7 +1036,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Booking request sent! We\'ll contact you soon.'),
+                  content:
+                      Text('Booking request sent! We\'ll contact you soon.'),
                   backgroundColor: Colors.green,
                 ),
               );

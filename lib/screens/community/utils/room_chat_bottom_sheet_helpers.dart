@@ -3,7 +3,11 @@ import 'package:deadhour/utils/theme.dart';
 import 'package:deadhour/models/room.dart';
 
 class RoomChatBottomSheetHelpers {
-  static void showRoomInfo(BuildContext context, Room room, Color Function(String) getCategoryColor, Widget Function(IconData, String, String) buildInfoStat) {
+  static void showRoomInfo(
+      BuildContext context,
+      Room room,
+      Color Function(String) getCategoryColor,
+      Widget Function(IconData, String, String) buildInfoStat) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -34,7 +38,8 @@ class RoomChatBottomSheetHelpers {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: getCategoryColor(room.category).withValues(alpha: 0.2),
+                        color: getCategoryColor(room.category)
+                            .withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -76,11 +81,14 @@ class RoomChatBottomSheetHelpers {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    buildInfoStat(Icons.people, '${room.memberCount}', 'Members'),
+                    buildInfoStat(
+                        Icons.people, '${room.memberCount}', 'Members'),
                     const SizedBox(width: 24),
-                    buildInfoStat(Icons.circle, '${room.onlineCount}', 'Online'),
+                    buildInfoStat(
+                        Icons.circle, '${room.onlineCount}', 'Online'),
                     const SizedBox(width: 24),
-                    buildInfoStat(Icons.schedule, room.lastActivityDisplay, 'Last Activity'),
+                    buildInfoStat(Icons.schedule, room.lastActivityDisplay,
+                        'Last Activity'),
                   ],
                 ),
               ],
@@ -90,7 +98,6 @@ class RoomChatBottomSheetHelpers {
       ),
     );
   }
-
 
   static Widget buildInfoStat(IconData icon, String value, String label) {
     return Column(

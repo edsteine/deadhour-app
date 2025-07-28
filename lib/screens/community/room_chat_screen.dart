@@ -28,13 +28,20 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
   final ScrollController _scrollController = ScrollController();
   late dynamic _room;
   List<Map<String, dynamic>> _messages = [];
+  final List<String> _typingUsers = [];
   bool _isTyping = false;
+  String _messageFilter = 'all'; // 'all', 'deals', 'groups', 'questions'
+  bool _showScrollToBottom = false;
 
   @override
   void initState() {
     super.initState();
     _loadRoom();
     _loadMessages();
+    _scrollController.addListener(_onScroll);
+
+    // Simulate real-time updates
+    _startRealTimeUpdates();
   }
 
   @override
@@ -42,6 +49,59 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    final shouldShow =
+        _scrollController.hasClients && _scrollController.offset > 100;
+    if (shouldShow != _showScrollToBottom) {
+      setState(() {
+        _showScrollToBottom = shouldShow;
+      });
+    }
+  }
+
+  void _startRealTimeUpdates() {
+    // Simulate typing indicators
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted) {
+        setState(() {
+          _typingUsers.add('Fatima_Rbat');
+        });
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              _typingUsers.clear();
+            });
+            _addIncomingMessage();
+          }
+        });
+      }
+    });
+  }
+
+  void _addIncomingMessage() {
+    final incomingMessage = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'userId': 'user2',
+      'userName': 'Fatima Zahra',
+      'userAvatar': 'https://i.pravatar.cc/150?img=2',
+      'message':
+          'Just booked the Café Atlas deal! The atmosphere is amazing 😍',
+      'type': 'text',
+      'timestamp': DateTime.now(),
+    };
+
+    setState(() {
+      _messages.add(incomingMessage);
+    });
+
+    // Auto-scroll if user is near bottom
+    if (_scrollController.hasClients &&
+        _scrollController.offset >
+            _scrollController.position.maxScrollExtent - 200) {
+      _scrollToBottom();
+    }
   }
 
   void _loadRoom() {
@@ -59,7 +119,8 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
         'userId': 'user1',
         'userName': 'Ahmed Hassan',
         'userAvatar': 'https://i.pravatar.cc/150?img=1',
-        'message': 'Hey everyone! Just discovered this amazing café in Gueliz with 40% off until 6 PM!',
+        'message':
+            'Hey everyone! Just discovered this amazing café in Gueliz with 40% off until 6 PM!',
         'type': 'deal_alert',
         'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
         'dealInfo': {
@@ -73,27 +134,33 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
         'userId': 'user2',
         'userName': 'Fatima Zahra',
         'userAvatar': 'https://i.pravatar.cc/150?img=2',
-        'message': 'That sounds great! Is it the one near the Majorelle Garden?',
+        'message':
+            'That sounds great! Is it the one near the Majorelle Garden?',
         'type': 'text',
-        'timestamp': DateTime.now().subtract(const Duration(hours: 1, minutes: 45)),
+        'timestamp':
+            DateTime.now().subtract(const Duration(hours: 1, minutes: 45)),
       },
       {
         'id': '3',
         'userId': 'user1',
         'userName': 'Ahmed Hassan',
         'userAvatar': 'https://i.pravatar.cc/150?img=1',
-        'message': 'Yes, exactly! The atmosphere is perfect for afternoon work sessions.',
+        'message':
+            'Yes, exactly! The atmosphere is perfect for afternoon work sessions.',
         'type': 'text',
-        'timestamp': DateTime.now().subtract(const Duration(hours: 1, minutes: 30)),
+        'timestamp':
+            DateTime.now().subtract(const Duration(hours: 1, minutes: 30)),
       },
       {
         'id': '4',
         'userId': 'user3',
         'userName': 'Youssef Alami',
         'userAvatar': 'https://i.pravatar.cc/150?img=3',
-        'message': 'Anyone interested in forming a group? We could get the group discount!',
+        'message':
+            'Anyone interested in forming a group? We could get the group discount!',
         'type': 'group_formation',
-        'timestamp': DateTime.now().subtract(const Duration(hours: 1, minutes: 15)),
+        'timestamp':
+            DateTime.now().subtract(const Duration(hours: 1, minutes: 15)),
         'groupInfo': {
           'minSize': 4,
           'currentSize': 1,
@@ -118,6 +185,46 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
         'type': 'text',
         'timestamp': DateTime.now().subtract(const Duration(minutes: 30)),
       },
+      {
+        'id': '7',
+        'userId': 'business_atlas',
+        'userName': 'Café Atlas',
+        'userAvatar': 'https://i.pravatar.cc/150?img=6',
+        'message':
+            'Thank you all for the interest! 🙏 We have reserved a special section for DeadHour community members.',
+        'type': 'business_message',
+        'timestamp': DateTime.now().subtract(const Duration(minutes: 15)),
+        'isVerified': true,
+        'businessInfo': {
+          'category': 'Restaurant',
+          'rating': 4.8,
+          'specialOffer': 'Additional 5% off for groups of 4+'
+        },
+      },
+      {
+        'id': '8',
+        'userId': 'user6',
+        'userName': 'Khadija El Mansouri',
+        'userAvatar': 'https://i.pravatar.cc/150?img=7',
+        'message':
+            'Perfect! What time should we meet? I suggest 4 PM to get the full discount window.',
+        'type': 'text',
+        'timestamp': DateTime.now().subtract(const Duration(minutes: 10)),
+      },
+      {
+        'id': '9',
+        'userId': 'user7',
+        'userName': 'Rachid Benjelloun',
+        'userAvatar': 'https://i.pravatar.cc/150?img=8',
+        'message': '📍 Café Atlas Location: https://maps.app.goo.gl/xyz123',
+        'type': 'location_share',
+        'timestamp': DateTime.now().subtract(const Duration(minutes: 5)),
+        'locationInfo': {
+          'name': 'Café Atlas',
+          'address': 'Avenue Mohammed V, Gueliz, Marrakech',
+          'walkingTime': '12 min from Majorelle Garden'
+        },
+      },
     ];
   }
 
@@ -126,8 +233,10 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
     return Scaffold(
       appBar: RoomChatAppBar(
         room: _room,
-        onShowRoomInfo: () => RoomChatBottomSheetHelpers.showRoomInfo(context, _room, _getCategoryColor, _buildInfoStat),
-        onShowRoomMenu: () => RoomChatBottomSheetHelpers.showRoomMenu(context, _leaveRoom),
+        onShowRoomInfo: () => RoomChatBottomSheetHelpers.showRoomInfo(
+            context, _room, _getCategoryColor, _buildInfoStat),
+        onShowRoomMenu: () =>
+            RoomChatBottomSheetHelpers.showRoomMenu(context, _leaveRoom),
         getCategoryColor: (category) => _getCategoryColor(category),
       ),
       body: Column(
@@ -135,25 +244,38 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
           // Room info banner
           const RoomInfoBanner(),
 
+          // Message filter tabs
+          _buildMessageFilters(),
+
           // Messages list
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
               padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: _messages.length,
+              itemCount: _filteredMessages.length,
               itemBuilder: (context, index) {
-                return ChatMessageBubble(
-                  message: _messages[index],
-                  isCurrentUser: _messages[index]['userId'] == MockData.currentUser.id,
-                  formatTime: _formatTime,
-                  bookDeal: _bookDeal,
-                  joinGroup: _joinGroup,
+                final message = _filteredMessages[index];
+                return Column(
+                  children: [
+                    ChatMessageBubble(
+                      message: message,
+                      isCurrentUser:
+                          message['userId'] == MockData.currentUser.id,
+                      formatTime: _formatTime,
+                      bookDeal: _bookDeal,
+                      joinGroup: _joinGroup,
+                    ),
+                    // Show message reactions if any
+                    if (message['reactions'] != null)
+                      _buildMessageReactions(message),
+                  ],
                 );
               },
             ),
           ),
 
           // Typing indicator
+          if (_typingUsers.isNotEmpty) _buildTypingIndicator(),
           if (_isTyping) TypingIndicator(isTyping: _isTyping),
 
           // Message input
@@ -172,7 +294,237 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
           ),
         ],
       ),
+      // Scroll to bottom FAB
+      floatingActionButton: _showScrollToBottom
+          ? FloatingActionButton.small(
+              onPressed: _scrollToBottom,
+              backgroundColor: AppTheme.moroccoGreen,
+              child: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  Widget _buildMessageFilters() {
+    return Container(
+      height: 50,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildFilterChip('all', 'All', Icons.chat),
+                  _buildFilterChip('deals', 'Deals', Icons.local_offer),
+                  _buildFilterChip('groups', 'Groups', Icons.people),
+                  _buildFilterChip('questions', 'Q&A', Icons.help_outline),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterChip(String filter, String label, IconData icon) {
+    final isSelected = _messageFilter == filter;
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      child: FilterChip(
+        selected: isSelected,
+        label: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16),
+            const SizedBox(width: 4),
+            Text(label),
+          ],
+        ),
+        onSelected: (selected) {
+          setState(() {
+            _messageFilter = filter;
+          });
+        },
+        selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+        checkmarkColor: AppTheme.moroccoGreen,
+      ),
+    );
+  }
+
+  List<Map<String, dynamic>> get _filteredMessages {
+    switch (_messageFilter) {
+      case 'deals':
+        return _messages
+            .where((msg) =>
+                msg['type'] == 'deal_alert' ||
+                msg['dealInfo'] != null ||
+                msg['message'].toLowerCase().contains('deal') ||
+                msg['message'].toLowerCase().contains('discount'))
+            .toList();
+      case 'groups':
+        return _messages
+            .where((msg) =>
+                msg['type'] == 'group_formation' ||
+                msg['groupInfo'] != null ||
+                msg['message'].toLowerCase().contains('group') ||
+                msg['message'].toLowerCase().contains('join'))
+            .toList();
+      case 'questions':
+        return _messages
+            .where((msg) =>
+                msg['message'].contains('?') ||
+                msg['message'].toLowerCase().contains('help') ||
+                msg['message'].toLowerCase().contains('question'))
+            .toList();
+      default:
+        return _messages;
+    }
+  }
+
+  Widget _buildTypingIndicator() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 20,
+                  height: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildTypingDot(0),
+                      _buildTypingDot(200),
+                      _buildTypingDot(400),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '${_typingUsers.join(', ')} ${_typingUsers.length == 1 ? 'is' : 'are'} typing...',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppTheme.secondaryText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTypingDot(int delay) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500 + delay),
+      width: 4,
+      height: 4,
+      decoration: BoxDecoration(
+        color: AppTheme.moroccoGreen,
+        borderRadius: BorderRadius.circular(2),
+      ),
+    );
+  }
+
+  Widget _buildMessageReactions(Map<String, dynamic> message) {
+    final reactions = message['reactions'] as Map<String, List<String>>? ?? {};
+    if (reactions.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(left: 48, right: 16, bottom: 4),
+      child: Wrap(
+        spacing: 4,
+        children: reactions.entries.map((entry) {
+          final emoji = entry.key;
+          final users = entry.value;
+          return GestureDetector(
+            onTap: () => _reactToMessage(message['id'], emoji),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: users.contains(MockData.currentUser.id)
+                    ? AppTheme.moroccoGreen.withValues(alpha: 0.2)
+                    : Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: users.contains(MockData.currentUser.id)
+                      ? AppTheme.moroccoGreen
+                      : Colors.grey.shade300,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(emoji, style: const TextStyle(fontSize: 12)),
+                  const SizedBox(width: 2),
+                  Text(
+                    users.length.toString(),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: users.contains(MockData.currentUser.id)
+                          ? AppTheme.moroccoGreen
+                          : AppTheme.secondaryText,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _reactToMessage(String messageId, String emoji) {
+    setState(() {
+      final messageIndex =
+          _messages.indexWhere((msg) => msg['id'] == messageId);
+      if (messageIndex != -1) {
+        final message = _messages[messageIndex];
+        final reactions =
+            Map<String, List<String>>.from(message['reactions'] ?? {});
+
+        if (reactions[emoji] == null) {
+          reactions[emoji] = [];
+        }
+
+        final currentUserId = MockData.currentUser.id;
+        if (reactions[emoji]!.contains(currentUserId)) {
+          reactions[emoji]!.remove(currentUserId);
+          if (reactions[emoji]!.isEmpty) {
+            reactions.remove(emoji);
+          }
+        } else {
+          reactions[emoji]!.add(currentUserId);
+        }
+
+        _messages[messageIndex]['reactions'] = reactions;
+      }
+    });
   }
 
   Widget _buildInfoStat(IconData icon, String value, String label) {
@@ -272,7 +624,8 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Group size: ${groupInfo['currentSize']}/${groupInfo['minSize']}'),
+            Text(
+                'Group size: ${groupInfo['currentSize']}/${groupInfo['minSize']}'),
             Text('Additional discount: ${groupInfo['additionalDiscount']}'),
           ],
         ),
@@ -334,7 +687,7 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
 
   void _sendMessage(String text) {
     if (text.trim().isEmpty) return;
-    
+
     // Check if user is authenticated before allowing message sending
     if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
       return; // User not authenticated, helper will show login prompt
@@ -382,7 +735,8 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
             ),
             const SizedBox(height: 16),
             ListTile(
-              leading: const Icon(Icons.local_fire_department, color: AppColors.error),
+              leading: const Icon(Icons.local_fire_department,
+                  color: AppColors.error),
               title: const Text('Share Deal'),
               subtitle: const Text('Alert the room about a great deal'),
               onTap: () {
@@ -413,8 +767,4 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
       ),
     );
   }
-
-  
-
-  
 }

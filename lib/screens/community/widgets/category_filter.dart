@@ -15,12 +15,42 @@ class CategoryFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final categories = [
       {'id': 'all', 'name': 'All Rooms', 'icon': '🏷️'},
-      {'id': 'food', 'name': 'Food & Dining', 'icon': '🍕', 'color': AppColors.foodCategory},
-      {'id': 'entertainment', 'name': 'Entertainment', 'icon': '🎮', 'color': AppColors.entertainmentCategory},
-      {'id': 'wellness', 'name': 'Wellness & Spa', 'icon': '💆', 'color': AppColors.wellnessCategory},
-      {'id': 'tourism', 'name': 'Tourism & Culture', 'icon': '🌍', 'color': AppColors.tourismCategory},
-      {'id': 'sports', 'name': 'Sports & Fitness', 'icon': '⚽', 'color': AppColors.sportsCategory},
-      {'id': 'family', 'name': 'Family Fun', 'icon': '👨‍👩‍👧‍👦', 'color': AppColors.familyCategory},
+      {
+        'id': 'food',
+        'name': 'Food & Dining',
+        'icon': '🍕',
+        'color': AppColors.foodCategory
+      },
+      {
+        'id': 'entertainment',
+        'name': 'Entertainment',
+        'icon': '🎮',
+        'color': AppColors.entertainmentCategory
+      },
+      {
+        'id': 'wellness',
+        'name': 'Wellness & Spa',
+        'icon': '💆',
+        'color': AppColors.wellnessCategory
+      },
+      {
+        'id': 'tourism',
+        'name': 'Tourism & Culture',
+        'icon': '🌍',
+        'color': AppColors.tourismCategory
+      },
+      {
+        'id': 'sports',
+        'name': 'Sports & Fitness',
+        'icon': '⚽',
+        'color': AppColors.sportsCategory
+      },
+      {
+        'id': 'family',
+        'name': 'Family Fun',
+        'icon': '👨‍👩‍👧‍👦',
+        'color': AppColors.familyCategory
+      },
     ];
 
     return Container(
@@ -41,7 +71,8 @@ class CategoryFilter extends StatelessWidget {
               label: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(category['icon']! as String, style: const TextStyle(fontSize: 14)),
+                  Text(category['icon']! as String,
+                      style: const TextStyle(fontSize: 14)),
                   const SizedBox(width: 4),
                   Text(category['name']! as String),
                 ],

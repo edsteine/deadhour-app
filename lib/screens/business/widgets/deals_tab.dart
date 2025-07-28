@@ -54,7 +54,8 @@ class DealsTab extends StatelessWidget {
     );
   }
 
-  Widget _buildDealStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildDealStatCard(
+      String title, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -153,7 +154,8 @@ class DealsTab extends StatelessWidget {
             children: [
               _buildDealMetric('Bookings', '${deal.currentBookings}'),
               const SizedBox(width: 16),
-              _buildDealMetric('Revenue', '${(deal.discountedPrice * deal.currentBookings).toInt()} MAD'),
+              _buildDealMetric('Revenue',
+                  '${(deal.discountedPrice * deal.currentBookings).toInt()} MAD'),
               const SizedBox(width: 16),
               _buildDealMetric('Spots Left', '${deal.availableSpots}'),
             ],

@@ -26,26 +26,29 @@ class ProfessionalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget cardWidget = Container(
-      margin: margin ?? const EdgeInsets.symmetric(
-        horizontal: AppTheme.spacing16,
-        vertical: AppTheme.spacing8,
-      ),
+      margin: margin ??
+          const EdgeInsets.symmetric(
+            horizontal: AppTheme.spacing16,
+            vertical: AppTheme.spacing8,
+          ),
       padding: padding ?? const EdgeInsets.all(AppTheme.spacing16),
       decoration: BoxDecoration(
         color: backgroundColor ?? AppTheme.cardBackground,
-        borderRadius: borderRadius ?? BorderRadius.circular(AppTheme.radiusMedium),
-        boxShadow: boxShadow ?? [
-          const BoxShadow(
-            color: AppTheme.lightShadow,
-            blurRadius: 8,
-            offset: Offset(0, 2),
-          ),
-          const BoxShadow(
-            color: AppTheme.mediumShadow,
-            blurRadius: 16,
-            offset: Offset(0, 4),
-          ),
-        ],
+        borderRadius:
+            borderRadius ?? BorderRadius.circular(AppTheme.radiusMedium),
+        boxShadow: boxShadow ??
+            [
+              const BoxShadow(
+                color: AppTheme.lightShadow,
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
+              const BoxShadow(
+                color: AppTheme.mediumShadow,
+                blurRadius: 16,
+                offset: Offset(0, 4),
+              ),
+            ],
       ),
       child: child,
     );
@@ -53,7 +56,8 @@ class ProfessionalCard extends StatelessWidget {
     if (onTap != null) {
       return InkWell(
         onTap: onTap,
-        borderRadius: borderRadius ?? BorderRadius.circular(AppTheme.radiusMedium),
+        borderRadius:
+            borderRadius ?? BorderRadius.circular(AppTheme.radiusMedium),
         child: cardWidget,
       );
     }
@@ -108,8 +112,8 @@ class ProfessionalStatsCard extends StatelessWidget {
                 child: Text(
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: AppTheme.secondaryText,
-                  ),
+                        color: AppTheme.secondaryText,
+                      ),
                 ),
               ),
             ],
@@ -118,16 +122,16 @@ class ProfessionalStatsCard extends StatelessWidget {
           Text(
             value,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
-              color: valueColor ?? AppTheme.primaryText,
-              fontWeight: FontWeight.bold,
-            ),
+                  color: valueColor ?? AppTheme.primaryText,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           const SizedBox(height: AppTheme.spacing4),
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.lightText,
-            ),
+                  color: AppTheme.lightText,
+                ),
           ),
         ],
       ),
@@ -182,15 +186,15 @@ class ProfessionalActionCard extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 const SizedBox(height: AppTheme.spacing4),
                 Text(
                   description,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppTheme.secondaryText,
-                  ),
+                        color: AppTheme.secondaryText,
+                      ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -214,9 +218,9 @@ class ProfessionalActionCard extends StatelessWidget {
               child: Text(
                 actionText!,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppTheme.moroccoGreen,
-                  fontWeight: FontWeight.w600,
-                ),
+                      color: AppTheme.moroccoGreen,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ),
           ],
@@ -245,10 +249,11 @@ class ProfessionalGradientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: margin ?? const EdgeInsets.symmetric(
-        horizontal: AppTheme.spacing16,
-        vertical: AppTheme.spacing8,
-      ),
+      margin: margin ??
+          const EdgeInsets.symmetric(
+            horizontal: AppTheme.spacing16,
+            vertical: AppTheme.spacing8,
+          ),
       padding: padding ?? const EdgeInsets.all(AppTheme.spacing20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -256,7 +261,8 @@ class ProfessionalGradientCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: borderRadius ?? BorderRadius.circular(AppTheme.radiusLarge),
+        borderRadius:
+            borderRadius ?? BorderRadius.circular(AppTheme.radiusLarge),
         boxShadow: [
           BoxShadow(
             color: colors.first.withValues(alpha: 0.3),

@@ -12,10 +12,12 @@ class BusinessDashboardScreen extends StatefulWidget {
   const BusinessDashboardScreen({super.key});
 
   @override
-  State<BusinessDashboardScreen> createState() => _BusinessDashboardScreenState();
+  State<BusinessDashboardScreen> createState() =>
+      _BusinessDashboardScreenState();
 }
 
-class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with TickerProviderStateMixin {
+class _BusinessDashboardScreenState extends State<BusinessDashboardScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   final List<Tab> _tabs = [
@@ -159,4 +161,3 @@ class _BusinessDashboardScreenState extends State<BusinessDashboardScreen> with 
     // TODO: Implement show business menu logic
   }
 }
-  
