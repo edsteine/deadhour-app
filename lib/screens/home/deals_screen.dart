@@ -1,4 +1,4 @@
-import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
+// DeadHourAppBar removed - handled by MainNavigationScreen
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,41 +16,21 @@ class DealsScreen extends ConsumerStatefulWidget {
 
 class _DealsScreenState extends ConsumerState<DealsScreen> {
   String _selectedFilter = 'all'; // 'all', 'active', 'ending_soon', 'category'
-  String _selectedCategory = 'all';
-  String _sortBy =
+  final String _sortBy =
       'ending_soon'; // 'ending_soon', 'discount', 'distance', 'rating'
-  bool _showMap = false;
+  final bool _showMap = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DeadHourAppBar(
-        title: 'All Deals',
-        showBackButton: true,
-        showLocationSelector: false,
-        showNotifications: false,
-        customActions: [
-          IconButton(
-            onPressed: () => setState(() => _showMap = !_showMap),
-            icon: Icon(_showMap ? Icons.list : Icons.map),
-            tooltip: _showMap ? 'List View' : 'Map View',
-          ),
-          IconButton(
-            onPressed: _showFilterBottomSheet,
-            icon: const Icon(Icons.tune),
-            tooltip: 'Filter Deals',
-          ),
-        ],
-      ),
+      // App bar removed - handled by MainNavigationScreen
+      // Simple approach - filters moved to app bar, content focuses on deals
       body: Column(
         children: [
-          // Filter chips
-          _buildFilterChips(),
+          // Simple results indicator
+          _buildResultsHeader(),
 
-          // Sort and view options
-          _buildSortAndViewOptions(),
-
-          // Deals list or map
+          // Deals list or map (main focus)
           Expanded(
             child: _showMap ? _buildMapView() : _buildDealsListView(),
           ),
@@ -66,105 +46,76 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
     );
   }
 
-  Widget _buildFilterChips() {
-    final filters = [
-      {'id': 'all', 'name': 'All Deals', 'icon': '🏷️'},
-      {'id': 'active', 'name': 'Active', 'icon': '✅'},
-      {'id': 'ending_soon', 'name': 'Ending Soon', 'icon': '⏰'},
-      {'id': 'food', 'name': 'Food', 'icon': '🍕'},
-      {'id': 'entertainment', 'name': 'Entertainment', 'icon': '🎮'},
-      {'id': 'wellness', 'name': 'Wellness', 'icon': '💆'},
-    ];
-
+  Widget _buildResultsHeader() {
     return Container(
-      height: 60,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: filters.length,
-        itemBuilder: (context, index) {
-          final filter = filters[index];
-          final isSelected = _selectedFilter == filter['id'];
-
-          return Container(
-            margin: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              selected: isSelected,
-              label: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(filter['icon']!, style: const TextStyle(fontSize: 14)),
-                  const SizedBox(width: 4),
-                  Text(filter['name']!),
-                ],
-              ),
-              onSelected: (selected) {
-                setState(() {
-                  _selectedFilter = filter['id']!;
-                });
-              },
-              selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
-              checkmarkColor: AppTheme.moroccoGreen,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildSortAndViewOptions() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: AppTheme.surfaceColor,
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(color: Colors.grey.shade200),
         ),
       ),
       child: Row(
         children: [
-          // Results count
           Text(
             '${_getFilteredDeals().length} deals found',
             style: const TextStyle(
-              fontSize: 14,
-              color: AppTheme.secondaryText,
+              fontSize: 16,
+              color: AppTheme.primaryText,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const Spacer(),
-
-          // Sort dropdown
-          DropdownButton<String>(
-            value: _sortBy,
-            underline: const SizedBox.shrink(),
-            items: const [
-              DropdownMenuItem(
-                value: 'ending_soon',
-                child: Text('Ending Soon'),
+          if (_selectedFilter != 'all')
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
               ),
-              DropdownMenuItem(
-                value: 'discount',
-                child: Text('Best Discount'),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _getFilterDisplayName(),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.moroccoGreen,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () => setState(() => _selectedFilter = 'all'),
+                    child: const Icon(
+                      Icons.close,
+                      size: 16,
+                      color: AppTheme.moroccoGreen,
+                    ),
+                  ),
+                ],
               ),
-              DropdownMenuItem(
-                value: 'distance',
-                child: Text('Nearest'),
-              ),
-              DropdownMenuItem(
-                value: 'rating',
-                child: Text('Highest Rated'),
-              ),
-            ],
-            onChanged: (value) {
-              setState(() {
-                _sortBy = value!;
-              });
-            },
-          ),
+            ),
         ],
       ),
     );
+  }
+
+  String _getFilterDisplayName() {
+    switch (_selectedFilter) {
+      case 'active':
+        return 'Active Only';
+      case 'ending_soon':
+        return 'Ending Soon';
+      case 'food':
+        return 'Food';
+      case 'entertainment':
+        return 'Entertainment';  
+      case 'wellness':
+        return 'Wellness';
+      default:
+        return 'All Deals';
+    }
   }
 
   Widget _buildDealsListView() {
@@ -259,7 +210,6 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
               onPressed: () {
                 setState(() {
                   _selectedFilter = 'all';
-                  _selectedCategory = 'all';
                 });
               },
               child: const Text('Clear Filters'),
@@ -324,144 +274,6 @@ class _DealsScreenState extends ConsumerState<DealsScreen> {
     setState(() {});
   }
 
-  void _showFilterBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
-        maxChildSize: 0.9,
-        minChildSize: 0.3,
-        builder: (context, scrollController) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Handle
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Title
-                const Text(
-                  'Filter & Sort',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                // Filter options
-                Expanded(
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildFilterSection('Deal Status', [
-                          {'id': 'all', 'name': 'All Deals'},
-                          {'id': 'active', 'name': 'Active Only'},
-                          {'id': 'ending_soon', 'name': 'Ending Soon'},
-                        ]),
-                        const SizedBox(height: 24),
-                        _buildFilterSection('Category', [
-                          {'id': 'all', 'name': 'All Categories'},
-                          {'id': 'food', 'name': 'Food & Dining'},
-                          {'id': 'entertainment', 'name': 'Entertainment'},
-                          {'id': 'wellness', 'name': 'Wellness & Spa'},
-                          {'id': 'sports', 'name': 'Sports & Fitness'},
-                        ]),
-                        const SizedBox(height: 24),
-                        _buildFilterSection('Sort By', [
-                          {'id': 'ending_soon', 'name': 'Ending Soon'},
-                          {'id': 'discount', 'name': 'Best Discount'},
-                          {'id': 'distance', 'name': 'Nearest'},
-                          {'id': 'rating', 'name': 'Highest Rated'},
-                        ]),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Apply button
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Apply Filters'),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildFilterSection(String title, List<Map<String, String>> options) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 12),
-        ...options.map((option) {
-          final isSelected =
-              (title == 'Deal Status' && _selectedFilter == option['id']) ||
-                  (title == 'Category' && _selectedCategory == option['id']) ||
-                  (title == 'Sort By' && _sortBy == option['id']);
-
-          return Container(
-            decoration: isSelected
-                ? BoxDecoration(
-                    color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  )
-                : null,
-            child: RadioListTile<String>(
-              title: Text(option['name']!),
-              value: option['id']!,
-              groupValue: title == 'Deal Status'
-                  ? _selectedFilter
-                  : title == 'Category'
-                      ? _selectedCategory
-                      : _sortBy,
-              onChanged: (value) {
-                setState(() {
-                  if (title == 'Deal Status') {
-                    _selectedFilter = value!;
-                  } else if (title == 'Category') {
-                    _selectedCategory = value!;
-                  } else {
-                    _sortBy = value!;
-                  }
-                });
-              },
-              activeColor: AppTheme.moroccoGreen,
-              dense: true,
-            ),
-          );
-        }),
-      ],
-    );
-  }
 
   void _showDealDetails(dynamic deal) {
     showModalBottomSheet(

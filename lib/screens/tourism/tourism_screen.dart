@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/theme.dart';
-import '../../utils/error_handler.dart';
-import '../../utils/performance_utils.dart';
 // TODO: Uncomment when premium features are re-enabled
 // import '../../providers/role_toggle_provider.dart';
 // import '../../models/user.dart';
-import 'package:deadhour/screens/tourism/widgets/tourism_welcome_banner.dart';
-import 'package:deadhour/screens/tourism/widgets/discover_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/local_experts_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/experiences_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_tab.dart';
-import 'package:deadhour/screens/tourism/utils/tourism_action_helpers.dart';
 import 'package:deadhour/screens/tourism/widgets/quick_discovery_grid.dart';
 import 'package:deadhour/screens/tourism/widgets/trending_experiences.dart';
-import 'package:deadhour/screens/tourism/widgets/tourist_friendly_deals.dart';
-import 'package:deadhour/screens/tourism/widgets/social_discovery_button.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_dashboard.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_events.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_tips.dart';
@@ -29,13 +22,15 @@ class TourismScreen extends ConsumerStatefulWidget {
 
 class _TourismScreenState extends ConsumerState<TourismScreen>
     with TickerProviderStateMixin {
-  late TabController _tabController;
   // final String _selectedCity = 'Casablanca'; // TODO: Implement city selection
+  late TabController _tourismTabController;
 
-  final List<Tab> _tabs = [
-    const Tab(text: 'Discover'),
+  final List<Tab> _tourismTabs = [
+    const Tab(text: 'Categories'),
+    const Tab(text: 'Trending'),
+    const Tab(text: 'Places'),
     const Tab(text: 'Local Experts'),
-    const Tab(text: 'Experiences'),
+    const Tab(text: 'Experiences'), 
     const Tab(text: 'Cultural'),
   ];
 
@@ -44,29 +39,29 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
     {
       'name': 'Aisha Khan',
       'specialty': 'History & Culture',
-      'image': 'assets/images/aisha.jpg'
+      'image': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face'
     },
     {
       'name': 'Omar Benali',
       'specialty': 'Food & Markets',
-      'image': 'assets/images/omar.jpg'
+      'image': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
     },
     {
       'name': 'Fatima Zahra',
       'specialty': 'Art & Architecture',
-      'image': 'assets/images/fatima.jpg'
+      'image': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face'
     },
     {
       'name': 'Youssef El Fassi',
       'specialty': 'Outdoor Adventures',
-      'image': 'assets/images/youssef.jpg'
+      'image': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
     },
   ];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    _tourismTabController = TabController(length: _tourismTabs.length, vsync: this);
     // _isPremiumUser = ref.read(roleToggleProvider) == UserRole.premium; // TODO: Uncomment when premium features are re-enabled
   }
 
@@ -84,52 +79,78 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
     );
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  Widget _buildMoroccoPlaces() {
+    final places = [
+      {'name': 'Marrakech', 'description': 'Imperial city with vibrant souks', 'icon': '🕌'},
+      {'name': 'Casablanca', 'description': 'Modern economic capital', 'icon': '🏙️'},
+      {'name': 'Fes', 'description': 'Ancient medina and cultural center', 'icon': '🏛️'},
+      {'name': 'Chefchaouen', 'description': 'Blue pearl of Morocco', 'icon': '💙'},
+      {'name': 'Sahara Desert', 'description': 'Endless dunes and star-filled nights', 'icon': '🐪'},
+      {'name': 'Atlas Mountains', 'description': 'Breathtaking peaks and Berber villages', 'icon': '🏔️'},
+    ];
 
-  Widget _buildPremiumUpgradeCard() {
-    return Card(
-      margin: const EdgeInsets.all(16.0),
-      color: AppTheme.accentColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
+    return Column(
+      children: places.map((place) => Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey.shade200),
+        ),
+        child: Row(
           children: [
-            const Text(
-              'Unlock Premium Features',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.nearlyWhite,
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(place['icon']!, style: const TextStyle(fontSize: 24)),
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Upgrade to premium to access exclusive expert content and personalized recommendations.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: AppTheme.nearlyWhite.withValues(alpha: 0.8),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    place['name']!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    place['description']!,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => TourismActionHelpers.showPremiumUpgrade(context,
-                  (value) => setState(() => {} /* _isPremiumUser = value */)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.moroccoGreen,
-                foregroundColor: AppTheme.nearlyWhite,
-              ),
-              child: const Text('Upgrade Now'),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+              color: Colors.grey,
             ),
           ],
         ),
-      ),
+      )).toList(),
     );
   }
+
+  @override
+  void dispose() {
+    _tourismTabController.dispose();
+    super.dispose();
+  }
+
 
   Widget _buildExperienceCard(Map<String, String> experience) {
     return Card(
@@ -182,7 +203,7 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage(expert['image']!),
+              backgroundImage: NetworkImage(expert['image']!),
             ),
             const SizedBox(width: 16),
             Column(
@@ -218,53 +239,76 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
     );
   }
 
-  Widget _buildTourismWelcomeBanner() {
-    return const TourismWelcomeBanner();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Tourism welcome banner
-        ErrorHandler.safeBuild(
-          () => _buildTourismWelcomeBanner(),
-          errorMessage: 'Unable to load welcome banner',
-        ),
-
-        // Tab bar
+        // Tourism tabs (like GetYourGuide/Viator structure)
         TabBar(
-          controller: _tabController,
+          controller: _tourismTabController,
           labelColor: AppTheme.moroccoGreen,
           unselectedLabelColor: AppTheme.secondaryText,
           indicatorColor: AppTheme.moroccoGreen,
-          tabs: _tabs,
-          physics: const OptimizedScrollPhysics(),
+          tabs: _tourismTabs,
         ),
 
-        // Tab views
+        // Tourism tab content
         Expanded(
           child: TabBarView(
-            controller: _tabController,
-            physics: const OptimizedScrollPhysics(),
+            controller: _tourismTabController,
             children: [
-              DiscoverTab(
-                buildSectionHeader: _buildSectionHeader,
-                buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
-                buildTrendingExperiences: () => const TrendingExperiences(),
-                buildSocialDiscoveryButton: () => const SocialDiscoveryButton(),
-                buildTouristFriendlyDeals: () => const TouristFriendlyDeals(),
+              // Categories tab - Tourism discovery categories
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildSectionHeader('🌍 Tourism Categories'),
+                    const SizedBox(height: 12),
+                    const QuickDiscoveryGrid(),
+                  ],
+                ),
               ),
+              
+              // Trending tab - Trending cultural experiences
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildSectionHeader('🔥 Trending Cultural Experiences'),
+                    const SizedBox(height: 12),
+                    const TrendingExperiences(),
+                  ],
+                ),
+              ),
+              
+              // Places tab - Popular places in Morocco
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildSectionHeader('🏛️ Popular Places in Morocco'),
+                    const SizedBox(height: 12),
+                    _buildMoroccoPlaces(),
+                  ],
+                ),
+              ),
+              
+              // Local Experts tab - List of advisors/guides
               LocalExpertsTab(
                 buildSectionHeader: _buildSectionHeader,
-                buildPremiumUpgradeCard: _buildPremiumUpgradeCard,
                 buildExpertCard: (expert) => _buildExpertCard(expert),
                 experts: _experts,
               ),
+              // Experiences tab - Authentic activities
               ExperiencesTab(
                 buildSectionHeader: _buildSectionHeader,
                 buildExperienceCard: _buildExperienceCard,
               ),
+              // Cultural tab - Cultural sites, events, tips
               CulturalTab(
                 buildCulturalDashboard: () => const CulturalDashboard(),
                 buildSectionHeader: _buildSectionHeader,

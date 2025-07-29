@@ -344,17 +344,17 @@ extension OnboardingStepExtension on OnboardingStep {
   String get imagePath {
     switch (this) {
       case OnboardingStep.welcome:
-        return 'assets/images/onboarding_welcome.png';
+        return 'https://images.unsplash.com/photo-1539650116574-75c0c6d45d2e?w=400&h=400&fit=crop';
       case OnboardingStep.features:
-        return 'assets/images/onboarding_features.png';
+        return 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=400&fit=crop';
       case OnboardingStep.categories:
-        return 'assets/images/onboarding_categories.png';
+        return 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=400&fit=crop';
       case OnboardingStep.community:
-        return 'assets/images/onboarding_community.png';
+        return 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop';
       case OnboardingStep.guestOrSignup:
-        return 'assets/images/onboarding_signup.png';
+        return 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=400&fit=crop';
       case OnboardingStep.completed:
-        return 'assets/images/onboarding_completed.png';
+        return 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=400&fit=crop';
     }
   }
 }

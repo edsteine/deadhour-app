@@ -97,7 +97,7 @@ class DeadHourUser {
     required this.name,
     required this.email,
     required this.phone,
-    this.activeRoles = const {}, // Start as Consumer, add Roles progressively
+    this.activeRoles = const {UserRole.consumer}, // All users start as Consumer by default
     required this.city,
     this.profileImageUrl,
     required this.joinDate,
@@ -237,8 +237,9 @@ class DeadHourUser {
 
   String get userTypeIcon {
     if (activeRoles.isEmpty) return '👤'; // Consumer
-    if (hasBusinessRole && hasGuideRole && hasPremiumRole)
+    if (hasBusinessRole && hasGuideRole && hasPremiumRole) {
       return '💎'; // Triple Role
+    }
     if (hasBusinessRole && hasGuideRole) return '🏢✈️'; // Business + Guide
     if (hasBusinessRole && hasPremiumRole) return '🏢💎'; // Business + Premium
     if (hasGuideRole && hasPremiumRole) return '✈️💎'; // Guide + Premium

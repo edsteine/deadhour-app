@@ -366,43 +366,47 @@ class _PerformanceMonitorState extends State<PerformanceMonitor> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      textDirection: TextDirection.ltr,
       children: [
         widget.child,
         if (widget.enableMonitoring && kDebugMode)
           Positioned(
             top: 50,
             right: 10,
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'Performance',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Performance',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Frames: ${_metrics['frameSkips'] ?? 0}',
-                    style: const TextStyle(color: Colors.white, fontSize: 8),
-                  ),
-                  Text(
-                    'Avg Frame: ${(_metrics['averageFrameTime'] ?? 0.0).toStringAsFixed(1)}ms',
-                    style: const TextStyle(color: Colors.white, fontSize: 8),
-                  ),
-                  Text(
-                    'Cache: ${_metrics['cacheSize'] ?? 0}',
-                    style: const TextStyle(color: Colors.white, fontSize: 8),
-                  ),
-                ],
+                    Text(
+                      'Frames: ${_metrics['frameSkips'] ?? 0}',
+                      style: const TextStyle(color: Colors.white, fontSize: 8),
+                    ),
+                    Text(
+                      'Avg Frame: ${(_metrics['averageFrameTime'] ?? 0.0).toStringAsFixed(1)}ms',
+                      style: const TextStyle(color: Colors.white, fontSize: 8),
+                    ),
+                    Text(
+                      'Cache: ${_metrics['cacheSize'] ?? 0}',
+                      style: const TextStyle(color: Colors.white, fontSize: 8),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

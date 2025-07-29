@@ -273,10 +273,12 @@ class DealValidationService extends ChangeNotifier {
 
   CommunityStatus _getCommunityStatus(double trustScore, int totalValidations) {
     if (totalValidations == 0) return CommunityStatus.unverified;
-    if (trustScore >= 0.8 && totalValidations >= 5)
+    if (trustScore >= 0.8 && totalValidations >= 5) {
       return CommunityStatus.trusted;
-    if (trustScore >= 0.6 && totalValidations >= 3)
+    }
+    if (trustScore >= 0.6 && totalValidations >= 3) {
       return CommunityStatus.verified;
+    }
     if (trustScore >= 0.4) return CommunityStatus.caution;
     return CommunityStatus.warning;
   }

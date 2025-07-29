@@ -20,10 +20,14 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
   String _selectedTime = '15:00';
   String _selectedPaymentMethod = 'venue';
   bool _shareInCommunity = true;
+  bool _inviteFriends = false;
+  int _groupSize = 1;
+  final List<String> _invitedFriends = [];
   final TextEditingController _specialRequestsController =
       TextEditingController();
 
   final List<String> _timeSlots = ['14:30', '15:00', '15:30', '16:00'];
+  final List<String> _prayerTimes = ['Dhuhr (12:30)', 'Asr (15:45)', 'Maghrib (18:20)'];
 
   @override
   void dispose() {
@@ -60,8 +64,12 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
             _buildTimeSelection(),
             const SizedBox(height: 24),
 
-            // Community group option
-            _buildCommunityGroupOption(),
+            // Social booking coordination
+            _buildSocialBookingOptions(),
+            const SizedBox(height: 24),
+
+            // Cultural timing considerations  
+            _buildCulturalTimingOptions(),
             const SizedBox(height: 24),
 
             // Special requests
@@ -194,53 +202,283 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
     );
   }
 
-  Widget _buildCommunityGroupOption() {
-    if (_selectedBookingType != 'join_group') return const SizedBox.shrink();
-
+  Widget _buildSocialBookingOptions() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          '💬 Community Group Option:',
+          '👥 Social Booking:',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
+        
+        // Invite friends option
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey[300]!),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Switch(
+                    value: _inviteFriends,
+                    onChanged: (value) {
+                      setState(() {
+                        _inviteFriends = value;
+                        if (!value) {
+                          _invitedFriends.clear();
+                          _groupSize = 1;
+                        }
+                      });
+                    },
+                    activeColor: AppTheme.moroccoGreen,
+                  ),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text(
+                      'Invite friends from community',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+              
+              if (_inviteFriends) ...[
+                const SizedBox(height: 16),
+                const Divider(),
+                const SizedBox(height: 16),
+                
+                // Group size selector
+                Row(
+                  children: [
+                    const Text('Group size: '),
+                    const SizedBox(width: 8),
+                    DropdownButton<int>(
+                      value: _groupSize,
+                      items: List.generate(8, (index) => index + 1)
+                          .map((size) => DropdownMenuItem(
+                                value: size,
+                                child: Text('$size ${size == 1 ? 'person' : 'people'}'),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _groupSize = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 12),
+                
+                // Friend invitation interface
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppTheme.moroccoGreen.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Community members:',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          _buildFriendChip('Ahmed_Casa', false),
+                          _buildFriendChip('Sarah_Guide', false),
+                          _buildFriendChip('LocalFoodie', true),
+                          _buildFriendChip('Student_Rbat', false),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      if (_invitedFriends.isNotEmpty)
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.green.shade50,
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: Colors.green.shade200),
+                          ),
+                          child: Text(
+                            'Invited: ${_invitedFriends.join(', ')}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.green.shade700,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                
+                const SizedBox(height: 12),
+                
+                // Group booking benefits
+                if (_groupSize >= 4)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade50,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Colors.orange.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.celebration, 
+                             color: Colors.orange.shade700, size: 16),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            '${_groupSize >= 6 ? '15%' : '10%'} group discount applied!',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.orange.shade700,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFriendChip(String name, bool isInvited) {
+    return FilterChip(
+      label: Text(name),
+      selected: isInvited,
+      onSelected: (selected) {
+        setState(() {
+          if (selected) {
+            if (!_invitedFriends.contains(name)) {
+              _invitedFriends.add(name);
+            }
+          } else {
+            _invitedFriends.remove(name);
+          }
+        });
+      },
+      selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+      checkmarkColor: AppTheme.moroccoGreen,
+    );
+  }
+
+  Widget _buildCulturalTimingOptions() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          '🕌 Cultural Timing:',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade300),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Ahmed_Casa\'s study group (3/4)',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // Prayer time awareness
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.access_time, 
+                               color: AppTheme.moroccoGreen, size: 16),
+                    SizedBox(width: 8),
+                    Text(
+                      'Prayer times today:',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme.moroccoGreen,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                '"Working on project, friendly atmosphere, WiFi focused"',
-                style: TextStyle(color: AppTheme.secondaryText),
+              
+              Wrap(
+                spacing: 8,
+                children: _prayerTimes.map((prayer) => Chip(
+                  label: Text(prayer),
+                  backgroundColor: Colors.grey.shade100,
+                )).toList(),
               ),
+              
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      child: const Text('Join This Group'),
-                    ),
+              
+              // Booking time validation
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _isTimeConflictWithPrayer() 
+                      ? Colors.orange.shade50 
+                      : Colors.green.shade50,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: _isTimeConflictWithPrayer() 
+                        ? Colors.orange.shade200 
+                        : Colors.green.shade200,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {},
-                      child: const Text('Chat First'),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      _isTimeConflictWithPrayer() 
+                          ? Icons.warning_amber 
+                          : Icons.check_circle,
+                      size: 16,
+                      color: _isTimeConflictWithPrayer() 
+                          ? Colors.orange.shade700 
+                          : Colors.green.shade700,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        _isTimeConflictWithPrayer()
+                            ? 'Selected time is near prayer time. Consider adjusting.'
+                            : 'Selected time is prayer-friendly.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: _isTimeConflictWithPrayer() 
+                              ? Colors.orange.shade700 
+                              : Colors.green.shade700,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -248,6 +486,13 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
       ],
     );
   }
+
+  bool _isTimeConflictWithPrayer() {
+    // Mock logic: check if selected time conflicts with prayer times
+    final selectedHour = int.parse(_selectedTime.split(':')[0]);
+    return selectedHour == 12 || selectedHour == 15 || selectedHour == 18;
+  }
+
 
   Widget _buildSpecialRequests() {
     return Column(

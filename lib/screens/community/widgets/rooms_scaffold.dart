@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:deadhour/models/user.dart';
 import 'package:deadhour/utils/theme.dart';
-import '../../../widgets/common/dead_hour_app_bar.dart';
 import 'package:deadhour/screens/community/widgets/community_health_indicator.dart';
 import 'package:deadhour/screens/community/widgets/category_filter.dart';
 import 'package:deadhour/screens/community/widgets/cultural_filters.dart';
@@ -9,12 +8,9 @@ import 'package:deadhour/screens/community/widgets/cultural_filters.dart';
 class RoomsScaffold extends StatelessWidget {
   final DeadHourUser? user;
   final TabController tabController;
-  final String selectedCity;
   final String selectedCategory;
   final bool showPrayerTimeAware;
   final bool showHalalOnly;
-  final VoidCallback onCitySelectorPressed;
-  final VoidCallback onRoomSearchPressed;
   final ValueChanged<String> onCategorySelected;
   final ValueChanged<bool> onPrayerTimeAwareChanged;
   final ValueChanged<bool> onHalalOnlyChanged;
@@ -26,12 +22,9 @@ class RoomsScaffold extends StatelessWidget {
     super.key,
     required this.user,
     required this.tabController,
-    required this.selectedCity,
     required this.selectedCategory,
     required this.showPrayerTimeAware,
     required this.showHalalOnly,
-    required this.onCitySelectorPressed,
-    required this.onRoomSearchPressed,
     required this.onCategorySelected,
     required this.onPrayerTimeAwareChanged,
     required this.onHalalOnlyChanged,
@@ -43,15 +36,6 @@ class RoomsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DeadHourAppBar(
-        title: 'Community',
-        selectedCity: selectedCity,
-        showLocationSelector: true,
-        showNotifications: true,
-        showSearch: true,
-        onCityChanged: onCitySelectorPressed,
-        onSearchPressed: onRoomSearchPressed,
-      ),
       body: Column(
         children: [
           const CommunityHealthIndicator(),

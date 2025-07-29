@@ -2,348 +2,176 @@ import 'package:flutter/material.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../models/venue.dart';
-import '../../widgets/common/enhanced_app_bar.dart';
+// Enhanced app bar removed - handled by MainNavigationScreen
+import '../../routes/app_routes.dart';
+import '../../services/social_validation_service.dart';
+import '../../services/advanced_search_service.dart';
 
 class VenueDiscoveryScreen extends StatefulWidget {
-  const VenueDiscoveryScreen({super.key});
+  final String? selectedView; // View passed from AppBar filter
+  
+  const VenueDiscoveryScreen({super.key, this.selectedView});
 
   @override
   State<VenueDiscoveryScreen> createState() => _VenueDiscoveryScreenState();
 }
 
-class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
+class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen> {
   String _selectedCategory = 'all';
   String _selectedCity = 'all';
   String _sortBy = 'rating';
-  bool _showFilters = false;
+  String _selectedView = 'list'; // list, map, nearby
+  final _socialValidation = SocialValidationService();
+  final _advancedSearch = AdvancedSearchService();
   double _maxDistance = 10.0;
   bool _openNowOnly = false;
   String _priceRange = 'all';
-
-  final List<Map<String, dynamic>> _categories = [
-    {'id': 'all', 'name': 'All Venues', 'icon': '🏢'},
-    {'id': 'food', 'name': 'Food & Dining', 'icon': '🍕'},
-    {'id': 'entertainment', 'name': 'Entertainment', 'icon': '🎮'},
-    {'id': 'wellness', 'name': 'Wellness', 'icon': '💆'},
-    {'id': 'sports', 'name': 'Sports', 'icon': '⚽'},
-    {'id': 'guide', 'name': 'Tourism', 'icon': '🌍'},
-    {'id': 'family', 'name': 'Family', 'icon': '👨‍👩‍👧‍👦'},
-  ];
+  bool _halalOnly = false;
+  bool _prayerFriendly = false;
+  bool _showCommunityActivity = true;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    // Initialize with view from AppBar filter, default to 'list'
+    _selectedView = widget.selectedView ?? 'list_view';
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void didUpdateWidget(VenueDiscoveryScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update view when filter changes from AppBar
+    if (widget.selectedView != oldWidget.selectedView && widget.selectedView != null) {
+      setState(() {
+        _selectedView = widget.selectedView!;
+      });
+    }
   }
 
   List<Venue> get _filteredVenues {
-    var venues = MockData.venues;
-
-    if (_selectedCategory != 'all') {
-      venues =
-          venues.where((venue) => venue.category == _selectedCategory).toList();
-    }
-
-    if (_selectedCity != 'all') {
-      venues = venues.where((venue) => venue.city == _selectedCity).toList();
-    }
-
-    if (_openNowOnly) {
-      venues = venues.where((venue) => venue.isOpen).toList();
-    }
-
-    if (_priceRange != 'all') {
-      venues =
-          venues.where((venue) => venue.priceRange == _priceRange).toList();
-    }
-
-    switch (_sortBy) {
-      case 'rating':
-        venues.sort((a, b) => b.rating.compareTo(a.rating));
-        break;
-      case 'distance':
-        venues.sort((a, b) => a.id.compareTo(b.id));
-        break;
-      case 'newest':
-        venues.sort((a, b) => (b.joinedDate ?? DateTime.now())
-            .compareTo(a.joinedDate ?? DateTime.now()));
-        break;
-      case 'deals':
-        venues.sort((a, b) => b.id.compareTo(a.id));
-        break;
-    }
-
-    return venues;
+    // Use advanced search service for comprehensive filtering (search handled by AppBar)
+    return _advancedSearch.multiFilterSearch(
+      query: null, // Search handled by AppBar filters
+      category: _selectedCategory != 'all' ? _selectedCategory : null,
+      city: _selectedCity != 'all' ? _selectedCity : null,
+      maxDistance: _maxDistance,
+      features: [
+        if (_halalOnly) 'halal',
+        if (_prayerFriendly) 'prayer_friendly',
+      ],
+      priceRange: _priceRange != 'all' ? _priceRange : null,
+      openNow: _openNowOnly ? true : null,
+      sortBy: _sortBy,
+      limit: 50,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
-      appBar: const EnhancedAppBar(
-        title: 'Discover Venues',
-        subtitle: 'Find amazing places around Morocco',
-        showBackButton: true,
-        showGradient: true,
-      ),
+      // App bar removed - handled by MainNavigationScreen
       body: Column(
         children: [
-          _buildSearchAndFilters(),
-          _buildTabs(),
+          // Results summary header only (filters moved to AppBar)
+          _buildResultsHeader(),
+          // Results content based on selected view (controlled by AppBar filter)
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildVenuesTab(),
-                _buildMapTab(),
-                _buildNearbyTab(),
-              ],
-            ),
+            child: _buildSelectedView(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSearchAndFilters() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Search venues, dishes, activities...',
-              prefixIcon: const Icon(Icons.search),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _showFilters ? Icons.filter_list : Icons.tune,
-                  color: _showFilters ? AppTheme.moroccoGreen : null,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _showFilters = !_showFilters;
-                  });
-                },
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.grey[100],
-            ),
-          ),
-          if (_showFilters) ...[
-            const SizedBox(height: 16),
-            _buildFiltersRow(),
-          ],
-        ],
-      ),
-    );
+
+
+  Widget _buildSelectedView() {
+    switch (_selectedView) {
+      case 'map_view':
+        return _buildMapView();
+      case 'nearby':
+        return _buildNearbyView();
+      case 'list_view':
+      default:
+        return _buildVenuesList();
+    }
   }
 
-  Widget _buildFiltersRow() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _selectedCity,
-                decoration: const InputDecoration(
-                  labelText: 'City',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  border: OutlineInputBorder(),
-                ),
-                items: [
-                  'all',
-                  'Marrakech',
-                  'Casablanca',
-                  'Fez',
-                  'Rabat',
-                  'Tangier'
-                ]
-                    .map((city) => DropdownMenuItem(
-                          value: city,
-                          child: Text(city == 'all' ? 'All Cities' : city),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCity = value!;
-                  });
-                },
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _sortBy,
-                decoration: const InputDecoration(
-                  labelText: 'Sort by',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  border: OutlineInputBorder(),
-                ),
-                items: const [
-                  DropdownMenuItem(value: 'rating', child: Text('Rating')),
-                  DropdownMenuItem(value: 'distance', child: Text('Distance')),
-                  DropdownMenuItem(value: 'newest', child: Text('Newest')),
-                  DropdownMenuItem(value: 'deals', child: Text('Best Deals')),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    _sortBy = value!;
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: CheckboxListTile(
-                title: const Text('Open now'),
-                value: _openNowOnly,
-                onChanged: (value) {
-                  setState(() {
-                    _openNowOnly = value!;
-                  });
-                },
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-              ),
-            ),
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _priceRange,
-                decoration: const InputDecoration(
-                  labelText: 'Price',
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  border: OutlineInputBorder(),
-                ),
-                items: const [
-                  DropdownMenuItem(value: 'all', child: Text('All Prices')),
-                  DropdownMenuItem(value: '€', child: Text('€ - Budget')),
-                  DropdownMenuItem(value: '€€', child: Text('€€ - Moderate')),
-                  DropdownMenuItem(value: '€€€', child: Text('€€€ - Premium')),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    _priceRange = value!;
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+  // Method to update view from external source (MainNavigationScreen filter)
+  void updateView(String view) {
+    setState(() {
+      _selectedView = view;
+    });
   }
 
-  Widget _buildTabs() {
-    return Container(
-      color: Colors.white,
-      child: TabBar(
-        controller: _tabController,
-        indicatorColor: AppTheme.moroccoGreen,
-        labelColor: AppTheme.moroccoGreen,
-        unselectedLabelColor: Colors.grey,
-        tabs: const [
-          Tab(text: 'List View', icon: Icon(Icons.list)),
-          Tab(text: 'Map View', icon: Icon(Icons.map)),
-          Tab(text: 'Nearby', icon: Icon(Icons.near_me)),
-        ],
-      ),
-    );
+  void _clearAllFilters() {
+    setState(() {
+      _selectedCategory = 'all';
+      _selectedCity = 'all';
+      _sortBy = 'rating';
+      _maxDistance = 10.0;
+      _openNowOnly = false;
+      _priceRange = 'all';
+      _halalOnly = false;
+      _prayerFriendly = false;
+      _showCommunityActivity = true;
+      // Search clearing handled by AppBar filters
+    });
   }
 
-  Widget _buildVenuesTab() {
-    return Column(
-      children: [
-        _buildCategoryFilter(),
-        _buildResultsHeader(),
-        Expanded(child: _buildVenuesList()),
-      ],
-    );
-  }
-
-  Widget _buildCategoryFilter() {
-    return Container(
-      height: 60,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: _categories.length,
-        itemBuilder: (context, index) {
-          final category = _categories[index];
-          final isSelected = _selectedCategory == category['id'];
-
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              selected: isSelected,
-              label: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(category['icon'] as String,
-                      style: const TextStyle(fontSize: 14)),
-                  const SizedBox(width: 4),
-                  Text(category['name'] as String,
-                      style: const TextStyle(fontSize: 12)),
-                ],
-              ),
-              selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
-              onSelected: (selected) {
-                setState(() {
-                  _selectedCategory = category['id'] as String;
-                });
-              },
-            ),
-          );
-        },
-      ),
-    );
-  }
 
   Widget _buildResultsHeader() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade200),
+        ),
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             '${_filteredVenues.length} venues found',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppTheme.primaryText,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          TextButton.icon(
-            onPressed: _showFilterBottomSheet,
-            icon: const Icon(Icons.tune, size: 16),
-            label: const Text('More Filters'),
-          ),
+          const Spacer(),
+          // Show active filters indicator if any are applied
+          if (_selectedCategory != 'all' || _selectedCity != 'all' || _openNowOnly || _halalOnly || _prayerFriendly)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Filters Active',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.moroccoGreen,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () => _clearAllFilters(),
+                    child: const Icon(
+                      Icons.close,
+                      size: 16,
+                      color: AppTheme.moroccoGreen,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
@@ -373,7 +201,7 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: InkWell(
-        onTap: () => _showVenueDetails(venue),
+        onTap: () => AppNavigation.goToVenueDetail(context, venue.id),
         borderRadius: BorderRadius.circular(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -538,6 +366,11 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                         _buildAmenityChip('Verified', Icons.verified),
                     ],
                   ),
+                  // Community activity indicators
+                  if (_showCommunityActivity) ...[
+                    const SizedBox(height: 8),
+                    _buildCommunityActivity(venue),
+                  ],
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -550,18 +383,7 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed: () => _bookVenue(venue),
-                          icon: const Icon(Icons.book_online, size: 16),
-                          label:
-                              Text(hasActiveDeals ? 'Book Deal' : 'Book Now'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: hasActiveDeals
-                                ? Colors.red
-                                : AppTheme.moroccoGreen,
-                            foregroundColor: Colors.white,
-                          ),
-                        ),
+                        child: _buildBookingButton(venue, hasActiveDeals),
                       ),
                     ],
                   ),
@@ -571,6 +393,247 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCommunityActivity(Venue venue) {
+    final socialProof = _socialValidation.getSocialProofSummary(venue.id);
+    final socialWidgets = _socialValidation.getSocialProofWidgets(venue.id);
+    final trustIndicators = _socialValidation.getTrustIndicators(venue.id);
+    final checkIns = _socialValidation.getVenueCheckIns(venue.id);
+    
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppTheme.moroccoGreen.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header with trust level
+          Row(
+            children: [
+              const Icon(
+                Icons.group,
+                size: 16,
+                color: AppTheme.moroccoGreen,
+              ),
+              const SizedBox(width: 4),
+              const Text(
+                'Community Validation',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.moroccoGreen,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: _getTrustLevelColor(trustIndicators['trustLevel']),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  trustIndicators['trustLevel'],
+                  style: const TextStyle(
+                    fontSize: 9,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          
+          // Social proof widgets
+          if (socialWidgets.isNotEmpty) ...[
+            Wrap(
+              spacing: 6,
+              runSpacing: 4,
+              children: socialWidgets.take(2).map((widget) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: _getWidgetColor(widget['color']).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _getWidgetColor(widget['color']).withValues(alpha: 0.4),
+                  ),
+                ),
+                child: Text(
+                  widget['title'],
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: _getWidgetColor(widget['color']),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              )).toList(),
+            ),
+            const SizedBox(height: 6),
+          ],
+          
+          // Friend recommendations indicator
+          if (socialProof['friendCheckIns'] > 0) ...[
+            Row(
+              children: [
+                Icon(
+                  Icons.people,
+                  size: 12,
+                  color: Colors.green.shade600,
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    '${socialProof['friendNames'].take(2).join(', ')} visited recently',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.green.shade600,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+          ],
+          
+          // Recent activity or community tags
+          if (checkIns.isNotEmpty) ...[
+            Row(
+              children: [
+                const Icon(
+                  Icons.chat_bubble_outline,
+                  size: 12,
+                  color: AppTheme.secondaryText,
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    '"${checkIns.first['comment']}"',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppTheme.secondaryText,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ] else if (socialProof['communityTags'].isNotEmpty) ...[
+            Row(
+              children: [
+                const Icon(
+                  Icons.tag,
+                  size: 12,
+                  color: AppTheme.secondaryText,
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    socialProof['communityTags'].take(3).join(', '),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppTheme.secondaryText,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Color _getTrustLevelColor(String? trustLevel) {
+    switch (trustLevel) {
+      case 'Highly Trusted':
+        return Colors.green;
+      case 'Community Trusted':
+        return Colors.blue;
+      case 'Moderately Trusted':
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Color _getWidgetColor(String color) {
+    switch (color) {
+      case 'green':
+        return Colors.green;
+      case 'orange':
+        return Colors.orange;
+      case 'blue':
+        return Colors.blue;
+      case 'purple':
+        return Colors.purple;
+      default:
+        return AppTheme.moroccoGreen;
+    }
+  }
+
+  Widget _buildBookingButton(Venue venue, bool hasActiveDeals) {
+    // Check if venue is good for groups (mock logic)
+    final isGroupFriendly = venue.category == 'food' || venue.category == 'entertainment';
+    final groupDiscount = isGroupFriendly ? '10% off for 6+ people' : null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () => _bookVenue(venue),
+          icon: const Icon(Icons.book_online, size: 16),
+          label: Text(hasActiveDeals ? 'Book Deal' : 'Book Now'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: hasActiveDeals ? Colors.red : AppTheme.moroccoGreen,
+            foregroundColor: Colors.white,
+          ),
+        ),
+        if (isGroupFriendly && groupDiscount != null) ...[
+          const SizedBox(height: 4),
+          GestureDetector(
+            onTap: () => _showGroupBookingInfo(venue),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.orange.shade200),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.group, size: 12, color: Colors.orange.shade700),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      groupDiscount,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.orange.shade700,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 
@@ -589,7 +652,7 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     );
   }
 
-  Widget _buildMapTab() {
+  Widget _buildMapView() {
     return Container(
       color: Colors.grey[200],
       child: const Center(
@@ -614,7 +677,7 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     );
   }
 
-  Widget _buildNearbyTab() {
+  Widget _buildNearbyView() {
     final nearbyVenues = _filteredVenues.take(5).toList();
 
     return Column(
@@ -672,7 +735,7 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
                       const Text('2.3 km', style: TextStyle(fontSize: 12)),
                     ],
                   ),
-                  onTap: () => _showVenueDetails(venue),
+                  onTap: () => AppNavigation.goToVenueDetail(context, venue.id),
                 ),
               );
             },
@@ -704,235 +767,130 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
     );
   }
 
-  void _showFilterBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
-        builder: (context, scrollController) => Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Advanced Filters',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Distance',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
-                      Slider(
-                        value: _maxDistance,
-                        min: 1,
-                        max: 50,
-                        divisions: 49,
-                        label: '${_maxDistance.round()} km',
-                        onChanged: (value) {
-                          setState(() {
-                            _maxDistance = value;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      const Text('Amenities',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
-                      CheckboxListTile(
-                        title: const Text('Halal Food'),
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                      CheckboxListTile(
-                        title: const Text('WiFi Available'),
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                      CheckboxListTile(
-                        title: const Text('Card Payment'),
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                      CheckboxListTile(
-                        title: const Text('Verified Venue'),
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Apply Filters'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  void _showVenueDetails(Venue venue) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.9,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
-        builder: (context, scrollController) => Container(
-          padding: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            controller: scrollController,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                    venue.imageUrl,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Text(venue.categoryIcon,
-                        style: const TextStyle(fontSize: 24)),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            venue.name,
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            venue.categoryName,
-                            style: const TextStyle(
-                                fontSize: 16, color: AppTheme.moroccoGreen),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.star, color: Colors.amber),
-                            Text('${venue.rating}',
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                        Text('${venue.reviewCount} reviews'),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(venue.description, style: const TextStyle(fontSize: 16)),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on, color: Colors.grey),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text('${venue.address}, ${venue.city}')),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.phone, color: Colors.grey),
-                    const SizedBox(width: 8),
-                    Text(venue.phone),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Text('Operating Hours',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                ...venue.operatingHours.entries.map((entry) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 80,
-                            child: Text(entry.key.capitalize(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500)),
-                          ),
-                          Text(entry.value),
-                        ],
-                      ),
-                    )),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _bookVenue(venue);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.moroccoGreen,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child:
-                        const Text('Book Now', style: TextStyle(fontSize: 16)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   void _viewVenueDetails(Venue venue) {
-    _showVenueDetails(venue);
+    AppNavigation.goToVenueDetail(context, venue.id);
+  }
+
+  void _showGroupBookingInfo(Venue venue) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.group, color: AppTheme.moroccoGreen),
+            SizedBox(width: 8),
+            Text('Group Booking'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${venue.name} offers special group rates!',
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 12),
+            const Row(
+              children: [
+                Icon(Icons.people, size: 16, color: AppTheme.moroccoGreen),
+                SizedBox(width: 8),
+                Text('6+ people: 10% discount'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            const Row(
+              children: [
+                Icon(Icons.people_alt, size: 16, color: AppTheme.moroccoGreen),
+                SizedBox(width: 8),
+                Text('10+ people: 15% discount'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            const Row(
+              children: [
+                Icon(Icons.schedule, size: 16, color: AppTheme.moroccoGreen),
+                SizedBox(width: 8),
+                Text('Best rates during dead hours'),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                'Tip: Invite friends from the community for better deals!',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  color: AppTheme.secondaryText,
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _bookGroupVenue(venue);
+            },
+            child: const Text('Book for Group'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _bookGroupVenue(Venue venue) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Group Booking'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('How many people in your group for ${venue.name}?'),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Number of people',
+                hintText: 'Minimum 6 for group rates',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Group booking request sent! We\'ll contact you with details.'),
+                  backgroundColor: AppColors.success,
+                ),
+              );
+            },
+            child: const Text('Request Quote'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _bookVenue(Venue venue) {
@@ -1048,6 +1006,8 @@ class _VenueDiscoveryScreenState extends State<VenueDiscoveryScreen>
       ),
     );
   }
+
+
 }
 
 extension StringExtension on String {

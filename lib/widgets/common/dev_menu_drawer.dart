@@ -52,32 +52,47 @@ class DevMenuDrawer extends StatelessWidget {
                 children: [
                   _buildCategorySection(
                     context,
+                    'Main Navigation - 6 Tab Testing',
+                    Icons.navigation,
+                    [
+                      DevRoute('🏷️ Deals Tab (Primary)', '/deals'),
+                      DevRoute('📍 Venues Tab', '/venues'),
+                      DevRoute('👥 Community Tab', '/community'),
+                      DevRoute('🌍 Tourism Tab', '/tourism'),
+                      DevRoute('🔔 Notifications Tab', '/notifications'),
+                      DevRoute('👤 Profile Tab', '/profile'),
+                    ],
+                  ),
+                  _buildCategorySection(
+                    context,
                     'Authentication',
                     Icons.login,
                     [
                       DevRoute('Splash Screen', '/splash'),
                       DevRoute('Onboarding', '/onboarding'),
-                      DevRoute('Role Marketplace', '/user-type'),
                       DevRoute('Login', '/login'),
                       DevRoute('Register', '/register'),
                     ],
                   ),
                   _buildCategorySection(
                     context,
-                    'Home & Discovery',
+                    'Discovery & Booking (Standalone)',
                     Icons.home,
                     [
-                      DevRoute('Home Screen', '/home'),
-                      DevRoute('Deals Screen', '/home/deals'),
-                      DevRoute('Venue Discovery', '/home/venues'),
+                      DevRoute('Home Screen (redirects)', '/home'),
+                      DevRoute('Tourist Home Screen', '/tourist-home'),
+                      DevRoute('Venue Detail Screen', '/venue-detail/1'),
+                      DevRoute('Booking Flow', '/booking'),
+                      DevRoute('Payment Screen', '/payment'),
                     ],
                   ),
                   _buildCategorySection(
                     context,
-                    'Community',
+                    'Community (Standalone)',
                     Icons.people,
                     [
-                      DevRoute('Rooms Screen', '/community'),
+                      DevRoute('Room Detail', '/room/1'),
+                      DevRoute('Room Chat', '/room/1/chat'),
                     ],
                   ),
                   _buildCategorySection(
@@ -98,18 +113,38 @@ class DevMenuDrawer extends StatelessWidget {
                     Icons.explore,
                     [
                       DevRoute('Tourism Screen', '/tourism'),
-                      DevRoute('Local Expert', '/tourism/local-expert'),
-                      DevRoute('Social Discovery', '/tourism/social-discovery'),
-                      DevRoute('Guide Role', '/roles/guide'),
+                      DevRoute('Local Expert', '/local-expert'),
+                      DevRoute('Social Discovery', '/social-discovery'),
+                      DevRoute('Guide Role', '/guide'),
                     ],
                   ),
                   _buildCategorySection(
                     context,
-                    'Profile & Settings',
+                    'Social Features',
+                    Icons.people,
+                    [
+                      DevRoute('Group Booking', '/group-booking'),
+                    ],
+                  ),
+                  _buildCategorySection(
+                    context,
+                    'Settings & Account (Standalone)',
                     Icons.person,
                     [
-                      DevRoute('Profile Screen', '/profile'),
-                      DevRoute('Settings', '/profile/settings'),
+                      DevRoute('Settings', '/settings'),
+                      DevRoute('Accessibility Settings', '/settings/accessibility'),
+                      DevRoute('Offline Settings', '/settings/offline'),
+                    ],
+                  ),
+                  _buildCategorySection(
+                    context,
+                    'MVP Completion',
+                    Icons.star,
+                    [
+                      DevRoute('Tourist Home Screen', '/tourist-home'),
+                      DevRoute('Role Switching', '/roles/switching'),
+                      DevRoute('Role Addition (Context)', '/user-type'),
+                      DevRoute('Premium Role', '/roles/premium'),
                     ],
                   ),
                   _buildCategorySection(
@@ -118,8 +153,9 @@ class DevMenuDrawer extends StatelessWidget {
                     Icons.admin_panel_settings,
                     [
                       DevRoute('Network Effects Dashboard', '/admin'),
-                      DevRoute('Role Switching (Future)', '/roles/switching'),
-                      DevRoute('Premium Role (Future)', '/roles/premium'),
+                      DevRoute('Community Health Dashboard', '/admin/community-health'),
+                      DevRoute('Venue Detail Screen', '/venue-detail/1'),
+                      DevRoute('Cultural Ambassador Application', '/cultural-ambassador-application'),
                     ],
                   ),
                   const SizedBox(height: AppTheme.spacing16),
@@ -202,8 +238,11 @@ class DevMenuDrawer extends StatelessWidget {
               ),
             );
           } else {
+            Navigator.of(context).pop(); // Close drawer first
+            
+            // Best practice: Always use context.go() for dev menu
+            // This provides consistent behavior and works better with deep links
             context.go(route.path);
-            Navigator.of(context).pop(); // Close drawer
           }
         } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -216,6 +255,7 @@ class DevMenuDrawer extends StatelessWidget {
       },
     );
   }
+
 
   Widget _buildInfoSection() {
     return Container(
@@ -246,8 +286,9 @@ class DevMenuDrawer extends StatelessWidget {
           ),
           SizedBox(height: AppTheme.spacing8),
           Text(
-            '• Use this menu to test all app screens\n'
-            '• Routes marked (Future) show coming soon message\n'
+            '• Top section: Test 6-tab main navigation with dynamic app bars\n'
+            '• Remaining sections: Test standalone screens and features\n'
+            '• Main navigation uses TabBarView, not separate routes\n'
             '• Active route is highlighted in green\n'
             '• This menu is for development only',
             style: TextStyle(

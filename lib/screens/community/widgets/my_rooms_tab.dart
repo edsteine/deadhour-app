@@ -4,12 +4,10 @@ import 'package:deadhour/widgets/common/room_card.dart';
 import 'package:deadhour/screens/community/widgets/empty_state_widget.dart';
 
 class MyRoomsTab extends StatelessWidget {
-  final TabController tabController;
   final Function(dynamic room) onOpenRoom;
 
   const MyRoomsTab({
     super.key,
-    required this.tabController,
     required this.onOpenRoom,
   });
 
@@ -25,7 +23,10 @@ class MyRoomsTab extends StatelessWidget {
         subtitle:
             'Join rooms to start discovering and connecting with the community',
         actionText: 'Browse Rooms',
-        onAction: () => tabController.animateTo(0),
+        onAction: () {
+          // Navigate back to All Rooms through the unified filter
+          // This will be handled by the parent navigation system
+        },
       );
     }
 

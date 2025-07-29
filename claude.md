@@ -119,23 +119,69 @@ Never present generated, inferred, speculated, or deduced content as fact.
 - **Multi-language Support**: Arabic (RTL), French, English for Morocco market
 
 ## Commands
-- `flutter doctor` - Check Flutter installation and dependencies
-- `flutter pub get` - Install project dependencies
-- `flutter build apk --release` - Build release APK for Android
-- `flutter build appbundle --release` - Build App Bundle for Play Store
-- `firebase --version` - Check Firebase CLI version
-- `flutterfire configure` - Configure Firebase for Flutter project
-
-## CRITICAL RULE: Flutter App Execution
-**NEVER run `flutter run` or any Flutter app execution commands.** Only use Flutter commands for:
-- Dependencies: `flutter pub get`
-- Code analysis: `flutter analyze`
-- Build verification: `flutter build --dry-run`
-- Project setup: `flutter create`, `flutterfire configure`
-
-This prevents unnecessary resource usage and potential device conflicts during development.
+**ALLOWED Commands:**
 - `flutter analyze` - Run static analysis and lint checks
 - `dart fix --apply` - Auto-fix lint issues where possible
+- `flutter pub get` - Install project dependencies (when explicitly needed)
+- `flutter doctor` - Check Flutter installation and dependencies (for troubleshooting only)
+
+**FORBIDDEN Commands (Ask user to run these):**
+- `flutter run` - App execution
+- `flutter build apk` - APK building
+- `flutter build appbundle` - App bundle building
+- `flutter build ios` - iOS building
+- `flutter build web` - Web building
+- `firebase --version` - Firebase CLI operations
+- `flutterfire configure` - Firebase configuration
+
+## CRITICAL RULE: Flutter App Execution & Building
+**This rule is MANDATORY and must be followed at all times.**
+
+**NEVER run ANY of these commands:**
+- `flutter run` - App execution
+- `flutter build apk` - APK building  
+- `flutter build appbundle` - App bundle building
+- `flutter build ios` - iOS building
+- `flutter build web` - Web building
+- Any other build or run commands
+
+**ONLY use these Flutter commands:**
+- `flutter analyze` - Static analysis and lint checks
+- `dart fix --apply` - Auto-fix lint issues where possible
+- `flutter pub get` - Install dependencies (when explicitly needed)
+
+**If build verification is needed, ask the user to run the build commands themselves.**
+
+This prevents unnecessary resource usage and potential device conflicts during development.
+
+## CRITICAL RULE: NEVER Delete Code - Always Preserve and Use
+**This rule is ABSOLUTELY MANDATORY and must be followed at all times.**
+
+**NEVER delete, remove, or eliminate ANY existing code for ANY reason, including:**
+- Fixing linter warnings about unused methods/variables
+- Cleaning up "dead code"
+- Removing deprecated functionality
+- Code that appears unused or unnecessary
+
+**INSTEAD, when encountering unused code warnings:**
+- **ALWAYS find ways to USE the existing code** by connecting it to UI elements or functionality
+- **INTEGRATE unused methods** into the existing interface (add buttons, menu items, settings)
+- **PRESERVE valuable implementation work** that developers spent time creating
+- **Fix linters by making code useful**, not by deleting it
+
+**Why this rule exists:**
+- Valuable development time was invested in creating all code
+- Unused methods often contain important UI patterns and functionality
+- Removing code leads to "bad app" with missing features
+- Code can be easily connected to UI to make it functional
+
+**If you encounter unused code, you MUST:**
+1. Find the unused methods/functions
+2. Add UI elements (buttons, menu items, settings) that call these methods
+3. Integrate them into the existing user interface
+4. Make the code functional rather than deleting it
+
+**This rule applies to ALL AI team members (Claude, Gemini, etc.) - NO EXCEPTIONS.**
 
 ## Mandatory Linting Rule
 **ALWAYS run linters and fix ALL issues after each code change:**

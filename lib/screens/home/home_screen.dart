@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../routes/app_routes.dart';
 import '../../utils/theme.dart';
 import '../../utils/mock_data.dart';
 import '../../utils/error_handler.dart';
@@ -62,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: _buildSectionHeader(
                 title: 'Active Deals',
                 subtitle: 'Limited time offers ending soon',
-                onViewAll: () => context.go('/home/deals'),
+                onViewAll: () => context.go('/deals'),
               ),
             ),
 
@@ -79,7 +80,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: _buildSectionHeader(
                 title: 'Nearby Venues',
                 subtitle: 'Discover amazing places around you',
-                onViewAll: () => context.go('/home/venues'),
+                onViewAll: () => context.go('/venues'),
               ),
             ),
 
@@ -95,7 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       venue: venues[index],
                       showDistance: true,
                       distance: 1.2 + (index * 0.3), // Mock distance
-                      onTap: () => _showVenueDetails(venues[index]),
+                      onTap: () => AppNavigation.goToVenueDetail(context, venues[index].id),
                     ),
                   );
                 },
@@ -325,58 +326,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
   */
 
-  void _showVenueDetails(dynamic venue) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
-        builder: (context, scrollController) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  venue.name,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  venue.type,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.secondaryText,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  venue.description,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                // Add more venue details here
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
 
   void _showDealDetails(dynamic deal) {
     showModalBottomSheet(

@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               // Back button
               IconButton(
-                onPressed: () => context.go('/user-type'),
+                onPressed: () => context.go('/onboarding'),
                 icon: const Icon(Icons.arrow_back),
                 padding: EdgeInsets.zero,
                 alignment: Alignment.centerLeft,

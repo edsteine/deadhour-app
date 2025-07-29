@@ -135,7 +135,7 @@ class ExpertCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage(expert['image']!),
+              backgroundImage: NetworkImage(expert['image']!),
             ),
             const SizedBox(width: 16),
             Column(

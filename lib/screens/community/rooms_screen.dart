@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/user.dart';
 import '../../utils/error_handler.dart';
-import '../../utils/performance_utils.dart';
-import 'widgets/rooms_scaffold.dart';
+import '../../utils/theme.dart';
 import 'package:deadhour/screens/community/widgets/room_interaction_helpers.dart';
 import 'package:deadhour/screens/community/widgets/all_rooms_tab.dart';
 import 'package:deadhour/screens/community/widgets/my_rooms_tab.dart';
@@ -19,88 +18,81 @@ class RoomsScreen extends ConsumerStatefulWidget {
   ConsumerState<RoomsScreen> createState() => _RoomsScreenState();
 }
 
-class _RoomsScreenState extends ConsumerState<RoomsScreen>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
-  String _selectedCity = 'Casablanca';
+class _RoomsScreenState extends ConsumerState<RoomsScreen> {
+  final String _selectedCity = 'Casablanca';
   String _selectedCategory = 'all';
   bool _showPrayerTimeAware = false;
   bool _showHalalOnly = false;
+  final String _currentRoomType = 'all_rooms'; // Controlled by unified filter
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-  }
-
-  @override
-  void didUpdateWidget(covariant RoomsScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.key != widget.key) {
-      _tabController.dispose();
-      _tabController = TabController(length: _tabs.length, vsync: this);
-    }
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  List<Tab> get _tabs {
+  Widget _buildCurrentRoomView() {
     final user = ref.watch(userProvider);
-    List<Tab> baseTabs = [
-      const Tab(text: 'All Rooms'),
-      const Tab(text: 'My Rooms'),
-      const Tab(text: 'Popular'),
-    ];
-
-    if (user?.hasRole('business') == true) {
-      baseTabs.add(const Tab(text: 'Business'));
+    
+    switch (_currentRoomType) {
+      case 'all_rooms':
+        return AllRoomsTab(
+          selectedCategory: _selectedCategory,
+          showPrayerTimeAware: _showPrayerTimeAware,
+          showHalalOnly: _showHalalOnly,
+          onRefresh: () =>
+              RoomInteractionHelpers.handleRefresh(() => setState(() {})),
+          onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
+              room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        );
+      case 'my_rooms':
+        return MyRoomsTab(
+          onOpenRoom: (room) => RoomInteractionHelpers.openRoom(context, room),
+        );
+      case 'popular':
+        return PopularRoomsTab(
+          onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
+              room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        );
+      case 'business':
+        if (user?.hasRole('business') == true) {
+          return const BusinessRoomsTab();
+        }
+        return _buildNoAccessView('Business rooms require a business role');
+      case 'guide_network':
+        if (user?.hasRole('guide') == true) {
+          return const GuideRoomsTab();
+        }
+        return _buildNoAccessView('Guide network requires a guide role');
+      default:
+        return AllRoomsTab(
+          selectedCategory: _selectedCategory,
+          showPrayerTimeAware: _showPrayerTimeAware,
+          showHalalOnly: _showHalalOnly,
+          onRefresh: () =>
+              RoomInteractionHelpers.handleRefresh(() => setState(() {})),
+          onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
+              room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+        );
     }
-    if (user?.hasRole('guide') == true) {
-      baseTabs.add(const Tab(text: 'Guide Network'));
-    }
-
-    return baseTabs;
   }
-
-  List<Widget> _buildTabViews() {
-    final user = ref.watch(userProvider);
-    List<Widget> views = [
-      AllRoomsTab(
-        selectedCategory: _selectedCategory,
-        showPrayerTimeAware: _showPrayerTimeAware,
-        showHalalOnly: _showHalalOnly,
-        onRefresh: () =>
-            RoomInteractionHelpers.handleRefresh(() => setState(() {})),
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
-            room, (r) => RoomInteractionHelpers.openRoom(context, r)),
+  
+  Widget _buildNoAccessView(String message) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.lock_outline,
+            size: 64,
+            color: AppTheme.secondaryText,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            message,
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppTheme.secondaryText,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
-      MyRoomsTab(
-        tabController: _tabController,
-        onOpenRoom: (room) => RoomInteractionHelpers.openRoom(context, room),
-      ),
-      PopularRoomsTab(
-        onJoinRoom: (room) => RoomInteractionHelpers.joinRoom(context, ref,
-            room, (r) => RoomInteractionHelpers.openRoom(context, r)),
-      ),
-    ];
-
-    if (user?.hasRole('business') == true) {
-      views.add(const BusinessRoomsTab());
-    }
-    if (user?.hasRole('guide') == true) {
-      views.add(const GuideRoomsTab());
-    }
-
-    return views;
+    );
   }
 
   @override
@@ -108,61 +100,113 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen>
     final user = ref.watch(userProvider);
     return ErrorBoundary(
       errorMessage: 'Unable to load community rooms',
-      child: RoomsScaffold(
-        user: user,
-        tabController: _tabController,
-        selectedCity: _selectedCity,
-        selectedCategory: _selectedCategory,
-        showPrayerTimeAware: _showPrayerTimeAware,
-        showHalalOnly: _showHalalOnly,
-        onCitySelectorPressed: () => _handleCitySelection(),
-        onRoomSearchPressed: () =>
-            RoomInteractionHelpers.showRoomSearch(context),
-        onCategorySelected: _handleCategorySelection,
-        onPrayerTimeAwareChanged: _handlePrayerTimeAwareChanged,
-        onHalalOnlyChanged: _handleHalalOnlyChanged,
-        onCreateRoomPressed: () => RoomInteractionHelpers.showCreateRoomDialog(
-            context, ref, _selectedCity),
-        tabs: _tabs,
-        tabViews: _buildTabViews(),
+      child: Scaffold(
+        body: Column(
+          children: [
+            // Simple results header - all filtering moved to app bar
+            _buildResultsHeader(),
+            // Room content controlled by unified filter in app bar
+            Expanded(
+              child: _buildCurrentRoomView(),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: "roomsCreateRoomFAB",
+          onPressed: () => RoomInteractionHelpers.showCreateRoomDialog(
+              context, ref, _selectedCity),
+          backgroundColor: AppTheme.moroccoGreen,
+          icon: const Icon(Icons.add),
+          label: const Text('Create Room'),
+        ),
       ),
     );
   }
 
-  void _handleCitySelection() {
-    PerformanceUtils.debounce(
-      const Duration(milliseconds: 300),
-      () => RoomInteractionHelpers.showCitySelector(context, _selectedCity,
-          (city) {
-        setState(() {
-          _selectedCity = city;
-        });
-      }),
+  Widget _buildResultsHeader() {
+    // Calculate total filtered rooms count
+    final totalRooms = _getFilteredRoomsCount();
+    
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade200),
+        ),
+      ),
+      child: Row(
+        children: [
+          Text(
+            '$totalRooms rooms found',
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppTheme.primaryText,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const Spacer(),
+          // Show active filters indicator if any are applied
+          if (_selectedCategory != 'all' || _showPrayerTimeAware || _showHalalOnly)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Filters Active',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.moroccoGreen,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () => _clearAllFilters(),
+                    child: const Icon(
+                      Icons.close,
+                      size: 16,
+                      color: AppTheme.moroccoGreen,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 
-  void _handleCategorySelection(String category) {
-    PerformanceUtils.debounce(
-      const Duration(milliseconds: 200),
-      () => setState(() {
-        _selectedCategory = category;
-      }),
-    );
+  int _getFilteredRoomsCount() {
+    var rooms = MockData.rooms;
+
+    if (_selectedCategory != 'all') {
+      rooms = rooms.where((room) => room.category == _selectedCategory).toList();
+    }
+
+    if (_showPrayerTimeAware) {
+      rooms = rooms.where((room) => room.isPrayerTimeAware).toList();
+    }
+    if (_showHalalOnly) {
+      rooms = rooms.where((room) => room.isHalalOnly).toList();
+    }
+
+    return rooms.length;
   }
 
-  void _handlePrayerTimeAwareChanged(bool value) {
+  void _clearAllFilters() {
     setState(() {
-      _showPrayerTimeAware = value;
+      _selectedCategory = 'all';
+      _showPrayerTimeAware = false;
+      _showHalalOnly = false;
     });
-    PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
   }
 
-  void _handleHalalOnlyChanged(bool value) {
-    setState(() {
-      _showHalalOnly = value;
-    });
-    PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
-  }
 }
 
 final userProvider = Provider<DeadHourUser?>((ref) {

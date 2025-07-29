@@ -38,7 +38,7 @@ class DeadHourAppBar extends ConsumerStatefulWidget
     this.showBackButton = false,
     this.showMenuDrawer = true,
     this.showLocationSelector = true,
-    this.showNotifications = true,
+    this.showNotifications = false,
     this.showSearch = false,
     this.showBusinessActions = false,
     this.showTourismActions = false,
@@ -107,24 +107,28 @@ class _DeadHourAppBarState extends ConsumerState<DeadHourAppBar> {
               ),
             ),
           if (widget.showLocationSelector)
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.location_on,
-                  size: 14,
-                  color: widget.foregroundColor ?? Colors.white,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  _selectedCity,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+            Flexible(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 14,
                     color: widget.foregroundColor ?? Colors.white,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 4),
+                  Flexible(
+                    child: Text(
+                      _selectedCity,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: widget.foregroundColor ?? Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
         ],
       );
@@ -166,19 +170,7 @@ class _DeadHourAppBarState extends ConsumerState<DeadHourAppBar> {
       actions.addAll(widget.customActions!);
     }
 
-    // Location selector action
-    if (widget.showLocationSelector) {
-      actions.add(
-        IconButton(
-          onPressed: () {
-            PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
-            _showCitySelector();
-          },
-          icon: const Icon(Icons.tune),
-          tooltip: 'Select City',
-        ),
-      );
-    }
+    // Location selector removed - now integrated into filter bottom sheets
 
     // Business actions
     if (widget.showBusinessActions) {
@@ -271,47 +263,6 @@ class _DeadHourAppBarState extends ConsumerState<DeadHourAppBar> {
     return actions;
   }
 
-  void _showCitySelector() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Select City',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ...['Casablanca', 'Rabat', 'Marrakech', 'Fez', 'Tangier', 'Agadir']
-                .map((city) {
-              return ListTile(
-                leading: const Icon(Icons.location_city),
-                title: Text(city),
-                trailing: _selectedCity == city
-                    ? const Icon(Icons.check, color: AppTheme.moroccoGreen)
-                    : null,
-                onTap: () {
-                  setState(() {
-                    _selectedCity = city;
-                  });
-                  if (widget.onCityChanged != null) {
-                    widget.onCityChanged!();
-                  }
-                  Navigator.pop(context);
-                  PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
-                },
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
 
   void _showNotifications() {
     showModalBottomSheet(

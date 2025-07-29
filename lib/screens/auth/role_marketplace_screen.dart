@@ -16,6 +16,10 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if this is being accessed from onboarding (should not happen anymore)
+    // or from profile/context-driven action
+    final isContextDriven = ModalRoute.of(context)?.settings.arguments != null;
+    
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       body: SafeArea(
@@ -24,18 +28,18 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back button
+              // Back button - context-aware
               IconButton(
-                onPressed: () => context.go('/onboarding'),
+                onPressed: () => Navigator.of(context).pop(),
                 icon: const Icon(Icons.arrow_back),
                 padding: EdgeInsets.zero,
                 alignment: Alignment.centerLeft,
               ),
               const SizedBox(height: 24),
 
-              // Header
+              // Header - updated for context-driven use
               Text(
-                'Welcome to Role Marketplace',
+                isContextDriven ? 'Add Role to Continue' : 'Manage Your Roles',
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppTheme.primaryText,
@@ -43,7 +47,9 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Choose your roles to unlock capabilities. Everything is completely free.',
+                isContextDriven 
+                    ? 'You need additional permissions for this action. Select a role to continue.'
+                    : 'Add roles to unlock new capabilities. You start as a Consumer.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.secondaryText,
                     ),
@@ -91,20 +97,22 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
                 ),
               ),
 
-              // Continue button (create universal account)
+              // Context-driven action button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => _createUniversalAccount(),
+                  onPressed: _selectedRoles.isNotEmpty ? () => _addSelectedRoles() : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Create Free Account',
-                    style: TextStyle(
+                  child: Text(
+                    _selectedRoles.isEmpty 
+                        ? 'Select a role to continue' 
+                        : 'Add ${_selectedRoles.length} Role${_selectedRoles.length > 1 ? 's' : ''}',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -334,11 +342,13 @@ class _RoleMarketplaceScreenState extends State<RoleMarketplaceScreen> {
     );
   }
 
-  void _createUniversalAccount() {
-    // Create universal DeadHour account with selected roles
-    // Store selected roles in user profile
-    final rolesQuery = _selectedRoles.join(',');
-    context.go('/register?roles=$rolesQuery');
+  void _addSelectedRoles() {
+    // Add selected roles to existing user account
+    // In real app, this would call an API to add roles
+    
+    // For now, just go back with success
+    // The calling screen should handle the role addition
+    Navigator.of(context).pop(_selectedRoles.toList());
   }
 
   void _continueAsGuest() async {

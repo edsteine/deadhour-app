@@ -8,8 +8,6 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/auth/role_marketplace_screen.dart';
 import '../screens/home/main_navigation_screen.dart';
-import '../screens/home/deals_screen.dart';
-import '../screens/home/venue_discovery_screen.dart';
 import '../screens/community/room_detail_screen.dart';
 import '../screens/community/room_chat_screen.dart';
 import '../screens/business/business_dashboard_screen.dart';
@@ -22,6 +20,16 @@ import '../screens/social/social_discovery_screen.dart';
 import '../screens/profile/settings_screen.dart';
 import '../screens/home/booking_flow_screen.dart';
 import '../screens/admin/network_effects_dashboard_screen.dart';
+import '../screens/venues/venue_detail_screen.dart';
+import '../screens/social/group_booking_screen.dart';
+import '../screens/settings/accessibility_settings_screen.dart';
+import '../screens/settings/offline_settings_screen.dart';
+import '../screens/home/tourist_home_screen.dart';
+import '../screens/profile/role_switching_screen.dart';
+import '../screens/profile/premium_role_screen.dart';
+import '../screens/admin/community_health_dashboard_screen.dart';
+import '../screens/payment/payment_screen.dart';
+import '../screens/cultural/cultural_ambassador_application_screen.dart';
 import '../models/deal.dart';
 
 class AppRouter {
@@ -56,10 +64,20 @@ class AppRouter {
         builder: (context, state) => const RegisterScreen(),
       ),
 
-      // Main App Routes with Tab Navigation
+      // Main App Routes with Tab Navigation  
       GoRoute(
         path: '/home',
         name: 'home',
+        redirect: (context, state) => '/deals', // Redirect to deals tab
+      ),
+      GoRoute(
+        path: '/deals',
+        name: 'deals',
+        builder: (context, state) => const MainNavigationScreen(),
+      ),
+      GoRoute(
+        path: '/venues',
+        name: 'venues',
         builder: (context, state) => const MainNavigationScreen(),
       ),
       GoRoute(
@@ -73,21 +91,22 @@ class AppRouter {
         builder: (context, state) => const MainNavigationScreen(),
       ),
       GoRoute(
+        path: '/notifications',
+        name: 'notifications',
+        builder: (context, state) => const MainNavigationScreen(),
+      ),
+      GoRoute(
         path: '/profile',
         name: 'profile',
         builder: (context, state) => const MainNavigationScreen(),
       ),
-
-      // Sub-route screens (navigate on top of tabs)
       GoRoute(
-        path: '/deals',
-        name: 'deals',
-        builder: (context, state) => const DealsScreen(),
-      ),
-      GoRoute(
-        path: '/venues',
-        name: 'venues',
-        builder: (context, state) => const VenueDiscoveryScreen(),
+        path: '/venue-detail/:venueId',
+        name: 'venue-detail',
+        builder: (context, state) {
+          final venueId = state.pathParameters['venueId']!;
+          return VenueDetailScreen(venueId: venueId);
+        },
       ),
       GoRoute(
         path: '/booking',
@@ -164,11 +183,104 @@ class AppRouter {
         builder: (context, state) => const SettingsScreen(),
       ),
 
+
+      // Group Booking
+      GoRoute(
+        path: '/group-booking',
+        name: 'group-booking',
+        builder: (context, state) => const GroupBookingScreen(),
+      ),
+
+      // Settings sub-routes
+      GoRoute(
+        path: '/settings/accessibility',
+        name: 'accessibility-settings',
+        builder: (context, state) => const AccessibilitySettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/offline',
+        name: 'offline-settings',
+        builder: (context, state) => const OfflineSettingsScreen(),
+      ),
+
+      // MVP completion routes
+      GoRoute(
+        path: '/tourist-home',
+        name: 'tourist-home',
+        builder: (context, state) => const TouristHomeScreen(),
+      ),
+      GoRoute(
+        path: '/roles/switching',
+        name: 'role-switching',
+        builder: (context, state) => const RoleSwitchingScreen(),
+      ),
+      GoRoute(
+        path: '/roles/premium',
+        name: 'premium-role',
+        builder: (context, state) => const PremiumRoleScreen(),
+      ),
+
       // Admin Routes
       GoRoute(
         path: '/admin',
         name: 'admin',
         builder: (context, state) => const NetworkEffectsDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/admin/community-health',
+        name: 'community-health',
+        builder: (context, state) => const CommunityHealthDashboardScreen(),
+      ),
+
+      // Payment Route (for testing - uses mock data)
+      GoRoute(
+        path: '/payment',
+        name: 'payment',
+        builder: (context, state) {
+          // Use mock data for dev menu testing
+          final mockDeal = Deal(
+            id: 'mock-deal-1',
+            venueId: 'mock-venue-1',
+            title: 'Mock Deal for Testing',
+            description: 'Test payment flow with mock data',
+            discountType: 'percentage',
+            discountValue: 30.0,
+            originalPrice: 100.0,
+            discountedPrice: 70.0,
+            validFrom: DateTime.now(),
+            validUntil: DateTime.now().add(const Duration(hours: 6)),
+            maxCapacity: 20,
+            currentBookings: 5,
+            isActive: true,
+            categories: ['food', 'test'],
+            daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            timeSlots: ['18:00-20:00', '20:00-22:00'],
+            imageUrl: 'https://via.placeholder.com/400x200',
+            isPrayerTimeAware: true,
+            isHalalOnly: true,
+          );
+          
+          final mockBookingDetails = {
+            'participants': 2,
+            'selectedTime': '19:00',
+            'selectedDate': DateTime.now().add(const Duration(days: 1)),
+            'totalAmount': 140.0,
+            'customerName': 'Test Customer',
+            'customerPhone': '+212 6 12 34 56 78',
+          };
+
+          return PaymentScreen(
+            deal: mockDeal,
+            bookingDetails: mockBookingDetails,
+          );
+        },
+      ),
+
+      // Cultural Ambassador Application (Future Feature)
+      GoRoute(
+        path: '/cultural-ambassador-application',
+        name: 'cultural-ambassador-application',
+        builder: (context, state) => const CulturalAmbassadorApplicationScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
@@ -213,6 +325,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String deals = '/deals';
   static const String venues = '/venues';
+  static const String venueDetail = '/venue-detail';
   static const String bookingFlow = '/booking';
   static const String community = '/community';
   static const String roomDetail = '/room';
@@ -228,6 +341,16 @@ class AppRoutes {
   static const String admin = '/admin';
   static const String profile = '/profile';
   static const String settings = '/settings';
+  static const String accessibilitySettings = '/settings/accessibility';
+  static const String offlineSettings = '/settings/offline';
+  static const String touristHome = '/tourist-home';
+  static const String roleSwitching = '/roles/switching';
+  static const String premiumRole = '/roles/premium';
+  static const String communityHealth = '/admin/community-health';
+  static const String notifications = '/notifications';
+  static const String groupBooking = '/group-booking';
+  static const String payment = '/payment';
+  static const String culturalAmbassadorApplication = '/cultural-ambassador-application';
 }
 
 // Navigation Helper
@@ -242,6 +365,10 @@ class AppNavigation {
 
   static void goToVenues(BuildContext context) {
     context.go(AppRoutes.venues);
+  }
+
+  static void goToVenueDetail(BuildContext context, String venueId) {
+    context.go('${AppRoutes.venueDetail}/$venueId');
   }
 
   static void goToLogin(BuildContext context) {
@@ -302,6 +429,22 @@ class AppNavigation {
 
   static void goToSettings(BuildContext context) {
     context.go(AppRoutes.settings);
+  }
+
+  static void goToNotifications(BuildContext context) {
+    context.go(AppRoutes.notifications);
+  }
+
+  static void goToGroupBooking(BuildContext context) {
+    context.go(AppRoutes.groupBooking);
+  }
+
+  static void goToAccessibilitySettings(BuildContext context) {
+    context.push(AppRoutes.accessibilitySettings);
+  }
+
+  static void goToOfflineSettings(BuildContext context) {
+    context.push(AppRoutes.offlineSettings);
   }
 
   static void goToBookingFlow(BuildContext context, Deal deal) {

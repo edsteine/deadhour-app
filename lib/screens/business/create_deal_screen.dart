@@ -376,8 +376,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                           context: context,
                                           initialTime: _startTime,
                                         );
-                                        if (time != null)
+                                        if (time != null) {
                                           setState(() => _startTime = time);
+                                        }
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(12),
@@ -407,8 +408,9 @@ class _CreateDealScreenState extends State<CreateDealScreen> {
                                           context: context,
                                           initialTime: _endTime,
                                         );
-                                        if (time != null)
+                                        if (time != null) {
                                           setState(() => _endTime = time);
+                                        }
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(12),

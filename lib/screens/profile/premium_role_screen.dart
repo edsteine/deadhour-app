@@ -1,0 +1,863 @@
+import 'package:flutter/material.dart';
+import '../../utils/theme.dart';
+import '../../widgets/common/dead_hour_app_bar.dart';
+import '../../services/analytics_service.dart';
+
+class PremiumRoleScreen extends StatefulWidget {
+  const PremiumRoleScreen({super.key});
+
+  @override
+  State<PremiumRoleScreen> createState() => _PremiumRoleScreenState();
+}
+
+class _PremiumRoleScreenState extends State<PremiumRoleScreen>
+    with TickerProviderStateMixin {
+  final _analyticsService = AnalyticsService();
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+  
+  bool _isPremiumUser = false;
+  bool _isProcessing = false;
+  String _selectedPlan = 'monthly';
+
+  final Map<String, Map<String, dynamic>> _pricingPlans = {
+    'monthly': {
+      'title': 'Monthly Premium',
+      'price': '€15',
+      'period': '/month',
+      'savings': '',
+      'recommended': false,
+    },
+    'annual': {
+      'title': 'Annual Premium',
+      'price': '€150',
+      'period': '/year',
+      'savings': 'Save €30/year',
+      'recommended': true,
+    },
+  };
+
+  final List<Map<String, dynamic>> _premiumFeatures = [
+    {
+      'icon': Icons.flash_on,
+      'title': 'Priority Booking Access',
+      'description': 'Skip the queue and get first access to limited deals',
+      'color': Colors.orange,
+    },
+    {
+      'icon': Icons.analytics,
+      'title': 'Advanced Analytics',
+      'description': 'Detailed insights across all your active roles',
+      'color': Colors.blue,
+    },
+    {
+      'icon': Icons.support_agent,
+      'title': 'Premium Support',
+      'description': '24/7 priority customer support and live chat',
+      'color': AppTheme.moroccoGreen,
+    },
+    {
+      'icon': Icons.star,
+      'title': 'Exclusive Deals',
+      'description': 'Access to premium-only deals and experiences',
+      'color': Colors.amber,
+    },
+    {
+      'icon': Icons.people_alt,
+      'title': 'Multi-Role Optimization',
+      'description': 'Smart suggestions for role combinations and savings',
+      'color': Colors.purple,
+    },
+    {
+      'icon': Icons.rocket_launch,
+      'title': 'Early Access',
+      'description': 'Beta features and new releases before everyone else',
+      'color': Colors.red,
+    },
+    {
+      'icon': Icons.verified,
+      'title': 'Verified Badge',
+      'description': 'Stand out with premium verification badge',
+      'color': Colors.blue,
+    },
+    {
+      'icon': Icons.trending_up,
+      'title': 'Revenue Boost',
+      'description': 'Enhanced promotion for business and guide roles',
+      'color': AppTheme.moroccoGreen,
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: DeadHourAppBar(
+        title: 'Premium Role',
+        subtitle: 'Unlock advanced features',
+        showBackButton: true,
+        customActions: [
+          if (_isPremiumUser)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.amber),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.star, color: Colors.amber, size: 14),
+                  SizedBox(width: 4),
+                  Text(
+                    'ACTIVE',
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppTheme.spacing16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeroSection(),
+              const SizedBox(height: AppTheme.spacing32),
+              if (!_isPremiumUser) ...[
+                _buildPricingSection(),
+                const SizedBox(height: AppTheme.spacing32),
+              ],
+              _buildFeaturesSection(),
+              const SizedBox(height: AppTheme.spacing32),
+              _buildComparisonSection(),
+              const SizedBox(height: AppTheme.spacing32),
+              _buildTestimonialsSection(),
+              const SizedBox(height: AppTheme.spacing32),
+              if (_isPremiumUser) 
+                _buildManagementSection()
+              else
+                _buildCallToAction(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroSection() {
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(AppTheme.spacing24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.amber,
+              Colors.amber.shade600,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
+        ),
+        child: Column(
+          children: [
+            const Icon(
+              Icons.auto_awesome,
+              color: Colors.white,
+              size: 48,
+            ),
+            const SizedBox(height: AppTheme.spacing16),
+            const Text(
+              'Premium Role',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing8),
+            Text(
+              _isPremiumUser 
+                  ? 'You\'re a Premium member! Enjoy all advanced features.'
+                  : 'Unlock advanced features and maximize your DeadHour experience',
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.9),
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (!_isPremiumUser) ...[
+              const SizedBox(height: AppTheme.spacing20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildHeroStat('8+', 'Premium Features'),
+                  _buildHeroStat('24/7', 'Support'),
+                  _buildHeroStat('30%', 'More Savings'),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroStat(String value, String label) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.8),
+            fontSize: 12,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPricingSection() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppTheme.spacing20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Choose Your Plan',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing16),
+            
+            ...(_pricingPlans.entries.map((entry) {
+              final planKey = entry.key;
+              final plan = entry.value;
+              final isSelected = _selectedPlan == planKey;
+              final isRecommended = plan['recommended'] as bool;
+              
+              return Padding(
+                padding: const EdgeInsets.only(bottom: AppTheme.spacing12),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedPlan = planKey;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(AppTheme.spacing16),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: isSelected 
+                            ? Colors.amber 
+                            : Colors.grey.withValues(alpha: 0.3),
+                        width: isSelected ? 2 : 1,
+                      ),
+                      borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+                      color: isSelected 
+                          ? Colors.amber.withValues(alpha: 0.1)
+                          : null,
+                    ),
+                    child: Row(
+                      children: [
+                        Radio<String>(
+                          value: planKey,
+                          groupValue: _selectedPlan,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedPlan = value!;
+                            });
+                          },
+                          activeColor: Colors.amber,
+                        ),
+                        const SizedBox(width: AppTheme.spacing12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    plan['title'] as String,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  if (isRecommended) ...[
+                                    const SizedBox(width: AppTheme.spacing8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 6,
+                                        vertical: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.moroccoGreen,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Text(
+                                        'RECOMMENDED',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                              if ((plan['savings'] as String).isNotEmpty)
+                                Text(
+                                  plan['savings'] as String,
+                                  style: const TextStyle(
+                                    color: AppTheme.moroccoGreen,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              plan['price'] as String,
+                              style: TextStyle(
+                                color: Colors.amber.shade700,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              plan['period'] as String,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            })),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeaturesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Premium Features',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: AppTheme.spacing16),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.2,
+            crossAxisSpacing: AppTheme.spacing12,
+            mainAxisSpacing: AppTheme.spacing12,
+          ),
+          itemCount: _premiumFeatures.length,
+          itemBuilder: (context, index) {
+            final feature = _premiumFeatures[index];
+            return _buildFeatureCard(feature);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeatureCard(Map<String, dynamic> feature) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(AppTheme.spacing16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppTheme.spacing8),
+              decoration: BoxDecoration(
+                color: (feature['color'] as Color).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
+              ),
+              child: Icon(
+                feature['icon'] as IconData,
+                color: feature['color'] as Color,
+                size: 24,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing12),
+            Text(
+              feature['title'] as String,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing4),
+            Expanded(
+              child: Text(
+                feature['description'] as String,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 12,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildComparisonSection() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppTheme.spacing20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Free vs Premium',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing16),
+            
+            Table(
+              border: TableBorder.all(
+                color: Colors.grey.withValues(alpha: 0.3),
+                width: 1,
+              ),
+              children: [
+                TableRow(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withValues(alpha: 0.1),
+                  ),
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text(
+                        'Feature',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text(
+                        'Free',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text(
+                        'Premium',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+                ...([
+                  ['Basic booking access', 'check', 'check'],
+                  ['Community rooms', 'check', 'check'],
+                  ['Deal notifications', 'check', 'check'],
+                  ['Priority booking', 'close', 'check'],
+                  ['Advanced analytics', 'close', 'check'],
+                  ['Premium support', 'close', 'check'],
+                  ['Exclusive deals', 'close', 'check'],
+                  ['Multi-role optimization', 'close', 'check'],
+                ].map((row) => TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(row[0]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(
+                        row[1] == 'check' ? Icons.check : Icons.close,
+                        color: row[1] == 'check' ? AppTheme.moroccoGreen : Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(
+                        row[2] == 'check' ? Icons.check : Icons.close,
+                        color: row[2] == 'check' ? AppTheme.moroccoGreen : Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ))),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTestimonialsSection() {
+    final testimonials = [
+      {
+        'name': 'Sarah, Business Owner',
+        'text': 'Premium analytics helped me optimize my dead hours strategy. Revenue up 40%!',
+        'avatar': Icons.person,
+      },
+      {
+        'name': 'Ahmed, Local Guide',
+        'text': 'Priority booking access and exclusive deals make premium worth every euro.',
+        'avatar': Icons.person_outline,
+      },
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'What Premium Users Say',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: AppTheme.spacing16),
+        ...testimonials.map((testimonial) => Card(
+          margin: const EdgeInsets.only(bottom: AppTheme.spacing12),
+          child: Padding(
+            padding: const EdgeInsets.all(AppTheme.spacing16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+                      child: Icon(
+                        testimonial['avatar'] as IconData,
+                        color: AppTheme.moroccoGreen,
+                      ),
+                    ),
+                    const SizedBox(width: AppTheme.spacing12),
+                    Text(
+                      testimonial['name'] as String,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppTheme.spacing12),
+                Text(
+                  '"${testimonial['text']}"',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )),
+      ],
+    );
+  }
+
+  Widget _buildCallToAction() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppTheme.spacing20),
+        child: Column(
+          children: [
+            const Text(
+              'Ready to go Premium?',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing8),
+            Text(
+              'Unlock all premium features and maximize your DeadHour experience',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppTheme.spacing20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _isProcessing ? null : _handleUpgradeClick,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: _isProcessing
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        'Upgrade to Premium - ${_pricingPlans[_selectedPlan]!['price']}${_pricingPlans[_selectedPlan]!['period']}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing12),
+            Text(
+              '30-day money-back guarantee',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildManagementSection() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(AppTheme.spacing20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Premium Subscription',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacing16),
+            
+            const ListTile(
+              leading: Icon(Icons.star, color: Colors.amber),
+              title: Text('Premium Plan Active'),
+              subtitle: Text('Next billing: March 15, 2024'),
+              contentPadding: EdgeInsets.zero,
+            ),
+            
+            const SizedBox(height: AppTheme.spacing16),
+            
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _showBillingDetails,
+                    child: const Text('Billing Details'),
+                  ),
+                ),
+                const SizedBox(width: AppTheme.spacing12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _showCancelDialog,
+                    child: const Text('Cancel Plan'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _handleUpgradeClick() async {
+    setState(() {
+      _isProcessing = true;
+    });
+
+    _analyticsService.trackRoleUsage(
+      'premium_upgrade_started',
+      activeRoles: ['consumer'], // Mock data
+      switchedToRole: 'premium',
+      properties: {
+        'selected_plan': _selectedPlan,
+        'price': _pricingPlans[_selectedPlan]!['price'],
+      },
+    );
+
+    // Simulate payment processing
+    await Future.delayed(const Duration(seconds: 3));
+
+    setState(() {
+      _isPremiumUser = true;
+      _isProcessing = false;
+    });
+
+    _analyticsService.trackRoleUsage(
+      'premium_upgrade_completed',
+      activeRoles: ['consumer', 'premium'],
+      switchedToRole: 'premium',
+    );
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Welcome to Premium! You now have access to all premium features.'),
+          backgroundColor: Colors.amber,
+        ),
+      );
+    }
+  }
+
+  void _showBillingDetails() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Billing Details'),
+        content: const Text(
+          'Next billing: March 15, 2024\n'
+          'Amount: €15.00\n'
+          'Payment method: **** 1234\n'
+          'Billing address: Casablanca, Morocco',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Would navigate to billing management
+            },
+            child: const Text('Manage'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCancelDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Cancel Premium'),
+        content: const Text(
+          'Are you sure you want to cancel your Premium subscription? You\'ll lose access to all premium features at the end of your current billing period.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Keep Premium'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _handleCancelSubscription();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Cancel Subscription'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleCancelSubscription() {
+    setState(() {
+      _isPremiumUser = false;
+    });
+    
+    _analyticsService.trackRoleUsage(
+      'premium_cancelled',
+      activeRoles: ['consumer'],
+      switchedFromRole: 'premium',
+    );
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Premium subscription cancelled. You\'ll retain access until March 15, 2024.'),
+      ),
+    );
+  }
+}
