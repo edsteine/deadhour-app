@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:deadhour/app.dart';
-import 'package:deadhour/utils/guest_mode.dart';
 import 'package:deadhour/services/auth_service.dart';
 import 'package:deadhour/services/app_performance_service.dart';
 import 'package:deadhour/services/onboarding_service.dart';
@@ -11,39 +10,56 @@ import 'package:deadhour/services/deployment_optimization_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize core services
-  await _initializeServices();
+  // Initialize only critical services synchronously for fast startup
+  await _initializeCriticalServices();
 
+  // Start the app immediately
   runApp(const DeadHourApp());
+
+  // Initialize remaining services in background after app starts
+  _initializeBackgroundServices();
 }
 
-Future<void> _initializeServices() async {
+/// Initialize only essential services needed for app startup (fast)
+Future<void> _initializeCriticalServices() async {
   try {
-    // Initialize performance service first for monitoring startup
-    await AppPerformanceService().initialize();
-
-    // Initialize guest mode state
-    await GuestMode.initialize();
-
-    // Initialize authentication service
+    // Only initialize what's absolutely needed for app to start
     await AuthService().initialize();
-
-    // Initialize onboarding service
-    await OnboardingService().initialize();
-
-    // Initialize offline service
-    await OfflineService().initialize();
-
-    // Initialize Morocco cultural service
-    await MoroccoCulturalService().initialize();
-
-    // Initialize deployment optimizations for Morocco market
-    await DeploymentOptimizationService().initializeProductionOptimizations();
-
-    // Optimize app startup
-    await AppPerformanceService().optimizeAppStartup();
+    
+    debugPrint('✅ Critical services initialized - app ready to start');
   } catch (error) {
-    // Handle initialization errors gracefully
-    debugPrint('Service initialization error: $error');
+    debugPrint('Critical service initialization error: $error');
   }
+}
+
+/// Initialize remaining services in background (non-blocking)
+void _initializeBackgroundServices() {
+  // Run heavy services in background without blocking UI
+  Future.microtask(() async {
+    try {
+      debugPrint('🔄 Initializing background services...');
+      
+      // Initialize performance monitoring
+      await AppPerformanceService().initialize();
+      
+      // Initialize onboarding service
+      await OnboardingService().initialize();
+      
+      // Initialize offline capabilities
+      await OfflineService().initialize();
+      
+      // Initialize Morocco cultural features
+      await MoroccoCulturalService().initialize();
+      
+      // Initialize production optimizations
+      await DeploymentOptimizationService().initializeProductionOptimizations();
+      
+      // Optimize app performance after everything is loaded
+      await AppPerformanceService().optimizeAppStartup();
+      
+      debugPrint('✅ All background services initialized');
+    } catch (error) {
+      debugPrint('Background service initialization error: $error');
+    }
+  });
 }

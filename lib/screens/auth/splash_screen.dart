@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/theme.dart';
-import '../../utils/guest_mode.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -48,12 +48,15 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
   }
 
-  void _navigateToNext() {
+  void _navigateToNext() async {
+    // Check if user has seen onboarding before
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
+    
     Future.delayed(const Duration(milliseconds: 3000), () {
       if (mounted) {
-        // Check if user has already seen onboarding
-        if (GuestMode.hasSeenOnboarding) {
-          // Skip onboarding and go directly to home
+        if (hasSeenOnboarding) {
+          // Skip onboarding and go directly to home - app is free for everyone
           context.go('/home');
         } else {
           // Show onboarding for first-time users

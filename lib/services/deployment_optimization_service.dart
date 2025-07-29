@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'dart:async';
+import '../utils/app_logger.dart';
 
 /// Morocco-specific deployment optimization service
 /// Handles production configuration, performance tuning, and market-specific optimizations
@@ -17,34 +18,55 @@ class DeploymentOptimizationService {
     if (_isProductionOptimized) return;
 
     try {
-      // Disable debug features in production
-      if (kReleaseMode) {
-        await _disableDebugFeatures();
+      // In debug mode, use lightweight initialization for faster startup
+      if (kDebugMode) {
+        await _initializeLightweightMode();
+      } else {
+        // Full production initialization
+        await _initializeFullProductionMode();
       }
-
-      // Optimize for Morocco network conditions
-      await _optimizeForMoroccoNetworks();
-
-      // Configure cultural performance optimizations
-      await _configureCulturalOptimizations();
-
-      // Setup production error reporting
-      await _setupProductionErrorReporting();
-
-      // Optimize memory usage for Morocco market devices
-      await _optimizeMemoryForMarket();
 
       _isProductionOptimized = true;
 
-      if (kDebugMode) {
-        print('✅ Morocco deployment optimizations initialized');
-      }
+      AppLogger.serviceInit('DeploymentOptimizationService');
     } catch (e) {
-      if (kDebugMode) {
-        print('❌ Failed to initialize deployment optimizations: $e');
-      }
+      AppLogger.serviceInit('DeploymentOptimizationService', success: false);
+      AppLogger.error('Deployment optimization failed', error: e);
       rethrow;
     }
+  }
+
+  /// Lightweight initialization for development/debug mode
+  Future<void> _initializeLightweightMode() async {
+    // Skip heavy operations in debug mode, just set up basic config
+    await _configureBasicSettings();
+    
+    AppLogger.debug('🚀 Lightweight mode - optimizations configured for fast development');
+  }
+
+  /// Full production initialization with all optimizations
+  Future<void> _initializeFullProductionMode() async {
+    // Disable debug features in production
+    await _disableDebugFeatures();
+
+    // Optimize for Morocco network conditions
+    await _optimizeForMoroccoNetworks();
+
+    // Configure cultural performance optimizations
+    await _configureCulturalOptimizations();
+
+    // Setup production error reporting
+    await _setupProductionErrorReporting();
+
+    // Optimize memory usage for Morocco market devices
+    await _optimizeMemoryForMarket();
+  }
+
+  /// Configure basic settings for development
+  Future<void> _configureBasicSettings() async {
+    // Minimal configuration for development - keeps all features available
+    // but skips heavy initialization
+    await Future.delayed(const Duration(milliseconds: 10)); // Minimal delay
   }
 
   /// Disable debug features that shouldn't be in production
@@ -52,9 +74,7 @@ class DeploymentOptimizationService {
     // Disable development menu in production
     if (kReleaseMode) {
       // This would be handled at compile time, but we track the state
-      if (kDebugMode) {
-        print('Debug features disabled for production');
-      }
+      AppLogger.debug('Debug features disabled for production');
     }
   }
 
@@ -83,9 +103,7 @@ class DeploymentOptimizationService {
       'progressiveLoading': true,
     };
 
-    if (kDebugMode) {
-      print('Image optimization configured: $imageConfig');
-    }
+    AppLogger.performance('Image optimization configured: $imageConfig');
   }
 
   /// Configure API optimization for Morocco market
@@ -98,9 +116,7 @@ class DeploymentOptimizationService {
       'compressionEnabled': true,
     };
 
-    if (kDebugMode) {
-      print('API optimization configured: $apiConfig');
-    }
+    AppLogger.performance('API optimization configured: $apiConfig');
   }
 
   /// Configure offline optimization for Morocco market
@@ -112,9 +128,7 @@ class DeploymentOptimizationService {
       'backgroundSyncEnabled': true,
     };
 
-    if (kDebugMode) {
-      print('Offline optimization configured: $offlineConfig');
-    }
+    AppLogger.performance('Offline optimization configured: $offlineConfig');
   }
 
   /// Configure cultural performance optimizations
@@ -134,9 +148,7 @@ class DeploymentOptimizationService {
       'backgroundUpdate': true,
     };
 
-    if (kDebugMode) {
-      print('Prayer times optimization configured: $prayerConfig');
-    }
+    AppLogger.cultural('Prayer times optimization configured: $prayerConfig');
   }
 
   /// Optimize Arabic text rendering performance

@@ -1,7 +1,7 @@
 # DeadHour Flutter Project Makefile
 # Essential commands for development workflow
 
-.PHONY: help setup format build git
+.PHONY: help setup format build git icons splash
 
 # Default target - show help
 help:
@@ -13,6 +13,8 @@ help:
 	@echo ""
 	@echo "🔧 Development:"
 	@echo "  make format    - Format Dart code"
+	@echo "  make icons     - Generate app launcher icons"
+	@echo "  make splash    - Generate splash screen"
 	@echo ""
 	@echo "🏗️ Build:"
 	@echo "  make build     - Build debug APK"
@@ -35,6 +37,17 @@ format:
 	@echo "✨ Formatting Dart code..."
 	@dart format lib/ --set-exit-if-changed
 	@echo "✅ Code formatted!"
+
+# 🎨 Assets Generation
+icons:
+	@echo "🎨 Generating app launcher icons..."
+	@dart run flutter_launcher_icons
+	@echo "✅ App launcher icons generated!"
+
+splash:
+	@echo "🌊 Generating splash screen..."
+	@dart run flutter_native_splash:create
+	@echo "✅ Splash screen generated!"
 
 # 🏗️ Build Commands  
 build:

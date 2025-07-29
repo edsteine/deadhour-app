@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../utils/performance_utils.dart';
+import '../utils/app_logger.dart';
 import 'app_performance_service.dart';
 
 // Morocco Cultural Service for DeadHour App
@@ -33,25 +35,52 @@ class MoroccoCulturalService extends ChangeNotifier {
   // Initialize cultural service
   Future<void> initialize() async {
     try {
-      // Load user preferences
-      await _loadUserPreferences();
-
-      // Initialize prayer times
-      await _initializePrayerTimes();
-
-      // Check if it's Ramadan
-      await _checkRamadanStatus();
-
-      // Setup prayer notifications
-      _setupPrayerNotifications();
+      // Use lightweight initialization in debug mode for faster startup
+      if (kDebugMode) {
+        await _initializeLightweight();
+      } else {
+        await _initializeFull();
+      }
 
       _isInitialized = true;
-      notifyListeners();
-
-      debugPrint('MoroccoCulturalService initialized successfully');
-    } catch (error) {
-      debugPrint('Cultural service initialization error: $error');
+      AppLogger.serviceInit('MoroccoCulturalService');
+    } catch (e) {
+      AppLogger.serviceInit('MoroccoCulturalService', success: false);
+      AppLogger.error('MoroccoCulturalService initialization error', error: e);
+      rethrow;
     }
+  }
+
+  // Lightweight initialization for development
+  Future<void> _initializeLightweight() async {
+    // Basic setup without heavy computations
+    _currentCity = 'Casablanca';
+    _currentLocale = const Locale('en', 'US');
+    
+    // Mock prayer times for development
+    final now = DateTime.now();
+    _todaysPrayerTimes = {
+      'Fajr': DateTime(now.year, now.month, now.day, 5, 30),
+      'Dhuhr': DateTime(now.year, now.month, now.day, 12, 30),
+      'Asr': DateTime(now.year, now.month, now.day, 15, 30),
+      'Maghrib': DateTime(now.year, now.month, now.day, 18, 30),
+      'Isha': DateTime(now.year, now.month, now.day, 20, 0),
+    };
+  }
+
+  // Full initialization for production
+  Future<void> _initializeFull() async {
+    // Load user preferences
+    await _loadUserPreferences();
+
+    // Initialize prayer times
+    await _initializePrayerTimes();
+
+    // Check if it's Ramadan
+    await _checkRamadanStatus();
+
+    // Setup prayer notifications
+    _setupPrayerNotifications();
   }
 
   // Set user city

@@ -1,6 +1,6 @@
 flutter_native_splash:
-  # Light mode (single theme)
-  color: "#FAFAFA"  # Background color (your theme green)
+  # Light mode (single theme) - Morocco Green theme
+  color: "#00A859"  # Background color (Morocco green from app theme)
   image: "assets/images/output.png"  # Centered splash image
 
   # Enable for Android/iOS, disable for web
@@ -11,8 +11,8 @@ flutter_native_splash:
   # Android 12+ specific settings
   android_12:
     image: "assets/images/output.png"  # Splash icon
-    color: "#FAFAFA"  # Background color
-    icon_background_color: "#FAFAFA"  # White background for icon (contrast with green)
+    color: "#00A859"  # Background color (Morocco green)
+    icon_background_color: "#FFFFFF"  # White background for icon (contrast with green)
 
   # Optional branding (uncomment if needed)
   # branding: "assets/branding.png"

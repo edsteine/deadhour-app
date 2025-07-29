@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/theme.dart';
-import '../../utils/guest_mode.dart';
 import '../../services/onboarding_service.dart';
 import '../../widgets/common/loading_widgets.dart';
 
@@ -174,8 +174,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             ElevatedButton(
                               onPressed: () async {
                                 if (_currentPage == _pages.length - 1) {
-                                  await GuestMode.markOnboardingCompleted();
-                                  await GuestMode.enableGuestMode();
+                                  // Mark onboarding as completed
+                                  final prefs = await SharedPreferences.getInstance();
+                                  await prefs.setBool('has_seen_onboarding', true);
+                                  
+                                  // Go to home - app is free for everyone by default
                                   if (context.mounted) context.go('/home');
                                 } else {
                                   _pageController.nextPage(
