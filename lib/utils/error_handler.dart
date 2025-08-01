@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:deadhour/utils/app_colors.dart';
 
-import 'theme.dart';
+import 'package:deadhour/utils/app_theme.dart';
 
 
 /// Centralized error handling utility for the DeadHour app
@@ -65,7 +66,6 @@ class ErrorHandler {
           ],
         ),
         backgroundColor: AppColors.error,
-        duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'Dismiss',
           textColor: Colors.white,

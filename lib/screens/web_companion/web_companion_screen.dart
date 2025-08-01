@@ -1,7 +1,7 @@
-import 'services/web_companion_service.dart';
+import 'package:deadhour/screens/web_companion/services/web_companion_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../utils/app_theme.dart';
+import 'package:deadhour/utils/app_theme.dart';
 /// Screen for managing browser extension and web companion features
 class WebCompanionScreen extends StatefulWidget {
   const WebCompanionScreen({super.key});

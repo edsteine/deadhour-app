@@ -1,4 +1,4 @@
-import 'offline_data_status.dart';
+import 'package:deadhour/utils/offline_data_status.dart';
 
 /// Offline data info
 class OfflineDataInfo {

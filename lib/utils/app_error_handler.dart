@@ -1,12 +1,13 @@
 import 'dart:io';
+import 'package:deadhour/utils/app_colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'app_error.dart';
-import 'error_type.dart';
-import 'theme.dart';
-import 'timeout_exception.dart';
+import 'package:deadhour/utils/app_error.dart';
+import 'package:deadhour/utils/error_type.dart';
+import 'package:deadhour/utils/app_theme.dart';
+import 'package:deadhour/utils/timeout_exception.dart';
 
 /// Comprehensive Error Handling for DeadHour App
 class AppErrorHandler {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'app_performance_service.dart';
+import 'package:deadhour/utils/app_performance_service.dart';
 
 // Performance monitoring widget
 class PerformanceMonitor extends StatefulWidget {

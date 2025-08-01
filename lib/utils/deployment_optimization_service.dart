@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'dart:async';
-import 'app_logger.dart';
+import 'package:deadhour/utils/app_logger.dart';
 
 /// Morocco-specific deployment optimization service
 /// Handles production configuration, performance tuning, and market-specific optimizations

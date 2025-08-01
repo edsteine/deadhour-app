@@ -1,11 +1,12 @@
-import 'screens/profile/services/auth_service.dart';
-import 'screens/profile/services/morocco_cultural_service.dart';
-import 'screens/profile/services/onboarding_service.dart';
-import 'utils/app_performance_service.dart';
-import 'utils/deployment_optimization_service.dart';
-import 'utils/offline_service.dart';
 import 'package:flutter/material.dart';
-import 'app.dart';
+
+import 'package:deadhour/app.dart';
+
+
+
+import 'package:deadhour/utils/app_performance_service.dart';
+import 'package:deadhour/utils/deployment_optimization_service.dart';
+import 'package:deadhour/utils/offline_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

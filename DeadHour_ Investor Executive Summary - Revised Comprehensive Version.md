@@ -15,7 +15,7 @@
 ### The Business Problem: Massive Dead Hour Revenue Loss
 - **60-70% empty capacity** during predictable off-peak hours (weekday afternoons 2-5 PM, late evenings after 21:00)
 - **Fixed costs continue** (rent, staff, utilities) with zero customer revenue
-- **300K+ venues** in Morocco desperately need to monetize quiet periods
+- **(300K+) Venues** in Morocco desperately need to monetize quiet periods
 - **Traditional solutions fail**: Commission-based models proven unsustainable (Jumia Food exit Dec 2023 despite 41% market share)
 
 ### The Social Problem: Discovery & Authenticity Gap

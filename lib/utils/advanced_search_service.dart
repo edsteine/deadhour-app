@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import '../screens/venues/models/venue.dart';
-import 'mock_data.dart';
+
+import 'package:deadhour/utils/mock_data.dart';
 
 /// Advanced search and filtering service for venues
 /// Provides enhanced search capabilities, location-based discovery, and AI-powered recommendations
@@ -243,7 +243,7 @@ class AdvancedSearchService {
     String? sortBy = 'relevance',
     int limit = 20,
   }) {
-    var venues = MockData.venues.toList();
+    final venues = MockData.venues.toList();
     final searchResults = <Map<String, dynamic>>[];
 
     for (final venue in venues) {

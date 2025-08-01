@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
+import 'package:deadhour/utils/app_theme.dart';
+import 'package:deadhour/utils/app_colors.dart';
 
 /// Global error widget
 class GlobalErrorWidget extends StatelessWidget {

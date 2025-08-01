@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import '../../deals/models/deal.dart';
-import '../../deals/services/cashback_service.dart';
-import '../../../utils/mock_data.dart';
+import 'package:deadhour/backup/deals/models/deal.dart';
+import 'package:deadhour/backup/deals/services/cashback_service.dart';
+import 'package:deadhour/utils/mock_data.dart';
 
 /// Web companion service for browser integration
 /// Provides browser extension-like functionality for desktop users
@@ -73,41 +73,41 @@ javascript:(function(){
   /// Generate browser extension manifest
   Map<String, dynamic> generateExtensionManifest() {
     return {
-      "manifest_version": 3,
-      "name": "DeadHour Morocco Deals",
-      "version": "1.0.0",
-      "description": "Find dead hour deals and cashback opportunities in Morocco",
-      "permissions": [
-        "activeTab",
-        "storage",
-        "notifications"
+      'manifest_version': 3,
+      'name': 'DeadHour Morocco Deals',
+      'version': '1.0.0',
+      'description': 'Find dead hour deals and cashback opportunities in Morocco',
+      'permissions': [
+        'activeTab',
+        'storage',
+        'notifications'
       ],
-      "host_permissions": _watchedDomains.map((d) => "https://*.$d/*").toList(),
-      "background": {
-        "service_worker": "background.js"
+      'host_permissions': _watchedDomains.map((d) => 'https://*.$d/*').toList(),
+      'background': {
+        'service_worker': 'background.js'
       },
-      "content_scripts": [
+      'content_scripts': [
         {
-          "matches": _watchedDomains.map((d) => "https://*.$d/*").toList(),
-          "js": ["content.js"],
-          "css": ["styles.css"]
+          'matches': _watchedDomains.map((d) => 'https://*.$d/*').toList(),
+          'js': ['content.js'],
+          'css': ['styles.css']
         }
       ],
-      "action": {
-        "default_popup": "popup.html",
-        "default_title": "DeadHour Deals",
-        "default_icon": {
-          "16": "icons/icon16.png",
-          "32": "icons/icon32.png",
-          "48": "icons/icon48.png",
-          "128": "icons/icon128.png"
+      'action': {
+        'default_popup': 'popup.html',
+        'default_title': 'DeadHour Deals',
+        'default_icon': {
+          '16': 'icons/icon16.png',
+          '32': 'icons/icon32.png',
+          '48': 'icons/icon48.png',
+          '128': 'icons/icon128.png'
         }
       },
-      "icons": {
-        "16": "icons/icon16.png",
-        "32": "icons/icon32.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
+      'icons': {
+        '16': 'icons/icon16.png',
+        '32': 'icons/icon32.png',
+        '48': 'icons/icon48.png',
+        '128': 'icons/icon128.png'
       }
     };
   }

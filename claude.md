@@ -1,6 +1,10 @@
 
 # DeadHour Project - Claude Instructions
 
+## 🚨 CRITICAL WARNING: rm COMMAND IS PERMANENTLY BANNED 🚨
+**NEVER USE: rm, rm -rf, rm -r, OR ANY DELETION COMMANDS**
+**ALWAYS USE: mv filename /Users/edsteine/Desktop/deadhour-app/trash/**
+
 ## AI Orchestration Role: Implementation & Architecture Specialist
 
 **Your Role**: As part of the AI development team, you are the primary implementation specialist focused on code architecture, development, and technical execution. You complement Gemini's research/analysis role with hands-on development expertise.
@@ -369,14 +373,24 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Always apply security best practices.**
 - **NO BIOMETRIC FEATURES**: Never implement or suggest biometric authentication (fingerprint, face ID, etc.). Use standard email/password and Firebase Auth only.
 
-### Critical Rule: Never Delete Files
+### ABSOLUTE CRITICAL RULE: NEVER USE rm COMMAND
+**THE rm COMMAND IS PERMANENTLY BANNED - NEVER USE IT UNDER ANY CIRCUMSTANCES**
+
+**FORBIDDEN COMMANDS - NEVER USE THESE:**
+- `rm -rf` (ABSOLUTELY FORBIDDEN)
+- `rm -r` (ABSOLUTELY FORBIDDEN) 
+- `rm filename` (ABSOLUTELY FORBIDDEN)
+- Any variation of rm command (ABSOLUTELY FORBIDDEN)
+
 **NEVER delete any files using rm, deletion commands, or file removal operations.**
 - If files need to be removed, ALWAYS move them to `/trash/` folder instead
-- Use commands like `mv filename /Users/edsteine/AndroidStudioProjects/deadhour/trash/`
+- Use commands like `mv filename /Users/edsteine/Desktop/deadhour-app/trash/`
 - This allows recovery in case of misunderstandings or mistakes
 - Create timestamped backups if moving multiple files: `mv filename /trash/filename_$(date +%Y%m%d_%H%M%S)`
 - ALWAYS preserve user work - never permanently delete anything
 - Ask user for confirmation before moving files to trash if uncertain
+
+**IF YOU EVEN THINK ABOUT USING rm COMMAND, STOP IMMEDIATELY AND ASK THE USER FIRST**
 
 ### Testing Guidelines
 - **Write tests for all new features and bug fixes.**

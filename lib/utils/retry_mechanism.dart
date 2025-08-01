@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'timeout_exception.dart';
+import 'package:deadhour/utils/timeout_exception.dart';
 
 /// Retry mechanism utility
 class RetryMechanism {

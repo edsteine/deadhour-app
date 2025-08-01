@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import '../screens/venues/models/venue.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import '../screens/deals/models/deal.dart';
-import 'performance_utils.dart';
-import 'app_performance_service.dart';
+
+import 'package:deadhour/utils/performance_utils.dart';
+import 'package:deadhour/utils/app_performance_service.dart';
 
 // Offline Service for DeadHour App
 // Handles data persistence and offline functionality for Morocco's mobile infrastructure

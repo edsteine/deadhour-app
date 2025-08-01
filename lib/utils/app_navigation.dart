@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'app_routes_constants.dart';
-import '../screens/deals/models/deal.dart';
+import 'package:deadhour/utils/app_routes_constants.dart';
+
 
 // Navigation Helper
 class AppNavigation {

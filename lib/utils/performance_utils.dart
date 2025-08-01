@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'haptic_feedback_type.dart';
-import 'memoized_widget.dart';
+import 'package:deadhour/utils/haptic_feedback_type.dart';
+import 'package:deadhour/utils/memoized_widget.dart';
 
 
 /// Performance optimization utilities for DeadHour app

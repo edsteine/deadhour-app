@@ -1,0 +1,1 @@
+enum ValidationType { confirmed, verified, warning }

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
-import 'cached_data.dart';
-import 'lru_cache.dart';
+import 'package:deadhour/utils/cached_data.dart';
+import 'package:deadhour/utils/lru_cache.dart';
 
 
 /// Performance optimization service for DeadHour app

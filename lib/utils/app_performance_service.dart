@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'performance_utils.dart';
+import 'package:deadhour/utils/performance_utils.dart';
 
 
 // App Performance Optimization Service for DeadHour

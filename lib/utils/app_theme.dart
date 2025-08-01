@@ -50,7 +50,6 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: moroccoGreen,
-        brightness: Brightness.light,
       ),
       primaryColor: moroccoGreen,
       scaffoldBackgroundColor: backgroundColor,

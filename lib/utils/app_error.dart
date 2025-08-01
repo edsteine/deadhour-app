@@ -1,4 +1,4 @@
-import 'error_type.dart';
+import 'package:deadhour/utils/error_type.dart';
 
 /// Error model class
 class AppError {

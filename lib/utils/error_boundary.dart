@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'error_handler.dart';
+import 'package:deadhour/utils/error_handler.dart';
 
 /// Error boundary widget for catching widget build errors
 class ErrorBoundary extends StatelessWidget {

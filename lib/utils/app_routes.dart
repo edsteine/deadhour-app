@@ -1,39 +1,39 @@
-import '../screens/booking/booking_flow_screen.dart';
-import '../screens/dev_menu/main_navigation_screen.dart';
-import '../screens/tourism/widgets/tourist_home_screen.dart';
 
-import '../screens/deals/models/deal.dart';
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 
 // Import screens
-import '../screens/onboardig/splash_screen.dart';
-import '../screens/onboardig/onboarding_screen.dart';
-import '../screens/profile/login_screen.dart';
-import '../screens/profile/register_screen.dart';
-import '../screens/profile/role_marketplace_screen.dart';
-import '../screens/community/room_detail_screen.dart';
-import '../screens/community/room_chat_screen.dart';
-import '../screens/business/business_dashboard_screen.dart';
-import '../screens/business/create_deal_screen.dart';
-import '../screens/business/revenue_optimization_screen.dart';
-import '../screens/business/analytics_dashboard_screen.dart';
-import '../screens/dev_menu/guide_role_screen.dart';
-import '../screens/tourism/local_expert_screen.dart';
-import '../screens/social/social_discovery_screen.dart';
-import '../screens/profile/settings_screen.dart';
-import '../screens/profile/network_effects_dashboard_screen.dart';
-import '../screens/venues/venue_detail_screen.dart';
-import '../screens/social/group_booking_screen.dart';
-import '../screens/settings/accessibility_settings_screen.dart';
-import '../screens/settings/offline_settings_screen.dart';
-import '../screens/profile/role_switching_screen.dart';
-import '../screens/profile/premium_role_screen.dart';
-import '../screens/profile/community_health_dashboard_screen.dart';
-import '../screens/web_companion/web_companion_screen.dart';
-import '../screens/payment/payment_screen.dart';
-import '../screens/cultural/cultural_ambassador_application_screen.dart';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -259,7 +259,6 @@ class AppRouter {
             validUntil: DateTime.now().add(const Duration(hours: 6)),
             maxCapacity: 20,
             currentBookings: 5,
-            isActive: true,
             categories: ['food', 'test'],
             daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             timeSlots: ['18:00-20:00', '20:00-22:00'],
