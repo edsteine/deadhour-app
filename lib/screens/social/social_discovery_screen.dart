@@ -1,12 +1,12 @@
+import '../dev_menu/enhanced_app_bar.dart';
 import 'package:flutter/material.dart';
-import '../../utils/theme.dart';
-import '../../widgets/common/enhanced_app_bar.dart';
-import 'package:deadhour/screens/social/widgets/social_filters_and_search.dart';
-import 'package:deadhour/screens/social/widgets/social_tab_bar.dart';
-import 'package:deadhour/screens/social/widgets/social_action_helpers.dart';
-import 'package:deadhour/screens/social/widgets/experiences_tab.dart';
-import 'package:deadhour/screens/social/widgets/my_connections_tab.dart';
-import 'package:deadhour/screens/social/widgets/create_experience_tab.dart';
+import '../../utils/app_theme.dart';
+import 'widgets/social_filters_and_search.dart';
+import 'widgets/social_tab_bar.dart';
+import 'widgets/social_action_helpers.dart';
+import 'widgets/experiences_tab.dart';
+import 'widgets/my_connections_tab.dart';
+import 'widgets/create_experience_tab.dart';
 
 class SocialDiscoveryScreen extends StatefulWidget {
   const SocialDiscoveryScreen({super.key});
@@ -195,7 +195,7 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                ExperiencesTab(
+                SocialExperiencesTab(
                   filteredExperiences: _filteredExperiences,
                   socialInterests: _socialInterests,
                 ),
@@ -217,6 +217,7 @@ class _SocialDiscoveryScreenState extends State<SocialDiscoveryScreen>
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: "social_discovery_fab",
         onPressed: () => SocialActionHelpers.createNewExperience(context),
         backgroundColor: AppTheme.moroccoGreen,
         icon: const Icon(Icons.add),

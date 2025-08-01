@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'theme.dart';
+
 
 /// Centralized error handling utility for the DeadHour app
 class ErrorHandler {
@@ -218,28 +220,5 @@ class ErrorHandler {
     if (stackTrace != null) {
       debugPrint('Stack trace: $stackTrace');
     }
-  }
-}
-
-/// Error boundary widget for catching widget build errors
-class ErrorBoundary extends StatelessWidget {
-  final Widget child;
-  final Widget? errorWidget;
-  final String? errorMessage;
-
-  const ErrorBoundary({
-    super.key,
-    required this.child,
-    this.errorWidget,
-    this.errorMessage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ErrorHandler.safeBuild(
-      () => child,
-      fallback: errorWidget,
-      errorMessage: errorMessage,
-    );
   }
 }

@@ -1,7 +1,7 @@
+import '../dev_menu/dead_hour_app_bar.dart';
+import 'services/accessibility_service.dart';
 import 'package:flutter/material.dart';
-import '../../services/accessibility_service.dart';
-import '../../utils/theme.dart';
-import '../../widgets/common/dead_hour_app_bar.dart';
+import '../../utils/app_theme.dart';
 
 class AccessibilitySettingsScreen extends StatefulWidget {
   const AccessibilitySettingsScreen({super.key});

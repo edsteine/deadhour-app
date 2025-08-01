@@ -1,8 +1,8 @@
+import 'shared/room_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/theme.dart';
 import '../../../utils/mock_data.dart';
-import '../../../widgets/common/room_card.dart';
 import '../../../utils/constants.dart';
 
 class EnhancedRoomSearch extends ConsumerStatefulWidget {

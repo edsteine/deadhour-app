@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/models/room.dart';
+
+import '../../../utils/theme.dart';
+import '../models/room.dart';
 
 class RoomChatBottomSheetHelpers {
   static void showRoomInfo(

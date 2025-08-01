@@ -1,7 +1,7 @@
+import '../dev_menu/enhanced_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/theme.dart';
-import '../../widgets/common/enhanced_app_bar.dart';
+import '../../utils/app_theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

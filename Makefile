@@ -13,6 +13,8 @@ help:
 	@echo ""
 	@echo "🔧 Development:"
 	@echo "  make format    - Format Dart code"
+	@echo "  make cloc      - Analyze codebase (detailed markdown)"
+	@echo "  make cloc-sum  - Code analysis summary"
 	@echo "  make icons     - Generate app launcher icons"
 	@echo "  make splash    - Generate splash screen"
 	@echo ""
@@ -37,6 +39,15 @@ format:
 	@echo "✨ Formatting Dart code..."
 	@dart format lib/ --set-exit-if-changed
 	@echo "✅ Code formatted!"
+
+# 📊 Code Analysis
+cloc:
+	@echo "📊 Analyzing codebase with cloc (detailed)..."
+	@cloc --exclude-dir=build,ios,android,.dart_tool,node_modules --by-file --md .
+
+cloc-sum:
+	@echo "📊 Code analysis summary:"
+	@cloc --exclude-dir=build,ios,android,.dart_tool,node_modules .
 
 # 🎨 Assets Generation
 icons:
@@ -73,3 +84,6 @@ git:
 	@git push
 	@echo "✅ Changes pushed to remote!"
 
+
+cloc:
+	cloc --by-file --include-lang=Dart ./lib

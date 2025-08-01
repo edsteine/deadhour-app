@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+
+import '../../../utils/theme.dart';
 
 class RoomInfoBanner extends StatelessWidget {
   const RoomInfoBanner({super.key});

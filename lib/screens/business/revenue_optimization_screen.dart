@@ -1,13 +1,13 @@
+import '../dev_menu/enhanced_app_bar.dart';
 import 'package:flutter/material.dart';
-import '../../utils/theme.dart';
-import '../../widgets/common/enhanced_app_bar.dart';
-import 'package:deadhour/screens/business/widgets/time_frame_selector.dart';
-import 'package:deadhour/screens/business/widgets/business_tab_bar.dart';
-import 'package:deadhour/screens/business/widgets/dead_hours_tab.dart';
-import 'package:deadhour/screens/business/widgets/pricing_tab.dart';
-import 'package:deadhour/screens/business/widgets/promotions_tab.dart';
-import 'package:deadhour/screens/business/widgets/insights_tab.dart';
-import 'package:deadhour/screens/business/utils/business_action_helpers.dart';
+import '../../utils/app_theme.dart';
+import 'widgets/time_frame_selector.dart';
+import 'widgets/business_tab_bar.dart';
+import 'widgets/dead_hours_tab.dart';
+import 'widgets/pricing_tab.dart';
+import 'widgets/promotions_tab.dart';
+import 'widgets/insights_tab.dart';
+import 'utils/business_action_helpers.dart';
 
 class RevenueOptimizationScreen extends StatefulWidget {
   const RevenueOptimizationScreen({super.key});

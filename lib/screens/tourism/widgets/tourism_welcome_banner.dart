@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/providers/role_toggle_provider.dart';
-import 'package:deadhour/models/user.dart';
+import '../../../utils/theme.dart';
+import '../../profile/providers/role_toggle_provider.dart';
+import '../../profile/models/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TourismWelcomeBanner extends ConsumerWidget {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+
+import '../../../utils/theme.dart';
+import 'social_discovery_button.dart';
+import 'tourist_friendly_deals.dart';
 
 class DiscoverTab extends StatefulWidget {
   final Function(String) buildSectionHeader;
@@ -74,6 +77,10 @@ class _DiscoverTabState extends State<DiscoverTab> with TickerProviderStateMixin
                     widget.buildSectionHeader('🌍 Tourism Categories'),
                     const SizedBox(height: 12),
                     widget.buildQuickDiscoveryGrid(),
+                    const SizedBox(height: 24),
+                    widget.buildSectionHeader('🤝 Social Discovery'),
+                    const SizedBox(height: 12),
+                    const SocialDiscoveryButton(),
                   ],
                 ),
               ),
@@ -87,6 +94,10 @@ class _DiscoverTabState extends State<DiscoverTab> with TickerProviderStateMixin
                     widget.buildSectionHeader('🔥 Trending Cultural Experiences'),
                     const SizedBox(height: 12),
                     widget.buildTrendingExperiences(),
+                    const SizedBox(height: 24),
+                    widget.buildSectionHeader('💫 Tourist-Friendly Deals'),
+                    const SizedBox(height: 12),
+                    const TouristFriendlyDeals(),
                   ],
                 ),
               ),

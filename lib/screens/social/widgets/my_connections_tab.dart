@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/screens/social/widgets/network_stat.dart';
-import 'package:deadhour/screens/social/widgets/connection_card.dart';
-import 'package:deadhour/screens/social/widgets/upcoming_experience_card.dart';
+import '../../../utils/theme.dart';
+import 'network_stat.dart';
+import 'connection_card.dart';
+import 'upcoming_experience_card.dart';
 
 class MyConnectionsTab extends StatelessWidget {
   final Function(Map<String, dynamic>) onViewExperienceDetails;

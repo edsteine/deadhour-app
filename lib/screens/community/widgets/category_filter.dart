@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+import '../../../utils/theme.dart';
 
 class CategoryFilter extends StatelessWidget {
   final String selectedCategory;

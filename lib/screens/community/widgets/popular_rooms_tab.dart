@@ -1,6 +1,6 @@
+import 'shared/room_card.dart';
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/mock_data.dart';
-import 'package:deadhour/widgets/common/room_card.dart';
+import '../../../utils/mock_data.dart';
 
 class PopularRoomsTab extends StatelessWidget {
   final Function(dynamic room) onJoinRoom;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+
+import '../../../utils/theme.dart';
 
 class SocialTabBar extends StatelessWidget implements PreferredSizeWidget {
   final TabController tabController;

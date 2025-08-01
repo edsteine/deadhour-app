@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+import '../../../utils/theme.dart';
 
 class ExperienceCard extends StatelessWidget {
   final Map<String, dynamic> experience;

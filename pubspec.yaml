@@ -30,6 +30,7 @@ dependencies:
   fluttertoast: ^8.2.4
   font_awesome_flutter: ^10.8.0
   go_router: ^15.0.0
+  google_maps_flutter: ^2.9.0
   image: ^4.5.4
   internet_connection_checker_plus: ^2.7.1
   logger: ^2.1.0
@@ -49,7 +50,7 @@ dependencies:
   connectivity_plus: ^6.1.0
 
 dev_dependencies:
-  alchemist: ^0.12.0
+  alchemist: ^0.11.0
   build_runner: ^2.4.15
   cider: ^0.2.8
   custom_lint: ^0.7.5
@@ -69,7 +70,7 @@ dev_dependencies:
   very_good_analysis: ^7.0.0
   flutter_inappwebview_platform_interface: any
   state_notifier: any
-  flutter_lints: ^6.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

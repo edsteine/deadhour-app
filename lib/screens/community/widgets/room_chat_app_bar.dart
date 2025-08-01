@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:deadhour/models/room.dart';
+
+import '../models/room.dart';
 
 class RoomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Room room;

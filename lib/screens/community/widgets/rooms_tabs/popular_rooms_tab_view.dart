@@ -1,8 +1,8 @@
+import '../shared/room_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:deadhour/models/room.dart';
-import 'package:deadhour/utils/mock_data.dart';
-import 'package:deadhour/widgets/common/room_card.dart';
+import '../../models/room.dart';
+import '../room_filter_logic.dart';
 
 class PopularRoomsTabView extends ConsumerWidget {
   final Function(Room) onJoinRoom;
@@ -14,8 +14,13 @@ class PopularRoomsTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final popularRooms =
-        MockData.rooms.where((room) => room.isPopular).toList();
+    // Use better logic: memberCount > 100 (from popular_rooms_tab.dart)
+    final popularRooms = RoomFilterLogic.getFilteredRooms(
+      selectedCategory: 'all',
+      selectedCity: 'Casablanca',
+      showPrayerTimeAware: false,
+      showHalalOnly: false,
+    ).where((room) => room.memberCount > 100).toList();
 
     return popularRooms.isEmpty
         ? const Center(child: Text('No popular rooms available.'))

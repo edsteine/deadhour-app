@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/utils/mock_data.dart';
+
+import '../../../utils/mock_data.dart';
+import '../../../utils/theme.dart';
 
 class DeadHoursTab extends StatelessWidget {
   final Function(BuildContext) showOptimizationSuggestions;

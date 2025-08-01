@@ -19,11 +19,6 @@
 - **Description**: Welcome carousel explaining dual-problem platform (business optimization + social discovery)
 - **Features**: Swipeable screens, network effects explanation, Morocco cultural integration
 
-### 3. **Role Selection Screen** (`/user-type`)
-- **File**: `role_marketplace_screen.dart`
-- **Description**: Context-driven role addition when users need specific permissions (NOT part of onboarding)
-- **Features**: Context-aware role selection, permission-based access, integration with role switching system
-- **Usage**: Accessed when user tries action requiring specific role (create deal → Business role needed)
 
 ### 4. **Login Screen** (`/login`)
 - **File**: `login_screen.dart`

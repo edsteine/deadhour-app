@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+import '../../../utils/theme.dart';
 
 class CulturalTips extends StatelessWidget {
   const CulturalTips({super.key});

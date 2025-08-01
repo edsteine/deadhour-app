@@ -1,0 +1,1 @@
+enum CommunityStatus { trusted, verified, caution, warning, unverified }

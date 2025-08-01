@@ -1,10 +1,10 @@
+import '../../profile/services/auth_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/utils/auth_helpers.dart';
-import 'package:deadhour/screens/community/widgets/create_room_sheet.dart';
-import 'package:deadhour/screens/community/widgets/enhanced_room_search.dart';
+import '../../../utils/theme.dart';
+import 'create_room_sheet.dart';
+import 'enhanced_room_search.dart';
 
 class RoomInteractionHelpers {
   static Future<void> handleRefresh(Function setStateCallback) async {

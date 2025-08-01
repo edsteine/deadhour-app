@@ -1,15 +1,19 @@
+import '../profile/services/auth_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:deadhour/screens/community/widgets/room_chat_app_bar.dart';
-import 'package:deadhour/screens/community/widgets/room_info_banner.dart';
-import 'package:deadhour/screens/community/widgets/chat_message_bubble.dart';
-import 'package:deadhour/screens/community/widgets/typing_indicator.dart';
-import 'package:deadhour/screens/community/widgets/message_input.dart';
-import 'package:deadhour/screens/community/utils/room_chat_dialog_helpers.dart';
-import 'package:deadhour/screens/community/utils/room_chat_bottom_sheet_helpers.dart';
-import '../../utils/theme.dart';
+import 'widgets/room_chat_app_bar.dart';
+import 'widgets/room_info_banner.dart';
+import 'widgets/typing_indicator.dart';
+import 'widgets/message_input.dart';
+import 'utils/room_chat_bottom_sheet_helpers.dart';
+import '../../utils/app_theme.dart';
 import '../../utils/mock_data.dart';
-import '../../utils/auth_helpers.dart';
+import 'widgets/chat_message_filters.dart';
+import 'widgets/chat_messages_list.dart';
+import 'widgets/chat_typing_indicator.dart';
+import 'widgets/chat_action_buttons.dart';
+import 'services/chat_real_time_service.dart';
+import 'services/chat_message_service.dart';
 
 class RoomChatScreen extends ConsumerStatefulWidget {
   final String roomId;
@@ -30,8 +34,11 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
   List<Map<String, dynamic>> _messages = [];
   final List<String> _typingUsers = [];
   bool _isTyping = false;
-  String _messageFilter = 'all'; // 'all', 'deals', 'groups', 'questions'
+  String _messageFilter = 'all';
   bool _showScrollToBottom = false;
+
+  late ChatRealTimeService _realTimeService;
+  late ChatMessageService _messageService;
 
   @override
   void initState() {
@@ -40,14 +47,25 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
     _loadMessages();
     _scrollController.addListener(_onScroll);
 
-    // Simulate real-time updates
-    _startRealTimeUpdates();
+    // Initialize services
+    _realTimeService = ChatRealTimeService(
+      onTypingUsersChanged: (users) => setState(() => _typingUsers
+        ..clear()
+        ..addAll(users)),
+      onNewMessage: _addIncomingMessage,
+    );
+    
+    _messageService = ChatMessageService();
+
+    // Start real-time updates
+    _realTimeService.startRealTimeUpdates();
   }
 
   @override
   void dispose() {
     _messageController.dispose();
     _scrollController.dispose();
+    _realTimeService.dispose();
     super.dispose();
   }
 
@@ -61,39 +79,9 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
     }
   }
 
-  void _startRealTimeUpdates() {
-    // Simulate typing indicators
-    Future.delayed(const Duration(seconds: 10), () {
-      if (mounted) {
-        setState(() {
-          _typingUsers.add('Fatima_Rbat');
-        });
-        Future.delayed(const Duration(seconds: 3), () {
-          if (mounted) {
-            setState(() {
-              _typingUsers.clear();
-            });
-            _addIncomingMessage();
-          }
-        });
-      }
-    });
-  }
-
-  void _addIncomingMessage() {
-    final incomingMessage = {
-      'id': DateTime.now().millisecondsSinceEpoch.toString(),
-      'userId': 'user2',
-      'userName': 'Fatima Zahra',
-      'userAvatar': 'https://i.pravatar.cc/150?img=2',
-      'message':
-          'Just booked the Café Atlas deal! The atmosphere is amazing 😍',
-      'type': 'text',
-      'timestamp': DateTime.now(),
-    };
-
+  void _addIncomingMessage(Map<String, dynamic> message) {
     setState(() {
-      _messages.add(incomingMessage);
+      _messages.add(message);
     });
 
     // Auto-scroll if user is near bottom
@@ -112,120 +100,48 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
   }
 
   void _loadMessages() {
-    // Mock messages for the room
-    _messages = [
-      {
-        'id': '1',
-        'userId': 'user1',
-        'userName': 'Ahmed Hassan',
-        'userAvatar': 'https://i.pravatar.cc/150?img=1',
-        'message':
-            'Hey everyone! Just discovered this amazing café in Gueliz with 40% off until 6 PM!',
-        'type': 'deal_alert',
-        'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
-        'dealInfo': {
-          'venueName': 'Café Atlas',
-          'discount': '40%',
-          'validUntil': '6 PM today',
-        },
-      },
-      {
-        'id': '2',
-        'userId': 'user2',
-        'userName': 'Fatima Zahra',
-        'userAvatar': 'https://i.pravatar.cc/150?img=2',
-        'message':
-            'That sounds great! Is it the one near the Majorelle Garden?',
-        'type': 'text',
-        'timestamp':
-            DateTime.now().subtract(const Duration(hours: 1, minutes: 45)),
-      },
-      {
-        'id': '3',
-        'userId': 'user1',
-        'userName': 'Ahmed Hassan',
-        'userAvatar': 'https://i.pravatar.cc/150?img=1',
-        'message':
-            'Yes, exactly! The atmosphere is perfect for afternoon work sessions.',
-        'type': 'text',
-        'timestamp':
-            DateTime.now().subtract(const Duration(hours: 1, minutes: 30)),
-      },
-      {
-        'id': '4',
-        'userId': 'user3',
-        'userName': 'Youssef Alami',
-        'userAvatar': 'https://i.pravatar.cc/150?img=3',
-        'message':
-            'Anyone interested in forming a group? We could get the group discount!',
-        'type': 'group_formation',
-        'timestamp':
-            DateTime.now().subtract(const Duration(hours: 1, minutes: 15)),
-        'groupInfo': {
-          'minSize': 4,
-          'currentSize': 1,
-          'additionalDiscount': '10%',
-        },
-      },
-      {
-        'id': '5',
-        'userId': 'user4',
-        'userName': 'Laila Benali',
-        'userAvatar': 'https://i.pravatar.cc/150?img=4',
-        'message': 'I\'m in! What time are you thinking?',
-        'type': 'text',
-        'timestamp': DateTime.now().subtract(const Duration(minutes: 45)),
-      },
-      {
-        'id': '6',
-        'userId': 'user5',
-        'userName': 'Omar Tazi',
-        'userAvatar': 'https://i.pravatar.cc/150?img=5',
-        'message': 'Count me in too! 🙋‍♂️',
-        'type': 'text',
-        'timestamp': DateTime.now().subtract(const Duration(minutes: 30)),
-      },
-      {
-        'id': '7',
-        'userId': 'business_atlas',
-        'userName': 'Café Atlas',
-        'userAvatar': 'https://i.pravatar.cc/150?img=6',
-        'message':
-            'Thank you all for the interest! 🙏 We have reserved a special section for DeadHour community members.',
-        'type': 'business_message',
-        'timestamp': DateTime.now().subtract(const Duration(minutes: 15)),
-        'isVerified': true,
-        'businessInfo': {
-          'category': 'Restaurant',
-          'rating': 4.8,
-          'specialOffer': 'Additional 5% off for groups of 4+'
-        },
-      },
-      {
-        'id': '8',
-        'userId': 'user6',
-        'userName': 'Khadija El Mansouri',
-        'userAvatar': 'https://i.pravatar.cc/150?img=7',
-        'message':
-            'Perfect! What time should we meet? I suggest 4 PM to get the full discount window.',
-        'type': 'text',
-        'timestamp': DateTime.now().subtract(const Duration(minutes: 10)),
-      },
-      {
-        'id': '9',
-        'userId': 'user7',
-        'userName': 'Rachid Benjelloun',
-        'userAvatar': 'https://i.pravatar.cc/150?img=8',
-        'message': '📍 Café Atlas Location: https://maps.app.goo.gl/xyz123',
-        'type': 'location_share',
-        'timestamp': DateTime.now().subtract(const Duration(minutes: 5)),
-        'locationInfo': {
-          'name': 'Café Atlas',
-          'address': 'Avenue Mohammed V, Gueliz, Marrakech',
-          'walkingTime': '12 min from Majorelle Garden'
-        },
-      },
-    ];
+    _messages = _messageService.getInitialMessages();
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _sendMessage(String text) {
+    if (text.trim().isEmpty) return;
+
+    // Check if user is authenticated before allowing message sending
+    if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
+      return; // User not authenticated, helper will show login prompt
+    }
+
+    final newMessage = _messageService.createUserMessage(text.trim());
+
+    setState(() {
+      _messages.add(newMessage);
+      _messageController.clear();
+    });
+
+    // Auto-scroll to bottom
+    Future.delayed(const Duration(milliseconds: 100), () {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  void _reactToMessage(String messageId, String emoji) {
+    setState(() {
+      _messageService.toggleMessageReaction(_messages, messageId, emoji);
+    });
   }
 
   @override
@@ -245,37 +161,21 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
           const RoomInfoBanner(),
 
           // Message filter tabs
-          _buildMessageFilters(),
+          ChatMessageFilters(
+            currentFilter: _messageFilter,
+            onFilterChanged: (filter) => setState(() => _messageFilter = filter),
+          ),
 
           // Messages list
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: _filteredMessages.length,
-              itemBuilder: (context, index) {
-                final message = _filteredMessages[index];
-                return Column(
-                  children: [
-                    ChatMessageBubble(
-                      message: message,
-                      isCurrentUser:
-                          message['userId'] == MockData.currentUser.id,
-                      formatTime: _formatTime,
-                      bookDeal: _bookDeal,
-                      joinGroup: _joinGroup,
-                    ),
-                    // Show message reactions if any
-                    if (message['reactions'] != null)
-                      _buildMessageReactions(message),
-                  ],
-                );
-              },
-            ),
+          ChatMessagesList(
+            scrollController: _scrollController,
+            messages: _messageService.getFilteredMessages(_messages, _messageFilter),
+            onReactToMessage: _reactToMessage,
           ),
 
           // Typing indicator
-          if (_typingUsers.isNotEmpty) _buildTypingIndicator(),
+          if (_typingUsers.isNotEmpty)
+            ChatTypingIndicator(typingUsers: _typingUsers),
           if (_isTyping) TypingIndicator(isTyping: _isTyping),
 
           // Message input
@@ -297,6 +197,7 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
       // Scroll to bottom FAB
       floatingActionButton: _showScrollToBottom
           ? FloatingActionButton.small(
+              heroTag: "room_chat_scroll_fab",
               onPressed: _scrollToBottom,
               backgroundColor: AppTheme.moroccoGreen,
               child: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
@@ -304,227 +205,6 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
-  }
-
-  Widget _buildMessageFilters() {
-    return Container(
-      height: 50,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildFilterChip('all', 'All', Icons.chat),
-                  _buildFilterChip('deals', 'Deals', Icons.local_offer),
-                  _buildFilterChip('groups', 'Groups', Icons.people),
-                  _buildFilterChip('questions', 'Q&A', Icons.help_outline),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterChip(String filter, String label, IconData icon) {
-    final isSelected = _messageFilter == filter;
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        selected: isSelected,
-        label: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 16),
-            const SizedBox(width: 4),
-            Text(label),
-          ],
-        ),
-        onSelected: (selected) {
-          setState(() {
-            _messageFilter = filter;
-          });
-        },
-        selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
-        checkmarkColor: AppTheme.moroccoGreen,
-      ),
-    );
-  }
-
-  List<Map<String, dynamic>> get _filteredMessages {
-    switch (_messageFilter) {
-      case 'deals':
-        return _messages
-            .where((msg) =>
-                msg['type'] == 'deal_alert' ||
-                msg['dealInfo'] != null ||
-                msg['message'].toLowerCase().contains('deal') ||
-                msg['message'].toLowerCase().contains('discount'))
-            .toList();
-      case 'groups':
-        return _messages
-            .where((msg) =>
-                msg['type'] == 'group_formation' ||
-                msg['groupInfo'] != null ||
-                msg['message'].toLowerCase().contains('group') ||
-                msg['message'].toLowerCase().contains('join'))
-            .toList();
-      case 'questions':
-        return _messages
-            .where((msg) =>
-                msg['message'].contains('?') ||
-                msg['message'].toLowerCase().contains('help') ||
-                msg['message'].toLowerCase().contains('question'))
-            .toList();
-      default:
-        return _messages;
-    }
-  }
-
-  Widget _buildTypingIndicator() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 20,
-                  height: 10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildTypingDot(0),
-                      _buildTypingDot(200),
-                      _buildTypingDot(400),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '${_typingUsers.join(', ')} ${_typingUsers.length == 1 ? 'is' : 'are'} typing...',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppTheme.secondaryText,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTypingDot(int delay) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 500 + delay),
-      width: 4,
-      height: 4,
-      decoration: BoxDecoration(
-        color: AppTheme.moroccoGreen,
-        borderRadius: BorderRadius.circular(2),
-      ),
-    );
-  }
-
-  Widget _buildMessageReactions(Map<String, dynamic> message) {
-    final reactions = message['reactions'] as Map<String, List<String>>? ?? {};
-    if (reactions.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      margin: const EdgeInsets.only(left: 48, right: 16, bottom: 4),
-      child: Wrap(
-        spacing: 4,
-        children: reactions.entries.map((entry) {
-          final emoji = entry.key;
-          final users = entry.value;
-          return GestureDetector(
-            onTap: () => _reactToMessage(message['id'], emoji),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: users.contains(MockData.currentUser.id)
-                    ? AppTheme.moroccoGreen.withValues(alpha: 0.2)
-                    : Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: users.contains(MockData.currentUser.id)
-                      ? AppTheme.moroccoGreen
-                      : Colors.grey.shade300,
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(emoji, style: const TextStyle(fontSize: 12)),
-                  const SizedBox(width: 2),
-                  Text(
-                    users.length.toString(),
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: users.contains(MockData.currentUser.id)
-                          ? AppTheme.moroccoGreen
-                          : AppTheme.secondaryText,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    }
-  }
-
-  void _reactToMessage(String messageId, String emoji) {
-    setState(() {
-      final messageIndex =
-          _messages.indexWhere((msg) => msg['id'] == messageId);
-      if (messageIndex != -1) {
-        final message = _messages[messageIndex];
-        final reactions =
-            Map<String, List<String>>.from(message['reactions'] ?? {});
-
-        if (reactions[emoji] == null) {
-          reactions[emoji] = [];
-        }
-
-        final currentUserId = MockData.currentUser.id;
-        if (reactions[emoji]!.contains(currentUserId)) {
-          reactions[emoji]!.remove(currentUserId);
-          if (reactions[emoji]!.isEmpty) {
-            reactions.remove(emoji);
-          }
-        } else {
-          reactions[emoji]!.add(currentUserId);
-        }
-
-        _messages[messageIndex]['reactions'] = reactions;
-      }
-    });
   }
 
   Widget _buildInfoStat(IconData icon, String value, String label) {
@@ -551,104 +231,7 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
   }
 
   void _leaveRoom() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Leave Room'),
-        content: Text('Are you sure you want to leave ${_room.displayName}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Left ${_room.displayName}'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Leave'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _bookDeal(Map<String, dynamic> dealInfo) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Book Deal'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Venue: ${dealInfo['venueName']}'),
-            Text('Discount: ${dealInfo['discount']}'),
-            Text('Valid until: ${dealInfo['validUntil']}'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Deal booked successfully!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Book Now'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _joinGroup(Map<String, dynamic> groupInfo) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Join Group'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-                'Group size: ${groupInfo['currentSize']}/${groupInfo['minSize']}'),
-            Text('Additional discount: ${groupInfo['additionalDiscount']}'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Joined group successfully!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-            },
-            child: const Text('Join Group'),
-          ),
-        ],
-      ),
-    );
+    ChatActionButtons.showLeaveRoomDialog(context, _room);
   }
 
   Color _getCategoryColor(String category) {
@@ -670,101 +253,7 @@ class _RoomChatScreenState extends ConsumerState<RoomChatScreen> {
     }
   }
 
-  String _formatTime(DateTime timestamp) {
-    final now = DateTime.now();
-    final difference = now.difference(timestamp);
-
-    if (difference.inMinutes < 1) {
-      return 'now';
-    } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h';
-    } else {
-      return '${difference.inDays}d';
-    }
-  }
-
-  void _sendMessage(String text) {
-    if (text.trim().isEmpty) return;
-
-    // Check if user is authenticated before allowing message sending
-    if (!AuthHelpers.requireAuthForCommunity(context, ref)) {
-      return; // User not authenticated, helper will show login prompt
-    }
-
-    final newMessage = {
-      'id': DateTime.now().millisecondsSinceEpoch.toString(),
-      'userId': MockData.currentUser.id,
-      'userName': MockData.currentUser.name,
-      'userAvatar': MockData.currentUser.profilePicture,
-      'message': text.trim(),
-      'type': 'text',
-      'timestamp': DateTime.now(),
-    };
-
-    setState(() {
-      _messages.add(newMessage);
-      _messageController.clear();
-    });
-
-    // Auto-scroll to bottom
-    Future.delayed(const Duration(milliseconds: 100), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    });
-  }
-
   void _showMessageOptions() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Share Content',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.local_fire_department,
-                  color: AppColors.error),
-              title: const Text('Share Deal'),
-              subtitle: const Text('Alert the room about a great deal'),
-              onTap: () {
-                Navigator.pop(context);
-                RoomChatDialogHelpers.showShareDealDialog(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.people, color: AppColors.info),
-              title: const Text('Form Group'),
-              subtitle: const Text('Create a group for better discounts'),
-              onTap: () {
-                Navigator.pop(context);
-                RoomChatDialogHelpers.showFormGroupDialog(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: AppColors.success),
-              title: const Text('Share Location'),
-              subtitle: const Text('Share a venue or meeting point'),
-              onTap: () {
-                Navigator.pop(context);
-                RoomChatDialogHelpers.showShareLocationDialog(context);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    ChatActionButtons.showMessageOptions(context);
   }
 }

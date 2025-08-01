@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../utils/theme.dart';
+import '../../utils/app_theme.dart';
+import 'widgets/map_view_widget.dart';
 // TODO: Uncomment when premium features are re-enabled
-// import '../../providers/role_toggle_provider.dart';
+// import 'package:deadhour/screens/profile/providers/role_toggle_provider.dart';
 // import '../../models/user.dart';
 import 'package:deadhour/screens/tourism/widgets/local_experts_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/experiences_tab.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_tab.dart';
+import 'widgets/tourism_welcome_banner.dart';
 import 'package:deadhour/screens/tourism/widgets/quick_discovery_grid.dart';
 import 'package:deadhour/screens/tourism/widgets/trending_experiences.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_dashboard.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_events.dart';
 import 'package:deadhour/screens/tourism/widgets/cultural_tips.dart';
+import 'package:deadhour/screens/tourism/widgets/discover_tab.dart';
 
 class TourismScreen extends ConsumerStatefulWidget {
   const TourismScreen({super.key});
@@ -26,9 +29,8 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
   late TabController _tourismTabController;
 
   final List<Tab> _tourismTabs = [
-    const Tab(text: 'Categories'),
-    const Tab(text: 'Trending'),
-    const Tab(text: 'Places'),
+    const Tab(text: 'Discover'),
+    const Tab(text: 'Map'),
     const Tab(text: 'Local Experts'),
     const Tab(text: 'Experiences'), 
     const Tab(text: 'Cultural'),
@@ -79,71 +81,6 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
     );
   }
 
-  Widget _buildMoroccoPlaces() {
-    final places = [
-      {'name': 'Marrakech', 'description': 'Imperial city with vibrant souks', 'icon': '🕌'},
-      {'name': 'Casablanca', 'description': 'Modern economic capital', 'icon': '🏙️'},
-      {'name': 'Fes', 'description': 'Ancient medina and cultural center', 'icon': '🏛️'},
-      {'name': 'Chefchaouen', 'description': 'Blue pearl of Morocco', 'icon': '💙'},
-      {'name': 'Sahara Desert', 'description': 'Endless dunes and star-filled nights', 'icon': '🐪'},
-      {'name': 'Atlas Mountains', 'description': 'Breathtaking peaks and Berber villages', 'icon': '🏔️'},
-    ];
-
-    return Column(
-      children: places.map((place) => Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade200),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(place['icon']!, style: const TextStyle(fontSize: 24)),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    place['name']!,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    place['description']!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: Colors.grey,
-            ),
-          ],
-        ),
-      )).toList(),
-    );
-  }
 
   @override
   void dispose() {
@@ -244,6 +181,9 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Tourism welcome banner for tourist-friendly experience
+        const TourismWelcomeBanner(),
+        
         // Tourism tabs (like GetYourGuide/Viator structure)
         TabBar(
           controller: _tourismTabController,
@@ -258,43 +198,22 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
           child: TabBarView(
             controller: _tourismTabController,
             children: [
-              // Categories tab - Tourism discovery categories
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSectionHeader('🌍 Tourism Categories'),
-                    const SizedBox(height: 12),
-                    const QuickDiscoveryGrid(),
-                  ],
-                ),
+              // Discover tab - Comprehensive tourism discovery with rich features
+              DiscoverTab(
+                buildSectionHeader: _buildSectionHeader,
+                buildQuickDiscoveryGrid: () => const QuickDiscoveryGrid(),
+                buildTrendingExperiences: () => const TrendingExperiences(),
               ),
               
-              // Trending tab - Trending cultural experiences
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSectionHeader('🔥 Trending Cultural Experiences'),
-                    const SizedBox(height: 12),
-                    const TrendingExperiences(),
-                  ],
-                ),
-              ),
-              
-              // Places tab - Popular places in Morocco
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSectionHeader('🏛️ Popular Places in Morocco'),
-                    const SizedBox(height: 12),
-                    _buildMoroccoPlaces(),
-                  ],
-                ),
+              // Map tab - Visual map interface for venue and deal discovery
+              MapViewWidget(
+                selectedCategory: 'tourism',
+                onDealTap: (deal) {
+                  // Handle deal tap from map
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Selected deal: ${deal.title}')),
+                  );
+                },
               ),
               
               // Local Experts tab - List of advisors/guides
@@ -304,7 +223,7 @@ class _TourismScreenState extends ConsumerState<TourismScreen>
                 experts: _experts,
               ),
               // Experiences tab - Authentic activities
-              ExperiencesTab(
+              TourismExperiencesTab(
                 buildSectionHeader: _buildSectionHeader,
                 buildExperienceCard: _buildExperienceCard,
               ),

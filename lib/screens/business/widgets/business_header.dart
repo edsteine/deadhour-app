@@ -1,7 +1,7 @@
+import 'professional_card.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/theme.dart';
 import '../../../utils/mock_data.dart';
-import '../../../widgets/common/professional_card.dart';
 
 class BusinessHeader extends StatelessWidget {
   const BusinessHeader({super.key});

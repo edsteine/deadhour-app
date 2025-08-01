@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/screens/social/widgets/benefit_card.dart';
-import 'package:deadhour/screens/social/widgets/category_card.dart';
+
+import '../../../utils/theme.dart';
+import 'benefit_card.dart';
+import 'category_card.dart';
 
 class CreateExperienceTab extends StatelessWidget {
   final VoidCallback onStartHostApplication;

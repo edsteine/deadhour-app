@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/models/user.dart';
-import 'package:deadhour/utils/theme.dart';
-import 'package:deadhour/screens/community/widgets/community_health_indicator.dart';
-import 'package:deadhour/screens/community/widgets/category_filter.dart';
-import 'package:deadhour/screens/community/widgets/cultural_filters.dart';
+
+import '../../../utils/theme.dart';
+import '../../profile/models/user.dart';
+import 'category_filter.dart';
+import 'community_health_indicator.dart';
+import 'cultural_filters.dart';
 
 class RoomsScaffold extends StatelessWidget {
   final DeadHourUser? user;

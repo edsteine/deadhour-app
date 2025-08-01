@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'routes/app_routes.dart';
+
+import 'utils/app_routes.dart';
 // import 'services/app_performance_service.dart'; // Commented out - performance overlay disabled
 
 class DeadHourApp extends StatelessWidget {

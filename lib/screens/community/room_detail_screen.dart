@@ -1,8 +1,8 @@
+import '../dev_menu/enhanced_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/theme.dart'; // Import AppSpacing and AppBorderRadius
+import 'package:deadhour/utils/theme.dart'; // Import AppSpacing and AppBorderRadius
 import '../../utils/mock_data.dart';
-import '../../widgets/common/enhanced_app_bar.dart';
 
 class RoomDetailScreen extends StatelessWidget {
   final String roomId;

@@ -183,6 +183,34 @@ This prevents unnecessary resource usage and potential device conflicts during d
 
 **This rule applies to ALL AI team members (Claude, Gemini, etc.) - NO EXCEPTIONS.**
 
+## CRITICAL RULE: Safe File Splitting Process with Backup
+**When refactoring large files, follow this MANDATORY BACKUP process:**
+
+**SAFER BACKUP APPROACH (NEVER skip any step):**
+1. **Create backup first** - Rename original file to `filename.dart.bak` (keeps full backup)
+2. **Read entire backup** - Read the complete `.bak` file to understand all code
+3. **Create multiple smaller files** - Split into files under 500 lines each
+4. **Fix imports/exports** - Ensure all imports and exports work between new files
+5. **Run linter** - Execute `flutter analyze` and fix ALL errors/warnings
+6. **Test thoroughly** - Test all functionality works with the new split files
+7. **Keep backup safe** - NEVER delete `.bak` files until user confirms success
+
+**CRITICAL WORKFLOW RULE:**
+- **Work on ONE file at a time ONLY**
+- Complete the ENTIRE splitting process for one file
+- **STOP and wait for user approval** before moving to next file
+- Always ask "Ready for next file?" before proceeding
+- Never work on multiple files simultaneously
+
+**Why this backup approach is mandatory:**
+- Full backup prevents any code loss
+- Can always restore from `.bak` if problems occur
+- User controls the pace and approves each completion
+- Safer than copying/deleting approach
+- Maintains complete project integrity
+
+**This applies to ALL 33 files in TODO.md refactoring list.**
+
 ## Mandatory Linting Rule
 **ALWAYS run linters and fix ALL issues after each code change:**
 1. After editing any Dart file, immediately run `flutter analyze`
@@ -339,6 +367,7 @@ This prevents unnecessary resource usage and potential device conflicts during d
 ### Security and Safety Rules
 - **Never introduce code that exposes, logs, or commits secrets, API keys, or other sensitive information.**
 - **Always apply security best practices.**
+- **NO BIOMETRIC FEATURES**: Never implement or suggest biometric authentication (fingerprint, face ID, etc.). Use standard email/password and Firebase Auth only.
 
 ### Critical Rule: Never Delete Files
 **NEVER delete any files using rm, deletion commands, or file removal operations.**
@@ -364,5 +393,19 @@ This prevents unnecessary resource usage and potential device conflicts during d
 - **Provide regular updates on your progress and any challenges you encounter.**
 - **Ask for clarification if any instructions are unclear.**
 
+## TODO.md Compliance
+
+**ALWAYS follow TODO.md for all development tasks:**
+- Check `TODO.md` before starting any work
+- TODO.md contains the complete file refactoring plan (33 files need refactoring)
+- Follow the priority order: Critical → High → Medium
+- Update TODO.md progress as files are completed
+- Never create duplicate TODO systems - TODO.md is the single source of truth
+
+**Navigation Bug Priority:**
+- Fix navigation back button issues immediately (users can't go back from screens)
+- Test all screen transitions and back navigation
+- Ensure proper Flutter navigation patterns (Navigator.push/pop)
+
 ### Final Reminder
-Your primary goal is to implement the DeadHour platform according to the provided specifications and guidelines. Adhere strictly to all rules and best practices. Your work will be reviewed by the Human Architect and Gemini for quality and adherence to standards.
+Your primary goal is to implement the DeadHour platform according to the provided specifications and guidelines. ALWAYS consult TODO.md for current priorities and tasks. Adhere strictly to all rules and best practices. Your work will be reviewed by the Human Architect and Gemini for quality and adherence to standards.

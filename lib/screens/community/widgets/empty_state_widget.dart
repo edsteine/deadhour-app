@@ -1,6 +1,6 @@
+import 'engaging_empty_state.dart';
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
-import '../../../widgets/common/engaging_empty_state.dart';
+import '../../../utils/theme.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   final IconData icon;

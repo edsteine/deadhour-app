@@ -1,7 +1,7 @@
+import '../dev_menu/dead_hour_app_bar.dart';
 import 'package:flutter/material.dart';
-import '../../services/offline_service.dart';
-import '../../utils/theme.dart';
-import '../../widgets/common/dead_hour_app_bar.dart';
+import '../../utils/offline_service.dart';
+import '../../utils/app_theme.dart';
 
 class OfflineSettingsScreen extends StatefulWidget {
   const OfflineSettingsScreen({super.key});

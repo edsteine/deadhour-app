@@ -1,8 +1,9 @@
+import '../shared/room_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:deadhour/utils/mock_data.dart';
-import 'package:deadhour/models/room.dart';
-import 'package:deadhour/widgets/common/room_card.dart';
+import '../../../../utils/mock_data.dart';
+import '../../models/room.dart';
+import '../empty_state_widget.dart';
 
 class PremiumRoomsTabView extends ConsumerWidget {
   final Function(Room) onJoinPremiumRoom;
@@ -19,17 +20,26 @@ class PremiumRoomsTabView extends ConsumerWidget {
     final premiumRooms =
         MockData.rooms.where((room) => room.isPremiumOnly).toList();
 
-    return premiumRooms.isEmpty
-        ? const Center(child: Text('No premium rooms available.'))
-        : ListView.builder(
-            itemCount: premiumRooms.length,
-            itemBuilder: (context, index) {
-              final room = premiumRooms[index];
-              return RoomCard(
-                room: room,
-                onTap: () => onJoinPremiumRoom(room),
-              );
-            },
-          );
+    if (premiumRooms.isEmpty) {
+      return EmptyStateWidget(
+        icon: Icons.workspace_premium,
+        title: 'Premium Rooms',
+        subtitle: 'Exclusive rooms with local experts and curated experiences - Free during beta!',
+        actionText: 'Learn More',
+        onAction: onShowPremiumUpgrade,
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: premiumRooms.length,
+      itemBuilder: (context, index) {
+        final room = premiumRooms[index];
+        return RoomCard(
+          room: room,
+          onTap: () => onJoinPremiumRoom(room),
+        );
+      },
+    );
   }
 }

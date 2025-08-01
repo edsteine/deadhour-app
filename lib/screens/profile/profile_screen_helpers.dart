@@ -1,10 +1,10 @@
+import 'models/user.dart';
+import 'providers/guest_mode_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../utils/theme.dart';
-import '../../models/user.dart';
-import '../../utils/guest_mode.dart';
-import '../../providers/guest_mode_provider.dart';
+import '../../utils/app_theme.dart';
+import 'services/guest_mode.dart';
 
 // Helper methods for profile screen functionality
 class ProfileScreenHelpers {

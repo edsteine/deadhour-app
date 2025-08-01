@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/theme.dart';
+import '../../../utils/theme.dart';
 
 class TouristFriendlyDeals extends StatelessWidget {
   const TouristFriendlyDeals({super.key});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:deadhour/screens/social/widgets/social_stats_header.dart';
-import 'package:deadhour/screens/social/widgets/experience_card.dart';
-import 'package:deadhour/screens/social/widgets/social_action_helpers.dart';
+import 'social_stats_header.dart';
+import 'experience_card.dart';
+import 'social_action_helpers.dart';
 
-class ExperiencesTab extends StatelessWidget {
+class SocialExperiencesTab extends StatelessWidget {
   final List<Map<String, dynamic>> filteredExperiences;
   final List<Map<String, dynamic>> socialInterests;
 
-  const ExperiencesTab({
+  const SocialExperiencesTab({
     super.key,
     required this.filteredExperiences,
     required this.socialInterests,

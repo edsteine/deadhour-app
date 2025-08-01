@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/theme.dart';
+import '../../utils/app_theme.dart';
 
-import './widgets/business_header.dart';
-import './widgets/overview_tab.dart';
-import './widgets/deals_tab.dart';
-import './widgets/analytics_tab.dart';
-import './widgets/settings_tab.dart';
+import 'widgets/business_header.dart';
+import 'widgets/overview_tab.dart';
+import 'widgets/deals_tab.dart';
+import 'widgets/analytics_tab.dart';
+import 'widgets/settings_tab.dart';
 
 class BusinessDashboardScreen extends StatefulWidget {
   const BusinessDashboardScreen({super.key});
