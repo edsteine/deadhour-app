@@ -8,11 +8,6 @@ Based on comprehensive analysis of the entire `/lib` directory, the following fi
 
 #### 🚨 CRITICAL - Extreme SRP Violations (5+ Classes or 1000+ Lines)
 
-**`/Users/edsteine/Desktop/deadhour-app/lib/widgets/common/dead_hour_app_bar.dart`** - **1,275 lines, 6 classes**
-- **Classes Found**: DeadHourAppBar, _DeadHourAppBarState, _SearchBottomSheet, _SearchBottomSheetState, _NotificationsBottomSheet, _NotificationsBottomSheetState
-- **What to Split**: App bar widget, search bottom sheet, notifications bottom sheet, location selector, role switcher components
-- **Target**: 6 separate files under 300 lines each
-
 **`/Users/edsteine/Desktop/deadhour-app/lib/screens/home/main_navigation_screen.dart`** - **1,763 lines, 4 classes**
 - **Classes Found**: MainNavigationScreen, _MainNavigationScreenState, NavigationController, CustomBottomNavigation
 - **What to Split**: Main navigation logic, custom bottom navigation, navigation controller, page management
@@ -140,7 +135,7 @@ Based on comprehensive analysis of the entire `/lib` directory, the following fi
 
 #### Target Structure: ONE FOLDER PER SCREEN
 
-**Required Screen Folders** (30+ individual screen folders needed):
+**Required Screen Folders** (remaining screens that need folder organization):
 
 ```
 lib/screens/
@@ -155,7 +150,6 @@ lib/screens/
 ├── tourism_screen/
 ├── local_expert_screen/
 ├── rooms_screen/
-├── room_chat_screen/
 ├── room_detail_screen/
 ├── booking_flow_screen/
 ├── payment_screen/
@@ -173,7 +167,7 @@ lib/screens/
 ├── accessibility_settings_screen/
 ├── offline_settings_screen/
 ├── social_discovery_screen/
-├── group_booking_screen/
+├── group_booking_screen/ ✅
 ├── notifications_screen/
 ├── cultural_ambassador_application_screen/
 ├── dev_menu_screen/
@@ -201,30 +195,7 @@ lib/screens/
 - **Problem**: Many broken imports after previous refactoring
 - **Fix Required**: Update all import paths to match new file locations
 
-### 4. COMPLETED REFACTORING (Reference Only)
-
-The following files have already been successfully refactored:
-
-#### ✅ COMPLETED - Critical Files (1000+ lines → Under 300 lines)
-- `lib/screens/home/main_navigation_screen.dart` - ✅ 1,687 → 109 lines (94% reduction)
-- `lib/screens/home/deals_screen.dart` - ✅ 1,441 → 299 lines (79% reduction)  
-- `lib/screens/venues/venue_detail_screen.dart` - ✅ 1,420 → 165 lines (88% reduction)
-- `lib/screens/home/venue_discovery_screen.dart` - ✅ 1,357 → 210 lines (85% reduction)
-- `lib/widgets/common/dead_hour_app_bar.dart` - ✅ 1,187 → 232 lines (80% reduction)
-- `lib/screens/profile/profile_screen.dart` - ✅ 1,015 → 197 lines (81% reduction)
-
-#### ✅ COMPLETED - High Priority Files (800-1000 lines → Under 250 lines)
-- `lib/screens/business/analytics_dashboard_screen.dart` - ✅ 964 → 178 lines (82% reduction)
-- `lib/screens/cultural/cultural_ambassador_application_screen.dart` - ✅ 923 → 91 lines (90% reduction)
-- `lib/screens/payment/payment_screen.dart` - ✅ 923 → 107 lines (88% reduction)
-- `lib/screens/home/tourist_home_screen.dart` - ✅ 914 → 107 lines (88% reduction)
-- `lib/screens/profile/premium_role_screen.dart` - ✅ 825 → 242 lines (71% reduction)
-- `lib/screens/admin/community_health_dashboard_screen.dart` - ✅ 818 → 91 lines (89% reduction)
-- `lib/screens/business/business_dashboard_screen.dart` - ✅ 780 → 123 lines (84% reduction)
-- `lib/screens/business/create_deal_screen.dart` - ✅ 789 → 234 lines (70% reduction)
-- And 18+ other successfully refactored files...
-
-### 5. UNUSED/PROBLEMATIC FILES TO REMOVE
+### 4. UNUSED/PROBLEMATIC FILES TO REMOVE
 
 **Files marked for deletion/cleanup**:
 ```
@@ -247,11 +218,11 @@ The following files have already been successfully refactored:
 ## 🚀 EXECUTION PLAN
 
 ### Phase 1: Critical SRP Violations (Week 1-2)
-1. **dead_hour_app_bar.dart** - Split 6 classes into separate files
-2. **main_navigation_screen.dart** - Split 4 classes into navigation components  
-3. **venue_detail_screen.dart** - Split into 6 venue detail widgets
-4. **analytics_dashboard_screen.dart** - Split into 8 analytics components
-5. **venue_discovery_screen.dart** - Split into 6 discovery components
+1. **main_navigation_screen.dart** - Split 4 classes into navigation components  
+2. **venue_detail_screen.dart** - Split into 6 venue detail widgets
+3. **analytics_dashboard_screen.dart** - Split into 8 analytics components
+4. **venue_discovery_screen.dart** - Split into 6 discovery components
+5. **payment_screen.dart** - Split into 8 payment components
 
 ### Phase 2: Service Layer Refactoring (Week 3-4)  
 1. **deal_validation_service.dart** - Split 7 classes + 2 enums
