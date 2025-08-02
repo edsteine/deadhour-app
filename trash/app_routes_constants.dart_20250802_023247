@@ -1,0 +1,41 @@
+
+
+
+
+// Route Names for easy navigation
+class AppRoutes {
+  static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
+  static const String userType = '/user-type';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String home = '/home';
+  static const String deals = '/deals';
+  static const String venues = '/venues';
+  static const String venueDetail = '/venue-detail';
+  static const String bookingFlow = '/booking';
+  static const String community = '/community';
+  static const String roomDetail = '/room';
+  static const String roomChat = '/room/*/chat';
+  static const String business = '/business';
+  static const String createDeal = '/business/create-deal';
+  static const String revenueOptimization = '/business/optimization';
+  static const String businessAnalytics = '/business/analytics';
+  static const String tourism = '/tourism';
+  static const String localExpert = '/local-expert';
+  static const String socialDiscovery = '/social-discovery';
+  static const String guide = '/guide';
+  static const String admin = '/admin';
+  static const String profile = '/profile';
+  static const String settings = '/settings';
+  static const String accessibilitySettings = '/settings/accessibility';
+  static const String offlineSettings = '/settings/offline';
+  static const String touristHome = '/tourist-home';
+  static const String roleSwitching = '/roles/switching';
+  static const String premiumRole = '/roles/premium';
+  static const String communityHealth = '/admin/community-health';
+  static const String notifications = '/notifications';
+  static const String groupBooking = '/group-booking';
+  static const String payment = '/payment';
+  static const String culturalAmbassadorApplication = '/cultural-ambassador-application';
+}

@@ -1,14 +1,14 @@
-
-
-
-
 import 'package:flutter/material.dart';
-import 'package:deadhour/utils/app_theme.dart';
-
-
-
-
-
+import 'package:deadhour/utils/theme.dart';
+import 'package:deadhour/widgets/common/dead_hour_app_bar.dart';
+import 'package:deadhour/models/user.dart';
+import 'package:deadhour/services/analytics_service.dart';
+import 'package:deadhour/screens/role_switching_screen/models/role_data.dart';
+import 'package:deadhour/screens/role_switching_screen/widgets/role_current_roles_section.dart';
+import 'package:deadhour/screens/role_switching_screen/widgets/role_primary_selector.dart';
+import 'package:deadhour/screens/role_switching_screen/widgets/role_available_roles_section.dart';
+import 'package:deadhour/screens/role_switching_screen/widgets/role_stacking_benefits.dart';
+import 'package:deadhour/screens/role_switching_screen/widgets/role_quick_switch.dart';
 
 class RoleSwitchingScreen extends StatefulWidget {
   const RoleSwitchingScreen({super.key});
@@ -67,20 +67,24 @@ class _RoleSwitchingScreenState extends State<RoleSwitchingScreen>
                 primaryRole: _primaryRole,
               ),
               const SizedBox(height: AppTheme.spacing24),
+              
               RolePrimarySelector(
                 activeRoles: _activeRoles,
                 primaryRole: _primaryRole,
                 onPrimaryRoleChanged: _handlePrimaryRoleChanged,
               ),
               const SizedBox(height: AppTheme.spacing24),
+              
               RoleAvailableRolesSection(
                 activeRoles: _activeRoles,
                 pendingRole: _pendingRole,
                 onRoleAction: _handleRoleAction,
               ),
               const SizedBox(height: AppTheme.spacing24),
+              
               const RoleStackingBenefits(),
               const SizedBox(height: AppTheme.spacing24),
+              
               RoleQuickSwitch(
                 activeRoles: _activeRoles,
                 primaryRole: _primaryRole,
@@ -130,7 +134,7 @@ class _RoleSwitchingScreenState extends State<RoleSwitchingScreen>
         
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('${role.toString().split('.').last} role removed')),
+            SnackBar(content: Text('${RoleData.getRoleInfo(role)['title']} role removed')),
           );
         }
       } else {
@@ -154,7 +158,7 @@ class _RoleSwitchingScreenState extends State<RoleSwitchingScreen>
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${role.toString().split('.').last} role added successfully!')),
+          SnackBar(content: Text('${RoleData.getRoleInfo(role)['title']} role added successfully!')),
         );
       }
     }
@@ -177,7 +181,7 @@ class _RoleSwitchingScreenState extends State<RoleSwitchingScreen>
       );
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Switched to ${role.toString().split('.').last} mode')),
+        SnackBar(content: Text('Switched to ${RoleData.getRoleInfo(role)['title']} mode')),
       );
     }
   }

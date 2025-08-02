@@ -1,0 +1,132 @@
+import 'package:deadhour/screens/deals_screen/models/deal.dart';
+import 'package:deadhour/screens/venues_screen/models/venue.dart';
+import 'package:deadhour/screens/profile_screen/services/halal_status.dart';
+import 'package:deadhour/utils/mock_data.dart';
+
+/// Service for filtering venues and deals based on halal requirements
+class HalalFilterService {
+  static final HalalFilterService _instance = HalalFilterService._internal();
+  factory HalalFilterService() => _instance;
+  HalalFilterService._internal();
+
+  /// Filter venues by halal status
+  List<Venue> filterVenuesByHalal({
+    List<Venue>? venues,
+    bool halalOnly = false,
+    bool includeHalalFriendly = true,
+  }) {
+    final venueList = venues ?? MockData.venues;
+    
+    if (!halalOnly) return venueList;
+    
+    return venueList.where((venue) {
+      if (venue.isHalal == true) return true; // Certified halal
+      if (includeHalalFriendly && venue.isHalal != false) return true; // Unknown/friendly
+      return false;
+    }).toList();
+  }
+
+  /// Filter deals by halal status of their venues
+  List<Deal> filterDealsByHalal({
+    List<Deal>? deals,
+    bool halalOnly = false,
+    bool includeHalalFriendly = true,
+  }) {
+    final dealList = deals ?? MockData.deals;
+    
+    if (!halalOnly) return dealList;
+    
+    return dealList.where((deal) {
+      // Find the venue for this deal
+      final venue = MockData.venues.firstWhere(
+        (v) => v.id == deal.venueId,
+        orElse: () => MockData.venues.first,
+      );
+      
+      if (venue.isHalal == true) return true; // Certified halal
+      if (includeHalalFriendly && venue.isHalal != false) return true; // Unknown/friendly
+      return false;
+    }).toList();
+  }
+
+  /// Get halal status for a venue
+  HalalStatus getVenueHalalStatus(Venue venue) {
+    if (venue.isHalal == true) return HalalStatus.certified;
+    if (venue.isHalal == false) return HalalStatus.notHalal;
+    return HalalStatus.unknown;
+  }
+
+  /// Get halal status for a deal (based on its venue)
+  HalalStatus getDealHalalStatus(Deal deal) {
+    final venue = MockData.venues.firstWhere(
+      (v) => v.id == deal.venueId,
+      orElse: () => MockData.venues.first,
+    );
+    return getVenueHalalStatus(venue);
+  }
+
+  /// Get halal venues count for statistics
+  Map<String, int> getHalalVenuesStats() {
+    final venues = MockData.venues;
+    int certified = 0;
+    int notHalal = 0;
+    int unknown = 0;
+    
+    for (final venue in venues) {
+      if (venue.isHalal == true) {
+        certified++;
+      } else if (venue.isHalal == false) {
+        notHalal++;
+      } else {
+        unknown++;
+      }
+    }
+    
+    return {
+      'certified': certified,
+      'notHalal': notHalal,
+      'unknown': unknown,
+      'total': venues.length,
+    };
+  }
+
+  /// Check if a venue category typically has halal options
+  bool isCategoryTypicallyHalal(String category) {
+    switch (category.toLowerCase()) {
+      case 'food':
+      case 'restaurant':
+      case 'café':
+      case 'dining':
+        return true; // Food venues need halal certification
+      case 'wellness':
+      case 'spa':
+      case 'hammam':
+        return true; // Islamic wellness centers
+      case 'tourism':
+      case 'culture':
+      case 'mosque':
+        return true; // Cultural/religious sites
+      default:
+        return false; // Other categories less relevant
+    }
+  }
+
+  /// Get halal-friendly venues near prayer times
+  List<Venue> getHalalVenuesNearPrayerTimes() {
+    return filterVenuesByHalal(halalOnly: true)
+        .where((venue) => venue.hasWifi == true) // Good for prayer break
+        .toList();
+  }
+
+  /// Get Ramadan-specific halal deals
+  List<Deal> getRamadanHalalDeals() {
+    return filterDealsByHalal(halalOnly: true)
+        .where((deal) => 
+          deal.categories.contains('ramadan') ||
+          deal.categories.contains('iftar') ||
+          deal.categories.contains('suhoor') ||
+          deal.categories.contains('traditional')
+        )
+        .toList();
+  }
+}

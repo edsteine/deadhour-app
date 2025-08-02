@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+
+class WebCompanionScreen extends StatelessWidget {
+  const WebCompanionScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Web Companion'),
+      ),
+      body: const Center(
+        child: Text('Web Companion - Coming Soon'),
+      ),
+    );
+  }
+}

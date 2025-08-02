@@ -1,0 +1,988 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:deadhour/utils/theme.dart';
+import 'package:deadhour/utils/performance_utils.dart';
+import 'package:deadhour/utils/error_utils.dart';
+
+class CulturalAmbassadorApplicationScreen extends StatefulWidget {
+  const CulturalAmbassadorApplicationScreen({super.key});
+
+  @override
+  State<CulturalAmbassadorApplicationScreen> createState() =>
+      _CulturalAmbassadorApplicationScreenState();
+}
+
+class _CulturalAmbassadorApplicationScreenState
+    extends State<CulturalAmbassadorApplicationScreen>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+  final _formKey = GlobalKey<FormState>();
+
+  // Form controllers
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _experienceController = TextEditingController();
+  final _languagesController = TextEditingController();
+  final _aboutController = TextEditingController();
+  final _motivationController = TextEditingController();
+
+  // Application state
+  bool _isSubmitting = false;
+  int _currentStep = 0;
+
+  // Cultural expertise selections
+  final List<String> _selectedExpertise = [];
+  final List<String> _selectedLanguages = [];
+  final List<String> _availabilityDays = [];
+
+  final List<Map<String, dynamic>> _culturalExpertise = [
+    {'id': 'traditional_cuisine', 'name': 'Traditional Cuisine', 'icon': '🍽️'},
+    {'id': 'historical_sites', 'name': 'Historical Sites', 'icon': '🏛️'},
+    {'id': 'local_arts', 'name': 'Local Arts & Crafts', 'icon': '🎨'},
+    {'id': 'music_dance', 'name': 'Music & Dance', 'icon': '🎵'},
+    {'id': 'religious_culture', 'name': 'Religious Culture', 'icon': '🕌'},
+    {'id': 'berber_culture', 'name': 'Berber Culture', 'icon': '🏔️'},
+    {'id': 'market_souks', 'name': 'Markets & Souks', 'icon': '🛒'},
+    {'id': 'desert_experiences', 'name': 'Desert Experiences', 'icon': '🐪'},
+  ];
+
+  final List<String> _moroccanLanguages = [
+    'Arabic',
+    'Berber/Tamazight',
+    'French',
+    'English',
+    'Spanish',
+    'German',
+    'Italian',
+    'Dutch'
+  ];
+
+  final List<String> _weekDays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday', 
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _cityController.dispose();
+    _experienceController.dispose();
+    _languagesController.dispose();
+    _aboutController.dispose();
+    _motivationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cultural Ambassador Application'),
+        backgroundColor: AppTheme.moroccoGreen,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: Column(
+        children: [
+          _buildProgressIndicator(),
+          Expanded(
+            child: _buildApplicationForm(),
+          ),
+          _buildActionButtons(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Step ${_currentStep + 1} of 4',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                '${((_currentStep + 1) / 4 * 100).toInt()}% Complete',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.secondaryText,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          LinearProgressIndicator(
+            value: (_currentStep + 1) / 4,
+            backgroundColor: Colors.grey.shade200,
+            valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.moroccoGreen),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildStepIndicator(0, 'Personal', Icons.person),
+              _buildStepIndicator(1, 'Expertise', Icons.star),
+              _buildStepIndicator(2, 'Experience', Icons.history_edu),
+              _buildStepIndicator(3, 'Review', Icons.check_circle),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStepIndicator(int step, String label, IconData icon) {
+    final isActive = step == _currentStep;
+    final isCompleted = step < _currentStep;
+    
+    return Column(
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: isCompleted
+                ? AppTheme.moroccoGreen
+                : isActive
+                    ? AppTheme.moroccoGreen.withValues(alpha: 0.2)
+                    : Colors.grey.shade200,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            isCompleted ? Icons.check : icon,
+            color: isCompleted
+                ? Colors.white
+                : isActive
+                    ? AppTheme.moroccoGreen
+                    : Colors.grey.shade400,
+            size: 20,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: isActive ? AppTheme.moroccoGreen : AppTheme.secondaryText,
+            fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildApplicationForm() {
+    return Form(
+      key: _formKey,
+      child: PageView(
+        controller: PageController(initialPage: _currentStep),
+        onPageChanged: (index) {
+          setState(() {
+            _currentStep = index;
+          });
+        },
+        children: [
+          _buildPersonalInfoStep(),
+          _buildExpertiseStep(),
+          _buildExperienceStep(),
+          _buildReviewStep(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPersonalInfoStep() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Personal Information',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Tell us about yourself to get started with your cultural ambassador application.',
+            style: TextStyle(
+              fontSize: 16,
+              color: AppTheme.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 24),
+          
+          // Name
+          TextFormField(
+            controller: _nameController,
+            decoration: const InputDecoration(
+              labelText: 'Full Name',
+              hintText: 'Enter your full name',
+              prefixIcon: Icon(Icons.person),
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Name is required';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Email
+          TextFormField(
+            controller: _emailController,
+            decoration: const InputDecoration(
+              labelText: 'Email Address',
+              hintText: 'your.email@example.com',
+              prefixIcon: Icon(Icons.email),
+              border: OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Email is required';
+              }
+              if (!value!.contains('@')) {
+                return 'Enter a valid email';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Phone
+          TextFormField(
+            controller: _phoneController,
+            decoration: const InputDecoration(
+              labelText: 'Phone Number',
+              hintText: '+212 6 12 34 56 78',
+              prefixIcon: Icon(Icons.phone),
+              border: OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.phone,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Phone number is required';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // City
+          TextFormField(
+            controller: _cityController,
+            decoration: const InputDecoration(
+              labelText: 'City',
+              hintText: 'Casablanca, Marrakech, Rabat...',
+              prefixIcon: Icon(Icons.location_city),
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'City is required';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Languages
+          const Text(
+            'Languages You Speak',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: _moroccanLanguages.map((language) {
+              final isSelected = _selectedLanguages.contains(language);
+              return FilterChip(
+                selected: isSelected,
+                label: Text(language),
+                onSelected: (selected) {
+                  setState(() {
+                    if (selected) {
+                      _selectedLanguages.add(language);
+                    } else {
+                      _selectedLanguages.remove(language);
+                    }
+                  });
+                },
+                selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+                checkmarkColor: AppTheme.moroccoGreen,
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExpertiseStep() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Cultural Expertise',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Select the areas of Moroccan culture you\'re most knowledgeable about.',
+            style: TextStyle(
+              fontSize: 16,
+              color: AppTheme.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Cultural Expertise Grid
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.2,
+            ),
+            itemCount: _culturalExpertise.length,
+            itemBuilder: (context, index) {
+              final expertise = _culturalExpertise[index];
+              final isSelected = _selectedExpertise.contains(expertise['id']);
+              
+              return InkWell(
+                onTap: () {
+                  setState(() {
+                    if (isSelected) {
+                      _selectedExpertise.remove(expertise['id']);
+                    } else {
+                      _selectedExpertise.add(expertise['id'] as String);
+                    }
+                  });
+                  PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppTheme.moroccoGreen.withValues(alpha: 0.1)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppTheme.moroccoGreen
+                          : Colors.grey.shade300,
+                      width: isSelected ? 2 : 1,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        expertise['icon'] as String,
+                        style: const TextStyle(fontSize: 32),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        expertise['name'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected
+                              ? AppTheme.moroccoGreen
+                              : AppTheme.primaryText,
+                        ),
+                      ),
+                      if (isSelected)
+                        const Padding(
+                          padding: EdgeInsets.only(top: 4),
+                          child: Icon(
+                            Icons.check_circle,
+                            color: AppTheme.moroccoGreen,
+                            size: 16,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+
+          // Availability
+          const Text(
+            'Availability',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'When are you typically available to guide visitors?',
+            style: TextStyle(
+              fontSize: 14,
+              color: AppTheme.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: _weekDays.map((day) {
+              final isSelected = _availabilityDays.contains(day);
+              return FilterChip(
+                selected: isSelected,
+                label: Text(day),
+                onSelected: (selected) {
+                  setState(() {
+                    if (selected) {
+                      _availabilityDays.add(day);
+                    } else {
+                      _availabilityDays.remove(day);
+                    }
+                  });
+                },
+                selectedColor: AppTheme.moroccoGreen.withValues(alpha: 0.2),
+                checkmarkColor: AppTheme.moroccoGreen,
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExperienceStep() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Experience & Motivation',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Share your experience and passion for Moroccan culture.',
+            style: TextStyle(
+              fontSize: 16,
+              color: AppTheme.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Experience
+          TextFormField(
+            controller: _experienceController,
+            decoration: const InputDecoration(
+              labelText: 'Relevant Experience',
+              hintText: 'Tour guide, cultural studies, local business...',
+              prefixIcon: Icon(Icons.work),
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 3,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Please describe your relevant experience';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // About yourself
+          TextFormField(
+            controller: _aboutController,
+            decoration: const InputDecoration(
+              labelText: 'About Yourself',
+              hintText: 'Tell us about your background and interests...',
+              prefixIcon: Icon(Icons.person_outline),
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 4,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Please tell us about yourself';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Motivation
+          TextFormField(
+            controller: _motivationController,
+            decoration: const InputDecoration(
+              labelText: 'Why do you want to be a Cultural Ambassador?',
+              hintText: 'Share your passion for Moroccan culture...',
+              prefixIcon: Icon(Icons.favorite),
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 4,
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Please share your motivation';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 24),
+
+          // Cultural commitment note
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppTheme.moroccoGreen.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppTheme.moroccoGreen.withValues(alpha: 0.3),
+              ),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: AppTheme.moroccoGreen,
+                      size: 20,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Cultural Ambassador Commitment',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme.moroccoGreen,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'As a Cultural Ambassador, you\'ll help visitors discover authentic Moroccan experiences while respecting local customs and traditions. This includes being mindful of prayer times, cultural sensitivities, and promoting halal-friendly activities.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppTheme.primaryText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewStep() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Review Application',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Please review your application before submitting.',
+            style: TextStyle(
+              fontSize: 16,
+              color: AppTheme.secondaryText,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Personal Info Summary
+          _buildReviewSection(
+            'Personal Information',
+            Icons.person,
+            [
+              'Name: ${_nameController.text}',
+              'Email: ${_emailController.text}',
+              'Phone: ${_phoneController.text}',
+              'City: ${_cityController.text}',
+              'Languages: ${_selectedLanguages.join(', ')}',
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Expertise Summary
+          _buildReviewSection(
+            'Cultural Expertise',
+            Icons.star,
+            [
+              'Selected Areas: ${_selectedExpertise.length}',
+              'Expertise: ${_selectedExpertise.map((id) => 
+                _culturalExpertise.firstWhere((e) => e['id'] == id)['name']
+              ).join(', ')}',
+              'Availability: ${_availabilityDays.join(', ')}',
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Experience Summary
+          _buildReviewSection(
+            'Experience',
+            Icons.work,
+            [
+              'Experience: ${_experienceController.text.substring(0, 
+                _experienceController.text.length > 50 ? 50 : _experienceController.text.length)}${_experienceController.text.length > 50 ? '...' : ''}',
+              'About: ${_aboutController.text.substring(0, 
+                _aboutController.text.length > 50 ? 50 : _aboutController.text.length)}${_aboutController.text.length > 50 ? '...' : ''}',
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Terms and conditions
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.info.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.check_circle_outline, color: AppColors.info),
+                    SizedBox(width: 8),
+                    Text(
+                      'Next Steps',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.info,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Text(
+                  '• Your application will be reviewed within 3-5 business days\n'
+                  '• You\'ll receive an email notification about the status\n'
+                  '• If approved, you\'ll get access to the Cultural Ambassador dashboard\n'
+                  '• Training materials and guidelines will be provided',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReviewSection(String title, IconData icon, List<String> items) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: AppTheme.moroccoGreen),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            ...items.map((item) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(
+                item,
+                style: const TextStyle(fontSize: 14),
+              ),
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            if (_currentStep > 0)
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      _currentStep--;
+                    });
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: const BorderSide(color: AppTheme.moroccoGreen),
+                  ),
+                  child: const Text(
+                    'Previous',
+                    style: TextStyle(color: AppTheme.moroccoGreen),
+                  ),
+                ),
+              ),
+            if (_currentStep > 0) const SizedBox(width: 16),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _isSubmitting ? null : _handleNextOrSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.moroccoGreen,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: _isSubmitting
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        _currentStep == 3 ? 'Submit Application' : 'Next',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _handleNextOrSubmit() {
+    if (_currentStep == 3) {
+      _submitApplication();
+    } else {
+      if (_validateCurrentStep()) {
+        setState(() {
+          _currentStep++;
+        });
+      }
+    }
+  }
+
+  bool _validateCurrentStep() {
+    // For MVP implementation, skip validation - this is a future feature placeholder
+    return true;
+  }
+
+  Future<void> _submitApplication() async {
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    try {
+      PerformanceUtils.hapticFeedback(HapticFeedbackType.medium);
+
+      // Simulate application submission
+      await Future.delayed(const Duration(seconds: 2));
+
+      if (mounted) {
+        _showSubmissionSuccess();
+      }
+    } catch (error) {
+      if (mounted) {
+        final appError = AppErrorHandler.parseError(error);
+        AppErrorHandler.showErrorSnackbar(context, appError,
+            onRetry: _submitApplication);
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
+    }
+  }
+
+  void _showSubmissionSuccess() {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) => PopScope(
+        canPop: false,
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.check_circle,
+                color: AppColors.success,
+                size: 80,
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Application Submitted!',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Thank you for applying to become a Cultural Ambassador. We\'ll review your application and get back to you within 3-5 business days.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppTheme.secondaryText,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppTheme.surfaceColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Application ID:'),
+                        Text(
+                          'CA${DateTime.now().millisecondsSinceEpoch % 100000}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Submitted:'),
+                        Text(
+                          '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.pop(); // Close success sheet
+                    context.pop(); // Close application screen
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.moroccoGreen,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: const Text(
+                    'Done',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

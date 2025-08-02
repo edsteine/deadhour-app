@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:deadhour/utils/haptic_feedback_type.dart';
-import 'package:deadhour/utils/memoized_widget.dart';
-
 
 /// Performance optimization utilities for DeadHour app
 class PerformanceUtils {
@@ -60,7 +57,7 @@ class PerformanceUtils {
     required Widget Function(T data) builder,
     T? previousData,
   }) {
-    return MemoizedWidget<T>(
+    return _MemoizedWidget<T>(
       data: data,
       builder: builder,
       previousData: previousData,
@@ -165,3 +162,44 @@ class PerformanceUtils {
   }
 }
 
+/// Enum for haptic feedback types
+enum HapticFeedbackType {
+  light,
+  medium,
+  heavy,
+  selection,
+}
+
+/// Memoized widget to prevent unnecessary rebuilds
+class _MemoizedWidget<T> extends StatelessWidget {
+  final T data;
+  final Widget Function(T data) builder;
+  final T? previousData;
+
+  const _MemoizedWidget({
+    required this.data,
+    required this.builder,
+    this.previousData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(data);
+  }
+}
+
+/// Custom scroll physics for better performance
+class OptimizedScrollPhysics extends BouncingScrollPhysics {
+  const OptimizedScrollPhysics({super.parent});
+
+  @override
+  OptimizedScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return OptimizedScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  double get minFlingVelocity => 100.0; // Reduced for smoother scrolling
+
+  @override
+  double get maxFlingVelocity => 2000.0; // Capped for better control
+}

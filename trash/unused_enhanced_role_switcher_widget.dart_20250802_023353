@@ -1,0 +1,329 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:deadhour/screens/profile_screen/models/user_role.dart';
+import 'package:deadhour/screens/profile_screen/services/role_permissions_service.dart';
+import 'package:deadhour/screens/profile_screen/providers/role_toggle_provider.dart';
+import 'package:deadhour/utils/haptic_feedback_type.dart';
+import 'package:deadhour/utils/performance_utils.dart';
+
+/// Enhanced role switcher with full permissions and role management
+class EnhancedRoleSwitcherWidget extends ConsumerWidget {
+  final Color? textColor;
+  final Color? backgroundColor;
+  final bool showPermissions;
+  final bool showPricing;
+
+  const EnhancedRoleSwitcherWidget({
+    super.key,
+    this.textColor,
+    this.backgroundColor,
+    this.showPermissions = false,
+    this.showPricing = false,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentRole = ref.watch(roleToggleProvider);
+    final roleNotifier = ref.read(roleToggleProvider.notifier);
+    final availableRoles = roleNotifier.activeRoles;
+
+    if (availableRoles.length <= 1) {
+      return _buildSingleRole(context, currentRole);
+    }
+
+    return GestureDetector(
+      onTap: () {
+        PerformanceUtils.hapticFeedback(HapticFeedbackType.light);
+        _showRoleSwitcher(context, ref);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: backgroundColor ?? currentRole.color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: currentRole.color.withValues(alpha: 0.3),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              currentRole.icon,
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              currentRole.label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: textColor ?? currentRole.color,
+              ),
+            ),
+            const SizedBox(width: 4),
+            Icon(
+              Icons.keyboard_arrow_down,
+              size: 16,
+              color: textColor ?? currentRole.color,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSingleRole(BuildContext context, UserRole role) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? role.color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: role.color.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            role.icon,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            role.label,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: textColor ?? role.color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showRoleSwitcher(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => EnhancedRoleSwitcherBottomSheet(
+        showPermissions: showPermissions,
+        showPricing: showPricing,
+      ),
+    );
+  }
+}
+
+/// Enhanced role switcher bottom sheet with permissions and pricing
+class EnhancedRoleSwitcherBottomSheet extends ConsumerWidget {
+  final bool showPermissions;
+  final bool showPricing;
+
+  const EnhancedRoleSwitcherBottomSheet({
+    super.key,
+    this.showPermissions = false,
+    this.showPricing = false,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentRole = ref.watch(roleToggleProvider);
+    final roleNotifier = ref.read(roleToggleProvider.notifier);
+    final availableRoles = roleNotifier.activeRoles;
+    final permissionsService = RolePermissionsService();
+
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Header
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Row(
+              children: [
+                const Text(
+                  'Switch Role',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.close),
+                ),
+              ],
+            ),
+          ),
+
+          // Role List
+          Flexible(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: availableRoles.length,
+              itemBuilder: (context, index) {
+                final role = availableRoles[index];
+                final isSelected = role == currentRole;
+                final pricing = permissionsService.getRolePricing(role);
+                final features = permissionsService.getRoleFeatures(role);
+
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isSelected ? role.color.withValues(alpha: 0.1) : null,
+                    borderRadius: BorderRadius.circular(12),
+                    border: isSelected 
+                        ? Border.all(color: role.color.withValues(alpha: 0.3))
+                        : null,
+                  ),
+                  child: ListTile(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: role.color.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          role.icon,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    title: Row(
+                      children: [
+                        Text(
+                          role.label,
+                          style: TextStyle(
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                            color: isSelected ? role.color : null,
+                          ),
+                        ),
+                        if (isSelected) ...[
+                          const SizedBox(width: 8),
+                          Icon(
+                            Icons.check_circle,
+                            size: 16,
+                            color: role.color,
+                          ),
+                        ],
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (showPricing) ...[
+                          const SizedBox(height: 4),
+                          if (pricing['price'] == 0)
+                            const Text(
+                              'Free',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          else
+                            Text(
+                              '€${pricing['price']}/${pricing['period']}',
+                              style: const TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                        ],
+                        if (showPermissions && features.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          ...features.take(3).map((feature) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.check,
+                                  size: 12,
+                                  color: role.color,
+                                ),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    feature,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                          if (features.length > 3)
+                            Text(
+                              '+ ${features.length - 3} more features',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey.shade600,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                        ],
+                      ],
+                    ),
+                    onTap: () {
+                      if (!isSelected) {
+                        roleNotifier.setRole(role);
+                        PerformanceUtils.hapticFeedback(HapticFeedbackType.selection);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // Footer
+          if (showPricing) ...[
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text(
+                    'Total Monthly Cost: €${permissionsService.calculateMonthlyRevenue(availableRoles).toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Role stacking saves money vs separate subscriptions',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ] else
+            const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
