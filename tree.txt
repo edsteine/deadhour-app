@@ -1,0 +1,1346 @@
+edsteine@Adels-MacBook-Pro-2 deadhour-app % cd docs                                                          
+edsteine@Adels-MacBook-Pro-2 docs % tree
+.
+├── 01_executive_summary_MERGED.md
+├── 02_market_analysis_MERGED.md
+├── 03_business_strategy_MERGED.md
+├── 04_financial_projections_MERGED.md
+├── 05_funding_requirements_MERGED.md
+├── 06_mvp_development_guide_MERGED.md
+├── 07_production_app_architecture_MERGED.md
+├── 08_development_roadmap_MERGED.md
+├── 09_social_platform_integration_guide_MERGED.md
+├── 10_updated_investor_pitch_flow_MERGED.md
+├── 11_market_validation_roadmap_MERGED.md
+├── 12_validation_execution_toolkit_MERGED.md
+├── 13_tactical_validation_execution_guide_MERGED.md
+├── 14_master_execution_plan.md
+├── 14_mvp_screen_specifications.md
+├── 15_full_app_screen_specifications.md
+├── 16_user_onboarding_and_ux_flow.md
+├── 17_founder_profile.md
+├── 18_legal_and_equity_structure.md
+├── AI_Development_Orchestration_Analysis_Report.md
+├── FOURSQUARE_FAILURE_CASE_STUDY.md
+├── REVENUE_POTENTIAL_AND_INVESTMENT_ANALYSIS.md
+├── STRATEGIC_DEVELOPMENT_CONVERSATION_ANALYSIS.md
+├── _documentation_roadmap.md
+├── _strategic_and_technical_ideas.md
+├── development
+│   ├── 15_flutter_mockup_overview.md
+│   ├── 16_flutter_development_guide.md
+│   └── 17_api_documentation.md
+├── legal
+│   ├── PRIVACY_POLICY.md
+│   └── TERMS_OF_SERVICE.md
+└── production
+    ├── MOROCCO_PRODUCTION_CONFIG.md
+    └── README.md
+
+4 directories, 32 files
+edsteine@Adels-MacBook-Pro-2 docs % 
+
+
+edsteine@Adels-MacBook-Pro-2 docs % cd ../trash 
+edsteine@Adels-MacBook-Pro-2 trash % tree
+.
+├── 20250730_233616_inferior_widgets
+│   └── community_app_bar.dart
+├── 20250731_000554_integrated_unused_files
+│   ├── all_rooms_tab.dart
+│   ├── business_rooms_tab.dart
+│   ├── expert_card.dart
+│   ├── guide_rooms_tab.dart
+│   ├── my_rooms_tab.dart
+│   ├── premium_rooms_tab.dart
+│   ├── shared_widgets.dart
+│   └── tourism_action_helpers.dart
+├── CULTURAL_FEATURES_REPORT.md
+├── DeadHour_Architecture_Migration_Plan.md
+├── DeadHour_Investor_Report_20250730.md
+├── LAUNCH_VERIFICATION_FINAL.md
+├── MOROCCO_LAUNCH_READY.md
+├── MOROCCO_MARKET_TESTING_CHECKLIST.md
+├── MVP_SCREEN_AUDIT_REPORT_20250728_201556.md
+├── README.md
+├── TODO2_20250802_143333.md
+├── TODO_FULL_APP.md
+├── TODO_MVP_20250728_201556.md
+├── TODO_copy2_20250802_143327.md
+├── TODO_copy_20250802_143322.md
+├── TODO_copy_2_20250802_143316.md
+├── USER_JOURNEY_TESTING_SCRIPT.md
+├── a
+├── admin_user_management_screen_duplicate_20250803_064641
+│   └── user_management_screen.dart
+├── all_rooms_tab_view_backup.dart
+├── app_error.dart_20250802_023247
+├── app_navigation.dart_20250802_023247
+├── app_routes_20250727_221338.dart
+├── app_routes_constants.dart_20250802_023247
+├── app_routes_corrupted_20250802_001521.dart
+├── biometric
+│   └── biometric_auth_widget.dart
+├── biometric_auth_service.dart
+├── biometric_auth_widget_20250731_204552.dart
+├── biometric_login_screen.dart
+├── booking_backup_20250801_203911
+│   ├── booking_confirmation_dialog.dart
+│   ├── booking_flow_screen.dart
+│   ├── booking_options_widget.dart
+│   ├── confirm_booking_button.dart
+│   ├── cultural_timing_widget.dart
+│   ├── deal_summary_widget.dart
+│   ├── payment_method_widget.dart
+│   ├── social_booking_widget.dart
+│   ├── special_requests_widget.dart
+│   ├── time_selection_widget.dart
+│   └── total_and_sharing_widget.dart
+├── business_backup_20250801_204040
+│   ├── analytics_dashboard_screen.dart
+│   ├── business_dashboard_screen.dart
+│   ├── create_deal_screen.dart
+│   ├── revenue_optimization_screen.dart
+│   ├── services
+│   │   ├── analytics_data.dart
+│   │   ├── analytics_events.dart
+│   │   ├── analytics_properties.dart
+│   │   ├── analytics_service.dart
+│   │   ├── deal_suggestion.dart
+│   │   ├── deal_suggestions_service.dart
+│   │   ├── pricing_suggestion.dart
+│   │   └── ramadan_business_service.dart
+│   ├── utils
+│   │   └── business_action_helpers.dart
+│   └── widgets
+│       ├── analytics_competitor_widget.dart
+│       ├── analytics_customer_tab_widget.dart
+│       ├── analytics_demographic_widget.dart
+│       ├── analytics_feedback_widget.dart
+│       ├── analytics_kpi_card_widget.dart
+│       ├── analytics_metric_card_widget.dart
+│       ├── analytics_peak_hours_widget.dart
+│       ├── analytics_performance_tab_widget.dart
+│       ├── analytics_period_selector_widget.dart
+│       ├── analytics_recommendations_widget.dart
+│       ├── analytics_revenue_card_widget.dart
+│       ├── analytics_revenue_source_widget.dart
+│       ├── analytics_revenue_tab_widget.dart
+│       ├── analytics_tab.dart
+│       ├── analytics_weekly_chart_widget.dart
+│       ├── business_header.dart
+│       ├── business_tab_bar.dart
+│       ├── dead_hours_tab.dart
+│       ├── deal_action_buttons.dart
+│       ├── deal_capacity_form.dart
+│       ├── deal_community_form.dart
+│       ├── deal_header.dart
+│       ├── deal_information_form.dart
+│       ├── deal_schedule_form.dart
+│       ├── deal_suggestions_widget.dart
+│       ├── deal_type_selection.dart
+│       ├── deals_tab.dart
+│       ├── insights_tab.dart
+│       ├── overview_tab.dart
+│       ├── pricing_tab.dart
+│       ├── professional_action_card.dart
+│       ├── professional_card.dart
+│       ├── professional_gradient_card.dart
+│       ├── professional_stats_card.dart
+│       ├── promotions_tab.dart
+│       ├── settings_tab.dart
+│       └── time_frame_selector.dart
+├── business_verification_screen_duplicate_20250803_064557
+│   └── business_verification_screen.dart
+├── cleanup_duplicates.py
+├── cleanup_report_20250802_023247.txt
+├── community_backup_20250801_204152
+│   ├── models
+│   │   └── room.dart
+│   ├── room_chat_screen.dart
+│   ├── room_detail_screen.dart
+│   ├── rooms_screen.dart
+│   ├── services
+│   │   ├── buzz_level.dart
+│   │   ├── chat_message_service.dart
+│   │   ├── chat_real_time_service.dart
+│   │   ├── checkin_mood.dart
+│   │   ├── checkin_story.dart
+│   │   ├── event_type.dart
+│   │   ├── media_content.dart
+│   │   ├── media_stats.dart
+│   │   ├── media_thread.dart
+│   │   ├── media_type.dart
+│   │   ├── media_type_extension.dart
+│   │   ├── media_upload_result.dart
+│   │   ├── photo_category.dart
+│   │   ├── rich_media_service.dart
+│   │   ├── room_data.dart
+│   │   ├── venue_activity.dart
+│   │   ├── venue_event.dart
+│   │   ├── venue_photo.dart
+│   │   ├── venue_photo_summary.dart
+│   │   ├── visual_content_service.dart
+│   │   ├── voice_channel.dart
+│   │   ├── voice_channel_result.dart
+│   │   ├── voice_channel_service.dart
+│   │   ├── voice_channel_type.dart
+│   │   ├── voice_channel_type_extension.dart
+│   │   ├── voice_participant.dart
+│   │   ├── voice_quality.dart
+│   │   └── voice_quality_extension.dart
+│   ├── utils
+│   │   ├── room_chat_bottom_sheet_helpers.dart
+│   │   └── room_chat_dialog_helpers.dart
+│   └── widgets
+│       ├── category_filter.dart
+│       ├── chat_action_buttons.dart
+│       ├── chat_message_bubble.dart
+│       ├── chat_message_filters.dart
+│       ├── chat_message_reactions.dart
+│       ├── chat_messages_list.dart
+│       ├── chat_typing_indicator.dart
+│       ├── community_health_indicator.dart
+│       ├── create_room_sheet.dart
+│       ├── cultural_filters.dart
+│       ├── empty_state_config.dart
+│       ├── empty_state_type.dart
+│       ├── empty_state_widget.dart
+│       ├── engaging_empty_state.dart
+│       ├── enhanced_room_search.dart
+│       ├── media
+│       │   ├── empty_media_state_widget.dart
+│       │   ├── media_card_widget.dart
+│       │   ├── media_details_content.dart
+│       │   ├── media_details_dialog.dart
+│       │   ├── media_grid_widget.dart
+│       │   ├── media_header_widget.dart
+│       │   └── media_type_filter_widget.dart
+│       ├── message_input.dart
+│       ├── popular_rooms_tab.dart
+│       ├── premium_upgrade_helper.dart
+│       ├── rich_media_widget.dart
+│       ├── room_chat_app_bar.dart
+│       ├── room_filter_logic.dart
+│       ├── room_info_banner.dart
+│       ├── room_interaction_helpers.dart
+│       ├── rooms_scaffold.dart
+│       ├── rooms_tabs
+│       │   ├── all_rooms_tab_view.dart
+│       │   ├── business_rooms_tab_view.dart
+│       │   ├── guide_rooms_tab_view.dart
+│       │   ├── my_rooms_tab_view.dart
+│       │   ├── popular_rooms_tab_view.dart
+│       │   └── premium_rooms_tab_view.dart
+│       ├── shared
+│       │   └── room_card.dart
+│       ├── typing_indicator.dart
+│       └── voice_channel_widget.dart
+├── community_health_dashboard_screen.dart.bak
+├── create_business_screen_duplicate_20250803_064619
+│   └── create_business_screen.dart
+├── create_deal_screen_broken_20250802_182023.dart
+├── cultural_ambassador_application_screen.dart.bak
+├── cultural_backup_20250801_204331
+│   ├── application_state.dart
+│   ├── cultural_ambassador_application_screen.dart
+│   ├── cultural_info_bottom_sheet.dart
+│   ├── cultural_timing_widget.dart
+│   └── widgets
+│       ├── application_action_buttons.dart
+│       ├── application_experience_step.dart
+│       ├── application_expertise_step.dart
+│       ├── application_personal_info_step.dart
+│       ├── application_progress_widget.dart
+│       ├── application_review_section.dart
+│       ├── application_review_step.dart
+│       └── application_success_dialog.dart
+├── cultural_timing_widget.dart_20250802_023247
+├── deals_backup_20250801_204445
+│   ├── deals_screen.dart
+│   ├── filters
+│   │   ├── deal_filters_widget.dart
+│   │   └── deals_filters.dart
+│   ├── models
+│   │   └── deal.dart
+│   ├── services
+│   │   ├── automatic_deal_service.dart
+│   │   ├── cashback_calculation.dart
+│   │   ├── cashback_service.dart
+│   │   ├── cashback_status.dart
+│   │   ├── cashback_summary.dart
+│   │   ├── cashback_tier.dart
+│   │   ├── cashback_transaction.dart
+│   │   ├── community_status.dart
+│   │   ├── deal_data.dart
+│   │   ├── deal_interaction_service.dart
+│   │   ├── deal_photo.dart
+│   │   ├── deal_rating.dart
+│   │   ├── deal_validation.dart
+│   │   ├── deal_validation_service.dart
+│   │   ├── tier_requirement.dart
+│   │   ├── top_validator.dart
+│   │   ├── user_rating.dart
+│   │   ├── validation_summary.dart
+│   │   ├── validation_type.dart
+│   │   └── withdrawal_method.dart
+│   └── widgets
+│       ├── deal_card.dart
+│       ├── deals_header_widget.dart
+│       ├── deals_list_view.dart
+│       ├── deals_map_view.dart
+│       └── optimized_list_view.dart
+├── dev_menu_backup_20250801_205017
+│   ├── app_bar_action.dart
+│   ├── app_bar_actions_widget.dart
+│   ├── app_bar_theme.dart
+│   ├── city_selection_bottom_sheet.dart
+│   ├── custom_bottom_navigation.dart
+│   ├── dead_hour_app_bar.dart
+│   ├── dev_menu_prayer_times_widget.dart
+│   ├── dev_menu_screen.dart
+│   ├── dev_route.dart
+│   ├── enhanced_app_bar.dart
+│   ├── guide_role_screen.dart
+│   ├── home_screen.dart
+│   ├── location_selector_widget.dart
+│   ├── main_navigation_screen.dart
+│   ├── navigation_app_bars.dart
+│   ├── navigation_controller.dart
+│   ├── navigation_dialogs.dart
+│   ├── navigation_item.dart
+│   ├── navigation_items.dart
+│   ├── notification_badge_widget.dart
+│   ├── notifications_bottom_sheet.dart
+│   ├── role_switcher.dart
+│   ├── role_switcher_bottom_sheet.dart
+│   ├── role_switcher_widget.dart
+│   ├── search_app_bar.dart
+│   ├── search_bottom_sheet_widget.dart
+│   └── sliver_enhanced_app_bar.dart
+├── docs_vs_lib_screens_comparison.md
+├── experiences_tab.dart_20250802_023247
+├── fix_imports.py
+├── halal_badge_20250730_210522.dart
+├── halal_status_widget_20250730_212421.dart
+├── lib_screens_completeness_check.md
+├── missing_screens_analysis.md
+├── missing_screens_from_docs.md
+├── move_files_properly.py
+├── notifications_backup_20250801_205149
+│   ├── notifications_screen.dart
+│   ├── services
+│   │   ├── digest_item.dart
+│   │   ├── notification_action.dart
+│   │   ├── notification_digest.dart
+│   │   ├── notification_frequency.dart
+│   │   ├── notification_group.dart
+│   │   ├── notification_interaction.dart
+│   │   ├── notification_service.dart
+│   │   ├── notification_suggested_action.dart
+│   │   ├── notification_summary.dart
+│   │   ├── smart_notification.dart
+│   │   ├── smart_notification_service.dart
+│   │   └── user_notification_preferences.dart
+│   ├── utils
+│   │   └── notification_helpers.dart
+│   └── widgets
+│       ├── empty_state.dart
+│       ├── grouped_notifications_list.dart
+│       ├── notification_card.dart
+│       ├── notifications_list.dart
+│       ├── relevant_notifications_list.dart
+│       ├── smart_header.dart
+│       └── stats_header.dart
+├── onboarding_backup_20250801_205241
+│   ├── onboarding_page.dart
+│   ├── onboarding_screen.dart
+│   └── splash_screen.dart
+├── optimized_list_view.dart_20250802_023247
+├── organize_files.py
+├── payment_backup_20250801_205534
+│   ├── payment_screen.dart
+│   ├── payment_state.dart
+│   ├── utils
+│   │   ├── card_number_input_formatter.dart
+│   │   ├── expiry_date_input_formatter.dart
+│   │   └── payment_input_formatters.dart
+│   └── widgets
+│       ├── payment_at_venue_form.dart
+│       ├── payment_bank_transfer_form.dart
+│       ├── payment_booking_summary_widget.dart
+│       ├── payment_card_form.dart
+│       ├── payment_forms_widget.dart
+│       ├── payment_method_selector_widget.dart
+│       ├── payment_mobile_money_form.dart
+│       ├── payment_submit_button_widget.dart
+│       └── payment_success_dialog.dart
+├── payment_folder_duplicate_20250803_064700
+│   └── split_payment_screen
+│       └── split_payment_screen.dart
+├── premium_role_screen.dart.bak
+├── premium_upgrade_screen_duplicate_20250803_064730
+│   └── premium_upgrade_screen
+│       └── premium_upgrade_screen.dart
+├── profile_backup_20250801_205716
+│   ├── community_health_dashboard_screen.dart
+│   ├── login_screen.dart
+│   ├── models
+│   │   ├── user.dart
+│   │   └── user_role.dart
+│   ├── network_effects_dashboard_screen.dart
+│   ├── premium_role_screen.dart
+│   ├── profile_screen.dart
+│   ├── profile_screen_helpers.dart
+│   ├── providers
+│   │   ├── guest_mode_provider.dart
+│   │   ├── role_toggle_provider.dart
+│   │   └── user_provider.dart
+│   ├── register_screen.dart
+│   ├── role_marketplace_screen.dart
+│   ├── role_switching_screen.dart
+│   ├── services
+│   │   ├── auth_exception.dart
+│   │   ├── auth_helpers.dart
+│   │   ├── auth_service.dart
+│   │   ├── cultural_calendar_service.dart
+│   │   ├── cultural_holiday.dart
+│   │   ├── guest_mode.dart
+│   │   ├── halal_status.dart
+│   │   ├── halal_status_extension.dart
+│   │   ├── holiday_type.dart
+│   │   ├── invalid_credentials_exception.dart
+│   │   ├── invalid_input_exception.dart
+│   │   ├── morocco_cultural_service.dart
+│   │   ├── network_effects_service.dart
+│   │   ├── network_exception.dart
+│   │   ├── next_prayer_info.dart
+│   │   ├── onboarding_service.dart
+│   │   ├── onboarding_step.dart
+│   │   ├── onboarding_step_extension.dart
+│   │   ├── ramadan_schedule.dart
+│   │   ├── role_data.dart
+│   │   ├── social_provider.dart
+│   │   ├── unauthenticated_exception.dart
+│   │   └── user_data.dart
+│   ├── settings_screen.dart
+│   └── widgets
+│       ├── health_business_impact_tab.dart
+│       ├── health_cultural_insights_tab.dart
+│       ├── health_dashboard_controls.dart
+│       ├── health_metrics_overview.dart
+│       ├── health_room_activity_tab.dart
+│       ├── health_user_engagement_tab.dart
+│       ├── loading_state_wrapper.dart
+│       ├── loading_widgets.dart
+│       ├── mock_auth_section.dart
+│       ├── monthly_network_effects_widget.dart
+│       ├── network_dashboard_actions_widget.dart
+│       ├── network_effects_kpis_widget.dart
+│       ├── optimization_opportunities_widget.dart
+│       ├── platform_health_metrics_widget.dart
+│       ├── prayer_schedule_card.dart
+│       ├── prayer_times_widget.dart
+│       ├── premium_call_to_action.dart
+│       ├── premium_comparison_section.dart
+│       ├── premium_features_section.dart
+│       ├── premium_hero_section.dart
+│       ├── premium_management_section.dart
+│       ├── premium_pricing_section.dart
+│       ├── premium_testimonials_section.dart
+│       ├── profile_activity_widget.dart
+│       ├── profile_app_features_widget.dart
+│       ├── profile_auth_widget.dart
+│       ├── profile_header_widget.dart
+│       ├── profile_role_management_widget.dart
+│       ├── profile_settings_widget.dart
+│       ├── profile_support_widget.dart
+│       ├── pull_to_refresh_wrapper.dart
+│       ├── ramadan_insights_dialog.dart
+│       ├── ramadan_optimization_widget.dart
+│       ├── role_available_roles_section.dart
+│       ├── role_current_roles_section.dart
+│       ├── role_primary_selector.dart
+│       ├── role_quick_switch.dart
+│       ├── role_stacking_benefits.dart
+│       ├── role_toggle.dart
+│       ├── shimmer_effect.dart
+│       └── top_network_multipliers_widget.dart
+├── role_switching_screen.dart
+├── scripts
+│   └── validate_morocco_deployment.dart
+├── select_date_time_screen_duplicate_20250803_064818
+│   └── select_date_time_screen.dart
+├── settings_backup_20250801_205839
+│   ├── accessibility_settings_screen.dart
+│   ├── offline_settings_screen.dart
+│   └── services
+│       ├── accessibility_service.dart
+│       ├── accessible_bottom_navigation_bar.dart
+│       ├── accessible_floating_action_button.dart
+│       └── accessible_tab_bar.dart
+├── social_backup_20250801_205952
+│   ├── group_booking_screen.dart
+│   ├── services
+│   │   ├── group_booking_service.dart
+│   │   └── social_validation_service.dart
+│   ├── social_discovery_screen.dart
+│   └── widgets
+│       ├── benefit_card.dart
+│       ├── category_card.dart
+│       ├── connection_card.dart
+│       ├── create_experience_tab.dart
+│       ├── experience_card.dart
+│       ├── experiences_tab.dart
+│       ├── group_booking_all_tab.dart
+│       ├── group_booking_card.dart
+│       ├── group_booking_create_dialog.dart
+│       ├── group_booking_create_tab.dart
+│       ├── group_booking_deals_tab.dart
+│       ├── group_booking_details_dialog.dart
+│       ├── group_booking_empty_state.dart
+│       ├── group_booking_my_tab.dart
+│       ├── group_booking_stats_header.dart
+│       ├── group_booking_tab_bar.dart
+│       ├── group_deal_opportunity_card.dart
+│       ├── my_connections_tab.dart
+│       ├── network_stat.dart
+│       ├── social_action_helpers.dart
+│       ├── social_filters_and_search.dart
+│       ├── social_stats_header.dart
+│       ├── social_tab_bar.dart
+│       └── upcoming_experience_card.dart
+├── split_payment_screen_duplicate_20250803_064711
+│   └── split_payment_screen.dart
+├── tourism_backup_20250801_210113
+│   ├── local_expert_screen.dart
+│   ├── services
+│   │   ├── booking.dart
+│   │   ├── booking_availability.dart
+│   │   ├── booking_error_type.dart
+│   │   ├── booking_result.dart
+│   │   ├── booking_slot.dart
+│   │   ├── booking_status.dart
+│   │   ├── booking_update.dart
+│   │   ├── booking_update_type.dart
+│   │   ├── cancellation_result.dart
+│   │   ├── real_time_booking_service.dart
+│   │   └── support_contact.dart
+│   ├── tourism_screen.dart
+│   └── widgets
+│       ├── booking
+│       │   ├── booking_action_button.dart
+│       │   ├── booking_availability_status.dart
+│       │   ├── booking_contact_information.dart
+│       │   ├── booking_date_selection.dart
+│       │   ├── booking_dialogs.dart
+│       │   ├── booking_header.dart
+│       │   ├── booking_participant_selection.dart
+│       │   ├── booking_price_summary.dart
+│       │   ├── booking_special_requests.dart
+│       │   └── booking_time_slot_selection.dart
+│       ├── cultural_dashboard.dart
+│       ├── cultural_events.dart
+│       ├── cultural_tab.dart
+│       ├── cultural_tips.dart
+│       ├── discover_tab.dart
+│       ├── experiences_tab.dart
+│       ├── local_experts_tab.dart
+│       ├── map_view_widget.dart
+│       ├── maps
+│       │   ├── models
+│       │   │   ├── map_location.dart
+│       │   │   └── map_location_type.dart
+│       │   ├── services
+│       │   │   └── map_data_service.dart
+│       │   └── widgets
+│       │       ├── map_background.dart
+│       │       ├── map_controls.dart
+│       │       ├── map_filter_chips.dart
+│       │       ├── map_grid_painter.dart
+│       │       ├── map_location_details.dart
+│       │       ├── map_markers.dart
+│       │       ├── map_style_selector.dart
+│       │       └── streets_overlay_painter.dart
+│       ├── quick_discovery_grid.dart
+│       ├── real_time_booking_widget.dart
+│       ├── social_discovery_button.dart
+│       ├── tourism_welcome_banner.dart
+│       ├── tourist_cultural_events.dart
+│       ├── tourist_cultural_insights_card.dart
+│       ├── tourist_featured_experiences.dart
+│       ├── tourist_friendly_deals.dart
+│       ├── tourist_home_screen.dart
+│       ├── tourist_local_expert_recommendations.dart
+│       ├── tourist_location_selector.dart
+│       ├── tourist_quick_actions.dart
+│       ├── tourist_trending_deals.dart
+│       ├── tourist_welcome_section.dart
+│       └── trending_experiences.dart
+├── tourist_location_selector2_20250801_165007.dart
+├── truly_missing_screens.md
+├── unused_analytics_events.dart_20250802_023353
+├── unused_analytics_properties.dart_20250802_023353
+├── unused_community_health_dashboard_screen.dart_20250802_023353
+├── unused_cultural_ambassador_application_screen.dart_20250802_023353
+├── unused_enhanced_role_switcher_widget.dart_20250802_023353
+├── unused_global_error_widget.dart_20250802_023353
+├── unused_group_booking_screen.dart_20250802_023353
+├── unused_halal_filter_service.dart_20250802_023353
+├── unused_home_screen.dart_20250802_023353
+├── unused_loading_state_wrapper.dart_20250802_023353
+├── unused_mock_auth_section.dart_20250802_023353
+├── unused_offline_data_info.dart_20250802_023353
+├── unused_onboarding_step_extension.dart_20250802_023353
+├── unused_payment_screen.dart_20250802_023353
+├── unused_performance_monitor.dart_20250802_023353
+├── unused_prayer_schedule_card.dart_20250802_023353
+├── unused_premium_role_screen.dart_20250802_023353
+├── unused_pull_to_refresh_wrapper.dart_20250802_023353
+├── unused_retry_mechanism.dart_20250802_023353
+├── unused_role_switching_screen.dart_20250802_023353
+├── unused_tourist_home_screen.dart_20250802_023353
+├── unused_web_companion_screen.dart_20250802_023353
+├── unused_web_companion_service.dart_20250802_023353
+├── venues_backup_20250801_210321
+│   ├── models
+│   │   └── venue.dart
+│   ├── services
+│   │   ├── venue_data.dart
+│   │   └── venue_discovery_service.dart
+│   ├── venue_detail_screen.dart
+│   ├── venues_screen.dart
+│   └── widgets
+│       ├── deals
+│       │   ├── deal_validation_widget.dart
+│       │   └── validation
+│       │       ├── all_validations_dialog.dart
+│       │       ├── compact_validation_view.dart
+│       │       ├── empty_validations_widget.dart
+│       │       ├── rating_details_widget.dart
+│       │       ├── validation_actions_widget.dart
+│       │       ├── validation_card.dart
+│       │       ├── validation_header.dart
+│       │       ├── validation_type_chip.dart
+│       │       ├── validation_utils.dart
+│       │       └── validations_list_widget.dart
+│       ├── venue_amenities_widget.dart
+│       ├── venue_basic_info_widget.dart
+│       ├── venue_booking_flow_widget.dart
+│       ├── venue_card.dart
+│       ├── venue_card_widget.dart
+│       ├── venue_cultural_timing_widget.dart
+│       ├── venue_deals_widget.dart
+│       ├── venue_discovery_filters_widget.dart
+│       ├── venue_discovery_map_widget.dart
+│       ├── venue_header_widget.dart
+│       ├── venue_info_widget.dart
+│       ├── venue_list_view_widget.dart
+│       ├── venue_nearby_view_widget.dart
+│       └── venue_reviews_widget.dart
+├── web_companion_screen
+│   ├── services
+│   │   └── web_companion_service.dart
+│   └── web_companion_screen.dart
+└── widgets_backup_20250801_210410
+    ├── compact_offline_indicator.dart
+    ├── data_freshness_indicator.dart
+    ├── google_map_widget.dart
+    ├── offline_status_widget.dart
+    ├── optimized_image.dart
+    ├── optimized_list_view.dart
+    ├── performance_monitor_widget.dart
+    ├── prayer_time_indicator.dart
+    ├── ramadan_banner_widget.dart
+    └── sync_floating_action_button.dart
+
+71 directories, 539 files
+edsteine@Adels-MacBook-Pro-2 trash % 
+
+edsteine@Adels-MacBook-Pro-2 trash % cd ../lib
+edsteine@Adels-MacBook-Pro-2 lib % tree     
+.
+└── screens
+    ├── admin
+    │   ├── analytics
+    │   │   └── platform_analytics_screen
+    │   │       └── platform_analytics_screen.dart
+    │   ├── auth
+    │   │   └── admin_login_screen
+    │   │       └── admin_login_screen.dart
+    │   ├── community_health_dashboard
+    │   │   └── community_health_dashboard.dart
+    │   ├── management
+    │   │   └── user_management_screen
+    │   │       └── user_management_screen.dart
+    │   ├── moderation
+    │   │   └── content_moderation_screen
+    │   │       └── content_moderation_screen.dart
+    │   ├── network_effects_dashboard
+    │   │   └── network_effects_dashboard.dart
+    │   ├── network_effects_performance_dashboard
+    │   │   └── network_effects_performance_dashboard.dart
+    │   └── platform_network_effects_monitoring
+    │       └── platform_network_effects_monitoring.dart
+    ├── auth
+    │   ├── forgot_password_screen
+    │   │   └── forgot_password_screen.dart
+    │   ├── login_screen
+    │   │   └── login_screen.dart
+    │   ├── onboarding_screen
+    │   │   └── onboarding_screen.dart
+    │   ├── register_screen
+    │   │   └── register_screen.dart
+    │   ├── reset_password_screen
+    │   │   └── reset_password_screen.dart
+    │   ├── role_selection_screen
+    │   │   └── role_selection_screen.dart
+    │   ├── splash_screen
+    │   │   └── splash_screen.dart
+    │   ├── user_type_selection_screen
+    │   │   └── user_type_selection_screen.dart
+    │   ├── verify_email_screen
+    │   │   └── verify_email_screen.dart
+    │   └── welcome_screen
+    │       └── welcome_screen.dart
+    ├── business
+    │   ├── [businessId]
+    │   │   ├── analytics
+    │   │   │   ├── analytics_dashboard_screen
+    │   │   │   │   └── analytics_dashboard_screen.dart
+    │   │   │   ├── customer_insights_screen
+    │   │   │   │   └── customer_insights_screen.dart
+    │   │   │   ├── dead_hours_analytics_screen
+    │   │   │   │   └── dead_hours_analytics_screen.dart
+    │   │   │   ├── deal_analytics_screen
+    │   │   │   │   └── deal_analytics_screen.dart
+    │   │   │   ├── multi_revenue_dashboard
+    │   │   │   │   └── multi_revenue_dashboard.dart
+    │   │   │   └── revenue_optimization_screen
+    │   │   │       └── revenue_optimization_screen.dart
+    │   │   ├── bookings
+    │   │   │   ├── booking_calendar_screen
+    │   │   │   │   └── booking_calendar_screen.dart
+    │   │   │   ├── booking_detail_screen
+    │   │   │   │   ├── booking_detail_screen.dart
+    │   │   │   │   └── business_booking_detail_screen.dart
+    │   │   │   ├── booking_management_screen
+    │   │   │   │   └── booking_management_screen.dart
+    │   │   │   └── check_in_screen
+    │   │   │       └── check_in_screen.dart
+    │   │   ├── dashboard
+    │   │   │   └── business_dashboard_screen
+    │   │   │       └── business_dashboard_screen.dart
+    │   │   ├── deals
+    │   │   │   ├── create_deal_screen
+    │   │   │   │   └── create_deal_screen.dart
+    │   │   │   ├── deal_analytics_screen
+    │   │   │   │   └── deal_analytics_screen.dart
+    │   │   │   ├── deals_list_screen
+    │   │   │   │   └── deals_list_screen.dart
+    │   │   │   └── edit_deal_screen
+    │   │   │       └── edit_deal_screen.dart
+    │   │   ├── financials
+    │   │   │   └── payouts_screen
+    │   │   │       └── payouts_screen.dart
+    │   │   ├── profile
+    │   │   │   ├── business_profile_screen
+    │   │   │   │   └── business_profile_screen.dart
+    │   │   │   └── edit_business_profile_screen
+    │   │   │       └── edit_business_profile_screen.dart
+    │   │   ├── reviews
+    │   │   │   ├── reply_to_review_screen
+    │   │   │   │   └── reply_to_review_screen.dart
+    │   │   │   └── reviews_management_screen
+    │   │   │       └── reviews_management_screen.dart
+    │   │   └── team
+    │   │       ├── invite_team_member_screen
+    │   │       │   └── invite_team_member_screen.dart
+    │   │       ├── team_management_screen
+    │   │       │   └── team_management_screen.dart
+    │   │       └── team_permissions_screen
+    │   │           └── team_permissions_screen.dart
+    │   ├── onboarding
+    │   │   ├── business_setup_wizard_screen
+    │   │   │   └── business_setup_wizard_screen.dart
+    │   │   ├── business_verification_screen
+    │   │   │   └── business_verification_screen.dart
+    │   │   └── create_business_screen
+    │   │       └── create_business_screen.dart
+    │   └── switcher
+    │       └── business_switcher_screen
+    │           └── business_switcher_screen.dart
+    ├── community
+    │   ├── messaging
+    │   │   ├── conversations_list_screen
+    │   │   │   └── conversations_list_screen.dart
+    │   │   ├── direct_message_screen
+    │   │   │   └── direct_message_screen.dart
+    │   │   └── direct_messaging_screen
+    │   │       └── direct_messaging_screen.dart
+    │   ├── rooms
+    │   │   ├── community_rooms_screen
+    │   │   │   └── community_rooms_screen.dart
+    │   │   ├── room_chat_screen
+    │   │   │   └── room_chat_screen.dart
+    │   │   ├── room_detail_screen
+    │   │   │   └── room_detail_screen.dart
+    │   │   └── rooms_list_screen
+    │   │       └── rooms_list_screen.dart
+    │   └── social
+    │       ├── group_booking_screen
+    │       │   └── group_booking_screen.dart
+    │       ├── social_discovery_screen
+    │       │   └── social_discovery_screen.dart
+    │       └── user_search_screen
+    │           └── user_search_screen.dart
+    ├── cultural
+    │   ├── adaptation
+    │   │   └── cultural_adaptation_center
+    │   │       └── cultural_adaptation_center.dart
+    │   ├── booking
+    │   │   └── multi_language_voice_booking_screen
+    │   │       └── multi_language_voice_booking_screen.dart
+    │   ├── challenges
+    │   │   └── cultural_community_challenges_screen
+    │   │       └── cultural_community_challenges_screen.dart
+    │   ├── concierge
+    │   │   └── cultural_concierge_screen
+    │   │       └── cultural_concierge_screen.dart
+    │   ├── cultural_ambassador_application_screen
+    │   │   └── cultural_ambassador_application_screen.dart
+    │   ├── cultural_ambassador_dashboard_screen
+    │   │   └── cultural_ambassador_dashboard_screen.dart
+    │   ├── events
+    │   │   └── live_cultural_events_screen
+    │   │       └── live_cultural_events_screen.dart
+    │   ├── feedback
+    │   │   └── cultural_user_feedback_collection_screen
+    │   │       └── cultural_user_feedback_collection_screen.dart
+    │   ├── groups
+    │   │   └── smart_cultural_group_formation_screen
+    │   │       └── smart_cultural_group_formation_screen.dart
+    │   ├── management
+    │   │   └── multi_market_cultural_management_dashboard_screen
+    │   │       └── multi_market_cultural_management_dashboard_screen.dart
+    │   ├── recommendations
+    │   │   └── cultural_context_smart_recommendations_screen
+    │   │       └── cultural_context_smart_recommendations_screen.dart
+    │   ├── tourism
+    │   │   └── tourism_screen
+    │   │       └── tourism_screen.dart
+    │   └── translation
+    │       └── real_time_cultural_translation_screen
+    │           └── real_time_cultural_translation_screen.dart
+    ├── dev
+    │   └── dev_menu_screen
+    │       └── dev_menu_screen.dart
+    ├── guide
+    │   ├── bookings
+    │   │   └── guide_bookings_screen
+    │   │       └── guide_bookings_screen.dart
+    │   ├── dashboard
+    │   │   ├── guide_dashboard_screen
+    │   │   │   └── guide_dashboard_screen.dart
+    │   │   └── local_expert_dashboard_screen
+    │   │       └── local_expert_dashboard_screen.dart
+    │   ├── experiences
+    │   │   └── create_experience_screen
+    │   │       └── create_experience_screen.dart
+    │   ├── financials
+    │   │   └── guide_payouts_screen
+    │   │       └── guide_payouts_screen.dart
+    │   ├── onboarding
+    │   │   └── become_guide_screen
+    │   │       └── become_guide_screen.dart
+    │   └── profile
+    │       ├── edit_guide_profile_screen
+    │       │   └── edit_guide_profile_screen.dart
+    │       └── guide_profile_screen
+    │           └── guide_profile_screen.dart
+    ├── notifications
+    │   └── notifications_center_screen
+    │       └── notifications_center_screen.dart
+    ├── personal
+    │   ├── bookings
+    │   │   ├── booking_confirmation_screen
+    │   │   │   └── booking_confirmation_screen.dart
+    │   │   ├── booking_detail_screen
+    │   │   │   └── booking_detail_screen.dart
+    │   │   ├── create_booking_flow
+    │   │   │   ├── add_requests_screen
+    │   │   │   │   └── add_requests_screen.dart
+    │   │   │   ├── choose_deal_screen
+    │   │   │   │   └── choose_deal_screen.dart
+    │   │   │   ├── payment_screen
+    │   │   │   │   └── payment_screen.dart
+    │   │   │   ├── review_details_screen
+    │   │   │   │   └── review_details_screen.dart
+    │   │   │   ├── select_datetime_screen
+    │   │   │   │   └── select_datetime_screen.dart
+    │   │   │   └── split_payment_screen
+    │   │   │       └── split_payment_screen.dart
+    │   │   ├── my_bookings_list_screen
+    │   │   │   └── my_bookings_list_screen.dart
+    │   │   └── waitlist_screen
+    │   │       └── waitlist_screen.dart
+    │   ├── discovery
+    │   │   ├── deal_detail_screen
+    │   │   │   └── deal_detail_screen.dart
+    │   │   ├── deals_browse_screen
+    │   │   │   └── deals_browse_screen.dart
+    │   │   ├── search_results_screen
+    │   │   │   └── search_results_screen.dart
+    │   │   ├── venue_detail_screen
+    │   │   │   └── venue_detail_screen.dart
+    │   │   ├── venue_discovery_screen
+    │   │   │   └── venue_discovery_screen.dart
+    │   │   └── visual_search_screen
+    │   │       └── visual_search_screen.dart
+    │   ├── favorites
+    │   │   └── favorites_screen
+    │   │       └── favorites_screen.dart
+    │   ├── home
+    │   │   ├── first_home_screen
+    │   │   │   └── first_home_screen.dart
+    │   │   └── personal_home_screen
+    │   │       └── personal_home_screen.dart
+    │   ├── profile
+    │   │   ├── add_business_context_screen
+    │   │   │   └── add_business_context_screen.dart
+    │   │   ├── add_cultural_context_screen
+    │   │   │   └── add_cultural_context_screen.dart
+    │   │   ├── add_guide_context_screen
+    │   │   │   └── add_guide_context_screen.dart
+    │   │   ├── context_selector_widget
+    │   │   │   └── context_selector_widget.dart
+    │   │   ├── context_switcher_screen
+    │   │   │   └── context_switcher_screen.dart
+    │   │   ├── edit_personal_profile_screen
+    │   │   │   └── edit_personal_profile_screen.dart
+    │   │   ├── personal_profile_screen
+    │   │   │   └── personal_profile_screen.dart
+    │   │   ├── premium_upgrade_screen
+    │   │   │   └── premium_upgrade_screen.dart
+    │   │   ├── public_profile_screen
+    │   │   │   └── public_profile_screen.dart
+    │   │   └── support_screen
+    │   │       └── support_screen.dart
+    │   └── reviews
+    │       ├── my_reviews_screen
+    │       │   └── my_reviews_screen.dart
+    │       └── write_review_screen
+    │           └── write_review_screen.dart
+    ├── settings
+    │   ├── accessibility_settings_screen
+    │   │   └── accessibility_settings_screen.dart
+    │   ├── account_settings_screen
+    │   │   └── account_settings_screen.dart
+    │   ├── notification_settings_screen
+    │   │   └── notification_settings_screen.dart
+    │   ├── offline_settings_screen
+    │   │   └── offline_settings_screen.dart
+    │   ├── payment_methods_screen
+    │   │   └── payment_methods_screen.dart
+    │   ├── privacy_settings_screen
+    │   │   └── privacy_settings_screen.dart
+    │   └── settings_main_screen
+    │       └── settings_main_screen.dart
+    └── shared
+        └── errors
+            ├── empty_state_screen
+            │   └── empty_state_screen.dart
+            └── error_screen
+                └── error_screen.dart
+
+174 directories, 119 files
+edsteine@Adels-MacBook-Pro-2 lib % 
+edsteine@Adels-MacBook-Pro-2 lib % cd ../backup 
+edsteine@Adels-MacBook-Pro-2 backup % tree
+.
+├── app.dart
+├── main.dart
+├── models
+│   ├── deal.dart
+│   ├── navigation_item.dart
+│   ├── room.dart
+│   ├── user.dart
+│   └── venue.dart
+├── providers
+│   ├── guest_mode_provider.dart
+│   ├── role_toggle_provider.dart
+│   └── user_provider.dart
+├── routes
+│   └── app_routes.dart
+├── screens
+│   ├── admin
+│   │   ├── community_health_dashboard_screen.dart
+│   │   ├── network_effects_dashboard_screen.dart
+│   │   ├── state
+│   │   │   └── community_health_dashboard_state.dart
+│   │   └── widgets
+│   │       ├── health_business_impact_tab.dart
+│   │       ├── health_cultural_insights_tab.dart
+│   │       ├── health_dashboard_controls.dart
+│   │       ├── health_metrics_overview.dart
+│   │       ├── health_room_activity_tab.dart
+│   │       └── health_user_engagement_tab.dart
+│   ├── auth
+│   │   ├── login_screen.dart
+│   │   ├── onboarding_screen.dart
+│   │   ├── register_screen.dart
+│   │   ├── role_marketplace_screen.dart
+│   │   └── splash_screen.dart
+│   ├── business
+│   │   ├── analytics_dashboard_screen.dart
+│   │   ├── analytics_dashboard_screen.dart.bak
+│   │   ├── business_dashboard_screen.dart
+│   │   ├── business_dashboard_screen.dart.bak
+│   │   ├── create_deal_screen
+│   │   │   ├── models
+│   │   │   │   └── create_deal_state.dart
+│   │   │   └── widgets
+│   │   │       ├── create_deal_action_buttons.dart
+│   │   │       ├── create_deal_community_form.dart
+│   │   │       ├── create_deal_header.dart
+│   │   │       ├── create_deal_information_form.dart
+│   │   │       ├── create_deal_schedule_section.dart
+│   │   │       ├── create_deal_success_dialog.dart
+│   │   │       ├── create_deal_suggestions_section.dart
+│   │   │       └── create_deal_type_selector.dart
+│   │   ├── create_deal_screen.dart
+│   │   ├── create_deal_screen.dart.bak
+│   │   ├── modals
+│   │   │   ├── business_activity_modal.dart
+│   │   │   ├── business_analytics_modal.dart
+│   │   │   ├── business_menu_modal.dart
+│   │   │   ├── business_notifications_modal.dart
+│   │   │   └── business_premium_upgrade_modal.dart
+│   │   ├── revenue_optimization_screen.dart
+│   │   ├── utils
+│   │   │   └── business_action_helpers.dart
+│   │   └── widgets
+│   │       ├── analytics_competitor_widget.dart
+│   │       ├── analytics_customer_tab.dart
+│   │       ├── analytics_demographic_widget.dart
+│   │       ├── analytics_feedback_widget.dart
+│   │       ├── analytics_kpi_card.dart
+│   │       ├── analytics_metric_card.dart
+│   │       ├── analytics_peak_hours_widget.dart
+│   │       ├── analytics_performance_tab.dart
+│   │       ├── analytics_period_selector.dart
+│   │       ├── analytics_recommendations_widget.dart
+│   │       ├── analytics_revenue_card.dart
+│   │       ├── analytics_revenue_source_widget.dart
+│   │       ├── analytics_revenue_tab.dart
+│   │       ├── analytics_tab.dart
+│   │       ├── analytics_weekly_chart_widget.dart
+│   │       ├── business_dashboard_app_bar.dart
+│   │       ├── business_edit_deal_dialog.dart
+│   │       ├── business_header.dart
+│   │       ├── business_sign_out_dialog.dart
+│   │       ├── business_tab_bar.dart
+│   │       ├── dead_hours_tab.dart
+│   │       ├── deals_tab.dart
+│   │       ├── insights_tab.dart
+│   │       ├── overview_tab.dart
+│   │       ├── pricing_tab.dart
+│   │       ├── promotions_tab.dart
+│   │       ├── settings_tab.dart
+│   │       └── time_frame_selector.dart
+│   ├── community
+│   │   ├── room_chat_screen
+│   │   │   └── widgets
+│   │   │       ├── room_chat_helpers.dart
+│   │   │       ├── room_chat_message_filters.dart
+│   │   │       ├── room_chat_message_reactions.dart
+│   │   │       ├── room_chat_messages_list.dart
+│   │   │       ├── room_chat_scroll_fab.dart
+│   │   │       └── room_chat_typing_indicator.dart
+│   │   ├── room_chat_screen.dart
+│   │   ├── room_chat_screen.dart.bak
+│   │   ├── room_detail_screen.dart
+│   │   ├── rooms_screen.dart
+│   │   ├── utils
+│   │   │   ├── room_chat_bottom_sheet_helpers.dart
+│   │   │   └── room_chat_dialog_helpers.dart
+│   │   └── widgets
+│   │       ├── all_rooms_tab.dart
+│   │       ├── business_rooms_tab.dart
+│   │       ├── category_filter.dart
+│   │       ├── chat_message_bubble.dart
+│   │       ├── community_app_bar.dart
+│   │       ├── community_health_indicator.dart
+│   │       ├── create_room_sheet.dart
+│   │       ├── cultural_filters.dart
+│   │       ├── empty_state_widget.dart
+│   │       ├── enhanced_room_search.dart
+│   │       ├── guide_rooms_tab.dart
+│   │       ├── message_input.dart
+│   │       ├── my_rooms_tab.dart
+│   │       ├── popular_rooms_tab.dart
+│   │       ├── premium_rooms_tab.dart
+│   │       ├── premium_upgrade_helper.dart
+│   │       ├── room_chat_app_bar.dart
+│   │       ├── room_filter_logic.dart
+│   │       ├── room_info_banner.dart
+│   │       ├── room_interaction_helpers.dart
+│   │       ├── rooms_scaffold.dart
+│   │       ├── rooms_tabs
+│   │       │   ├── all_rooms_tab_view.dart
+│   │       │   ├── business_rooms_tab_view.dart
+│   │       │   ├── guide_rooms_tab_view.dart
+│   │       │   ├── my_rooms_tab_view.dart
+│   │       │   ├── popular_rooms_tab_view.dart
+│   │       │   └── premium_rooms_tab_view.dart
+│   │       └── typing_indicator.dart
+│   ├── cultural
+│   │   ├── cultural_ambassador_application_screen.dart
+│   │   ├── state
+│   │   │   └── application_state.dart
+│   │   └── widgets
+│   │       ├── application_action_buttons.dart
+│   │       ├── experience_step.dart
+│   │       ├── expertise_step.dart
+│   │       ├── personal_info_step.dart
+│   │       ├── progress_indicator_widget.dart
+│   │       ├── review_step.dart
+│   │       └── submission_success_dialog.dart
+│   ├── guide
+│   │   └── guide_role_screen.dart
+│   ├── home
+│   │   ├── booking_flow_screen.dart
+│   │   ├── deals_screen.dart
+│   │   ├── home_screen.dart
+│   │   ├── main_navigation_screen.dart
+│   │   ├── main_navigation_screen.dart.bak
+│   │   ├── tourist_home_screen.dart
+│   │   ├── tourist_home_screen.dart.bak
+│   │   ├── venue_discovery_screen.dart
+│   │   ├── venue_discovery_screen.dart.bak
+│   │   └── widgets
+│   │       ├── booking_dialogs.dart
+│   │       ├── tourist_cultural_events.dart
+│   │       ├── tourist_cultural_insights_card.dart
+│   │       ├── tourist_featured_experiences.dart
+│   │       ├── tourist_local_expert_recommendations.dart
+│   │       ├── tourist_location_selector.dart
+│   │       ├── tourist_quick_actions.dart
+│   │       ├── tourist_trending_deals.dart
+│   │       ├── tourist_welcome_section.dart
+│   │       ├── venue_card_widget.dart
+│   │       ├── venue_empty_state.dart
+│   │       ├── venue_map_view.dart
+│   │       ├── venue_nearby_view.dart
+│   │       └── venue_results_header.dart
+│   ├── notifications
+│   │   └── notifications_screen.dart
+│   ├── payment
+│   │   ├── payment_screen.dart
+│   │   ├── payment_screen.dart.bak
+│   │   ├── utils
+│   │   │   └── payment_input_formatters.dart
+│   │   └── widgets
+│   │       ├── booking_summary_widget.dart
+│   │       ├── payment_at_venue_form.dart
+│   │       ├── payment_bank_transfer_form.dart
+│   │       ├── payment_card_form.dart
+│   │       ├── payment_method_selector.dart
+│   │       ├── payment_mobile_money_form.dart
+│   │       ├── payment_submit_button.dart
+│   │       └── payment_success_dialog.dart
+│   ├── profile
+│   │   ├── premium_role_screen.dart
+│   │   ├── profile_screen.dart
+│   │   ├── profile_screen.dart.bak
+│   │   ├── profile_screen_helpers.dart
+│   │   ├── role_switching_screen.dart.bak
+│   │   ├── settings_screen.dart
+│   │   ├── state
+│   │   │   └── premium_role_state.dart
+│   │   └── widgets
+│   │       ├── activity_section.dart
+│   │       ├── app_features_section.dart
+│   │       ├── authentication_section.dart
+│   │       ├── guest_welcome_section.dart
+│   │       ├── premium_call_to_action.dart
+│   │       ├── premium_comparison_section.dart
+│   │       ├── premium_features_section.dart
+│   │       ├── premium_hero_section.dart
+│   │       ├── premium_management_section.dart
+│   │       ├── premium_pricing_section.dart
+│   │       ├── premium_testimonials_section.dart
+│   │       ├── role_management_section.dart
+│   │       ├── settings_section.dart
+│   │       ├── support_section.dart
+│   │       └── user_profile_section.dart
+│   ├── role_switching_screen
+│   │   ├── models
+│   │   │   └── role_data.dart
+│   │   ├── role_switching_screen.dart
+│   │   └── widgets
+│   │       ├── role_available_roles_section.dart
+│   │       ├── role_card.dart
+│   │       ├── role_current_roles_section.dart
+│   │       ├── role_primary_selector.dart
+│   │       ├── role_quick_switch.dart
+│   │       └── role_stacking_benefits.dart
+│   ├── settings
+│   │   ├── accessibility_settings_screen.dart
+│   │   └── offline_settings_screen.dart
+│   ├── social
+│   │   ├── group_booking_screen
+│   │   │   └── widgets
+│   │   │       ├── group_booking_all_tab.dart
+│   │   │       ├── group_booking_card.dart
+│   │   │       ├── group_booking_create_tab.dart
+│   │   │       ├── group_booking_deal_opportunities_tab.dart
+│   │   │       ├── group_booking_deal_opportunity_card.dart
+│   │   │       ├── group_booking_dialogs.dart
+│   │   │       ├── group_booking_empty_state.dart
+│   │   │       ├── group_booking_my_tab.dart
+│   │   │       ├── group_booking_stats_header.dart
+│   │   │       └── group_booking_tab_bar.dart
+│   │   ├── group_booking_screen.dart
+│   │   ├── group_booking_screen.dart.bak
+│   │   ├── social_discovery_screen.dart
+│   │   └── widgets
+│   │       ├── benefit_card.dart
+│   │       ├── category_card.dart
+│   │       ├── connection_card.dart
+│   │       ├── create_experience_tab.dart
+│   │       ├── experience_card.dart
+│   │       ├── experiences_tab.dart
+│   │       ├── my_connections_tab.dart
+│   │       ├── network_stat.dart
+│   │       ├── social_action_helpers.dart
+│   │       ├── social_filters_and_search.dart
+│   │       ├── social_stats_header.dart
+│   │       ├── social_tab_bar.dart
+│   │       └── upcoming_experience_card.dart
+│   ├── tourism
+│   │   ├── local_expert_screen.dart
+│   │   ├── tourism_screen.dart
+│   │   ├── utils
+│   │   │   └── tourism_action_helpers.dart
+│   │   └── widgets
+│   │       ├── cultural_dashboard.dart
+│   │       ├── cultural_events.dart
+│   │       ├── cultural_tab.dart
+│   │       ├── cultural_tips.dart
+│   │       ├── discover_tab.dart
+│   │       ├── experiences_tab.dart
+│   │       ├── expert_card.dart
+│   │       ├── local_experts_tab.dart
+│   │       ├── quick_discovery_grid.dart
+│   │       ├── shared_widgets.dart
+│   │       ├── social_discovery_button.dart
+│   │       ├── tourism_welcome_banner.dart
+│   │       ├── tourist_friendly_deals.dart
+│   │       └── trending_experiences.dart
+│   └── venues
+│       ├── venue_detail_screen.dart
+│       ├── venue_detail_screen.dart.bak
+│       └── widgets
+│           ├── venue_cultural_info_widget.dart
+│           ├── venue_deals_tab.dart
+│           ├── venue_header_widget.dart
+│           ├── venue_hours_widget.dart
+│           ├── venue_info_tab.dart
+│           ├── venue_overview_tab.dart
+│           ├── venue_reviews_tab.dart
+│           └── venue_social_validation_widget.dart
+├── services
+│   ├── accessibility
+│   │   ├── accessibility_settings.dart
+│   │   ├── accessible_widgets.dart
+│   │   ├── screen_reader_support.dart
+│   │   └── voice_over_helper.dart
+│   ├── accessibility_service.dart
+│   ├── accessibility_service.dart.bak
+│   ├── advanced_search_service.dart
+│   ├── analytics
+│   │   ├── analytics_data.dart
+│   │   ├── analytics_events.dart
+│   │   └── analytics_properties.dart
+│   ├── analytics_service.dart
+│   ├── analytics_service.dart.bak
+│   ├── app_performance_service.dart
+│   ├── auth
+│   │   ├── auth_exceptions.dart
+│   │   ├── auth_helpers.dart
+│   │   ├── auth_storage.dart
+│   │   ├── auth_validation.dart
+│   │   └── social_provider.dart
+│   ├── auth_service.dart
+│   ├── auth_service.dart.bak
+│   ├── cultural
+│   │   ├── cultural_holiday.dart
+│   │   ├── halal_status.dart
+│   │   ├── next_prayer_info.dart
+│   │   ├── prayer_calculator.dart
+│   │   └── ramadan_schedule.dart
+│   ├── cultural_calendar_service.dart
+│   ├── deal_suggestions_service.dart
+│   ├── deal_validation_service.dart
+│   ├── deal_validation_service.dart.bak
+│   ├── deployment_optimization_service.dart
+│   ├── group_booking_service.dart
+│   ├── morocco_cultural_service.dart
+│   ├── morocco_cultural_service.dart.bak
+│   ├── network_effects_service.dart
+│   ├── notification_service.dart
+│   ├── offline_service.dart
+│   ├── onboarding_service.dart
+│   ├── performance_optimization_service.dart
+│   ├── social_validation_service.dart
+│   └── validation
+│       ├── deal_photo.dart
+│       ├── deal_rating.dart
+│       ├── deal_validation.dart
+│       ├── top_validator.dart
+│       ├── validation_summary.dart
+│       └── validation_types.dart
+├── utils
+│   ├── app_logger.dart
+│   ├── auth_helpers.dart
+│   ├── constants.dart
+│   ├── error_handler.dart
+│   ├── error_utils.dart
+│   ├── guest_mode.dart
+│   ├── mock_data.dart
+│   ├── performance_utils.dart
+│   ├── string_extension.dart
+│   ├── string_extensions.dart
+│   └── theme.dart
+└── widgets
+    ├── common
+    │   ├── dead_hour_app_bar.dart
+    │   ├── dead_hour_app_bar.dart.bak
+    │   ├── deal_card.dart
+    │   ├── dev_menu_drawer.dart
+    │   ├── engaging_empty_state.dart
+    │   ├── enhanced_app_bar.dart
+    │   ├── loading_widgets.dart
+    │   ├── notifications_bottom_sheet.dart
+    │   ├── offline_status_widget.dart
+    │   ├── professional_card.dart
+    │   ├── role_switcher.dart
+    │   ├── role_toggle.dart
+    │   ├── room_card.dart
+    │   ├── search_bottom_sheet.dart
+    │   └── venue_card.dart
+    ├── cultural
+    │   ├── halal_badge.dart
+    │   ├── halal_status_widget.dart
+    │   ├── prayer_time_indicator.dart
+    │   └── prayer_times_widget.dart
+    ├── deals
+    │   └── deal_validation_widget.dart
+    ├── maps
+    │   └── map_view_widget.dart
+    └── performance
+        └── performance_monitor_widget.dart
+
+61 directories, 323 files
+edsteine@Adels-MacBook-Pro-2 backup % 
