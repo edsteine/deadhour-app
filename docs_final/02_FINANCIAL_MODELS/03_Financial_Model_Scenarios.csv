@@ -1,0 +1,10 @@
+Scenario,Year,Revenue,Expenses,Net_Income,Restaurants,Users,Notes
+Conservative,1,74015,180000,-105985,35,1400,70% of base case
+Conservative,2,242550,290000,-47450,105,5600,Slower growth
+Conservative,3,689850,450000,239850,210,14000,Delayed profitability
+Base_Case,1,105735,180000,-74265,50,2000,Projected scenario
+Base_Case,2,346500,290000,56500,150,8000,Break-even achieved
+Base_Case,3,985500,450000,535500,300,20000,Strong profitability
+Optimistic,1,137456,180000,-42544,65,2600,130% of base case
+Optimistic,2,450450,290000,160450,195,10400,Faster adoption
+Optimistic,3,1281150,450000,831150,390,26000,Market leadership

@@ -1,0 +1,20 @@
+Category,Assumption,Value,Unit,Notes,Source
+Revenue,Average Booking Value,39,USD,Per person per booking,Market research
+Revenue,Commission Rate,10,%,Industry standard for marketplaces,Competitive analysis
+Revenue,Restaurant Subscription,33,USD/month,€30 converted to USD,Pricing strategy
+Growth,Monthly User Growth Rate,15,%,Community-driven viral growth,Beta testing data
+Growth,Monthly Restaurant Growth Rate,10,%,Direct sales approach,Sales projections
+Growth,Booking Frequency,2.5,bookings/user/month,Based on dining habits,User surveys
+Costs,Customer Acquisition Cost,15,USD,Social media and referrals,Marketing analysis
+Costs,Restaurant Acquisition Cost,300,USD,Direct sales effort,Sales team estimates
+Costs,Developer Salary,80000,USD/year,Senior developer rate,Market rates
+Costs,Sales Manager Salary,70000,USD/year,Business development role,Market rates
+Costs,Marketing Manager Salary,60000,USD/year,Digital marketing role,Market rates
+Retention,Monthly Customer Churn,5,%,Strong community engagement,Industry benchmarks
+Retention,Monthly Restaurant Churn,3,%,High ROI for restaurants,Restaurant interviews
+Operations,Server Costs,500,USD/month,AWS/Cloud infrastructure,Technical estimates
+Operations,Payment Processing,2.9,%,Stripe standard rate,Payment processor
+Operations,Office & Legal,2000,USD/month,Basic operations,Administrative costs
+Market,Restaurant Market Size,1000,restaurants/city,Major urban markets,Market research
+Market,Customer Market Size,100000,diners/city,Regular dining population,Demographics
+Market,Dead Hours Problem,60,%,of restaurant operating hours,Industry studies
